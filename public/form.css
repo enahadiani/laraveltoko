@@ -1,0 +1,188 @@
+div.inp-div-jenis > input {
+    border-radius: 0 !important;
+    z-index: 1;
+    position: relative;
+}
+
+div.inp-div-jenis > .search-item {
+    position: absolute;
+    font-size: 18px;
+    margin-top: -27px;
+    z-index: 2;
+    margin-left: 99px;
+}
+.btn-full-round {
+    border-radius: 20px !important;
+}
+.btn-light3 {
+    background: #b3b3b3;
+    color: white;
+}
+.icon-tambah {
+    background: #505050;
+    /* mask: url("{{ url('img/add.svg') }}"); */
+    -webkit-mask-image: url("{{ url('img/add.svg') }}");
+    mask-image: url("{{ url('img/add.svg') }}");
+    width: 12px;
+    height: 12px;
+}
+.icon-close {
+    background: #d4d4d4;
+    /* mask: url("{{ url('img/lock.svg') }}");
+             */
+    -webkit-mask-image: url("{{ url('img/lock.svg') }}");
+    mask-image: url("{{ url('img/lock.svg') }}");
+    width: 18px;
+    height: 18px;
+}
+.icon-open {
+    background: #d4d4d4;
+    /* mask: url("{{ url('img/lock.svg') }}");
+             */
+    -webkit-mask-image: url("{{ url('img/lock.svg') }}");
+    mask-image: url("{{ url('img/lock.svg') }}");
+    width: 18px;
+    height: 18px;
+}
+.popover {
+    top: -80px !important;
+}
+
+.btn-back {
+    line-height: 1.5;
+    padding: 0;
+    background: none;
+    appearance: unset;
+    opacity: unset;
+    right: -40px;
+    position: relative;
+    top: 5px;
+    z-index: 10;
+    float: right;
+    margin-top: -30px;
+}
+.btn-back > span {
+    border-radius: 50%;
+    padding: 0 0.45rem 0.1rem 0.45rem;
+    font-size: 1.2rem !important;
+    font-weight: lighter;
+    box-shadow: 0px 1px 5px 1px #80808054;
+    color: white;
+    background: red;
+}
+
+.btn-back > span:hover {
+    color: white;
+    background: red;
+}
+.form-body {
+    padding-bottom: 4rem !important;
+}
+.card-form-footer {
+    padding: 1rem;
+    position: fixed;
+    bottom: 2rem;
+    left: 32.8%;
+    z-index: 4;
+    display: flex;
+    justify-content: center;
+    height: 3.75rem;
+    width: 42.5%;
+    background: white;
+    border-bottom-right-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.04), 0 1px 6px rgba(0, 0, 0, 0.04);
+}
+.card-form-footer-full {
+    padding: 1rem;
+    position: fixed;
+    bottom: 2rem;
+    /* left: 32.8%; */
+    z-index: 4;
+    display: flex;
+    justify-content: flex-start;
+    height: 3.75rem;
+    width: 87.5%;
+    background: white;
+    border-bottom-right-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.04), 0 1px 6px rgba(0, 0, 0, 0.04);
+}
+.footer-form-container-full {
+    width: 98%;
+    display: flex;
+    justify-content: flex-end;
+}
+.footer-form-container {
+    width: 95%;
+    display: flex;
+    justify-content: flex-end;
+}
+.message-action {
+    margin-top: 0.2rem;
+    margin-right: 1rem;
+}
+.action-footer {
+    margin-top: -15px;
+    margin-right: -1rem;
+}
+
+.bold {
+    font-weight: bold;
+}
+.modal p {
+    color: #505050 !important;
+}
+.table-header-prev td,
+th {
+    padding: 2px 8px !important;
+}
+#modal-preview .modal-content {
+    border-bottom-left-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+}
+
+#modal-preview {
+    top: calc(100vh - calc(100vh - 30px)) !important;
+    overflow: hidden;
+}
+
+#modal-preview #content-preview {
+    height: calc(100vh - 105px) !important;
+}
+
+.animate-bottom {
+    animation: animatebottom 0.7s;
+}
+
+@keyframes animatebottom {
+    from {
+        bottom: -300px;
+        opacity: 0;
+    }
+
+    to {
+        bottom: 0;
+        opacity: 1;
+    }
+}
+
+@media only screen and (min-width: 1440px) {
+    .card-form-footer {
+        width: 42.8%;
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+    .card-form-footer {
+        width: 41%;
+        left: 34.5%;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .card-form-footer {
+        width: 78.5%;
+        left: 17.3%;
+    }
+}

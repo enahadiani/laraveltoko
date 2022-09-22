@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="390" height="512" viewBox="0 0 390 512">
+  <g id="Print_Preview" data-name="Print Preview" transform="translate(-1265 -59)">
+    <g id="search_4_" data-name="search (4)" transform="translate(1349.905 261)">
+      <path id="Path_7" data-name="Path 7" d="M219.183,209.772l-53.729-53.717a94.35,94.35,0,1,0-9.314,9.312l53.729,53.717a6.662,6.662,0,0,0,4.657,1.96,6.458,6.458,0,0,0,4.657-1.96A6.626,6.626,0,0,0,219.183,209.772ZM13.237,94.251a81.035,81.035,0,1,1,81.035,81.066A81.116,81.116,0,0,1,13.237,94.251Z" transform="translate(0)"/>
+    </g>
+    <g id="files-and-folders_2_" data-name="files-and-folders (2)" transform="translate(1203.56 59)">
+      <g id="Group_4" data-name="Group 4" transform="translate(61.44)">
+        <g id="Group_3" data-name="Group 3">
+          <path id="Path_8" data-name="Path 8" d="M276.966,0H71.7A10.256,10.256,0,0,0,61.44,10.24V501.76A10.256,10.256,0,0,0,71.7,512H441.177a10.256,10.256,0,0,0,10.263-10.24V174.08C451.44,126.894,324.259,0,276.966,0ZM430.914,491.52H81.966V20.48h195c35.962,0,153.947,117.719,153.947,153.6Z" transform="translate(-61.44)"/>
+        </g>
+      </g>
+      <g id="Group_6" data-name="Group 6" transform="translate(287.6 6.144)">
+        <g id="Group_5" data-name="Group 5">
+          <path id="Path_9" data-name="Path 9" d="M434.176,143.36H307.2V16.384a10.24,10.24,0,1,0-20.48,0V153.6a10.244,10.244,0,0,0,10.24,10.24H434.176a10.24,10.24,0,0,0,0-20.48Z" transform="translate(-286.72 -6.144)"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

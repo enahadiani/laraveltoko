@@ -1,0 +1,71 @@
+th {
+    vertical-align: middle !important;
+}
+/* #input-grid td{
+                                            padding:0 !important;
+                                        } */
+#input-grid .selectize-input.focus,
+#input-grid input.form-control,
+#input-grid .custom-file-label {
+    border: 1px solid black !important;
+    border-radius: 0 !important;
+}
+
+#input-grid .selectize-input {
+    border-radius: 0 !important;
+}
+
+.modal-header .close {
+    padding: 1rem;
+    margin: -1rem 0 -1rem auto;
+}
+.hapus-item {
+    cursor: pointer;
+}
+.selected {
+    cursor: pointer;
+    /* background:#4286f5 !important; */
+    /* color:white; */
+}
+#input-grid td:not(:nth-child(1)):not(:nth-child(9)):hover {
+    /* background: var(--theme-color-6) !important;
+                                            color:white; */
+    background: #f8f8f8;
+    color: black;
+}
+#input-grid input:hover,
+#input-grid .selectize-input:hover {
+    width: 100%;
+}
+#input-grid ul.typeahead.dropdown-menu {
+    width: max-content !important;
+}
+#input-grid td {
+    overflow: hidden !important;
+    height: 37.2px !important;
+    padding: 0px !important;
+}
+
+#input-grid span {
+    padding: 0px 10px !important;
+}
+
+#input-grid input,
+#input-grid .selectize-input {
+    overflow: hidden !important;
+    height: 35px !important;
+}
+
+#input-grid td:nth-child(4) {
+    overflow: unset !important;
+}
+
+/* .btn-div {
+    position: fixed;
+    bottom: 1rem;
+    border-radius: 15px;
+    padding-right: 1rem;
+    box-shadow: 0px 2px 8px #80808054;
+    background-color: #fff;
+    width: 87.5%;
+} */

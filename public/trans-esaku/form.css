@@ -1,0 +1,182 @@
+.header-sheet {
+    text-align: center;
+    padding-top: 8px;
+}
+.btn-sheet {
+    border: none;
+    background-color: #f8f8f8;
+    border-radius: 30px !important;
+    padding: 8px;
+    color: #0058e4;
+}
+.message-action {
+    margin-top: 0.2rem;
+    margin-right: 1rem;
+}
+.action-footer {
+    margin-top: -15px;
+    margin-right: -1rem;
+}
+.card-form-footer-full {
+    padding: 1rem;
+    position: fixed;
+    bottom: 2rem;
+    /* left: 32.8%; */
+    z-index: 4;
+    display: flex;
+    justify-content: flex-start;
+    height: 3.75rem;
+    width: 87.5%;
+    background: white;
+    border-bottom-right-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.04), 0 1px 6px rgba(0, 0, 0, 0.04);
+}
+.footer-form-container-full {
+    width: 98%;
+    display: flex;
+    justify-content: space-between;
+}
+.footer-form-container {
+    width: 95%;
+    display: flex;
+    justify-content: flex-end;
+}
+.btn-hitung {
+    margin-top: 20px;
+}
+.nilai-keterangan {
+    float: right;
+    vertical-align: middle;
+    padding-right: 1rem;
+    padding-top: 1.2rem;
+    color: #0058e4;
+}
+div.inp-div-jenis > input {
+    border-radius: 0 !important;
+    z-index: 1;
+    position: relative;
+}
+
+div.inp-div-jenis > .search-item {
+    position: absolute;
+    font-size: 18px;
+    margin-top: -27px;
+    z-index: 2;
+    margin-left: 99px;
+}
+.btn-full-round {
+    border-radius: 20px !important;
+}
+.btn-light3 {
+    background: #b3b3b3;
+    color: white;
+}
+.icon-tambah {
+    background: #505050;
+    /* mask: url("{{ url('img/add.svg') }}"); */
+    -webkit-mask-image: url("{{ url('img/add.svg') }}");
+    mask-image: url("{{ url('img/add.svg') }}");
+    width: 12px;
+    height: 12px;
+}
+.icon-close {
+    background: #d4d4d4;
+    /* mask: url("{{ url('img/lock.svg') }}");
+             */
+    -webkit-mask-image: url("{{ url('img/lock.svg') }}");
+    mask-image: url("{{ url('img/lock.svg') }}");
+    width: 18px;
+    height: 18px;
+}
+.icon-open {
+    background: #d4d4d4;
+    /* mask: url("{{ url('img/lock.svg') }}");
+             */
+    -webkit-mask-image: url("{{ url('img/lock.svg') }}");
+    mask-image: url("{{ url('img/lock.svg') }}");
+    width: 18px;
+    height: 18px;
+}
+.popover {
+    top: -80px !important;
+}
+
+#btn-kembali {
+    line-height: 1.5;
+    padding: 0;
+    background: none;
+    appearance: unset;
+    opacity: unset;
+    right: -40px;
+    position: relative;
+    top: 0;
+    z-index: 10;
+    float: right;
+    margin-top: -30px;
+}
+#btn-kembali > span {
+    border-radius: 50%;
+    padding: 0 0.45rem 0.1rem 0.45rem;
+    font-size: 1.2rem !important;
+    font-weight: lighter;
+    box-shadow: 0px 1px 5px 1px #80808054;
+    color: white;
+    background: red;
+}
+
+#btn-kembali > span:hover {
+    color: white;
+    background: red;
+}
+.form-body {
+    position: relative;
+}
+.btn-div {
+    position: fixed;
+    bottom: 1rem;
+    padding-right: 1rem;
+    box-shadow: 0px 2px 8px #80808054;
+    background-color: #fff;
+    border-bottom-left-radius: 0.75rem;
+    border-bottom-right-radius: 0.75rem;
+    width: 87.5%;
+    margin-left: -1.8rem;
+}
+
+.datepicker.datepicker-dropdown {
+    margin-top: 10rem;
+}
+
+.form-no-margin {
+    margin-top: -2.5rem !important;
+}
+
+.iconsminds-triangle-arrow-up {
+    transform: rotate(40deg);
+    display: inline-block;
+}
+
+.pull-right {
+    float: right;
+}
+
+.info-transaction {
+    padding: 1rem;
+}
+
+.info-transaction .group-input {
+    display: flex;
+}
+
+.info-transaction .group-input input {
+    padding-right: 1rem;
+    display: inline;
+}
+
+.info-transaction .group-input span {
+    display: inline;
+    position: absolute;
+    right: 1.2rem;
+    top: 0.5rem;
+}

@@ -1,0 +1,8 @@
+@media only screen and (max-width: 768px) {
+    .col-dekstop {
+        display: none;
+    }
+    .col-tablet {
+        display: block;
+    }
+}

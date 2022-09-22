@@ -1,0 +1,171 @@
+body {
+    overflow: auto; /* Hide scrollbars */
+}
+ol.list-info > li {
+    padding: 0.4rem;
+}
+ol.list-info {
+    list-style-type: decimal;
+}
+.card-info li {
+    color: #fff;
+}
+.card-info > h6 {
+    color: #fff;
+}
+.card-info {
+    background-color: #0058e4;
+    height: 258px;
+}
+.label-grafik .legend-text {
+    font-size: 0.7rem !important;
+}
+.label-grafik .legend-symbol-3 {
+    margin-top: 0.3rem;
+    margin-right: 0.2rem;
+    height: 8px;
+    width: 20px;
+    background-color: #ffb703;
+}
+.label-grafik .legend-symbol-2 {
+    margin-top: 0.2rem;
+    margin-right: 0.2rem;
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    background-color: #9fc4ff;
+}
+.label-grafik .legend-symbol-1 {
+    margin-top: 0.2rem;
+    margin-right: 0.2rem;
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    background-color: #0058e4;
+}
+.label-grafik {
+    display: flex;
+    flex-direction: row;
+    margin: 0 0.5rem;
+}
+.keterangan-grafik {
+    display: flex;
+    justify-content: center;
+}
+.card-dash-info > h6 {
+    color: #ccc;
+}
+span.percentage-overview {
+    margin-left: -0.3rem;
+}
+span.label-overview {
+    font-size: 0.7rem !important;
+    color: #ccc;
+}
+.error-text {
+    color: #ff0000 !important;
+}
+.glyph-icon.error-icon {
+    color: #ff0000 !important;
+}
+.success-text {
+    color: #006400 !important;
+}
+.glyph-icon.success-icon {
+    color: #006400 !important;
+}
+span.overview-text {
+    font-size: 0.9rem !important;
+}
+h5.overview-amount {
+    font-weight: bold;
+}
+.card {
+    border-radius: 10px !important;
+    box-shadow: 0 2px 3px 0 #ccc;
+    border: 1px solid #f0f0f0;
+}
+.card-dash {
+    padding: 0.5rem 0.5rem 1rem 0.5rem;
+}
+h6.judul-card {
+    font-weight: bold;
+}
+.col-dekstop {
+    display: block;
+}
+.col-tablet {
+    display: none;
+}
+/* Not Used */
+/* .btn-outline-light:hover {
+    color: #131113;
+    background-color: #ececec;
+    border-color: #ececec;
+}
+.btn-outline-light {
+    color: #131113;
+    background-color: white;
+    border-color: white !important;
+}
+.text-card {
+    font-weight: bold;
+}
+.header-card {
+    display: flex;
+    justify-content: space-between;
+}
+.group-filter {
+    padding: 4px 4px;
+}
+.dropdown-filter {
+    width: 90%;
+    margin: 0 10px;
+}
+.dropdown-menu-dash {
+    background-color: #ffffff;
+    border-radius: 10px;
+    width: 100%;
+    max-height: 130px;
+    overflow: auto;
+    overflow-x: hidden;
+    margin-top: 0px;
+    padding: 6px;
+    position: absolute;
+    z-index: 100;
+    display: none;
+    float: left;
+}
+.dropdown-menu-dash-active {
+    display: block;
+}
+.dropdown-menu-dash > li {
+    cursor: pointer;
+    list-style-type: none;
+}
+.dropdown-menu-dash > li:hover {
+    background-color: #f5f5f5;
+}
+.select-dash {
+    border-radius: 10px;
+}
+.keterangan {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.pemberitahuan-judul {
+    color: #ffffff;
+    font-weight: bold;
+}
+.pemberitahuan-content {
+    color: #ffffff;
+}
+.list-pemberitahuan {
+    margin-left: -12px;
+}
+.list-pemberitahuan > li {
+    list-style-type: "-";
+    color: #ffffff;
+    padding: 0 4px;
+} */

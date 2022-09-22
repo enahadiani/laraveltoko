@@ -1,0 +1,14 @@
+@import "src/reboot.css";
+@import "src/keyframes.css";
+@import "src/bottom-sheet.css";
+/* body {
+    font-size: 20px;
+    background-image: linear-gradient(#00aa13, #1ab32b, #091);
+} */
+/* .header {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+} */

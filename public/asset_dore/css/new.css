@@ -1,0 +1,108 @@
+.form-group {
+    margin-bottom: 0.5rem;
+}
+
+.bootstrap-tagsinput, .form-control{
+    font-size:0.8rem !important;
+    padding: 0 0.5rem;
+    height: 30px;
+    border-radius: 0.5rem !important;
+}
+
+label,button{
+    font-size:0.8rem !important;
+}
+
+label{
+    margin-bottom: 0.25rem;
+}
+
+#form-tambah #btn-kembali
+{
+    padding: 0px !important;  
+    right: -20px;
+    top: 28px;
+}
+
+.btn{
+    padding: 0rem 1.5rem !important;
+    height: 30px !important;
+    border-radius: 0.5rem !important;
+    line-height:2;
+}
+
+.selectize-input {
+    min-height: unset !important;
+    padding: 0.1rem 0.5rem !important;
+    height: 30px !important;
+    line-height: 25px !important;
+    border-radius: 0.5rem !important;
+}
+
+.selectize-dropdown, .selectize-dropdown.form-control{
+    height: auto !important;
+}
+.selectize-control .form-control .selectize .single{
+    padding: 0 !important;
+}
+
+span[class^="info-name"] {
+    padding:0px 5px !important;
+    top: 1px !important;
+}
+
+.readonly > span[class^="info-name"] {
+    top: 1px !important;
+    padding:0px 5px !important;
+}
+
+.info-icon-hapus {
+    font-size: 0.8rem;
+    position: absolute;
+    top: 7px !important;
+    right: 35px;
+    z-index: 3;
+}
+
+.search-item2{
+    top: 2px !important;
+}
+
+span[class^="info-name"] > span{
+    font-size: 0.8rem !important;
+    position: relative;
+    top: 3px !important;    
+}
+
+.custom-file-label, .custom-file-label::after{
+    padding: 0 0.75rem !important;
+    font-size: 0.8rem !important;
+    height: 30px !important;
+    line-height: 2;
+}
+
+textarea.form-control {
+    min-height: 30px;
+}
+
+.main-menu span,.main-menu a,
+.sub-menu span,.sub-menu a{
+    font-size: 0.8rem !important;
+}
+
+#form-tambah .btn-save, #form-tambah #btn-save, #form-tambah .btn-update,#form-tambah #btn-update
+{
+    margin-right:15px !important;
+}
+
+
+div.dataTables_wrapper div.dataTables_filter input{
+    height:30px !important;
+}
+
+#btn-admin,#notificationButton,#btn-newtab,#fullScreenButton
+{
+    padding: 0 0.75rem !important;
+}
+
+
