@@ -1,14 +1,22 @@
 <link rel="stylesheet" href="{{ asset('trans.css') }}" />
 <style>
-#edit-qty
-{
-    cursor:pointer;
-}
+    #edit-qty
+    {
+        cursor:pointer;
+    }
 
-#pbyr
-{
-    cursor:pointer;
-}
+    #pbyr
+    {
+        cursor:pointer;
+    }
+
+.modal{
+        pointer-events: none;
+    }
+
+    .modal-dialog{
+        pointer-events: all;
+    }
 </style>
 <div class="container-fluid mt-3">
     <div class="row">
@@ -252,7 +260,10 @@
                 </div>
             </div>
             <div class="modal-footer" style="padding: 0;">
-            <button id="cetakBtn" type="button" class="btn btn-info btn-block" style="border-bottom-left-radius: 15px;border-bottom-right-radius: 15px;">Cetak</button>
+                <div class="btn-group btn-block" role="group">
+                    <button id="closeBtn" type="button" class="btn btn-light" style="border-bottom-left-radius: 15px;">Close</button>
+                    <button id="cetakBtn" type="button" class="btn btn-info" style="border-bottom-right-radius: 15px;">Cetak</button>
+                </div>
             </div>
         </div>
     </div>
@@ -263,6 +274,7 @@
 <script src="{{url('asset_dore/js/jquery.formnavigation.js')}}"></script>
 
 <script type="text/javascript">
+
     var $dtBrg = new Array();
     var $dtBrg2 = new Array();
     var $no_open = "";
@@ -833,6 +845,11 @@
     $('#cetakBtn').click(function(){
         var no_jual = $('#modal-no_jual').text();
         window.open("{{ url('esaku-report/lap-nota-jual-print-baru') }}/?periode[]=all&periode[]=&periode[]=&no_bukti[]==&no_bukti[]="+no_jual+"&no_bukti[]=");
+        resetForm();
+        $('#modal-bayar2').modal('hide');
+    }); 
+
+    $('#closeBtn').click(function(){
         resetForm();
         $('#modal-bayar2').modal('hide');
     }); 
