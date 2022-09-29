@@ -231,6 +231,13 @@ Route::post('akun-upload', 'Esaku\Keuangan\AkunController@importExcel');
 Route::get('akun-load', 'Esaku\Keuangan\AkunController@getAkunTmp');
 Route::post('akun', 'Esaku\Keuangan\AkunController@store');
 
+//Open Toko
+Route::get('open-toko', 'Esaku\Inventori\OpenTokoController@index');
+Route::get('open-toko/{id}', 'Esaku\Inventori\OpenTokoController@getData');
+Route::post('open-toko', 'Esaku\Inventori\OpenTokoController@store');
+Route::put('open-toko/{id}', 'Esaku\Inventori\OpenTokoController@update');
+Route::delete('open-toko/{id}', 'Esaku\Inventori\OpenTokoController@delete');
+
 /*
 |--------------------------------------------------------------------------
 | Modul Simpanan -Transaksi

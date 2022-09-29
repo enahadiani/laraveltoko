@@ -100,6 +100,26 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>       
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="pabrik">Kode Toko</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                <span class="input-group-text info-code_pabrik" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                            </div>
+                                            <input type="text" class="form-control inp-label-pabrik" id="pabrik" name="pabrik" value="" title="">
+                                            <span class="info-name_pabrik hidden">
+                                                <span></span> 
+                                            </span>
+                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                            <i class="simple-icon-magnifier search-item2" id="search_pabrik"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>                                
                     </div>
                 </div>
@@ -367,6 +387,26 @@
                     width : ["30%","70%"],
                 };
             break;
+            case 'pabrik' :
+                var settings = {
+                    id : id,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('esaku-master/data-gudang') }}",
+                    columns : [
+                        { data: 'kode_gudang' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar Gudang",
+                    pilih : "form",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"],
+                };
+            break;
         }
         showInpFilter(settings);
     });
@@ -447,6 +487,9 @@
                 required: true
             },
             path_view:{
+                required: true
+            },
+            kode_gudang:{
                 required: true
             }
         },
@@ -587,12 +630,14 @@
                     $('#pass').val(result.data[0].pass);
                     $('#status_admin')[0].selectize.setValue(result.data[0].status_admin);
                     $('#klp_akses').val(result.data[0].klp_akses);
+                    $('#kode_gudang').val(result.data[0].kode_gudang);
                     $('#saku-datatable').hide();
                     $('#modal-preview').modal('hide');
                     $('#saku-form').show();
                     showInfoField('nik',result.data[0].nik,result.data[0].nama);
                     showInfoField('kode_klp_menu',result.data[0].kode_klp_menu,result.data[0].nama_klp);
                     showInfoField('path_view',result.data[0].path_view,result.data[0].nama_form);
+                    showInfoField('kode_gudang',result.data[0].kode_gudang,result.data[0].nama);
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
                     window.location.href = "{{ url('esaku-auth/sesi-habis') }}";

@@ -9,13 +9,14 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Session;
 use GuzzleHttp\Exception\BadResponseException;
 
-class GudangController extends Controller
+class JenisBayarController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+    public $link = 'https://api.simkug.com/api/esaku-master/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -32,7 +33,7 @@ class GudangController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'esaku-master/gudang',[
+            $response = $client->request('GET',  config('api.url').'esaku-master/jenis-bayar',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -56,28 +57,22 @@ class GudangController extends Controller
 
     public function store(Request $request) {
         $this->validate($request, [
-            'kode_gudang' => 'required',
+            'kode_jenis' => 'required',
             'nama' => 'required',
-            'alamat' => 'required',
-            'telp' => 'required',
-            'pic' => 'required',
-            'kode_pp' => 'required',
+            'kode_akun' => 'required'
         ]);
 
         try {   
                 $client = new Client();
-                $response = $client->request('POST',  config('api.url').'esaku-master/gudang',[
+                $response = $client->request('POST',  config('api.url').'esaku-master/jenis-bayar',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
                     'form_params' => [
-                        'kode_gudang' => $request->kode_gudang,
+                        'kode_jenis' => $request->kode_jenis,
                         'nama' => $request->nama,
-                        'alamat' => $request->alamat,
-                        'telp' => $request->telp,
-                        'pic' => $request->pic,
-                        'kode_pp' => $request->kode_pp,
+                        'kode_akun' => $request->kode_akun,
                     ]
                 ]);
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -99,7 +94,7 @@ class GudangController extends Controller
     public function getData($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'esaku-master/gudang?kode_gudang='.$id,
+            $response = $client->request('GET',  config('api.url').'esaku-master/jenis-bayar?kkode_jenis='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -124,28 +119,22 @@ class GudangController extends Controller
 
     public function update(Request $request, $id) {
         $this->validate($request, [
-            'kode_gudang' => 'required',
+            'kode_jenis' => 'required',
             'nama' => 'required',
-            'alamat' => 'required',
-            'telp' => 'required',
-            'pic' => 'required',
-            'kode_pp' => 'required',
+            'kode_akun' => 'required',
         ]);
 
         try {
                 $client = new Client();
-                $response = $client->request('PUT',  config('api.url').'esaku-master/gudang?kode_gudang='.$id,[
+                $response = $client->request('PUT',  config('api.url').'esaku-master/jenis-bayar?kode_jenis='.$id,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
                     'form_params' => [
-                        'kode_gudang' => $request->kode_vendor,
+                        'kode_jenis' => $request->kode_jenis,
                         'nama' => $request->nama,
-                        'alamat' => $request->alamat,
-                        'telp' => $request->telp,
-                        'pic' => $request->pic,
-                        'kode_pp' => $request->kode_pp,
+                        'kode_akun' => $request->kode_akun,
                     ]
                 ]);
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -167,7 +156,7 @@ class GudangController extends Controller
     public function delete($id) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE',  config('api.url').'esaku-master/gudang?kode_gudang='.$id,
+            $response = $client->request('DELETE',  config('api.url').'esaku-master/jenis-bayar?kode_satuan='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -189,31 +178,6 @@ class GudangController extends Controller
             return response()->json(['data' => $data], 200);
         }
 
-    }
-
-    public function getGudang(){
-        try {
-            $client = new Client();
-            $response = $client->request('GET',  config('api.url').'esaku-master/data-gudang',[
-                'headers' => [
-                    'Authorization' => 'Bearer '.Session::get('token'),
-                    'Accept'     => 'application/json',
-                ]
-            ]);
-
-            if ($response->getStatusCode() == 200) { // 200 OK
-                $response_data = $response->getBody()->getContents();
-                
-                $data = json_decode($response_data,true);
-                $data = $data["data"];
-            }
-            return response()->json(['daftar' => $data, 'status'=>true], 200); 
-
-        } catch (BadResponseException $ex) {
-            $response = $ex->getResponse();
-            $res = json_decode($response->getBody(),true);
-            return response()->json(['message' => $res["message"], 'status'=>false], 200);
-        }
     }
    
 }

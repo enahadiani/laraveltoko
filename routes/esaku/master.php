@@ -54,6 +54,7 @@ Route::get('gudang/{id}', 'Esaku\Inventori\GudangController@getData');
 Route::post('gudang', 'Esaku\Inventori\GudangController@store');
 Route::put('gudang/{id}', 'Esaku\Inventori\GudangController@update');
 Route::delete('gudang/{id}', 'Esaku\Inventori\GudangController@delete');
+Route::get('data-gudang', 'Esaku\Inventori\GudangController@getGudang');
 
 // Data Kelompok Barang //
 Route::get('barang-klp', 'Esaku\Inventori\KelompokBarangController@index');
@@ -225,6 +226,13 @@ Route::delete('msakundet/{id}', 'Esaku\Keuangan\MasakunDetailController@delete')
 
 Route::get('msakundet-flag', 'Esaku\Keuangan\MasakunDetailController@getFlag');
 Route::get('msakundet-neraca', 'Esaku\Keuangan\MasakunDetailController@getNeraca');
+
+//Jenis Bayar
+Route::get('jenis-bayar', 'Esaku\Inventori\JenisBayarController@index');
+Route::get('jenis-bayar/{id}', 'Esaku\Inventori\JenisBayarController@getData');
+Route::post('jenis-bayar', 'Esaku\Inventori\JenisBayarController@store');
+Route::put('jenis-bayar/{id}', 'Esaku\Inventori\JenisBayarController@update');
+Route::delete('jenis-bayar/{id}', 'Esaku\Inventori\JenisBayarController@delete');
 
 
 
