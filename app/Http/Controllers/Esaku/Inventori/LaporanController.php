@@ -1893,7 +1893,7 @@
                             $printer -> close();
                     
                     
-                            $response = ['success'=>true,'message'=>'Berhasil!','ip'=>$ip];
+                            $response = ['success'=>true,'message'=>'Berhasil!'];
                         } catch (Exception $e) {
                             $response = ['success'=>false,'message'=>$e->getMessage()];
                         }
