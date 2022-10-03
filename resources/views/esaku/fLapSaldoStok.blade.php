@@ -12,10 +12,8 @@
                                     <h6>Filter</h6>
                                     <div id="inputFilter">
                                         <!-- COMPONENT -->
-                                        <x-inp-filter kode="periode" nama="Periode" selected="3" :option="array('3')"/>
+                                        <x-inp-filter kode="tanggal" nama="Tanggal" selected="1" :option="array('1','3','i')"/>
                                         <x-inp-filter kode="gudang" nama="Gudang" selected="1" :option="array('1','3')"/>
-                                        <x-inp-filter kode="kelompok" nama="Kelompok" selected="1" :option="array('1','3')"/>
-                                        <x-inp-filter kode="barang" nama="Kode Barang" selected="1" :option="array('1','3')"/>
                                         <!-- END COMPONENT -->
                                     </div>
                                     <button id="btn-tampil" style="float:right;width:110px" class="btn btn-primary ml-2 mb-3" type="submit" >Tampilkan</button>
@@ -48,28 +46,14 @@
         }
     });
 
-    var $periode = {
-            type : "=",
-            from : "{{ date('Ym') }}",
-            fromname : namaPeriode("{{ date('Ym') }}"),
+    var $tanggal = {
+            type : "all",
+            from : "",
+            fromname : "",
             to : "",
             toname : "",
         }
     var $gudang = {
-            type : "all",
-            from : "",
-            fromname : "",
-            to : "",
-            toname : "",
-        }
-    var $kelompok = {
-            type : "all",
-            from : "",
-            fromname : "",
-            to : "",
-            toname : "",
-        }
-    var $barang = {
             type : "all",
             from : "",
             fromname : "",
@@ -115,58 +99,46 @@
     $('.selectize').selectize();
 
     $('#inputFilter').reportFilter({
-        kode : ['periode','gudang','kelompok', 'barang'],
-        nama : ['Periode','Gudang','Kelompok', 'Barang'],
-        header : [['Periode'],['Kode','Nama'],['Kode','Nama'], ['Kode','Nama']],
-        headerpilih : [['Periode','Action'],['Kode','Nama','Action'],['Kode','Nama','Action'],['Kode','Nama','Action']],
+        kode : ['tanggal','gudang'],
+        nama : ['Tangga;','Gudang'],
+        header : [['Tanggal'],['Kode','Nama'],['Kode','Nama'], ['Kode','Nama']],
+        headerpilih : [['Tanggal','Action'],['Kode','Nama','Action']],
         columns: [
             [
-                { data: 'periode' },
+                { data: 'tanggal' },
             ],[
                 { data: 'kode_gudang' },
                 { data: 'nama' }
-            ],[
-                { data: 'kode_klp' },
-                { data: 'nama' }
-            ],[
-                { data: 'kode_barang' },
-                { data: 'nama' }
             ]
         ],
-        url :["{{ url('esaku-report/filter-periode') }}","{{ url('esaku-report/filter-gudang') }}","{{ url('esaku-report/filter-barang-klp') }}", "{{ url('esaku-report/filter-barang') }}"],
+        url :["{{ url('esaku-report/filter-tanggal') }}","{{ url('esaku-report/filter-gudang') }}"],
         parameter:[{},{},{},{}],
-        orderby:[[[0,"desc"]],[[0,"desc"]],[[0,"asc"]],[[0,"asc"]]],
-        width:[['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%']],
-        display:['kode','kode','kode','kode'],
-        pageLength:[12,10,10,10]
+        orderby:[[[0,"desc"]],[[0,"desc"]]],
+        width:[['30%','70%'],['30%','70%']],
+        display:['kode','kode'],
+        pageLength:[12,10]
     })
     $('#inputFilter').on('change','input',function(e){
         setTimeout(() => {
             $('#inputFilter').reportFilter({
-                kode : ['periode','gudang','kelompok', 'barang'],
-                nama : ['Periode','Gudang','Kelompok', 'Barang'],
-                header : [['Periode'],['Kode','Nama'],['Kode','Nama'], ['Kode','Nama']],
-                headerpilih : [['Periode','Action'],['Kode','Nama','Action'],['Kode','Nama','Action'],['Kode','Nama','Action']],
+                kode : ['tanggal','gudang','kelompok', 'barang'],
+                nama : ['Tanggal','Gudang','Kelompok', 'Barang'],
+                header : [['Tanggal'],['Kode','Nama'],['Kode','Nama'], ['Kode','Nama']],
+                headerpilih : [['Tanggal','Action'],['Kode','Nama','Action'],['Kode','Nama','Action'],['Kode','Nama','Action']],
                 columns: [
                     [
-                        { data: 'periode' },
+                        { data: 'tanggal' },
                     ],[
                         { data: 'kode_gudang' },
                         { data: 'nama' }
-                    ],[
-                        { data: 'kode_klp' },
-                        { data: 'nama' }
-                    ],[
-                        { data: 'kode_barang' },
-                        { data: 'nama' }
                     ]
                 ],
-                url :["{{ url('esaku-report/filter-periode') }}","{{ url('esaku-report/filter-gudang') }}","{{ url('esaku-report/filter-barang-klp') }}", "{{ url('esaku-report/filter-barang') }}"],
+                url :["{{ url('esaku-report/filter-tanggal') }}","{{ url('esaku-report/filter-gudang') }}"],
                 parameter:[{},{},{},{}],
-                orderby:[[[0,"desc"]],[[0,"desc"]],[[0,"asc"]],[[0,"asc"]]],
-                width:[['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%']],
-                display:['kode','kode','kode','kode'],
-                pageLength:[12,10,10,10]
+                orderby:[[[0,"desc"]],[[0,"desc"]]],
+                width:[['30%','70%'],['30%','70%']],
+                display:['kode','kode'],
+                pageLength:[12,10]
             })
         }, 500)
     });
@@ -175,18 +147,12 @@
     $('#form-filter').submit(function(e){
         e.preventDefault();
         $formData = new FormData();
-        $formData.append("periode[]",$periode.type);
-        $formData.append("periode[]",$periode.from);
-        $formData.append("periode[]",$periode.to);
+        $formData.append("tanggal[]",$tanggal.type);
+        $formData.append("tanggal[]",$tanggal.from);
+        $formData.append("tanggal[]",$tanggal.to);
         $formData.append("kode_gudang[]",$gudang.type);
         $formData.append("kode_gudang[]",$gudang.from);
         $formData.append("kode_gudang[]",$gudang.to);
-        $formData.append("kode_klp[]",$kelompok.type);
-        $formData.append("kode_klp[]",$kelompok.from);
-        $formData.append("kode_klp[]",$kelompok.to);
-        $formData.append("kode_barang[]",$barang.type);
-        $formData.append("kode_barang[]",$barang.from);
-        $formData.append("kode_barang[]",$barang.to);
         for(var pair of $formData.entries()) {
             console.log(pair[0]+ ', '+ pair[1]); 
         }
@@ -197,18 +163,12 @@
 
     $('#show').change(function(e){
         $formData = new FormData();
-        $formData.append("periode[]",$periode.type);
-        $formData.append("periode[]",$periode.from);
-        $formData.append("periode[]",$periode.to);
+        $formData.append("tanggal[]",$tanggal.type);
+        $formData.append("tanggal[]",$tanggal.from);
+        $formData.append("tanggal[]",$tanggal.to);
         $formData.append("kode_gudang[]",$gudang.type);
         $formData.append("kode_gudang[]",$gudang.from);
         $formData.append("kode_gudang[]",$gudang.to);
-        $formData.append("kode_klp[]",$kelompok.type);
-        $formData.append("kode_klp[]",$kelompok.from);
-        $formData.append("kode_klp[]",$kelompok.to);
-        $formData.append("kode_barang[]",$barang.type);
-        $formData.append("kode_barang[]",$barang.from);
-        $formData.append("kode_barang[]",$barang.to);
         for(var pair of $formData.entries()) {
             console.log(pair[0]+ ', '+ pair[1]); 
         }

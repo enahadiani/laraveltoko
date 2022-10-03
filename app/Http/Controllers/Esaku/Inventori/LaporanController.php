@@ -125,6 +125,45 @@
             } 
         }
 
+        public function getRekapBeli(Request $request) {
+            try{
+                 $client = new Client();
+                 $response = $client->request('GET',  config('api.url').'esaku-report/lap-rekap-beli',[
+                     'headers' => [
+                         'Authorization' => 'Bearer '.Session::get('token'),
+                         'Accept'     => 'application/json',
+                     ],
+                     'query' => [
+                         'periode' => $request->periode,
+                         'tanggal' => $request->tanggal,
+                         'kode_vendor' => $request->kode_vendor
+                     ]
+                 ]);
+ 
+                 if ($response->getStatusCode() == 200) { // 200 OK
+                     $response_data = $response->getBody()->getContents();
+                     
+                     $res = json_decode($response_data,true);
+                     $data = $res["data"];
+                 }
+                 if($request->periode != ""){
+                     $periode = $request->periode;
+                 }else{
+                     $periode = "Semua Periode";
+                 }
+ 
+                 if(isset($request->back)){
+                     $res['back']=true;
+                 }
+                 
+                 return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'periode'=>$periode,'sumju'=>$request->sumju,'res'=>$res], 200); 
+             } catch (BadResponseException $ex) {
+                 $response = $ex->getResponse();
+                 $res = json_decode($response->getBody(),true);
+                 return response()->json(['message' => $res["message"], 'status'=>false, 'auth_status'=>2], 200);
+             } 
+         }
+
         public function getSaldoStok(Request $request) {
            try{
                 $client = new Client();
@@ -134,10 +173,8 @@
                         'Accept'     => 'application/json',
                     ],
                     'query' => [
-                        'periode' => $request->periode,
-                        'kode_gudang' => $request->kode_gudang,
-                        'kode_klp' => $request->kode_klp,
-                        'kode_barangp' => $request->kode_barang
+                        'tanggal' => $request->tanggal,
+                        'kode_gudang' => $request->kode_gudang
                     ]
                 ]);
 
@@ -147,17 +184,17 @@
                     $res = json_decode($response_data,true);
                     $data = $res["data"];
                 }
-                if($request->periode != ""){
-                    $periode = $request->periode;
+                if($request->tanggal != ""){
+                    $tanggal = $request->tanggal;
                 }else{
-                    $periode = "Semua Periode";
+                    $tanggal = "Semua tanggal";
                 }
 
                 if(isset($request->back)){
                     $res['back']=true;
                 }
                 
-                return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'periode'=>$periode,'sumju'=>$request->sumju,'res'=>$res], 200); 
+                return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'tanggal'=>$tanggal,'sumju'=>$request->sumju,'res'=>$res], 200); 
             } catch (BadResponseException $ex) {
                 $response = $ex->getResponse();
                 $res = json_decode($response->getBody(),true);
@@ -532,7 +569,6 @@
                         'Accept'     => 'application/json',
                     ],
                     'query' => [
-                        'periode' => $request->periode,
                         'nik_kasir' => $request->nik_kasir,
                         'tanggal' => $request->tanggal,
                         'no_bukti' => $request->no_bukti

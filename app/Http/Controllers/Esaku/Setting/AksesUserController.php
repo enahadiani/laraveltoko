@@ -133,6 +133,7 @@ class AksesUserController extends Controller
             'status_admin' => 'required',
             'klp_akses' => 'required',
             'path_view' => 'required',
+            'pabrik' => 'required',
         ]);
 
         try { 
@@ -150,6 +151,7 @@ class AksesUserController extends Controller
                     'status_admin' => $request->status_admin,
                     'klp_akses' => $request->klp_akses,
                     'path_view' => $request->path_view,
+                    'pabrik' => $request->pabrik,
                 ]
             ]);
             if ($response->getStatusCode() == 200) { // 200 OK

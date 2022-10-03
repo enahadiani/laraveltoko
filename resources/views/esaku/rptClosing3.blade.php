@@ -86,8 +86,7 @@ function drawRptPage(data,res,from,to){
                                     <th class="text-center">Periode</th>    
                                     <th class="text-center">Tanggal</th>    
                                     <th class="text-center">Diskon</th>    
-                                    <th class="text-center">Nilai</th>    
-                                    <th class="text-center">Keterangan</th>    
+                                    <th class="text-center">Nilai</th>     
                                 </thead>
                                 <tbody>`
                                 for(var j=0;j<res.res.data_detail.length;j++) {
@@ -103,8 +102,7 @@ function drawRptPage(data,res,from,to){
                                             <td class="text-center isi-laporan">${detail.periode}</td>    
                                             <td class="text-center isi-laporan">${detail.tanggal}</td>    
                                             <td class="text-right isi-laporan">${sepNum(detail.diskon)}</td>    
-                                            <td class="text-right isi-laporan">${sepNum(detail.nilai)}</td>    
-                                            <td class="text-left isi-laporan">${detail.keterangan}</td>    
+                                            <td class="text-right isi-laporan">${sepNum(detail.nilai)}</td>   
                                         </tr>`
                                         no++;
                                     }
