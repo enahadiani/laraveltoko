@@ -66,7 +66,7 @@ class OpenTokoController extends Controller
                     'Accept'     => 'application/json',
                 ],
                 'query' => [
-                    'no_open' => $request->no_open
+                    'kode_gudang' => $request->kode_gudang
                 ]
             ]);
 
@@ -87,8 +87,8 @@ class OpenTokoController extends Controller
 
     public function store(Request $request) {
         $this->validate($request, [
-            'nik' => 'required',
-            'saldo_awal' => 'required',
+            'tanggal' => 'required',
+            'kode_gudang' => 'required',
         ]);
 
         try {   
@@ -99,8 +99,8 @@ class OpenTokoController extends Controller
                         'Accept'     => 'application/json',
                     ],
                     'form_params' => [
-                        'nik' => $request->nik,
-                        'saldo_awal' => intval(str_replace('.','', $request->saldo_awal)),
+                        'tanggal' => $request->tanggal,
+                        'kode_gudang' => $request->kode_gudang,
                     ]
                 ]);
                 if ($response->getStatusCode() == 200) { // 200 OK

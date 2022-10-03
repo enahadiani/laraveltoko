@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="{{ asset('trans.css') }}" />
     <link rel="stylesheet" href="{{ asset('form.css') }}" />
     <!-- LIST DATA -->
-    <x-list-data judul="Data Open Toko" tambah="true" :thead="array('No Open','Tanggal','Toko','No Close','Action')" :thwidth="array(20,18,18,20,6)" :thclass="array('','','','','text-center')" />
+    <x-list-data judul="Data Open Toko" tambah="true" :thead="array('Kode Gudang','Tanggal','Periode','No Close','Action')" :thwidth="array(20,18,18,20,6)" :thclass="array('','','','','text-center')" />
     <!-- END LIST DATA -->
 
     <!-- FORM INPUT -->
@@ -23,20 +23,20 @@
                                 <input class="form-control" type="text" id="id_edit" name="id_edit" readonly hidden>
                             </div>
                         </div>
-                        <div class="form-row hidden">
+                        <!-- <div class="form-row hLISTdden">
                             <div class="form-group col-md-12 col-sm-12">
                                 <label for="no_open">NO Open</label>
                                 <input class='form-control' type="text" id="no_open" name="no_open" readonly>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
-                                <label for="no_open">Tanggal</label>
-                                <input class="form-control" type="text" placeholder="" id="tanggal" name="tanggal" value="{{Session::get('tgl')}}" readonly required>
+                                <label for="tanggal">Tanggal</label>
+                                <input class="form-control" type="text" placeholder="" id="tanggal" name="tanggal" value="{{ date('Y-m-d') }}" readonly required>
                             </div>
                             <div class="form-group col-md-6 col-sm-12">
-                                <label for="saldo_awal">Toko</label>
-                                <input class="form-control " type="text" name="saldo_awal" id="saldo_awal" required value="0" value="">
+                                <label for="kode_gudang">Toko</label>
+                                <input class="form-control " type="text" name="kode_gudang" id="kode_gudang" required value="{{ session()->get('pabrik') }}" readonly>
                             </div>
                         </div>
                     </div>
@@ -77,7 +77,6 @@
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
     });
-
     var scrollform = document.querySelector('.form-body');
     var psscrollform = new PerfectScrollbar(scrollform);
     
@@ -94,52 +93,7 @@
         oncleared: function () { self.Value(''); }
     });
 
-    function getFilterNIK() {
-        $.ajax({
-            type:'GET',
-            url:"{{ url('esaku-master/karyawan') }}",
-            dataType: 'json',
-            async: false,
-            success: function(result) {
-                
-                var select = $('#inp-filter_nik').selectize();
-                select = select[0];
-                var control = select.selectize;
-                control.clearOptions();
-                if(result.status) {
-                    
-                    for(i=0;i<result.daftar.length;i++){  
-                        control.addOption([{text:result.daftar[i].nik+'|'+result.daftar[i].nama, value:result.daftar[i].nik}]);
-                    }
-
-                    if("{{ Session::get('userLog') }}" != ""){
-                        control.setValue("{{ Session::get('userLog') }}");
-                    }
-                    
-                }else if(!result.status && result.message == "Unauthorized"){
-                    window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
-                } else{
-                    alert(result.message);
-                }
-            },
-            error: function(jqXHR, textStatus, errorThrown) {       
-                if(jqXHR.status == 422){
-                    var msg = jqXHR.responseText;
-                }else if(jqXHR.status == 500) {
-                    var msg = "Internal server error";
-                }else if(jqXHR.status == 401){
-                    var msg = "Unauthorized";
-                    window.location="{{ url('/sekolah-auth/sesi-habis') }}";
-                }else if(jqXHR.status == 405){
-                    var msg = "Route not valid. Page not found";
-                }
-                
-            }
-        });
-    }
-
-    getFilterNIK();
-    jumFilter();
+    
 
     function hapusData(id){
         $.ajax({
@@ -181,7 +135,7 @@
     
     var dataTable = generateTable(
         "table-data",
-        "{{ url('esaku-trans/open-kasir') }}", 
+        "{{ url('esaku-trans/open-toko') }}", 
         [
             {
                 "targets": 0,
@@ -195,9 +149,9 @@
             {'targets': 4, data: null, 'defaultContent': action_html, 'className': 'text-center' }
         ],
         [
-            { data: 'no_open' },
-            { data: 'tgl_input' },
-            { data: 'saldo_awal' },
+            { data: 'kode_gudang' },
+            { data: 'tanggal'},
+            { data: 'periode' },
             { data: 'no_close' }
         ],
         "{{ url('esaku-auth/sesi-habis') }}",
@@ -217,13 +171,12 @@
     // END LIST DATA
 
 
-
     // BUTTON TAMBAH
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
         $('#id_edit').val('');
         $('#form-tambah')[0].reset();
-        $('#judul-form').html('Tambah Data Open Kasir');
+        $('#judul-form').html('Tambah Data Open Toko');
         $('#btn-update').attr('id','btn-save');
         $('#btn-save').attr('type','submit');
         $('#method').val('post');
@@ -257,11 +210,11 @@
         ignore: [],
         rules: 
         {
-            nik_kasir:
+            tanggal:
             {
                 required: true
             },
-            saldo_awal:
+            kode_gudang:
             {
                 required: true
             }
@@ -272,25 +225,16 @@
             var formData = new FormData(form);
             
             var param = $('#id').val();
-            var saldo = $('#saldo_awal').val();
+            var tanggal = $('#tanggal').val();
             // $iconLoad.show();
             if(param == "edit"){
-                var url = "{{ url('esaku-trans/open-kasir') }}";
+                var url = "{{ url('esaku-trans/open-toko') }}";
             }else{
-                var url = "{{ url('esaku-trans/open-kasir') }}";
+                var url = "{{ url('esaku-trans/open-toko') }}";
             }
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
-
-            if(toNilai(saldo) <= 0){
-                // alert('Transaksi tidak valid. Saldo tidak boleh kosong ');
-                msgDialog({
-                    id:'',
-                    text: 'Transaksi tidak valid. Saldo tidak boleh kosong!',
-                    type:'warning'
-                });
-            }else{
                 $.ajax({
                     type: 'POST',
                     url: url,
@@ -308,14 +252,14 @@
                             $('#btn-update').attr('id','btn-save');
                             $('#btn-save').attr('type','submit');
                             $('#method').val('post');
-                            $('#judul-form').html('Tambah Data Open Kasir');
+                            $('#judul-form').html('Tambah Data Open Toko');
                             $('#id_edit').val('');   
                             msgDialog({
-                                id:result.data.no_open,
+                                id:result.data.tanggal,
                                 type:'simpan'
                             });
                             
-                            last_add("no_open",result.data.no_open);
+                            last_add("tanggal",result.data.tanggal);
                         } else if(!result.data.status) {
                             showNotification("top", "center", "success",'Hapus Data',result.data.message);
                             $('#modal-pesan-id').html('');
@@ -326,7 +270,7 @@
                         }else{
                             if(result.data.jenis == 'duplicate'){
                                 msgDialog({
-                                    id: result.data.no_open,
+                                    id: result.data.tanggal,
                                     type: result.data.jenis,
                                     text: result.data.message
                                 });
@@ -344,7 +288,6 @@
                         alert('request failed:'+textStatus);
                     }
                 });
-            }
 
         },
         errorPlacement: function (error, element) {
@@ -357,9 +300,9 @@
     // END SIMPAN
 
     // ENTER FIELD FORM
-    $('#no_open,#nik_kasir,#saldo').keydown(function(e){
+    $('#tanggal,#kode_gudang').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['no_open','nik_kasir','saldo'];
+        var nxt = ['tanggal','kode_gudang'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
@@ -484,51 +427,5 @@
     });
 
     // END PREVIEW
-
-    // FILTER
-    $('#modalFilter').on('submit','#form-filter',function(e){
-        e.preventDefault();
-        $.fn.dataTable.ext.search.push(
-            function( settings, data, dataIndex ) {
-                var tmp = $('#inp-filter_nik').val().split("|");
-                var nik = tmp[0];
-                var col_nik = data[1];
-                if(nik != "" ){
-                    if(nik == col_nik){
-                        return true;
-                    }else{
-                        return false;
-                    }
-                }else{
-                    return true;
-                }
-            }
-        );
-        dataTable.draw();
-        $.fn.dataTable.ext.search.pop();
-        $('#modalFilter').modal('hide');
-    });
-    
-    $('#btn-reset').click(function(e){
-        e.preventDefault();
-        $('#inp-filter_nik')[0].selectize.setValue('');
-        jumFilter();
-    });
-
-    $('[name^=inp-filter]').change(function(e){
-        e.preventDefault();
-        jumFilter();
-    });
-    
-    $('#filter-btn').click(function(){
-        $('#modalFilter').modal('show');
-    });
-    
-    $("#btn-close").on("click", function (event) {
-        event.preventDefault();
-        $('#modalFilter').modal('hide');
-    });
-    
-    $('#btn-tampil').click();
 
     </script>
