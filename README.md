@@ -77,3 +77,13 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+## INSTALASI LARAVEL TOKO
+1. Lakukan git clone untuk repository ini
+2. Masuk ke folder root dari repository ini pada windows explorer menggunakan CMD
+3. Jalankan perintah composer install, tunggu hingga selesai
+4. Jalankan perintah composer update, tunggu hingga selesai
+5. Masukkan file .env ke root folder repository ini
+6. Jalankan perintah php artisan key:generate
+7. Jalankan perintah php artisan serve
