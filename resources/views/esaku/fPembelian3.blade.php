@@ -13,12 +13,12 @@ date_default_timezone_set('Asia/Jakarta');
                                 <div class="row">
                                     <div class="col-4">
                                         <div class="logo2 text-center"><img src="{{ url('asset_dore/images/sai_icon/logo.png') }}" width="40px" alt="homepage" class="light-logo" /><br/>
-                                            <img src="{{ url('asset_dore/images/sai_icon/logo-text.png') }}" class="light-logo" alt="homepage" width="40px"/>
-                                        </div>
+                                                <img src="{{ url('asset_dore/images/sai_icon/logo-text.png') }}" class="light-logo" alt="homepage" width="40px"/>
+                                            </div>
                                     </div>
                                     <div class="col-8">
                                         <div class="label-header">
-                                            <p>{{ date("Y-m-d H:i:s") }}</p>
+                                        <p>{{$new_time = date("Y-m-d H:i:s", strtotime('+7 hours', strtotime(date("Y-m-d H:i:s"))))}}</p>
                                             <p style="color:#007AFF"><i class="fa fa-user"></i> {{ Session::get('userLog') }}</p>
                                         </div>
                                     </div>
@@ -91,7 +91,16 @@ date_default_timezone_set('Asia/Jakarta');
                                          <label for="judul" class="col-2 col-form-label" >Biaya Tambahan</label>
                                          <div class="col-2">
                                             <input type="text" name="total_disk" class='form-control currency' id='todisk' required value="0">
-                                         </div>                                         
+                                         </div>
+                                         <!-- <label for="judul" class="col-1 col-form-label" >PPN</label>
+                                         <div class="col-3">
+                                            <div class="input-group mb-3">
+                                                <input type="text" name="total_ppn" class='form-control currency' id='toppn' required value="0" style="border-bottom-right-radius: 0 !important;border-top-right-radius: 0 !important;">
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-info" id="getPPN" type="button" style="border-bottom-left-radius: 0 !important;border-top-left-radius: 0 !important;padding: 0.1rem 0.85rem;"><i class="simple-icon-refresh" style="font-size:18px !important"></i></button>
+                                                </div>
+                                            </div>
+                                         </div> -->
                                          <label for="judul" class="col-1 col-form-label" >No Faktur</label>
                                          <div class="col-2">
                                             <input type="text" name="no_faktur" class='form-control ' id='no_faktur' required>
@@ -236,19 +245,23 @@ date_default_timezone_set('Asia/Jakarta');
                 <table id="table-total" class="table table-borderless">
                     <thead>
                         <tr>
-                            <th>Total Pembelian</th>
+                                <!-- //ni_dpp -->
+                            <th>Nilai DPP</th> 
                             <th id="total-pembelian"></th>
                         </tr>
                         <tr>
-                            <th>Total Diskon</th>
+                                <!-- //ni_biaya -->
+                            <th>Biaya Tambahan</th> 
                             <th id="total-diskon"></th>
                         </tr>
                         <tr>
-                            <th>Total PPN</th>
+                        <!-- //ni_ppn + (ni_biaya - (ni_biaya*100/111)) -->
+                            <th>Total PPN</th> 
                             <th id="total-ppn"></th>
                         </tr>
                         <tr>
-                            <th>Total Transaksi</th>
+                                <!-- //ni_hutang -->
+                            <th>Total Transaksi</th> 
                             <th id="total-transaksi"></th>
                         </tr>
                     </thead>
@@ -262,7 +275,7 @@ date_default_timezone_set('Asia/Jakarta');
                             <td id="tanggal-bukti"></td>
                         </tr>
                         <tr>
-                            <td id="kasir-bukti"></td>
+                            <td id="kasir-bukti" ></td>
                         </tr>
                         <tr>
                             <td></td>
