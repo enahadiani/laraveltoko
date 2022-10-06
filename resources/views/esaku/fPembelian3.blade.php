@@ -1,3 +1,6 @@
+<?php
+date_default_timezone_set('Asia/Jakarta');
+?>
 <link rel="stylesheet" href="{{ asset('trans.css') }}" />
 <div class="container-fluid mt-3">
     <div class="row">
