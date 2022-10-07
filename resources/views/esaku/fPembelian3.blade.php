@@ -84,13 +84,13 @@ date_default_timezone_set('Asia/Jakarta');
                                     <div class="form-group row">
                                          <label for="judul" class="col-2 col-form-label" ></label>
                                          <div class="col-10">
-                                            <input type="text" name="keterangan" class='form-control' id='keterangan'  hidden >
+                                            <input type="text" name="" class='form-control' id=''  hidden >
                                          </div>
                                     </div>
                                     <div class="form-group row">
                                          <label for="judul" class="col-2 col-form-label" ></label>
                                          <div class="col-10">
-                                            <input type="text" name="keterangan" class='form-control' id='keterangan'  hidden >
+                                            <input type="text" name="" class='form-control' id=''  hidden >
                                          </div>
                                     </div>
                                     <div class="form-group row">
