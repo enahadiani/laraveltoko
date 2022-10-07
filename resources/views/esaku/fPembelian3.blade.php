@@ -70,12 +70,12 @@ date_default_timezone_set('Asia/Jakarta');
                                             <th style='width:19%'>Barang</th>
                                             <th style='width:5%'>Stok</th>
                                             <th style='width:10%'>Harga Sebelum</th>
-                                            <th style='width:10%'>Harga Jual</th>
-                                            <th style='width:10%'>Harga</th>
+                                            <th style='width:7%'>Harga Jual</th>
+                                            <th style='width:7%'>Harga</th>
                                             <th style='width:5%'>Satuan</th>
-                                            <th style='width:10%'>Qty</th>
-                                            <th style='width:5%'>Disc</th>
-                                            <th style='width:15%'>Subtotal</th>
+                                            <th style='width:6%'>Qty</th>
+                                            <th style='width:7.5%'>Subtotal</th>
+                                            <th style='width:5.5%'>Disc</th>
                                             <th style='width:8%'></th>
                                         </tr>
                                     </table>
@@ -660,8 +660,17 @@ date_default_timezone_set('Asia/Jakarta');
     function hitungDisc(){
         var total_trans = removeFormat($('#totrans').val());
         var total_disk= removeFormat($('#todisk').val());
-        var total_stlh = +total_trans + +total_disk;
+        var total_stlh = +total_trans -total_disk;
         $('#tostlh').val(toRp(total_stlh));   
+    }
+
+    function hitungTotalDiskon(){
+        var total_brg = removeFormat($(this).closest('tr').find('.inp-subb').val());
+        var diskon = removeFormat($(this).closest('tr').find('.inp-disc').val());
+        
+        var total_diskon = +total_brg - +diskon;
+        $('#totrans').val(number_format(total_diskon));
+
     }
 
     function hitungTotal(){
@@ -675,8 +684,12 @@ date_default_timezone_set('Asia/Jakarta');
             var qtyb = $(this).closest('tr').find('.inp-qtyb').val();
             var hrgb = $(this).closest('tr').find('.inp-hrgb').val();
             var disc = $(this).closest('tr').find('.inp-disc').val();
+            // console.log(disc);
             
             var subb = removeFormat($(this).closest('tr').find('.inp-subb').val());
+            var total_diskon = removeFormat($(this).closest('tr').find('.inp-disc').val());
+            console.log(total_diskon);
+            // console.log(($(this).closest('tr').find('.inp-disc').val()));
 
             if(sts_harga == 0){
                 var hrg = subb/removeFormat(qtyb);
@@ -688,8 +701,12 @@ date_default_timezone_set('Asia/Jakarta');
                 // $(this).closest('tr').find('.inp-subb').val(number_format(subb));
             }
             total_brg += +subb;
+            // console.log(total_brg);
+            total_brg = total_brg - +total_diskon;  
+            // console.log(total_diskon);
         });
         $('#totrans').val(number_format(total_brg));
+        
 
         var total_disk= removeFormat($('#todisk').val());
         var total_stlh = +total_brg + +total_disk;
@@ -826,8 +843,8 @@ date_default_timezone_set('Asia/Jakarta');
             input += "<td style='text-align:right'><input type='text' name='harga_barang[]' class='change-validation inp-hrgb form-control'  value='"+toRp(hrg)+"' readonly required></td>";
             input += "<td style='text-align:right'><input type='text' name='satuan_barang[]' class='change-validation inp-satuanb form-control'  value='"+setSatuan(kd)+"' readonly required><input type='hidden' name='kode_akun[]' class='change-validation inp-satuanb'  value='"+setAkun(kd)+"' readonly></td>";
             input += "<td style='text-align:right'><input type='text' name='qty_barang[]' class='change-validation inp-qtyb form-control currency'  value='"+qty+"' required></td>";
-            input += "<td style='text-align:right'><input type='text' name='disc_barang[]' class='change-validation inp-disc form-control '  value='"+disc+"' readonly required></td>";
             input += "<td style='text-align:right'><input type='text' name='sub_barang[]' class='change-validation inp-subb form-control currency2'  value='"+sub+"' required></td>";
+            input += "<td style='text-align:right'><input type='text' name='disc_barang[]' class='change-validation inp-disc form-control currency2'  value='"+disc+"'  required></td>";
             input += "<td class='text-center'><a class='btn btn-sm ubah-barang' style='padding:0;font-size:18px !important'><i class='simple-icon-pencil'></i></a>&nbsp;<a class='btn btn-sm hapus-item ml-2' style='padding:0;font-size:18px !important'><i class='simple-icon-trash'></i></a><input type='hidden' name='flag_ppn[]' value='"+flag_ppn+"'></td>";
             input += "</tr>";
             
@@ -967,6 +984,7 @@ date_default_timezone_set('Asia/Jakarta');
     $('#todisk').change(function(){
         hitungDisc();
         hitungTotal();
+        hitungTotalDiskon();
     });
 
     // $('#toppn').change(function(){
