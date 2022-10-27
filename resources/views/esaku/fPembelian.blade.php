@@ -94,10 +94,19 @@ date_default_timezone_set('Asia/Jakarta');
                                          </div>
                                     </div>
                                     <div class="form-group row">
-                                         <label for="judul" class="col-2 col-form-label" >Biaya Tambahan</label>
+                                         <label for="judul" class="col-2 col-form-label" >Nilai PPN</label>
                                          <div class="col-2">
                                             <input type="text" name="total_disk" class='form-control currency' id='todisk' required value="0">
                                          </div>
+                                         <!-- <label for="judul" class="col-1 col-form-label" >PPN</label>
+                                         <div class="col-3">
+                                            <div class="input-group mb-3">
+                                                <input type="text" name="total_ppn" class='form-control currency' id='toppn' required value="0" style="border-bottom-right-radius: 0 !important;border-top-right-radius: 0 !important;">
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-info" id="getPPN" type="button" style="border-bottom-left-radius: 0 !important;border-top-left-radius: 0 !important;padding: 0.1rem 0.85rem;"><i class="simple-icon-refresh" style="font-size:18px !important"></i></button>
+                                                </div>
+                                            </div>
+                                         </div> -->
                                          <label for="judul" class="col-1 col-form-label" >No Faktur</label>
                                          <div class="col-2">
                                             <input type="text" name="no_faktur" class='form-control ' id='no_faktur' required>
@@ -431,7 +440,7 @@ date_default_timezone_set('Asia/Jakarta');
     function getBarang() {
         $.ajax({
             type:'GET',
-            url:"{{url('esaku-trans/pembelian3-barang')}}",
+            url:"{{url('esaku-trans/pembelian4-barang')}}",
             dataType: 'json',
             async: false,
             success: function(result) {
@@ -720,7 +729,7 @@ date_default_timezone_set('Asia/Jakarta');
             $('#hrg-barang').val('');
         }else{
             $.ajax({
-                url:"{{url('esaku-trans/pembelian3-barang')}}",
+                url:"{{url('esaku-trans/pembelian4-barang')}}",
                 type:'GET',
                 dataType:'json',
                 async:false,
@@ -1098,7 +1107,7 @@ date_default_timezone_set('Asia/Jakarta');
 
             $.ajax({
                 type: 'POST',
-                url: "{{url('esaku-trans/pembelian3')}}",
+                url: "{{url('esaku-trans/pembelian4')}}",
                 dataType: 'json',
                 data: formData,
                 // async:false,
@@ -1175,7 +1184,7 @@ date_default_timezone_set('Asia/Jakarta');
 
     $('#cetakBtn').click(function(){
         var no_bukti= $('#modal-nobukti').text();
-        window.open("{{ url('esaku-trans/pembelian3-nota') }}/?no_bukti="+no_bukti); 
+        window.open("{{ url('esaku-trans/pembelian4-nota') }}/?no_bukti="+no_bukti); 
     });
 
     $('#input-grid2').on('keydown', '.inp-qtyb', function(e){

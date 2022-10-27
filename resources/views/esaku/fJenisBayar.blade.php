@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="{{ asset('master.css') }}" />
     <link rel="stylesheet" href="{{ asset('form.css') }}" />
     <!-- LIST DATA -->
-    <x-list-data judul="Jenis Bayar" tambah="true" :thead="array('Kode','Nama','Kode Akun','Aksi')" :thwidth="array(20,70,10,10)" :thclass="array('','','','text-center')" />
+    <x-list-data judul="Jenis Bayar" tambah="true" :thead="array('Kode','Nama','Kode Akun','Aksi')" :thwidth="array(20,20,10,10)" :thclass="array('','','','text-center')" />
     <!-- END LIST DATA -->
     
     <!-- FORM INPUT -->
@@ -118,9 +118,15 @@
                 }
             },
             {
-                "targets": [3],
+                "targets": [2],
                 "visible": false,
                 "searchable": false
+            },{
+                "targets": 3,
+                "data": null,
+                "render": function(data, type, row, meta) {
+                    return action_html;
+                }
             }
         ],
         [

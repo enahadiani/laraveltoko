@@ -12,6 +12,13 @@ date_default_timezone_set('Asia/Jakarta');
 {
     cursor:pointer;
 }
+.modal{
+    pointer-events: none;
+}
+
+.modal-dialog{
+    pointer-events: all;
+}
 </style>
 <div class="container-fluid mt-3">
     <div class="row">
@@ -90,15 +97,22 @@ date_default_timezone_set('Asia/Jakarta');
                                         </tr>
                                     </table>
                                 </div>
-                                <div class="col-6 mt-2 float-right">
+                                <div class="col-12 mt-2 float-right">
                                     <div class="form-group row">
-                                         <label for="judul" class="col-4 col-form-label" style="font-size:16px">Pembayaran</label>
-                                         <div class="col-6">
+                                        <!-- <label for="judul" class="col-2 col-form-label" style="font-size:16px">Jenis Bayar</label> -->
+                                         
+                                         <label for="judul" class="col-2  offset-4 col-form-label float-right " style="font-size:16px" >Pembayaran</label>
+                                         <div class="col-2" >
                                              <input type="text" name="total_bayar" min="1" class="form-control currency" id="tobyr" required value="0">
-                                             <input type="hidden" style="" name="kembalian" min="1" class="form-control currency" id="kembalian" required readonly>
+                                             <input type="hidden"  name="kembalian" min="1" class="form-control currency" id="kembalian" required readonly>
                                          </div>
                                          <div class="col-2">
-                                            <button class="btn btn-info" type="submit" id="btnBayar">Bayar</button>
+                                         <select class='form-control' id="kd-jenis">
+                                                <option value=''>--- Jenis Bayar---</option>
+                                            </select>
+                                         </div>
+                                         <div class="col-2">
+                                            <button class="btn btn-info btn-block" type="submit" id="btnBayar">Bayar</button>
                                          </div>
                                     </div>
                                 </div>
@@ -340,6 +354,28 @@ date_default_timezone_set('Asia/Jakarta');
         }
     });
 
+    $('#kd-jenis').selectize({
+        selectOnTab:true,
+        maxItems: 1,
+        valueField: 'kd_jenis',
+        labelField: 'nama',
+        searchField: ['kd_jenis','nama'],
+        options: [
+            {kd_jenis: 123456, nama: 'test', barcode: '200'},
+        ],
+        render: {
+            option: function(data, escape) {
+                return '<div class="option">' +
+                '<span class="nama">' + escape(data.nama) + '</span>' +
+                '</div>';
+            },
+            item: function(data, escape) {
+                return '<div class="item"><a href="#">' + escape(data.nama) + '</a></div>';
+            }
+        },
+        create:false
+    });
+
     function getBarang() {
         $.ajax({
             type:'GET',
@@ -378,6 +414,39 @@ date_default_timezone_set('Asia/Jakarta');
         });
     }
 
+    function getJenisBayar() {
+        $.ajax({
+            type:'GET',
+            url:"{{url('esaku-master/jenis-bayar')}}",
+            dataType: 'json',
+            async: false,
+            success: function(result) {
+                if(result.status) {
+
+                    var select2 = $('#kd-jenis').selectize();
+                    select2 = select2[0];
+                    var control2 = select2.selectize;
+                    control2.clearOptions();
+
+                    for(i=0;i<result.daftar.length;i++){
+                        control2.addOption([{kd_jenis:result.daftar[i].kode_jenis, nama:result.daftar[i].nama}]);
+                        // $dtBrg[result.daftar[i].kode_jenis] = {harga:result.daftar[i].hna};  
+                    }
+
+                }else if(!result.data.status && result.data.message == "Unauthorized"){
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                } else{
+                    msgDialog({
+                        id: '',
+                        type:'sukses',
+                        title: 'Error',
+                        text: result.data.message
+                    });
+                }
+            }
+        });
+    }
+
     function getNoOpen() {
         $.ajax({
             type:'GET',
@@ -394,6 +463,7 @@ date_default_timezone_set('Asia/Jakarta');
     }
     getNoOpen();
     getBarang();
+    getJenisBayar();
 
     function hitungKembali(){
         var total_stlh = toNilai($('#tostlh').val());

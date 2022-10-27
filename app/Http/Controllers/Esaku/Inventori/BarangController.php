@@ -347,6 +347,7 @@ class BarangController extends Controller
 
         } catch (BadResponseException $ex) {
                 $response = $ex->getResponse();
+                dd(json_decode($response->getBody(),true));
                 $res = json_decode($response->getBody(),true);
                 $data['message'] = $res;
                 $data['status'] = false;

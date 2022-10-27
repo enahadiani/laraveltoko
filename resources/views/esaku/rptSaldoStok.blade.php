@@ -25,26 +25,24 @@ function drawRptPage(data,res,from,to) {
                             <tr>
                                 <th class="text-center" style="width: 10%;" rowspan="2">Kode Barang</th>    
                                 <th class="text-center" style="width: 30%;" rowspan="2">Nama Barang</th>    
-                                <th class="text-center" style="width: 15%;" rowspan="2">Stok Awal</th>    
-                                <th class="text-center" style="width: 25%;" colspan="2">Mutasi</th>    
+                                <th class="text-center" style="width: 10%;" rowspan="2">Kode Gudang</th>    
+                                <th class="text-center" style="width: 10%;" rowspan="2">Stok Awal</th>    
+                                <th class="text-center" style="width: 10%;" rowspan="2">Mutasi</th>    
                                 <th class="text-center" style="width: 15%;" rowspan="2">Stok Akhir</th>    
-                            </tr>
-                            <tr>
-                                <th class="text-center">Masuk</th>    
-                                <th class="text-center">Keluar</th>    
-                            </tr>    
+                                <th class="text-center" style="width: 15%;" rowspan="2">Harga Beli Terakhir</th>    
+                            </tr>  
                         </thead>
                         <tbody>`
                         for(var i=0;i<data.length;i++) {
                             var dt = data[i];
-                            var so_akhir = parseFloat(dt.so_awal) + (parseFloat(dt.debet) - parseFloat(dt.kredit))
                             html += `<tr>
                                 <td class="text-left">${dt.kode_barang}</td>    
-                                <td class="text-left">${dt.nama_barang}</td>    
-                                <td class="text-right">${sepNum(dt.so_awal)}</td>    
-                                <td class="text-right">${sepNum(dt.debet)}</td>    
-                                <td class="text-right">${sepNum(dt.kredit)}</td>    
-                                <td class="text-right">${sepNum(so_akhir)}</td>    
+                                <td class="text-left">${dt.nm_barang}</td>    
+                                <td class="text-left">${dt.kode_gudang}</td>    
+                                <td class="text-right">${sepNum(dt.sop_awal)}</td>    
+                                <td class="text-right">${sepNum(dt.mutasi)}</td>    
+                                <td class="text-right">${sepNum(dt.sop)}</td>    
+                                <td class="text-right">${sepNum(dt.hrg_beli_akhir)}</td>    
                             </tr>`
                         }
                     html += `</tbody>

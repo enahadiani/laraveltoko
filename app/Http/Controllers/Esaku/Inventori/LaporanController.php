@@ -166,6 +166,7 @@
 
         public function getSaldoStok(Request $request) {
            try{
+
                 $client = new Client();
                 $response = $client->request('GET',  config('api.url').'esaku-report/lap-saldo-stok',[
                     'headers' => [

@@ -156,7 +156,7 @@ class JenisBayarController extends Controller
     public function delete($id) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE',  config('api.url').'esaku-master/jenis-bayar?kode_satuan='.$id,
+            $response = $client->request('DELETE',  config('api.url').'esaku-master/jenis-bayar?kode_jenis='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

@@ -111,7 +111,7 @@
                 { data: 'nama' }
             ]
         ],
-        url :["{{ url('esaku-report/filter-tanggal') }}","{{ url('esaku-report/filter-gudang') }}"],
+        url :["{{ url('esaku-report/filter-tanggal-stok') }}","{{ url('esaku-report/filter-gudang') }}"],
         parameter:[{},{},{},{}],
         orderby:[[[0,"desc"]],[[0,"desc"]]],
         width:[['30%','70%'],['30%','70%']],

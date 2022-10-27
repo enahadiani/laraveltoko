@@ -42,6 +42,7 @@ Route::get('filter-periode-kb', 'Esaku\HelperController@getFilterPeriodeKB');
 Route::get('filter-bukti-jurnal-kb', 'Esaku\HelperController@getFilterBuktiJurnalKB');
 Route::get('filter-mode-print', 'Esaku\HelperController@getFilterModePrint');
 Route::get('filter-vendor', 'Esaku\HelperController@getVendor');
+Route::get('filter-tanggal-stok', 'Esaku\HelperController@getTglStok');
 
 //AKTAP//
 Route::get('filter-periode-perolehan', 'Esaku\Aktap\FilterAktapController@getPeriodePerolehan');

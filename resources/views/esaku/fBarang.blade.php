@@ -669,6 +669,11 @@
             {
                 required: true
             }
+            ,
+            flag_ppn:
+            {
+                required: true
+            }
         },
         errorElement: "label",
         submitHandler: function (form) {

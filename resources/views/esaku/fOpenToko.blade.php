@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="{{ asset('trans.css') }}" />
     <link rel="stylesheet" href="{{ asset('form.css') }}" />
     <!-- LIST DATA -->
-    <x-list-data judul="Data Open Toko" tambah="true" :thead="array('Kode Gudang','Tanggal','Periode','No Close','Action')" :thwidth="array(20,18,18,20,6)" :thclass="array('','','','','text-center')" />
+    <x-list-data judul="Data Open Toko" tambah="true" :thead="array('Kode Gudang','Tanggal','Periode','No Close','')" :thwidth="array(20,18,18,20,0)" :thclass="array('','','','','text-center')" />
     <!-- END LIST DATA -->
 
     <!-- FORM INPUT -->
@@ -132,7 +132,8 @@
 
     // LIST DATA (DATATABLE)
     var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a>&nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
-    
+    var action_html2 = "";
+
     var dataTable = generateTable(
         "table-data",
         "{{ url('esaku-trans/open-toko') }}", 
@@ -146,7 +147,7 @@
                     }
                 }
             },
-            {'targets': 4, data: null, 'defaultContent': action_html, 'className': 'text-center' }
+            {'targets': 4, data: null, 'defaultContent': action_html2, 'className': 'text-center' }
         ],
         [
             { data: 'kode_gudang' },
@@ -157,6 +158,19 @@
         "{{ url('esaku-auth/sesi-habis') }}",
         [[0 ,"desc"]]
     );
+
+    $('#btn-tambah').prop('disabled', false).removeClass('disabled')
+
+    if (typeof dataTable !== 'null') {
+        let data = dataTable.context[0].json.daftar
+        
+        data.forEach((item) => {
+            if (item.no_close === '-') {
+                $('#btn-tambah').prop('disabled', true)
+                return
+            }
+        })
+    }
 
     $.fn.DataTable.ext.pager.numbers_length = 5;
 
