@@ -55,6 +55,7 @@ Route::get('close-toko', 'Esaku\Inventori\CloseTokoController@index');
 Route::get('close-toko-nobukti','Esaku\Inventori\CloseTokoController@GenerateBukti');
 Route::get('close-toko-data','Esaku\Inventori\CloseTokoController@loadData');
 Route::get('close-toko-data-detail','Esaku\Inventori\CloseTokoController@loadDataDetail');
+Route::get('close-toko-data-pnj','Esaku\Inventori\CloseTokoController@loadDataPenjualan');
 Route::post('close-toko', 'Esaku\Inventori\CloseTokoController@store');
 //sync waktu close toko
 Route::get('sync-pmb-ct', 'Esaku\Inventori\CloseTokoController@getSyncCT');
@@ -100,16 +101,6 @@ Route::get('retur-beli-finish', 'Esaku\Inventori\ReturBeliController@getFinish')
 Route::get('retur-beli-barang/{no_bukti1}/{no_bukti2}/{no_bukti3}', 'Esaku\Inventori\ReturBeliController@getBarang');
 Route::get('retur-beli-detail/{no_bukti1}/{no_bukti2}/{no_bukti3}', 'Esaku\Inventori\ReturBeliController@show');
 
-// Stok Opname //
-Route::get('stok-opname', 'Esaku\Inventori\StokOpnameController@index');
-Route::get('stok-opname-detail', 'Esaku\Inventori\StokOpnameController@show');
-Route::get('stok-opname-exec', 'Esaku\Inventori\StokOpnameController@execSP');
-Route::get('stok-opname-load', 'Esaku\Inventori\StokOpnameController@load');
-Route::post('upload-barang-fisik', 'Esaku\Inventori\StokOpnameController@importExcel');
-Route::post('stok-opname-rekon', 'Esaku\Inventori\StokOpnameController@storeRekon');
-Route::post('stok-opname', 'Esaku\Inventori\StokOpnameController@store');
-Route::post('stok-opname-edit', 'Esaku\Inventori\StokOpnameController@update');
-Route::delete('stok-opname', 'Esaku\Inventori\StokOpnameController@destroy');
 
 // Pemasukan Routes //
 Route::get('pemasukan', 'Esaku\KasBank\PemasukanController@index');
@@ -272,6 +263,12 @@ Route::get('konsinyasi-index', 'Esaku\Inventori\KonsinyasiPembController@index')
 Route::post('konsinyasi-bayar', 'Esaku\Inventori\KonsinyasiPembController@store');
 Route::put('konsinyasi-bayar', 'Esaku\Inventori\KonsinyasiPembController@update');
 Route::delete('konsinyasi-bayar/{id}', 'Esaku\Inventori\KonsinyasiPembController@delete');
+
+// Stok Opname //
+Route::get('stok-opname', 'Esaku\Inventori\StokOpnameController@index');
+Route::get('stok-nobukti','Esaku\Inventori\StokOpnameController@GenerateBukti');
+Route::get('get-loaddata-stok', 'Esaku\Inventori\StokOpnameController@getLoadData');
+Route::post('stok-opname', 'Esaku\Inventori\StokOpnameController@store');
 /*
 |--------------------------------------------------------------------------
 | Modul Simpanan -Transaksi

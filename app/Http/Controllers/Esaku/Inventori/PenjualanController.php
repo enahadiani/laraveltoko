@@ -93,7 +93,8 @@ class PenjualanController extends Controller
             'harga_barang' => 'required|array',
             'disc_barang' => 'required|array',
             'ppn_barang' => 'required|array',
-            'sub_barang' => 'required|array'
+            'sub_barang' => 'required|array',
+            'kode_jenis' => 'required'
         ]);
         $data_harga = array();
         for($i=0;$i<count($request->harga_barang);$i++){
@@ -125,7 +126,8 @@ class PenjualanController extends Controller
             'harga_barang' => $data_harga,
             'diskon_barang' => $data_diskon,
             'sub_barang'=> $data_sub,
-            'ppn_barang'=> $data_ppn
+            'ppn_barang'=> $data_ppn,
+            'kode_jenis'=> $request->kode_jenis
         );
 
             $client = new Client();

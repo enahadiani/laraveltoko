@@ -3,7 +3,9 @@ date_default_timezone_set('Asia/Jakarta');
 ?>
 <link rel="stylesheet" href="{{ asset('trans.css') }}" />
 <style>
-
+.dataTables_scrollBody th{
+    padding: 0px 8px !important;
+}
 #edit-qty
 {
     cursor:pointer;
@@ -25,8 +27,8 @@ date_default_timezone_set('Asia/Jakarta');
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="card-body form-pos-body">
-                    <form class="form form-beli-ket" id="web-form-pos" method="POST">
+                <div class="card-body form-pos-body" id="pos-body">
+                    <form class="form" id="web-form-pos" method="POST">
                         <div class="row">
                             <div class="col-4">
                                 <div class="row">
@@ -100,27 +102,16 @@ date_default_timezone_set('Asia/Jakarta');
                                 </div>
                                 <div class="col-12 mt-2 float-right">
                                     <div class="form-group row">
-                                    <label for="judul" class="col-1  col-form-label float-right " style="font-size:16px" >J.Bayar</label>
-                                         <div class="col-2">
-                                         <select class='form-control' id="kode_jenis" name="kode_jenis">
-                                                <option value=''>--CTRL+V--</option>
-                                            </select>
-                                         </div>
-                                    </div>
-                                    <div class="form-group row">
-                                    <label for="judul" class="col-1  col-form-label float-right " style="font-size:16px" >Bayar</label>
-                                            <div class="col-4 " >
-                                                <h3><input type="text" style="font-size: 30px !important;height:unset !important;"  name="total_bayar" min="1" class="form-control currency " id="tobyr" required value="0"></h3>
-                                        </div>
-                                         <!-- <label for="judul" class="col-2  col-form-label float-right " style="font-size:16px" >Pembayaran</label>
+                                         <label for="judul" class="col-2  offset-4 col-form-label float-right " style="font-size:16px" >Pembayaran</label>
                                          <div class="col-2" >
                                              <input type="text" name="total_bayar" min="1" class="form-control currency" id="tobyr" required value="0">
                                              <input type="hidden"  name="kembalian" min="1" class="form-control currency" id="kembalian" required readonly>
-                                         </div> -->
-                                         <label for="judul" class="col-1  col-form-label float-right " style="font-size:16px" >Kembalian</label>
-                                        <div class="col-4 " >
-                                            <h3><input type="text" style="font-size: 30px !important;height:unset !important;"  name="kembalian" min="1" class="form-control currency " id="kembalian" required value="0" readonly></h3>
-                                        </div>
+                                         </div>
+                                         <div class="col-2">
+                                         <select class='form-control' id="kd-jenis">
+                                                <option value=''>--- Jenis Bayar---</option>
+                                            </select>
+                                         </div>
                                          <div class="col-2">
                                             <button class="btn btn-info btn-block" type="submit" id="btnBayar">Bayar</button>
                                          </div>
@@ -310,15 +301,12 @@ date_default_timezone_set('Asia/Jakarta');
             $('.inp-qtyb').prop('readonly', false);
             $('.inp-qtyb').first().focus();
             $('.inp-qtyb').first().select();
-        }   
+        }
         if (e.which == 112) {
             $('#kd-barang2').focus();
         }
         if (e.which == 119) {
             $('#tobyr').focus();
-        }
-        if(e.ctrlKey && e.which == 86){
-            $('#kode_jenis-selectized').focus();
         }
     };
 
@@ -367,14 +355,14 @@ date_default_timezone_set('Asia/Jakarta');
         }
     });
 
-    $('#kode_jenis').selectize({
+    $('#kd-jenis').selectize({
         selectOnTab:true,
         maxItems: 1,
-        valueField: 'kode_jenis',
+        valueField: 'kd_jenis',
         labelField: 'nama',
-        searchField: ['kode_jenis','nama'],
+        searchField: ['kd_jenis','nama'],
         options: [
-            {kode_jenis: 123456, nama: 'test'},
+            {kd_jenis: 123456, nama: 'test', barcode: '200'},
         ],
         render: {
             option: function(data, escape) {
@@ -436,13 +424,13 @@ date_default_timezone_set('Asia/Jakarta');
             success: function(result) {
                 if(result.status) {
 
-                    var select2 = $('#kode_jenis').selectize();
+                    var select2 = $('#kd-jenis').selectize();
                     select2 = select2[0];
                     var control2 = select2.selectize;
                     control2.clearOptions();
 
                     for(i=0;i<result.daftar.length;i++){
-                        control2.addOption([{kode_jenis:result.daftar[i].kode_jenis, nama:result.daftar[i].nama}]);
+                        control2.addOption([{kd_jenis:result.daftar[i].kode_jenis, nama:result.daftar[i].nama}]);
                         // $dtBrg[result.daftar[i].kode_jenis] = {harga:result.daftar[i].hna};  
                     }
 
@@ -914,8 +902,6 @@ date_default_timezone_set('Asia/Jakarta');
         $('#kembalian').val(0);
         $('#inp-byr').val(0);
         $('#param').val('');
-        $('#kode_jenis').val('');
-        
     }
 
     $('#cetakBtn').click(function(){
@@ -945,10 +931,6 @@ date_default_timezone_set('Asia/Jakarta');
     });
 
     $('#tobyr').change(function(){
-        hitungKembali();
-    });
-
-    $('#tobyr').on('input', function(){
         hitungKembali();
     });
 
@@ -1052,7 +1034,6 @@ date_default_timezone_set('Asia/Jakarta');
                             $('#modal-kembalian').text(sepNum(kembalian));
                             // $('#modal-ppn').text(sepNum(ppn));
                             $('#modal-no_jual').text(result.data.no_jual);
-                            $('#kode_jenis').text(result.data.kode_jenis);
                             $('#modal-bayar2').modal('show');
                         } else if(!result.data.status && result.data.message === "Unauthorized"){
                             window.location.href = "{{ url('/esaku-auth/sesi-habis') }}";

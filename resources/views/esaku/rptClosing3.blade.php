@@ -80,41 +80,77 @@ function drawRptPage(data,res,from,to){
                         <div class="table-responsive m-t-40" style="clear: both;">
                             <table class="table table-hover">
                                 <thead>
-                                    <th class="text-center">No</th>    
-                                    <th class="text-center">No Bukti</th>    
-                                    <th class="text-center">No Jual</th>    
-                                    <th class="text-center">Periode</th>    
-                                    <th class="text-center">Tanggal</th>    
-                                    <th class="text-center">Diskon</th>    
-                                    <th class="text-center">Nilai</th>     
+                                <tr></tr>
+                                    <th class="text-center" rowspan='2'>No</th>       
+                                    <th class="text-center" rowspan='2'>No Jual</th>    
+                                    <th class="text-center" rowspan='2'>Periode</th>    
+                                    <th class="text-center" rowspan='2'>Tanggal</th>    
+                                    <th class="text-center" colspan='3'>Nilai</th>   
+                                </tr>
+                                <tr>
+                                    <th width='80' class='header_laporan text-center'>Cash</th>
+                                    <th width='80' class='header_laporan text-center'>Qris</th>
+                                    <th width='80' class='header_laporan text-center'>Link Aja</th>
+                                </tr>  
                                 </thead>
                                 <tbody>`
                                 for(var j=0;j<res.res.data_detail.length;j++) {
                                     var detail = res.res.data_detail[j]
                                     if(row.no_bukti_close == detail.no_bukti) {
                                         diskon = parseFloat(detail.diskon) + diskon;
+                                        
+                                        if(detail.kode_jenis =='JB03'){
+                                            nilai1 = parseFloat(detail.nilai);
+                                        }else if(detail.kode_jenis =='JB02')
+                                        {
+                                            nilai2 = parseFloat(detail.nilai); 
+                                        }else
+                                        {
+                                            nilai3 = parseFloat(detail.nilai);
+                                        }
+
+                                        var nilai1 = nilai1;
+                                        var nilai2 = nilai2;
+                                        var nilai3 = nilai3;
+                                        var total1 = 0;
+                                        var total2 = 0;
+                                        var total3 = 0;
                                         total = parseFloat(detail.nilai) + total;
+                                        total1 = parseFloat(nilai3) + total1;
+                                        total2 = parseFloat(nilai2) + total2;
+                                        total3 = parseFloat(nilai1) + total3;
                                         subTot = parseFloat(detail.nilai) - parseFloat(detail.diskon);
+                                        
                                         html += `<tr>
-                                            <td class="text-center isi-laporan">${no}</td>    
-                                            <td class="text-center isi-laporan">${detail.no_bukti}</td>    
+                                            <td class="text-center isi-laporan">${no}</td>        
                                             <td class="text-center isi-laporan">${detail.no_jual}</td>    
                                             <td class="text-center isi-laporan">${detail.periode}</td>    
-                                            <td class="text-center isi-laporan">${detail.tanggal}</td>    
-                                            <td class="text-right isi-laporan">${sepNum(detail.diskon)}</td>    
-                                            <td class="text-right isi-laporan">${sepNum(detail.nilai)}</td>   
+                                            <td class="text-center isi-laporan">${detail.tanggal}</td>     
+                                            <td class="text-right isi-laporan">${sepNum(nilai3)}</td>   
+                                            <td class="text-right isi-laporan">${sepNum(nilai2)}</td>   
+                                            <td class="text-right isi-laporan">${sepNum(nilai1)}</td>   
                                         </tr>`
                                         no++;
                                     }
                                 }
                         html += `</tbody>
                             <tr>
-                                <td style="border-bottom: solid 0.5px black;" class="text-right" colspan="5">Diskon</td>
-                                <td style="border-bottom: solid 0.5px black;">:</td>    
-                                <td style="border-bottom: solid 0.5px black;" class="text-right isi-laporan"><b>${sepNum(diskon)}</b></td>    
+                                <td class="text-right" colspan="5">Total Tunai</td>    
+                                <td>:</td>
+                                <td class="text-right isi-laporan"><b>${sepNum(total1)}</b></td>    
                             </tr>
                             <tr>
-                                <td class="text-right" colspan="5">Total</td>    
+                                <td class="text-right" colspan="5">Total Qris</td>    
+                                <td>:</td>
+                                <td class="text-right isi-laporan"><b>${sepNum(total2)}</b></td>    
+                            </tr>
+                            <tr>
+                                <td class="text-right" colspan="5">Total Link Aja</td>    
+                                <td>:</td>
+                                <td class="text-right isi-laporan"><b>${sepNum(total3)}</b></td>    
+                            </tr>
+                            <tr>
+                                <td class="text-right" colspan="5">Total Nilai</td>    
                                 <td>:</td>
                                 <td class="text-right isi-laporan"><b>${sepNum(total)}</b></td>    
                             </tr>

@@ -29,10 +29,15 @@ class StokOpnameController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    public function reverseDate($ymd_or_dmy_date, $org_sep='-', $new_sep='-'){
+        $arr = explode($org_sep, $ymd_or_dmy_date);
+        return $arr[2].$new_sep.$arr[1].$new_sep.$arr[0];
+    }
+    
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-trans/stok-opname',[
+            $response = $client->request('GET',  config('api.url').'esaku-trans/stok-opname',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -53,30 +58,58 @@ class StokOpnameController extends Controller
             return response()->json(['message' => $res["message"], 'status'=>false], 200);
         }
     } 
-    
-    public function execSP(){
-        try {
+
+    public function GenerateBukti(Request $request){
+        try{
+
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-trans/stok-opname-exec',[
+            $response = $client->request('GET',  config('api.url').'esaku-trans/stok-nobukti',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
+                ],
+                'query'=>[
+                    'tanggal' => $request->tanggal
                 ]
             ]);
-
+    
             if ($response->getStatusCode() == 200) { // 200 OK
                 $response_data = $response->getBody()->getContents();
                 
                 $data = json_decode($response_data,true);
             }
             return response()->json($data, 200); 
-
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
-            return response()->json(['message' => $res["message"], 'status'=>false], 200);
-        }
-    } 
+            return response()->json(['message' => $res, 'status'=>false], 200);
+        } 
+    }
+    
+    public function getLoadData(Request $request){
+        try{
+
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'esaku-trans/get-loaddata-stok',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query'=> $request->all()
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+            }
+            return response()->json($data, 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res, 'status'=>false], 200);
+        } 
+    }
 
     public function load(Request $request){
         try {
@@ -139,40 +172,44 @@ class StokOpnameController extends Controller
             }
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $this->validate($request, [
+            'no_bukti' => 'required',
             'tanggal' => 'required',
-            'deskripsi' => 'required',
-            'kode_gudang' => 'required'
+            'kode_barang' => 'required',
+            'nama' => 'required',
+            'stok_sistem' => 'required',
+            'sop' => 'required',
+            'sls' => 'required'
         ]);
+        try {
 
-        try {   
+            $send_data = $request->all();
+            $send_data['tanggal'] = $this->reverseDate($send_data['tanggal'], '/', '-');
+            
             $client = new Client();
-            $response = $client->request('POST',  config('api.url').'toko-trans/stok-opname',[
+            $response = $client->request('POST',  config('api.url') . 'esaku-trans/stok-opname', [
                 'headers' => [
-                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Authorization' => 'Bearer ' . Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
-                'form_params' => [
-                    'tanggal' => $request->tanggal,
-                    'deskripsi' => $request->deskripsi,
-                    'kode_gudang' => $request->kode_gudang,
-                    'kode_pp' => Session::get('kodePP')
-                ]
+                'form_params' => $send_data
             ]);
+
             if ($response->getStatusCode() == 200) { // 200 OK
                 $response_data = $response->getBody()->getContents();
-                
-                $data = json_decode($response_data,true);
-                return response()->json($data, 200);  
-            }
 
+                $data = json_decode($response_data, true);
+                return response()->json(["data" => $data], 200);
+            }
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
-            $res = json_decode($response->getBody(),true);
-            $data['message'] = $res;
-            $data['status'] = false;
-            return response()->json($data, 500);
+            $res = json_decode($response->getBody(), true);
+            dd($res);
+            $result['message'] = $res;
+            $result['status'] = false;
+            return response()->json(["data" => $result], 200);
         }
     }
 
