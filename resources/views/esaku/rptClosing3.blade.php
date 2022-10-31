@@ -40,38 +40,26 @@ function drawRptPage(data,res,from,to){
                             <hr />
                             <table>
                                 <tbody>
-                                    <tr>
-                                        <td style="width: 201px;">No Open Kasir</td>
-                                        <td>: ${row.no_bukti_open}</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="width: 201px;">Waktu</td>
-                                        <td>: ${row.tanggal_open} ${row.jam_open}</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="width: 201px;">No Closing Kasir</td>
-                                        <td>: ${row.no_bukti_close}</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="width: 201px;">Waktu</td>
-                                        <td>: ${row.tanggal_close} ${row.jam_close}</td>
-                                    </tr>
-                                    <tr>
+                                <tr>
                                         <td style="width: 201px;">Saldo Awal</td>
                                         <td>: ${sepNum(row.saldo_awal)}</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="width: 201px;">Total Penjualan</td>
-                                        <td>: ${sepNum(row.total_pnj)}</td>
-                                    </tr>    
-                                    <tr>
-                                        <td style="width: 201px;">Total</td>
-                                        <td>: ${sepNum(totalPenj)}</td>
                                     </tr>
                                     <tr>
                                         <td style="width: 201px;">Kasir</td>
                                         <td>: ${row.nik_user}</td>
                                     </tr>    
+                                    <tr>
+                                        <td style="width: 201px;">No Open Kasir</td>
+                                        <td>: ${row.no_bukti_open}</td> <br>
+                                        <td style="width: 150px;">Waktu</td>
+                                        <td>: ${row.tanggal_open} ${row.jam_open}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 201px;">No Closing Kasir</td>
+                                        <td>: ${row.no_bukti_close}</td>
+                                        <td style="width: 201px;">Waktu</td>
+                                        <td>: ${row.tanggal_close} ${row.jam_close}</td>
+                                    </tr>
                                 </tbody>
                             </table>      
                         </div>    
@@ -116,7 +104,7 @@ function drawRptPage(data,res,from,to){
                                         var total2 = 0;
                                         var total3 = 0;
                                         total = parseFloat(detail.nilai) + total;
-                                        total1 = parseFloat(nilai3) + total1;
+                                        total1 = parseFloat(total) + total1;
                                         total2 = parseFloat(nilai2) + total2;
                                         total3 = parseFloat(nilai1) + total3;
                                         subTot = parseFloat(detail.nilai) - parseFloat(detail.diskon);
@@ -135,19 +123,9 @@ function drawRptPage(data,res,from,to){
                                 }
                         html += `</tbody>
                             <tr>
-                                <td class="text-right" colspan="5">Total Tunai</td>    
-                                <td>:</td>
-                                <td class="text-right isi-laporan"><b>${sepNum(total1)}</b></td>    
-                            </tr>
-                            <tr>
-                                <td class="text-right" colspan="5">Total Qris</td>    
-                                <td>:</td>
-                                <td class="text-right isi-laporan"><b>${sepNum(total2)}</b></td>    
-                            </tr>
-                            <tr>
-                                <td class="text-right" colspan="5">Total Link Aja</td>    
-                                <td>:</td>
-                                <td class="text-right isi-laporan"><b>${sepNum(total3)}</b></td>    
+                                <td class="text-right isi-laporan" colspan="5"><b>${sepNum(total1)}</b></td>    
+                                <td class="text-right isi-laporan" ><b>${sepNum(total2)}</b></td>    
+                                <td class="text-right isi-laporan" ><b>${sepNum(total3)}</b></td>    
                             </tr>
                             <tr>
                                 <td class="text-right" colspan="5">Total Nilai</td>    
