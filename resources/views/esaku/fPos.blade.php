@@ -100,7 +100,7 @@ date_default_timezone_set('Asia/Jakarta');
                                 </div>
                                 <div class="col-12 mt-2 float-right">
                                     <div class="form-group row">
-                                    <label for="judul" class="col-1  col-form-label float-right " style="font-size:16px" >J.Bayar</label>
+                                    <label for="judul" class="col-1  col-form-label float-right " style="font-size:16px" >Metode</label>
                                          <div class="col-2">
                                          <select class='form-control' id="kode_jenis" name="kode_jenis">
                                                 <option value=''>--CTRL+V--</option>
@@ -852,7 +852,7 @@ date_default_timezone_set('Asia/Jakarta');
                     input += "<td width='15%' style='text-align:right'><input type='text' name='sub_barang[]' class='change-validation inp-subb form-control'  value='"+toRp(sub)+"' readonly required></td>";
                     input += "<td width='10%' style='text-align:right'><input type='text' name='disc_barang[]' class='change-validation inp-disc form-control'  value='"+toRp(disc)+"' readonly required></td>";
                     input += "<td width='10%' style='text-align:right;display:none'><input type='text' name='ppn_barang[]' class='change-validation inp-ppn form-control'  value='"+toRp(ppn)+"' readonly required></td>";
-                    input += "<td width='10%'></a><a class='btn btn-primary btn-sm ubah-barang' style='font-size:18px !important'><i class='fas fa-pencil-alt fa-1'></i></a>&nbsp;<a class='btn btn-danger btn-sm hapus-item' style='font-size:18px !important'><i class='fa fa-times fa-1'></i></td>";
+                    input += "<td width='10%' class='text-center'></a><a href='#' class='btn btn-sm ubah-barang' style='font-size:18px !important;padding:0'><i class='simple-icon-pencil'></i></a>&nbsp;<a href='#' class='btn btn-sm hapus-item' style='font-size:18px !important;margin-left:10px;padding:0'><i class='simple-icon-trash'></i></td>";
                     input += "</tr>";
                     
                     $('.set-selected').closest('tr').remove();

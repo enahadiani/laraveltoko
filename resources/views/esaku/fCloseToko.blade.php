@@ -97,6 +97,12 @@
                                         <button type="button" href="#" id="load-data" class="btn btn-primary float-right">Tampil Data</button>
                                     </div>
                                 </div>
+                                <!-- <div class="col-md-2 col-sm-12">
+                                    <label for="btn-control">&nbsp;</label>
+                                    <div id="btn-control">
+                                        <button type="button" href="#" id="load-update" class="btn btn-primary float-right">Update</button>
+                                    </div>
+                                </div> -->
                                 <div class="col-md-2 col-sm-12">
                                     <label for="btn-control">&nbsp;</label>
                                     <div id="btn-control">
@@ -434,14 +440,49 @@
                             'padding-top': '4px',
                             'padding-bottom': '4px'
                         });
-                } else if (!data.status && data.message == 'Unauthorized') {
+                } else if (!result.status && result.message == 'Unauthorized') {
                     window.location.href = "{{ url('bdh-auth/sesi-habis') }}";
                 } else {
                     msgDialog({
                         id: '-',
                         type: 'warning',
                         title: 'Gagal memuat',
-                        text: JSON.stringify(data.message)
+                        text: JSON.stringify(result.message)
+                    });
+                }
+            }
+        });
+    }
+
+    function update(kode_gudang) {
+        // $(this).text("Please Wait...").attr('disabled', 'disabled');
+        $.ajax({
+            type: 'POST',
+            url: "{{ url('esaku-trans/sync-update') }}",
+            dataType: 'json',
+            async: false,
+            data: {
+                kode_gudang: kode_gudang
+            },
+            success: function(result) {
+                var data = result.data;
+                // console.log(data);
+                if (data.status) {
+                        activaTab("detail-bill");
+                        activaTab("rekap-bill");
+                        activaTab("detail-pnj");
+                        $('.dataTables_scrollBody td').css({
+                            'padding-top': '4px',
+                            'padding-bottom': '4px'
+                        });
+                } else if (!result.status && result.message == 'Unauthorized') {
+                    window.location.href = "{{ url('bdh-auth/sesi-habis') }}";
+                } else {
+                    msgDialog({
+                        id: '-',
+                        type: 'warning',
+                        title: 'Gagal memuat',
+                        text: JSON.stringify(result.message)
                     });
                 }
             }
@@ -517,6 +558,19 @@
             [4, "desc"]
         ]
     );
+
+    $('#btn-tambah').prop('disabled', false).removeClass('disabled')
+
+    if (typeof dataTable !== 'null') {
+        let data = dataTable.context[0].json.daftar
+        
+        data.forEach((item) => {
+            if (item.no_close === '-') {
+                $('#btn-tambah').prop('disabled', true)
+                return
+            }
+        })
+    }
 
     $.fn.DataTable.ext.pager.numbers_length = 5;
 
@@ -645,10 +699,18 @@
     });
 
     $('#form-tambah').on('click', '#btn-sync', function(e) {
-        var tanggal = reverseDate2($('#tanggal').val(), '/', '-');
+        // var tanggal = reverseDate2($('#tanggal').val(), '/', '-');
+        var tanggal = $('#tanggal').val();
         var kode_lokasi = $('#kode_lokasi').val();
         sync(tanggal);
     });
+
+    // $('#form-tambah').on('click', '#load-update', function(e) {
+    //     // var tanggal = reverseDate2($('#tanggal').val(), '/', '-');
+    //     var tanggal = $('#tanggal').val();
+    //     var kode_lokasi = $('#kode_lokasi').val();
+    //     update(tanggal);
+    // });
 
     
 
