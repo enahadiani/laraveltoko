@@ -27,23 +27,23 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
-                                <label for="kode_barang">Kode Barang</label>
+                                <label for="kode_barang">*Kode Barang</label>
                                 <input class="form-control" type="text" id="kode_barang" name="kode_barang" required>
                             </div>
                             <div class="form-group col-md-6 col-sm-12">
-                                <label for="barcode">Barcode</label>
+                                <label for="barcode">*Barcode</label>
                                 <input class="form-control" type="text" id="barcode" name="barcode" required>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-12 col-sm-12">
-                                <label for="nama">Nama</label>
+                                <label for="nama">*Nama</label>
                                 <input class="form-control" type="text" id="nama" name="nama" required>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
-                                <label for="satuan">Satuan Barang</label>
+                                <label for="satuan">*Satuan Barang</label>
                                 <div class="input-group mb-2">
                                     <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                         <span class="input-group-text info-code_satuan" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
@@ -57,7 +57,7 @@
                                 </div>
                             </div>
                             <div class="form-group col-md-6 col-sm-12">
-                                <label for="kode_klp">Kelompok Barang</label>
+                                <label for="kode_klp">*Kelompok Barang</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                         <span class="input-group-text info-code_kode_klp" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
@@ -77,7 +77,7 @@
                                 <input class="form-control" type="text" id="keterangan" name="keterangan" required>
                             </div> -->
                             <div class="form-group col-md-6 col-sm-12">
-                                <label for="kode_gudang">Gudang/Toko</label>
+                                <label for="kode_gudang">*Gudang/Toko</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                         <span class="input-group-text info-code_kode_gudang" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
@@ -91,48 +91,18 @@
                                 </div>
                             </div>
                             <div class="form-group col-md-6 col-sm-12">
-                                <label for="hrg_satuan">Harga Satuan</label>
+                                <label for="hrg_satuan">*Harga Satuan</label>
                                 <input class="form-control currency nominal"  value="0" type="text" id="hrg_satuan" name="hrg_satuan" required>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
-                                <label for="ppn">PPN (%)</label>
+                                <label for="ppn">*PPN (%)</label>
                                 <input class="form-control nominal" type="text" id="ppn" name="ppn" value="0" required>
                             </div>
                             <div class="form-group col-md-6 col-sm-12">
                                 <label for="tarif-ppn">&nbsp;</label>
                                 <input class="form-control currency" type="text" id="tarif-ppn" value="0" readonly>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6 col-sm-12">
-                                <label for="sm">Slow Moving</label>
-                                <input class="form-control currency" type="text" id="sm1" name="sm1" required value="0">
-                            </div>
-                            <div class="form-group col-md-6 col-sm-12">
-                                <label for="sm2">&nbsp;</label>
-                                <input class="form-control currency" type="text" id="sm2" name="sm2" required value="0">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6 col-sm-12">
-                                <label for="profit">Profit (%)</label>
-                                <input class="form-control nominal" type="text" id="profit" name="profit" value="0" required>
-                            </div>
-                            <div class="form-group col-md-6 col-sm-12">
-                                <label for="tarif-profit">&nbsp;</label>
-                                <input class="form-control currency" type="text" id="tarif-profit" value="0" readonly>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6 col-sm-12">
-                                <label for="mm1">Medium Moving</label>
-                                <input class="form-control currency" type="text" id="mm1" name="mm1" required value="0">
-                            </div>
-                            <div class="form-group col-md-6 col-sm-12">
-                                <label for="mm2">&nbsp;</label>
-                                <input class="form-control currency" type="text" id="mm2" name="mm2" required value="0">
                             </div>
                         </div>
                         <div class="form-row">
@@ -147,6 +117,36 @@
                                     <option value='1'>AKTIF</option>
                                     <option value='0'>NON-AKTIF</option>
                                 </select>     
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="profit">Profit (%)</label>
+                                <input class="form-control nominal" type="text" id="profit" name="profit" value="0" required>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="tarif-profit">&nbsp;</label>
+                                <input class="form-control currency" type="text" id="tarif-profit" value="0" readonly>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="sm">Slow Moving</label>
+                                <input class="form-control currency" type="text" id="sm1" name="sm1" required value="0">
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="sm2">&nbsp;</label>
+                                <input class="form-control currency" type="text" id="sm2" name="sm2" required value="0">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="mm1">Medium Moving</label>
+                                <input class="form-control currency" type="text" id="mm1" name="mm1" required value="0">
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="mm2">&nbsp;</label>
+                                <input class="form-control currency" type="text" id="mm2" name="mm2" required value="0">
                             </div>
                         </div>
                         <div class="form-row">
@@ -628,52 +628,52 @@
             ppn:
             {
                 required: true
-            },
-            profit:
-            {
-                required: true
-            },
-            hna:
-            {
-                required: true
-            }, 
-            ss:
-            {
-                required: true
-            }, 
-            flag_aktif:
-            {
-                required: true
-            }, 
-            sm1:
-            {
-                required: true
-            }, 
-            sm2:
-            {
-                required: true
-            },
-            fm2:
-            {
-                required: true
-            },
-            fm1:
-            {
-                required: true
-            },
-            mm1:
-            {
-                required: true
-            },
-            mm2:
-            {
-                required: true
             }
-            ,
-            flag_ppn:
-            {
-                required: true
-            }
+            // profit:
+            // {
+            //     required: true
+            // },
+            // hna:
+            // {
+            //     required: true
+            // }, 
+            // ss:
+            // {
+            //     required: true
+            // }, 
+            // flag_aktif:
+            // {
+            //     required: true
+            // }, 
+            // sm1:
+            // {
+            //     required: true
+            // }, 
+            // sm2:
+            // {
+            //     required: true
+            // },
+            // fm2:
+            // {
+            //     required: true
+            // },
+            // fm1:
+            // {
+            //     required: true
+            // },
+            // mm1:
+            // {
+            //     required: true
+            // },
+            // mm2:
+            // {
+            //     required: true
+            // }
+            // ,
+            // flag_ppn:
+            // {
+            //     required: true
+            // }
         },
         errorElement: "label",
         submitHandler: function (form) {
@@ -952,7 +952,7 @@
         digits: 2,
         autoGroup: true,
         rightAlign: true,
-        oncleared: function () { self.Value(''); }
+        // oncleared: function () { self.Value(''); }
     });
 
     $('.modal-header').on('click','#btn-delete2',function(e){
