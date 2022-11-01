@@ -239,12 +239,15 @@
             var formData = new FormData(form);
             
             var param = $('#id').val();
-            var tanggal = $('#tanggal').val();
+            var id = $('#tanggal').val();
+            
             // $iconLoad.show();
             if(param == "edit"){
                 var url = "{{ url('esaku-trans/open-toko') }}";
+                var text = "Open toko pada tanggal "+id+" berhasil dibuka";
             }else{
                 var url = "{{ url('esaku-trans/open-toko') }}";
+                var text = "Open toko pada tanggal "+id+" berhasil dibuka";
             }
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
@@ -270,10 +273,11 @@
                             $('#id_edit').val('');   
                             msgDialog({
                                 id:result.data.tanggal,
-                                type:'simpan'
+                                type:'simpan',
+                                text: 'Toko Berhasil di Buka'
                             });
                             
-                            last_add("tanggal",result.data.tanggal);
+                            // last_add("tanggal",result.data.tanggal);
                         } else if(!result.data.status) {
                             showNotification("top", "center", "success",'Hapus Data',result.data.message);
                             $('#modal-pesan-id').html('');
@@ -284,9 +288,8 @@
                         }else{
                             if(result.data.jenis == 'duplicate'){
                                 msgDialog({
-                                    id: result.data.tanggal,
-                                    type: result.data.jenis,
-                                    text: result.data.message
+                                    type: 'simpan',
+                                    
                                 });
                             }else{
                                 msgDialog({
