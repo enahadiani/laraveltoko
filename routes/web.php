@@ -17,51 +17,8 @@ Route::get('/', function () {
     $domain = $_SERVER['SERVER_NAME'];
     // echo $domain;
     switch ($domain){
-        case 'fo.simkug.com' : 
-            return redirect('dago-auth/login');
-        break;
-        case 'silo.simkug.com' : 
-            return redirect('apv/login');
-        break;
-        case 'javaturbine.co.id' : 
-        case 'www.javaturbine.co.id':
-            return redirect('webjava-v2/');
-        break;
-        case 'trengginasjaya.com' :
-        case 'www.trengginasjaya.com' : 
-            // echo $domain;
-            return redirect('webginas2/');
-        break;
-        case 'rds.esaku.id': 
+        case 'laraveltoko' : 
             return redirect('esaku-auth/login');
-        break;
-        case 'tjmart.trengginasjaya.com' : 
-            // echo $domain;
-            return redirect('esaku-auth/login');
-        break;
-        case 'sdm.trengginasjaya.com' : 
-            // echo $domain;
-            return redirect('esaku-auth/login');
-        break;
-        case 'ts.simkug.com' :
-            case 'www.ts.simkug.com' : 
-                // echo $domain;
-                return redirect('ts-auth/login');
-            break;
-        case 'sidarwis.com' : 
-            return redirect('wisata-auth/login');
-        break;
-        case 'dash.simkug.com' : 
-            return redirect('dash-telu/login');
-        break;
-        case 'siswa.simkug.com' : 
-            return redirect('mobile-tarbak/login');
-        break;
-        case 'bisimkug.ypt.or.id' : 
-            return redirect('dash-ypt/login');
-        break;
-        case 'devapp.simkug.com' : 
-            return redirect('siaga-auth/login');
         break;
         default : 
             return view('welcome');

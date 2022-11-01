@@ -279,7 +279,10 @@ date_default_timezone_set('Asia/Jakarta');
                 </div>
             </div>
             <div class="modal-footer" style="padding: 0;">
-            <button id="cetakBtn" type="button" class="btn btn-info btn-block" style="border-bottom-left-radius: 15px;border-bottom-right-radius: 15px;">Cetak</button>
+                <div class="btn-group btn-block" role="group">
+                    <button id="closeBtn" type="button" class="btn btn-light" style="border-bottom-left-radius: 15px;">Close</button>
+                    <button id="cetakBtn" type="button" class="btn btn-info" style="border-bottom-right-radius: 15px;">Cetak</button>
+                </div>
             </div>
         </div>
     </div>
