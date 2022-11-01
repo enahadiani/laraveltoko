@@ -920,10 +920,21 @@ date_default_timezone_set('Asia/Jakarta');
 
     $('#cetakBtn').click(function(){
         var no_jual = $('#modal-no_jual').text();
-        printPage("{{ url('esaku-trans/nota') }}/?no_jual="+no_jual);
+        window.open("{{ url('esaku-report/lap-nota-jual-print-baru') }}/?periode[]=all&periode[]=&periode[]=&no_bukti[]==&no_bukti[]="+no_jual+"&no_bukti[]=");
         resetForm();
         $('#modal-bayar2').modal('hide');
     }); 
+
+    $('#closeBtn').click(function(){
+        resetForm();
+        $('#modal-bayar2').modal('hide');
+    }); 
+    // $('#cetakBtn').click(function(){
+    //     var no_jual = $('#modal-no_jual').text();
+    //     printPage("{{ url('esaku-trans/nota') }}/?no_jual="+no_jual);
+    //     resetForm();
+    //     $('#modal-bayar2').modal('hide');
+    // }); 
 
     $('#input-grid2').on('keydown', '.inp-qtyb', function(e){
         if (e.which == 9 || e.which == 40 || e.which == 38) {
