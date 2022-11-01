@@ -926,7 +926,7 @@ date_default_timezone_set('Asia/Jakarta');
         window.open("{{ url('esaku-report/lap-nota-jual-print-baru') }}/?periode[]=all&periode[]=&periode[]=&no_bukti[]==&no_bukti[]="+no_jual+"&no_bukti[]=");
         resetForm();
         $('#modal-bayar2').modal('hide');
-    }); 
+    });
 
     $('#closeBtn').click(function(){
         resetForm();
