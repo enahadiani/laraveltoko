@@ -920,7 +920,7 @@ date_default_timezone_set('Asia/Jakarta');
 
     $('#cetakBtn').click(function(){
         var no_jual = $('#modal-no_jual').text();
-        window.open("{{ url('esaku-report/lap-nota-jual') }}/?periode[]=all&periode[]=&periode[]=&no_bukti[]==&no_bukti[]="+no_jual+"&no_bukti[]=");
+        window.open("{{ url('esaku-report/lap-nota-jual-print-baru') }}/?periode[]=all&periode[]=&periode[]=&no_bukti[]==&no_bukti[]="+no_jual+"&no_bukti[]=");
         resetForm();
         $('#modal-bayar2').modal('hide');
     }); 
