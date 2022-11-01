@@ -56,10 +56,12 @@ Route::get('close-toko-nobukti','Esaku\Inventori\CloseTokoController@GenerateBuk
 Route::get('close-toko-data','Esaku\Inventori\CloseTokoController@loadData');
 Route::get('close-toko-data-detail','Esaku\Inventori\CloseTokoController@loadDataDetail');
 Route::get('close-toko-data-pnj','Esaku\Inventori\CloseTokoController@loadDataPenjualan');
+Route::get('close-toko-data-beli','Esaku\Inventori\CloseTokoController@loadDataBeli');
 Route::post('close-toko', 'Esaku\Inventori\CloseTokoController@store');
 //sync waktu close toko
 Route::get('sync-pmb-ct', 'Esaku\Inventori\CloseTokoController@getSyncCT');
 Route::post('sync-pmb-ct', 'Esaku\Inventori\CloseTokoController@syncPmbCT');
+Route::post('sync-update', 'Esaku\Inventori\CloseTokoController@syncUpdate');
 
 // Pembelian Routes //
 Route::get('pembelian', 'Esaku\Inventori\PembelianController@index');
