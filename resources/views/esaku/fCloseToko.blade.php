@@ -122,6 +122,9 @@
                         <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#detail-pnj"
                                 role="tab" aria-selected="true"><span class="hidden-xs-down">Data Penjualan</span></a>
                         </li>
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#detail-belibayar"
+                                role="tab" aria-selected="true"><span class="hidden-xs-down">Data Beli Bayar</span></a>
+                        </li>
                     </ul>
                     <div class="tab-content tabcontent-border col-12 p-0">
                         <div class="tab-pane active" id="rekap-bill" role="tabpanel">
@@ -196,6 +199,32 @@
                                             <th style="width:80px">Nilai</th>
                                             <th style="width:80px">Total Bayar</th>
                                             <th style="width:80px">Kode Gudang</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="detail-belibayar" role="tabpanel">
+                            <div class='col-md-12 nav-control' style="padding: 0px 5px;">
+                                <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;"
+                                    class=""><span
+                                        style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;"
+                                        id="total-row_detail"></span></a>
+                            </div>
+                            <div class='col-md-12 table-responsive' style='margin:0px; padding:0px;'>
+                                <table class="table table-bordered table-condensed gridexample" id="input-belibayar"
+                                    style="with:2050px;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                    <thead style="background:#F8F8F8">
+                                        <tr>
+                                            <th style="width:30px">No</th>
+                                            <th style="width:120px">No Bukti</th>
+                                            <th style="width:90px">No Beli</th>
+                                            <th style="width:150px">Kode Vendor</th>
+                                            <th style="width:80px">Periode</th>
+                                            <th style="width:80px">DC</th>
+                                            <th style="width:80px">Nilai</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -398,6 +427,42 @@
                 if (result.status) {
                     if (data.length > 0) {
                         activaTab("detail-pnj");
+                        tablejual.rows.add(data).draw(false);
+                        $('.dataTables_scrollBody td').css({
+                            'padding-top': '4px',
+                            'padding-bottom': '4px'
+                        });
+                        tablejual.columns.adjust().draw();
+                    }
+                } else if (!result.status && result.message == 'Unauthorized') {
+                    window.location.href = "{{ url('bdh-auth/sesi-habis') }}";
+                } else {
+                    msgDialog({
+                        id: '-',
+                        type: 'warning',
+                        title: 'Gagal memuat',
+                        text: JSON.stringify(result.message)
+                    });
+                }
+            }
+        });
+    }
+
+    function loadBeli(tanggal) {
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('esaku-trans/close-toko-data-beli') }}",
+            dataType: 'json',
+            async: false,
+            data: {
+                tanggal: tanggal
+            },
+            success: function(result) {
+                var data = result.data;
+                tablebelibayar.clear().draw();
+                if (result.status) {
+                    if (data.length > 0) {
+                        activaTab("detail-belibayar");
                         tablejual.rows.add(data).draw(false);
                         $('.dataTables_scrollBody td').css({
                             'padding-top': '4px',
@@ -690,7 +755,8 @@
         var kode_lokasi = $('#kode_lokasi').val();
         loadData(tanggal,kode_lokasi);
         loadDetail(tanggal);
-        loadPenj(tanggal)
+        loadPenj(tanggal);
+        loadBeli(tanggal);
     });
 
     $('#input-bill').on('click', '#btn-detail', function(e) {
@@ -847,6 +913,59 @@
                     rowData.status = 'INPROG';
                 }
             })
+        },
+        language: {
+            paginate: {
+                previous: "<i class='simple-icon-arrow-left'></i>",
+                next: "<i class='simple-icon-arrow-right'></i>"
+            },
+            search: "_INPUT_",
+            searchPlaceholder: "Search...",
+            lengthMenu: "Items Per Page _MENU_",
+            info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
+            infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
+            infoFiltered: "(terfilter dari _MAX_ total entri)"
+        }
+    });
+
+    // TABLE Penjualan
+    var tablebelibayar = $("#input-belibayar").DataTable({
+        destroy: true,
+        bLengthChange: false,
+        scrollY: 'calc(100vh - 300px)',
+        sDom: 't<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
+        data: [],
+        columnDefs: [
+            
+            {
+                'targets': [6],
+                'className': 'text-right',
+                'render': $.fn.dataTable.render.number('.', ',', 0, '')
+            }
+        ],
+        select: {
+            style: 'multi',
+            selector: 'td:nth-child(2)'
+        },
+        columns: [
+            { data: 'no' },
+            { data: 'no_bukti' },
+            { data: 'no_beli' },
+            { data: 'kode_vendor' },
+            { data: 'periode' },
+            { data: 'dc' },
+            { data: 'nilai' }
+        ],
+        order: [],
+        drawCallback: function() {
+            $($(".dataTables_wrapper .pagination li:first-of-type"))
+                .find("a")
+                .addClass("prev");
+            $($(".dataTables_wrapper .pagination li:last-of-type"))
+                .find("a")
+                .addClass("next");
+
+            $(".dataTables_wrapper .pagination").addClass("pagination-sm");
         },
         language: {
             paginate: {
@@ -1023,6 +1142,8 @@
         tabledet.columns.adjust().draw();
         tablejual.clear().draw();
         tablejual.columns.adjust().draw();
+        tablebelibayar.clear().draw();
+        tablebelibayar.columns.adjust().draw();
     });
     // END BUTTON TAMBAH
 

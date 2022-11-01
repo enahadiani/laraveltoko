@@ -391,6 +391,36 @@ class CloseTokoController extends Controller
         } 
     }
 
+    public function loadDataBeli(Request $request)
+    {
+        try{
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'esaku-trans/close-toko-data-beli',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => $request->input()
+
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data;
+            }
+            return response()->json($data, 200); 
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $result['message'] = $res;
+            $result['status']=false;
+            return response()->json($result, 200);
+        } 
+    }
+
     public function getSyncCT(){
         try { 
             $client = new Client();
@@ -436,6 +466,42 @@ class CloseTokoController extends Controller
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
             $result['message'] = $res["message"];
+            $result['status']=false;
+            return response()->json(["data" => $result], 200);
+        } 
+        
+    }
+
+    public function syncUpdate(Request $request)
+    {
+        $this->validate($request, [
+            'kode_gudang' => 'required'
+        ]);
+        try{
+
+            $fields = [
+                'kode_gudang'=> $request->input('kode_gudang')
+            ];
+
+            $client = new Client();
+            $response = $client->request('POST',  config('api.url').'esaku-trans/sync-update',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                ],
+                'form_params' => $fields
+            ]);
+            
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                return response()->json(["data" =>$data], 200);  
+            }
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $result['message'] = $res;
             $result['status']=false;
             return response()->json(["data" => $result], 200);
         } 

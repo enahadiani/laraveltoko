@@ -107,11 +107,11 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
-                                <label for="hna">Harga Jual</label>
+                                <label for="hna">*Harga Jual</label>
                                 <input class="form-control currency"  value="0" type="text" id="hna" name="hna" required>
                             </div>
                             <div class="form-group col-md-6 col-sm-12">
-                                <label for="flag_aktif">Status Aktif</label>
+                                <label for="flag_aktif">*Status Aktif</label>
                                 <select class='form-control selectize' id="flag_aktif" name="flag_aktif">
                                     <option value='' disabled selected>--- Pilih Status Aktif ---</option>
                                     <option value='1'>AKTIF</option>
@@ -628,23 +628,23 @@
             ppn:
             {
                 required: true
-            }
+            },
             // profit:
             // {
             //     required: true
             // },
-            // hna:
-            // {
-            //     required: true
-            // }, 
+            hna:
+            {
+                required: true
+            }, 
             // ss:
             // {
             //     required: true
             // }, 
-            // flag_aktif:
-            // {
-            //     required: true
-            // }, 
+            flag_aktif:
+            {
+                required: true
+            }, 
             // sm1:
             // {
             //     required: true

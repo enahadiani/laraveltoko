@@ -65,7 +65,7 @@ class BarangController extends Controller
             'hrg_satuan' => 'required',
             'ppn' => 'required',
             // 'profit' => 'required',
-            // 'hna' => 'required',
+            'hna' => 'required',
             // 'ss' => 'required',
             // 'sm1' => 'required',
             // 'sm2' => 'required',
@@ -73,7 +73,7 @@ class BarangController extends Controller
             // 'mm2' => 'required',
             // 'fm1' => 'required',
             // 'fm2' => 'required',
-            // 'flag_aktif' => 'required',
+            'flag_aktif' => 'required',
             // 'file_gambar' => 'file|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
