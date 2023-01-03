@@ -138,17 +138,11 @@
                                         <label for="nik">NIK Kasir</label>
                                         <input class='form-control' type="text" id="nik" name="nik" readonly>
                                     </div>
-                                    <div class="col-md-6 col-sm-12">
-                                        <label for="tgl_open">Tanggal Open</label>
-                                        <input class='form-control' type="text" id="tgl_open" name="tgl_open" readonly>
-                                    </div>
                                 </div>
                             </div>
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
-                                        <label for="no_open">No Open</label>
-                                        <input class='form-control' type="text" id="no_open" name="no_open" readonly>
                                     </div>
                                     <div class="col-md-6 col-sm-12">
                                         <label for="saldo_awal">Saldo Awal</label>
@@ -161,8 +155,34 @@
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
+                                        <label for="tgl_open">Tanggal Open</label>
+                                        <input class='form-control' type="text" id="tgl_open" name="tgl_open" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
                                         <label for="total_pnj">Total Penjualan</label>
                                         <input class='form-control currency' type="text" id="total_pnj" name="total_pnj" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="no_open">No Open</label>
+                                        <input class='form-control' type="text" id="no_open" name="no_open" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
                                     </div>
                                     <div class="col-md-6 col-sm-12">
                                         <label for="total_disk">Total Diskon</label>
@@ -170,12 +190,15 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                            </div>
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
-                                    <!-- <div class="col-md-6 col-sm-12">
-                                        <label for="total_ppn">Total PPN</label>
-                                        <input class='form-control currency' type="text" id="total_ppn" name="total_ppn" readonly>
-                                    </div> -->
+                                    <div class="col-md-6 col-sm-12">
+                                        
+                                    </div>
                                     <div class="col-md-6 col-sm-12">
                                         <label for="total">Total</label>
                                         <input class='form-control currency' type="text" id="total" name="total" readonly>
@@ -184,15 +207,55 @@
                             </div>
                         </div>
                         <ul class="nav nav-tabs col-12 nav-grid" role="tablist" style="padding-bottom:0;margin-top:0.1rem;border-bottom:none">
-                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-pnj" role="tab" aria-selected="false"><span class="hidden-xs-down">Detail Penjualan</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-pnj-cash" role="tab" aria-selected="false"><span class="hidden-xs-down">Detail Penjualan Cash</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-pnj-qris" role="tab" aria-selected="false"><span class="hidden-xs-down">Detail Penjualan Qris</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-pnj-link" role="tab" aria-selected="false"><span class="hidden-xs-down">Detail Penjualan Link Aja</span></a> </li>
                             <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-beli" role="tab" aria-selected="false"><span class="hidden-xs-down">Detail Pembelian</span></a> </li>
                             <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-retur" role="tab" aria-selected="false"><span class="hidden-xs-down">Retur Penjualan</span></a> </li>
                         </ul>
-                        <div class="tab-content tabcontent-border col-12 p-0">
-                            <div class="tab-pane active" id="data-pnj" role="tabpanel">
+                        <div class="tab-content tabcontent-border col-12 px-0 mt-3">
+                            <div class="tab-pane active" id="data-pnj-cash" role="tabpanel">
                                 <div class="row">
                                     <div class="col-md-12 table-responsive">
                                         <table id="table-detail" style='width:100%'>
+                                            <thead>
+                                                <tr>
+                                                    <th>No Jual</th>
+                                                    <th>Tanggal</th>
+                                                    <th>Keterangan</th>
+                                                    <th>Periode</th>
+                                                    <th>Total</th>
+                                                    <th>Diskon</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="data-pnj-qris" role="tabpanel">
+                                <div class="row">
+                                    <div class="col-md-12 table-responsive">
+                                        <table id="table-detail-qris" style='width:100%'>
+                                            <thead>
+                                                <tr>
+                                                    <th>No Jual</th>
+                                                    <th>Tanggal</th>
+                                                    <th>Keterangan</th>
+                                                    <th>Periode</th>
+                                                    <th>Total</th>
+                                                    <th>Diskon</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="data-pnj-link" role="tabpanel">
+                                <div class="row">
+                                    <div class="col-md-12 table-responsive">
+                                        <table id="table-detail-link" style='width:100%'>
                                             <thead>
                                                 <tr>
                                                     <th>No Jual</th>
@@ -454,6 +517,60 @@
         []
     );
 
+    var tableDetailQris = generateTableWithoutAjax(
+        "table-detail-qris",
+        [
+            {'targets': [4,5],
+                'className': 'text-right',
+                'render': $.fn.dataTable.render.number( '.', ',', 0, '' )
+            },
+            {'targets': [0],
+                'render': function (data, type, row) {
+                    return data+"<input type='hidden' name='no_jual[]' value='" + data + "'>";
+                }
+            }
+        ],
+        [
+            { data: 'no_jual' },
+            { data: 'tanggal', render: function(data,type,row) {
+                var split = data.split('-');
+                return split[2]+"/"+split[1]+"/"+split[0];
+            } },
+            { data: 'keterangan' },
+            { data: 'periode' },
+            { data: 'nilai' },
+            { data: 'diskon' },
+        ],
+        []
+    );
+
+    var tableDetailLink = generateTableWithoutAjax(
+        "table-detail-link",
+        [
+            {'targets': [4,5],
+                'className': 'text-right',
+                'render': $.fn.dataTable.render.number( '.', ',', 0, '' )
+            },
+            {'targets': [0],
+                'render': function (data, type, row) {
+                    return data+"<input type='hidden' name='no_jual[]' value='" + data + "'>";
+                }
+            }
+        ],
+        [
+            { data: 'no_jual' },
+            { data: 'tanggal', render: function(data,type,row) {
+                var split = data.split('-');
+                return split[2]+"/"+split[1]+"/"+split[0];
+            } },
+            { data: 'keterangan' },
+            { data: 'periode' },
+            { data: 'nilai' },
+            { data: 'diskon' },
+        ],
+        []
+    );
+
     var tableBeli = generateTableWithoutAjax(
         "table-beli",
         [
@@ -634,7 +751,11 @@
                     var tgl = split[2]+"/"+split[1]+"/"+split[0];
                     var total = (parseFloat(result.data.data[0].saldo_awal) + parseFloat(result.data.data[0].total_pnj) ) - parseFloat(result.data.data[0].total_disk);
                     tableDetail.clear().draw();
-                    tableDetail.rows.add(result.data.data_detail).draw(false);
+                    tableDetail.rows.add(result.data.data_jual_cash).draw(false);
+                    tableDetailQris.clear().draw();
+                    tableDetailQris.rows.add(result.data.data_jual_qris).draw(false);
+                    tableDetailLink.clear().draw();
+                    tableDetailLink.rows.add(result.data.data_jual_linkaja).draw(false);
                     tableBeli.clear().draw();
                     tableBeli.rows.add(result.data.data_beli).draw(false);
                     tableRetur.clear().draw();

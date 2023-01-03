@@ -111,7 +111,7 @@ class CloseKasirController extends Controller
             'total_pnj' => 'required',
             'total_disk' => 'required',
             // 'total_ppn' => 'required',
-            // 'no_jual' => 'required|array',
+            'no_jual' => 'required|array',
         ]);
 
         try {
@@ -119,42 +119,42 @@ class CloseKasirController extends Controller
                 'no_open'=>$request->no_open,
                 'total_pnj'=>intval(str_replace('.','', $request->total_pnj)),
                 'total_diskon'=>intval(str_replace('.','', $request->total_disk)),
-                // 'total_ppn'=>intval(str_replace('.','', $request->total_ppn)),
-                // 'no_jual'=>$request->no_jual,
+                'saldo_awal'=>intval(str_replace('.','', $request->saldo_awal)),
+                'no_jual'=>$request->no_jual,
                 'kode_pp'=>Session::get('kodePP'),
                 'tanggal'=>date('Y-m-d')
-                );
-
-                if(isset($request->no_beli)){
-                    $fields = array_merge($fields,array('no_beli' => $request->no_beli));
-                }
-
-                if(isset($request->no_retur)){
-                    $fields = array_merge($fields,array('no_retur' => $request->no_retur));
-                }
-                
-                $client = new Client();
-                $response = $client->request('POST',  config('api.url').'esaku-trans/close-kasir',[
-                    'headers' => [
-                        'Authorization' => 'Bearer '.Session::get('token'),
-                        'Content-Type'     => 'application/json',
-                    ],
-                    'body' => json_encode($fields)
-                ]);
-                if ($response->getStatusCode() == 200) { // 200 OK
-                    $response_data = $response->getBody()->getContents();
-                    
-                    $data = json_decode($response_data,true);
-                    return response()->json(['data' => $data], 200);  
-                }
-
-        } catch (BadResponseException $ex) {
-                $response = $ex->getResponse();
-                $res = json_decode($response->getBody(),true);
-                $data['message'] = $res;
-                $data['status'] = false;
-                return response()->json(['data' => $data], 500);
+            );
+            
+            if(isset($request->no_beli)){
+                $fields = array_merge($fields,array('no_beli' => $request->no_beli));
             }
+
+            if(isset($request->no_retur)){
+                $fields = array_merge($fields,array('no_retur' => $request->no_retur));
+            }
+            
+            $client = new Client();
+            $response = $client->request('POST',  config('api.url').'esaku-trans/close-kasir',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Content-Type'     => 'application/json',
+                ],
+                'body' => json_encode($fields)
+            ]);
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                return response()->json(['data' => $data], 200);  
+            }
+            
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res;
+            $data['status'] = false;
+            return response()->json(['data' => $data], 500);
+        }
     }
    
 }
