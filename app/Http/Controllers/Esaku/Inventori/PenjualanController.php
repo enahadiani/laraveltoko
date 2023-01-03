@@ -127,7 +127,7 @@ class PenjualanController extends Controller
             'diskon_barang' => $data_diskon,
             'sub_barang'=> $data_sub,
             'ppn_barang'=> $data_ppn,
-            'kode_jenis'=> $request->kode_jenis
+            'kode_jenis'=> isset($request->kode_jenis) ? $request->kode_jenis : 'JB01'
         );
 
             $client = new Client();
