@@ -81,32 +81,16 @@ function drawRptPage(data,res,from,to){
                                     <th width='80' class='header_laporan text-center'>Link Aja</th>
                                 </tr>  
                                 </thead>
-                                <tbody>`
+                                <tbody>`;
+                                var cash=0; var link_aja=0; var qris=0; var total=0;
                                 for(var j=0;j<res.res.data_detail.length;j++) {
                                     var detail = res.res.data_detail[j]
                                     if(row.no_bukti_close == detail.no_bukti) {
                                         diskon = parseFloat(detail.diskon) + diskon;
-                                        
-                                        if(detail.kode_jenis =='JB03'){
-                                            nilai1 = parseFloat(detail.nilai);
-                                        }else if(detail.kode_jenis =='JB02')
-                                        {
-                                            nilai2 = parseFloat(detail.nilai); 
-                                        }else
-                                        {
-                                            nilai3 = parseFloat(detail.nilai);
-                                        }
-
-                                        var nilai1 = nilai1;
-                                        var nilai2 = nilai2;
-                                        var nilai3 = nilai3;
-                                        var total1 = 0;
-                                        var total2 = 0;
-                                        var total3 = 0;
-                                        total = parseFloat(detail.nilai) + total;
-                                        total1 = parseFloat(total) + total1;
-                                        total2 = parseFloat(nilai2) + total2;
-                                        total3 = parseFloat(nilai1) + total3;
+                                        total+= parseFloat(detail.nilai);
+                                        cash+= parseFloat(detail.cash);
+                                        qris+= parseFloat(detail.qris);
+                                        link_aja+= parseFloat(detail.link_aja);
                                         subTot = parseFloat(detail.nilai) - parseFloat(detail.diskon);
                                         
                                         html += `<tr>
@@ -114,18 +98,18 @@ function drawRptPage(data,res,from,to){
                                             <td class="text-center isi-laporan">${detail.no_jual}</td>    
                                             <td class="text-center isi-laporan">${detail.periode}</td>    
                                             <td class="text-center isi-laporan">${detail.tanggal}</td>     
-                                            <td class="text-right isi-laporan">${sepNum(nilai3)}</td>   
-                                            <td class="text-right isi-laporan">${sepNum(nilai2)}</td>   
-                                            <td class="text-right isi-laporan">${sepNum(nilai1)}</td>   
+                                            <td class="text-right isi-laporan">${sepNum(detail.cash)}</td>   
+                                            <td class="text-right isi-laporan">${sepNum(detail.qris)}</td>   
+                                            <td class="text-right isi-laporan">${sepNum(detail.link_aja)}</td>   
                                         </tr>`
                                         no++;
                                     }
                                 }
                         html += `</tbody>
                             <tr>
-                                <td class="text-right isi-laporan" colspan="5"><b>${sepNum(total1)}</b></td>    
-                                <td class="text-right isi-laporan" ><b>${sepNum(total2)}</b></td>    
-                                <td class="text-right isi-laporan" ><b>${sepNum(total3)}</b></td>    
+                                <td class="text-right isi-laporan" colspan="5"><b>${sepNum(cash)}</b></td>    
+                                <td class="text-right isi-laporan" ><b>${sepNum(qris)}</b></td>    
+                                <td class="text-right isi-laporan" ><b>${sepNum(link_aja)}</b></td>    
                             </tr>
                             <tr>
                                 <td class="text-right" colspan="5">Total Nilai</td>    
