@@ -117,7 +117,7 @@ date_default_timezone_set('Asia/Jakarta');
                                              <input type="text" name="total_bayar" min="1" class="form-control currency" id="tobyr" required value="0">
                                              <input type="hidden"  name="kembalian" min="1" class="form-control currency" id="kembalian" required readonly>
                                          </div> -->
-                                         <label for="judul" class="col-1  col-form-label float-right " style="font-size:16px" >Kembalian</label>
+                                         <label for="judul" class="col-1 pr-0 col-form-label float-right " style="font-size:16px">Kembalian</label>
                                         <div class="col-4 " >
                                             <h3><input type="text" style="font-size: 30px !important;height:unset !important;"  name="kembalian" min="1" class="form-control currency " id="kembalian" required value="0" readonly></h3>
                                         </div>
@@ -370,27 +370,27 @@ date_default_timezone_set('Asia/Jakarta');
         }
     });
 
-    $('#kode_jenis').selectize({
-        selectOnTab:true,
-        maxItems: 1,
-        valueField: 'kode_jenis',
-        labelField: 'nama',
-        searchField: ['kode_jenis','nama'],
-        options: [
-            {kode_jenis: 123456, nama: 'test'},
-        ],
-        render: {
-            option: function(data, escape) {
-                return '<div class="option">' +
-                '<span class="nama">' + escape(data.nama) + '</span>' +
-                '</div>';
-            },
-            item: function(data, escape) {
-                return '<div class="item"><a href="#">' + escape(data.nama) + '</a></div>';
-            }
-        },
-        create:false
-    });
+    // $('#kode_jenis').selectize({
+    //     selectOnTab:true,
+    //     maxItems: 1,
+    //     valueField: 'kode_jenis',
+    //     labelField: 'nama',
+    //     searchField: ['kode_jenis','nama'],
+    //     options: [
+    //         {kode_jenis: 123456, nama: 'test'},
+    //     ],
+    //     render: {
+    //         option: function(data, escape) {
+    //             return '<div class="option">' +
+    //             '<span class="nama">' + escape(data.nama) + '</span>' +
+    //             '</div>';
+    //         },
+    //         item: function(data, escape) {
+    //             return '<div class="item"><a href="#">' + escape(data.nama) + '</a></div>';
+    //         }
+    //     },
+    //     create:false
+    // });
 
     function getBarang() {
         $.ajax({
@@ -437,16 +437,13 @@ date_default_timezone_set('Asia/Jakarta');
             dataType: 'json',
             async: false,
             success: function(result) {
+                var select2 = $('#kode_jenis').selectize();
+                select2 = select2[0];
+                var control2 = select2.selectize;
+                control2.clearOptions();
                 if(result.status) {
-
-                    var select2 = $('#kode_jenis').selectize();
-                    select2 = select2[0];
-                    var control2 = select2.selectize;
-                    control2.clearOptions();
-
                     for(i=0;i<result.daftar.length;i++){
-                        control2.addOption([{kode_jenis:result.daftar[i].kode_jenis, nama:result.daftar[i].nama}]);
-                        // $dtBrg[result.daftar[i].kode_jenis] = {harga:result.daftar[i].hna};  
+                        control2.addOption([{value:result.daftar[i].kode_jenis, text:result.daftar[i].nama}]);
                     }
 
                 }else if(!result.data.status && result.data.message == "Unauthorized"){
