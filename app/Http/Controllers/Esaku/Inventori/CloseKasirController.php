@@ -111,7 +111,7 @@ class CloseKasirController extends Controller
             'total_pnj' => 'required',
             'total_disk' => 'required',
             // 'total_ppn' => 'required',
-            'no_jual' => 'required|array',
+            // 'no_jual' => 'required|array',
         ]);
 
         try {
@@ -120,7 +120,7 @@ class CloseKasirController extends Controller
                 'total_pnj'=>intval(str_replace('.','', $request->total_pnj)),
                 'total_diskon'=>intval(str_replace('.','', $request->total_disk)),
                 'saldo_awal'=>intval(str_replace('.','', $request->saldo_awal)),
-                'no_jual'=>$request->no_jual,
+                // 'no_jual'=>$request->no_jual,
                 'kode_pp'=>Session::get('kodePP'),
                 'tanggal'=>date('Y-m-d')
             );
