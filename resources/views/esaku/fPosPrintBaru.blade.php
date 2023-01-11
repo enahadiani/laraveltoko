@@ -914,7 +914,7 @@ date_default_timezone_set('Asia/Jakarta');
         $('#kembalian').val(0);
         $('#inp-byr').val(0);
         $('#param').val('');
-        $('#kode_jenis').val('');
+        $('#kode_jenis')[0].selectize.setValue('');
         
     }
 
@@ -1070,7 +1070,7 @@ date_default_timezone_set('Asia/Jakarta');
                             $('#modal-kembalian').text(sepNum(kembalian));
                             // $('#modal-ppn').text(sepNum(ppn));
                             $('#modal-no_jual').text(result.data.no_jual);
-                            $('#kode_jenis').text(result.data.kode_jenis);
+                            // $('#kode_jenis').text(result.data.kode_jenis);
                             $('#modal-bayar2').modal('show');
                         } else if(!result.data.status && result.data.message === "Unauthorized"){
                             window.location.href = "{{ url('/esaku-auth/sesi-habis') }}";
