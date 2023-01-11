@@ -94,7 +94,7 @@ class PenjualanController extends Controller
             'disc_barang' => 'required|array',
             'ppn_barang' => 'required|array',
             'sub_barang' => 'required|array',
-            'kode_jenis' => 'required'
+            // 'kode_jenis' => 'required'
         ]);
         $data_harga = array();
         for($i=0;$i<count($request->harga_barang);$i++){
