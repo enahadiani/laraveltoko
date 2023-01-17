@@ -66,12 +66,12 @@
                         <th width='80' class='header_laporan text-center' rowspan='2'>Gudang</th>
                         <th width='80' class='header_laporan text-center' rowspan='2'>Kode Barang</th>
                         <th width='200' class='header_laporan text-center' rowspan='2'>Nama Barang </th>
-                        <th width='80' class='header_laporan text-center' rowspan='2'>Kelompok</th>
+                        <th width='80' class='header_laporan text-center' rowspan='2'>Satuan</th>
                         <th width='80' class='header_laporan text-center' rowspan='2'>Stok Awal</th>
+                        <th width='80' class='header_laporan text-center' rowspan='2'>Harga Awal</th>
+                        <th width='80' class='header_laporan text-center' rowspan='2'>Nilai Awal</th>
                         <th width='160' class='header_laporan text-center' colspan='2'>Mutasi</th>
                         <th width='80' class='header_laporan text-center' rowspan='2'>Stok Akhir</th>
-                        <th width='80' class='header_laporan text-center' rowspan='2'>HPP</th>
-                        <th width='80' class='header_laporan text-center' rowspan='2'>Saldo Persediaan</th>
                     </tr>
                     <tr>
                         <th width='80' class='header_laporan text-center'>Masuk</th>
@@ -86,45 +86,47 @@
                         }else{
                             var no=1;
                         }
-                        var hpp = 0;
-                        var sal_persediaan = 0;
-                        var stok=0; var total=0; var so_awal=0; var debet=0; var kredit=0;
+                        var sawal=0;
+                        var nilai_sawal=0;
+                        var masuk=0;
+                        var keluar=0;
+                        var sakhir=0;
                         for (var x=0;x<data.length;x++)
                         {
                             var line2 = data[x];
-                            var saldo_sediaan = parseFloat(line2.stok).toFixed(0) * parseFloat(line2.hpp).toFixed(0);
-                            stok=stok+parseFloat(line2.stok);
-                            total=total+parseFloat(line2.total);
-                            so_awal=so_awal+parseFloat(line2.so_awal);
-                            debet=debet+parseFloat(line2.debet);
-                            kredit=kredit+parseFloat(line2.kredit);
-                            hpp = hpp + parseFloat(line2.hpp);
-                            sal_persediaan = sal_persediaan + saldo_sediaan;
+                            // var saldo_sediaan = parseFloat(line2.stok).toFixed(0) * parseFloat(line2.hpp).toFixed(0);
+                            sawal+=parseFloat(line2.sawal);
+                            nilai_sawal+=parseFloat(line2.nilai_sawal);
+                            masuk+=parseFloat(line2.masuk);
+                            keluar+=parseFloat(line2.keluar);
+                            sakhir+=parseFloat(line2.sakhir);
+                            // hpp = hpp + parseFloat(line2.hpp);
+                            // sal_persediaan = sal_persediaan + saldo_sediaan;
                             
                             det+=`<tr>
                             <td align='center' class='isi_laporan'>`+no+`</td>
-                            <td  class='isi_laporan'>`+line2.kode_gudang+`</td>
-                            <td class='isi_laporan'><a href='#' class='detail-kartu' style='color:blue' data-kode_barang='`+line2.kode_barang+`' data-kode_gudang='`+line2.kode_gudang+`' data-kode_klp='`+line2.kode_klp+`' data-periode='`+$periode.from+`'>`+line2.kode_barang+`</a></td>
-                            <td class='isi_laporan'>`+line2.nama_barang+`</td>
-                            <td class='isi_laporan'>`+line2.kode_klp+`</td>
-                            <td  class='isi_laporan text-right'>`+number_format(parseFloat(line2.so_awal))+`</td>
-                            <td  class='isi_laporan text-right'>`+number_format(parseFloat(line2.debet))+`</td>
-                            <td  class='isi_laporan text-right'>`+number_format(parseFloat(line2.kredit))+`</td>
-                            <td  class='isi_laporan text-right'>`+number_format(parseFloat(line2.stok))+`</td>
-                            <td  class='isi_laporan text-right'>`+number_format(parseFloat(line2.hpp))+`</td>
-                            <td  class='isi_laporan text-right'>`+number_format(parseFloat(saldo_sediaan))+`</td>
+                            <td  class='isi_laporan'>`+line2.pabrik+`</td>
+                            <td class='isi_laporan'><a href='#' class='detail-kartu' style='color:blue' data-kode_barang='`+line2.kode_barang+`' data-kode_gudang='`+line2.pabrik+`' data-periode='`+$periode.from+`'>`+line2.kode_barang+`</a></td>
+                            <td class='isi_laporan'>`+line2.nama+`</td>
+                            <td class='isi_laporan'>`+line2.sat_kecil+`</td>
+                            <td  class='isi_laporan text-right'>`+number_format(parseFloat(line2.sawal))+`</td>
+                            <td  class='isi_laporan text-right'>`+number_format(parseFloat(line2.hawal))+`</td>
+                            <td  class='isi_laporan text-right'>`+number_format(parseFloat(line2.nilai_sawal))+`</td>
+                            <td  class='isi_laporan text-right'>`+number_format(parseFloat(line2.masuk))+`</td>
+                            <td  class='isi_laporan text-right'>`+number_format(parseFloat(line2.keluar))+`</td>
+                            <td  class='isi_laporan text-right'>`+number_format(parseFloat(line2.sakhir))+`</td>
                             </tr>`;	
                             no++;
                             
                         }
                         det+=`<tr>
                         <th colspan='5' class='text-right bold'>Total</th>
-                        <th class='bold text-right'>`+number_format(so_awal)+`</th>
-                        <th class='bold text-right'>`+number_format(debet)+`</th>
-                        <th class='bold text-right'>`+number_format(kredit)+`</th>
-                        <th class='bold text-right'>`+number_format(stok)+`</th>
-                        <th class='bold text-right'>`+number_format(hpp)+`</th>
-                        <th class='bold text-right'>`+number_format(sal_persediaan)+`</th>
+                        <th class='bold text-right'>`+number_format(sawal)+`</th>
+                        <th class='bold text-right'></th>
+                        <th class='bold text-right'>`+number_format(nilai_sawal)+`</th>
+                        <th class='bold text-right'>`+number_format(masuk)+`</th>
+                        <th class='bold text-right'>`+number_format(keluar)+`</th>
+                        <th class='bold text-right'>`+number_format(sakhir)+`</th>
                         </tr>`;
                         html+=det+`
                     </tbody>

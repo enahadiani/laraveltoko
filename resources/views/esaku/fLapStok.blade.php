@@ -223,11 +223,11 @@
         e.preventDefault();
         var kode_barang = $(this).data('kode_barang');
         var kode_gudang = $(this).data('kode_gudang');
-        var kode_klp = $(this).data('kode_klp');
+        // var kode_klp = $(this).data('kode_klp');
         var periode = $(this).data('periode');
         param_trace.kode_barang = kode_barang;
         param_trace.kode_gudang = kode_gudang;
-        param_trace.kode_klp = kode_klp;
+        // param_trace.kode_klp = kode_klp;
         param_trace.periode = periode;
         var back = true;
         
@@ -241,10 +241,10 @@
         $formData.append('kode_gudang[]', kode_gudang);
         $formData.append('kode_gudang[]', "");
         
-        $formData.delete('kode_klp[]');
-        $formData.append('kode_klp[]', "=");
-        $formData.append('kode_klp[]', kode_klp);
-        $formData.append('kode_klp[]', "");
+        // $formData.delete('kode_klp[]');
+        // $formData.append('kode_klp[]', "=");
+        // $formData.append('kode_klp[]', kode_klp);
+        // $formData.append('kode_klp[]', "");
         
         $formData.delete('periode[]');
         $formData.append('periode[]', "=");
