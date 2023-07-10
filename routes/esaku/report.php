@@ -43,6 +43,8 @@ Route::get('filter-bukti-jurnal-kb', 'Esaku\HelperController@getFilterBuktiJurna
 Route::get('filter-mode-print', 'Esaku\HelperController@getFilterModePrint');
 Route::get('filter-vendor', 'Esaku\HelperController@getVendor');
 Route::get('filter-tanggal-stok', 'Esaku\HelperController@getTglStok');
+Route::get('filter-lokasi', 'Esaku\HelperController@getFilterLokasi');
+Route::get('filter-default', 'Esaku\HelperController@getFilterDefault');
 
 //AKTAP//
 Route::get('filter-periode-perolehan', 'Esaku\Aktap\FilterAktapController@getPeriodePerolehan');
@@ -70,6 +72,7 @@ Route::post('lap-closing', 'Esaku\Inventori\LaporanController@getClosing');
 Route::post('lap-barang', 'Esaku\Inventori\LaporanController@getBarang');
 Route::post('lap-kartu-stok', 'Esaku\Inventori\LaporanController@getKartuStok');
 Route::post('lap-stok', 'Esaku\Inventori\LaporanController@getStok');
+Route::post('lap-posisi-stok', 'Esaku\Inventori\LaporanController@getPosisiStok');
 Route::post('lap-saldo-stok', 'Esaku\Inventori\LaporanController@getSaldoStok');
 Route::post('lap-saldo', 'Esaku\Inventori\LaporanController@getSaldo');
 Route::post('lap-kartu', 'Esaku\Inventori\LaporanController@getKartu');

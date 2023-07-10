@@ -449,6 +449,43 @@
             return response()->json(['daftar' => $data['data'], 'status' => true], 200);
         }
 
+        public function getFilterDefault() {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'esaku-report/filter-default',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+            }
+            return response()->json($data, 200);
+        }
+
+        
+        public function getFilterLokasi() {
+
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'esaku-report/filter-lokasi',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+                $data = $data['data'];
+            }
+            return response()->json(['daftar' => $data, 'status' => true], 200);
+        }
+
         public function getNikClose() {
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'esaku-report/filter-nik-close',[
