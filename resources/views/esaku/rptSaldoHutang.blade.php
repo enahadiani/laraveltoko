@@ -77,12 +77,12 @@
                         <th width='20' class='header_laporan text-center' style='text-transform:uppercase'>No</th>
                         <th width='100' class='header_laporan text-center' style='text-transform:uppercase'>No Beli</th>
                         <th width='100' class='header_laporan text-center' style='text-transform:uppercase'>Tanggal</th>
-                        <th width='100' class='header_laporan text-center' style='text-transform:uppercase'>Vendor</th>
+                        <th width='200' class='header_laporan text-center' style='text-transform:uppercase'>Vendor</th>
                         <th width='100' class='header_laporan text-center' style='text-transform:uppercase'>Nilai</th>
                         <th width='100' class='header_laporan text-center' style='text-transform:uppercase'>Nilai PPN</th>
                         <th width='100' class='header_laporan text-center' style='text-transform:uppercase'>Total</th>
-                        <th width='160' class='header_laporan text-center' style='text-transform:uppercase'>Bayar</th>
-                        <th width='160' class='header_laporan text-center' style='text-transform:uppercase'>Saldo Hutang</th>
+                        <th width='100' class='header_laporan text-center' style='text-transform:uppercase'>Bayar</th>
+                        <th width='100' class='header_laporan text-center' style='text-transform:uppercase'>Saldo Hutang</th>
                     </tr>
                     </thead>
                     <tbody>`;
