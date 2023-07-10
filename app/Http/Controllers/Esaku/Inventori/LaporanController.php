@@ -1949,8 +1949,8 @@
                 }else{
                     $back = false;
                 }
-                 
-                 return response()->json(['result' => $data, 'tgl_cetak' => date('Y-m-d H:i:s'), 'status'=>true, 'auth_status'=>1,'periode'=>$periode,'res'=>$res,'back'=>$back], 200); 
+                date_default_timezone_set('Asia/Jakarta');
+                return response()->json(['result' => $data, 'tgl_cetak' => date('Y-m-d H:i:s'), 'status'=>true, 'auth_status'=>1,'periode'=>$periode,'res'=>$res,'back'=>$back], 200); 
              } catch (BadResponseException $ex) {
                  $response = $ex->getResponse();
                  $res = json_decode($response->getBody(),true);
