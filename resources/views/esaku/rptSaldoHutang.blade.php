@@ -75,8 +75,6 @@
                     <thead>
                     <tr>
                         <th width='20' class='header_laporan text-center' style='text-transform:uppercase'>No</th>
-                        <th width='80' class='header_laporan text-center' style='text-transform:uppercase'>Kode Gudang</th>
-                        <th width='200' class='header_laporan text-center' style='text-transform:uppercase'>Nama Gudang </th>
                         <th width='100' class='header_laporan text-center' style='text-transform:uppercase'>No Beli</th>
                         <th width='100' class='header_laporan text-center' style='text-transform:uppercase'>Tanggal</th>
                         <th width='100' class='header_laporan text-center' style='text-transform:uppercase'>Vendor</th>
@@ -112,8 +110,6 @@
                         // kode_gudang	nama	no_beli	tanggal	vendor	nilai	nilai_ppn	total	bayar	saldo_hutang
                             det+=`<tr>
                             <td align='center' class='isi_laporan'>`+no+`</td>
-                            <td class='isi_laporan'>`+line2.kode_gudang+`</td>
-                            <td class='isi_laporan'>`+line2.nama+`</td>
                             <td class='isi_laporan'>`+line2.no_beli+`</td>
                             <td class='isi_laporan'>`+line2.tanggal+`</td>
                             <td class='isi_laporan'>`+line2.vendor+`</td>
@@ -127,7 +123,7 @@
                             
                         }
                         det+=`<tr>
-                        <th colspan='6' class='text-right bold'>Total</th>
+                        <th colspan='4' class='text-right bold'>Total</th>
                         <th class='bold text-right'>`+number_format(nilai)+`</th>
                         <th class='bold text-right'>`+number_format(nilai_ppn)+`</th>
                         <th class='bold text-right'>`+number_format(total)+`</th>
