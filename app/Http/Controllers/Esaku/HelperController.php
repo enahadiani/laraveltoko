@@ -486,6 +486,15 @@
             return response()->json(['daftar' => $data, 'status' => true], 200);
         }
 
+        public function getFilterJenisSaldo() {
+            $data = array(
+                0 => array(
+                    'kode' => 'Saldo'
+                )
+            );
+            return response()->json(['daftar' => $data, 'status' => true], 200);
+        }
+
         public function getNikClose() {
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'esaku-report/filter-nik-close',[

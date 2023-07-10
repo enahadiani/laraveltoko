@@ -1958,6 +1958,49 @@
              } 
         }
 
+        public function getSaldoHutang(Request $request) {
+            try{
+                 $client = new Client();
+                 $response = $client->request('GET',  config('api.url').'esaku-report/lap-saldo-hutang',[
+                     'headers' => [
+                         'Authorization' => 'Bearer '.Session::get('token'),
+                         'Accept'     => 'application/json',
+                     ],
+                     'query' => [
+                         'periode' => $request->periode,
+                         'kode_gudang' => $request->kode_gudang,
+                         'kode_vendor' => $request->kode_vendor,
+                         'jenis' => $request->jenis,
+                         'kode_lokasi' => $request->kode_lokasi
+                     ]
+                 ]);
+ 
+                 if ($response->getStatusCode() == 200) { // 200 OK
+                     $response_data = $response->getBody()->getContents();
+                     
+                     $res = json_decode($response_data,true);
+                     $data = $res["data"];
+                 }
+                 if($request->periode != ""){
+                     $periode = $request->periode;
+                 }else{
+                     $periode = "Semua Periode";
+                 }
+ 
+                 if(isset($request->back)){
+                    $back = true;
+                }else{
+                    $back = false;
+                }
+                date_default_timezone_set('Asia/Jakarta');
+                return response()->json(['result' => $data, 'tgl_cetak' => date('Y-m-d H:i:s'), 'status'=>true, 'auth_status'=>1,'periode'=>$periode,'res'=>$res,'back'=>$back], 200); 
+             } catch (BadResponseException $ex) {
+                 $response = $ex->getResponse();
+                 $res = json_decode($response->getBody(),true);
+                 return response()->json(['message' => $res["message"], 'status'=>false, 'auth_status'=>2], 200);
+             } 
+        }
+
         public function printNotaJualBaru(Request $request) {
             try {
                 $client = new Client();
