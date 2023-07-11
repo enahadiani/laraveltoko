@@ -1,0 +1,71 @@
+/* Section 2 */
+.polo-carousel-item img {
+    object-fit: cover;
+    height: 300px;
+    width: 500px;
+}
+.product-container:nth-child(6),
+.product-container:nth-child(7),
+.product-container:nth-child(8),
+.product-container:nth-child(9),
+.product-container:nth-child(10),
+.product-container:nth-child(11) {
+    margin-bottom: 15rem;
+}
+/* Section 1 */
+.slide-captions {
+    z-index: 10;
+}
+.slide::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.6);
+    opacity: 1;
+}
+.inspiro-slider.slider-fullscreen {
+    height: 80vh;
+}
+/* Footer */
+#footer a:not(.btn):not(:hover) {
+    color: #0058e4 !important;
+}
+.footer-background {
+    background-color: #fcfcfc;
+}
+/* Header */
+.sticky-active .header-container span {
+    color: #000;
+}
+.logo-nav {
+    display: flex;
+    justify-content: space-between;
+}
+.header-container {
+    display: flex;
+    flex-direction: column;
+}
+/* General */
+h5 {
+    font-family: "Roboto", sans-serif !important;
+    font-weight: 400;
+    font-size: 1.25rem !important;
+}
+h1 {
+    font-family: "Roboto", sans-serif;
+    font-weight: 700 !important;
+    font-size: 4.75rem !important;
+}
+.col-dekstop {
+    display: block;
+}
+.col-mobile {
+    display: none;
+}
+#mainMenu-trigger {
+    cursor: pointer !important;
+    z-index: 2;
+}

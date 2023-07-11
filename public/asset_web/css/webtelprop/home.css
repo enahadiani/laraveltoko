@@ -1,0 +1,201 @@
+html,
+body {
+    overflow: hidden !important; /* Hide scrollbars */
+}
+.home-image {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 50%;
+}
+
+.shape-1 {
+    width: 100%;
+    height: 75%;
+    position: absolute;
+    right: -72px;
+    top: -56px;
+    background-color: #ffb6c1;
+    border-radius: 13%;
+    -moz-transform: rotate(-40deg);
+    -webkit-transform: rotate(-40deg);
+    -o-transform: rotate(-40deg);
+    -ms-transform: rotate(-40deg);
+    transform: rotate(-40deg);
+}
+
+/* .shape-2 {
+    width: 100%;
+    height: 80%;
+    position: relative;
+    right: -72px;
+    top: -72px;
+    background-color: blue;
+    border-radius: 13%;
+    -moz-transform: rotate(75deg);
+    -webkit-transform: rotate(75deg);
+    -o-transform: rotate(75deg);
+    -ms-transform: rotate(75deg);
+    transform: rotate(75deg);
+} */
+
+.image-1 {
+    position: absolute;
+    width: 100%;
+    height: 80%;
+    right: -72px;
+    top: -72px;
+    border-radius: 13%;
+    -moz-transform: rotate(-20deg);
+    -webkit-transform: rotate(-20deg);
+    -o-transform: rotate(-20deg);
+    -ms-transform: rotate(-20deg);
+    transform: rotate(-20deg);
+}
+.company-name {
+    color: #ff0022;
+}
+section {
+    margin-top: 73px;
+    background-color: transparent;
+}
+.text-medium {
+    font-weight: 600;
+}
+.text-2 {
+    margin-top: -16px;
+}
+.home-filter {
+    margin-top: 57px;
+    padding-left: 32px;
+}
+.label-search {
+    font-weight: 500;
+}
+.filter-input {
+    margin-top: 16px;
+    margin-left: -16px;
+    height: 90px;
+    width: 500px;
+    padding: 16px;
+    display: flex;
+    justify-content: space-around;
+    border-radius: 120px;
+    box-shadow: 0px 4px 10px 1px rgba(255, 182, 193, 1);
+}
+.label-lokasi {
+    font-weight: 500;
+    color: #aaaaaa;
+}
+.search-button-area {
+    margin-right: -16px;
+    margin-top: -4px;
+}
+.search-button-area button {
+    padding: 16px;
+    background-color: #ff0022;
+    border-style: none;
+    border-radius: 50%;
+}
+.modal-show {
+    display: block;
+    padding-right: 17px;
+}
+.modal-content {
+    border-radius: 25px;
+    margin-top: 25%;
+}
+.modal-title {
+    color: #ff0022;
+    text-align: center;
+}
+.modal-header {
+    border-bottom: none;
+    border-top: none;
+    padding-bottom: 0;
+}
+.modal-note {
+    display: flex;
+    justify-content: center;
+}
+.modal-notes {
+    text-align: center;
+    color: #000 !important;
+    width: 80%;
+    font-size: 16px !important;
+    line-height: 1.7 !important;
+    margin-bottom: 0 !important;
+    font-weight: normal !important;
+}
+.row-flex {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    padding-bottom: 16px;
+}
+.label-form {
+    font-weight: bold;
+    text-align: center;
+}
+.modal-footer {
+    border-bottom: none;
+    border-top: none;
+}
+.btn-submit {
+    margin-left: -20px;
+    background-color: #ff0022 !important;
+    width: 60% !important;
+    border: none !important;
+}
+
+@media only screen and (max-width: 480px) {
+    .dekstop {
+        display: none;
+    }
+    .mobile {
+        display: block;
+    }
+    .text-1 {
+        margin-bottom: 20px;
+    }
+    .gambar-mobile {
+        position: relative;
+        height: 450px;
+        width: 350px;
+    }
+    .image-mobile {
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        height: 100%;
+        border-radius: 10%;
+        -moz-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    .home-filter {
+        margin-top: 16px;
+    }
+    .label-search {
+        font-weight: bold;
+    }
+    .filter-input {
+        margin-top: 16px;
+        margin-left: -16px;
+        height: 90px;
+        width: 380px;
+        padding: 16px;
+        display: flex;
+        justify-content: space-around;
+        border-radius: 120px;
+        box-shadow: 0px 4px 10px 1px rgba(255, 182, 193, 1);
+    }
+    html,
+    body {
+        overflow-y: auto !important; /* Hide scrollbars */
+        overflow-x: hidden !important;
+    }
+}

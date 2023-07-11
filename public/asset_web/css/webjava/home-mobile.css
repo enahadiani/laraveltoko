@@ -1,0 +1,43 @@
+@media only screen and (max-width: 480px) {
+    /* Section 3 */
+    #project .project-container {
+        display: flex;
+        flex-direction: column;
+    }
+    /* Section 2 */
+    .services-card .card-content {
+        width: 25rem;
+    }
+    .services-card {
+        height: 20rem;
+    }
+    .services-container {
+        margin-top: 2rem;
+    }
+    /* Section 1 */
+    .slide h1 {
+        font-size: 1.7rem !important;
+    }
+    .slide h5 {
+        font-size: 1.5rem !important;
+    }
+    /* Header */
+    .information-contact > p {
+        color: #000;
+        font-weight: normal !important;
+    }
+    .logo-nav {
+        margin-top: 0;
+    }
+    .mainMenu-open #header #mainMenu {
+        overflow-y: hidden;
+        padding-top: 5.5rem;
+    }
+    /* General */
+    .col-dekstop {
+        display: none;
+    }
+    .col-mobile {
+        display: block;
+    }
+}

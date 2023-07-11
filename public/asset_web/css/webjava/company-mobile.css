@@ -1,0 +1,29 @@
+@media only screen and (max-width: 480px) {
+    /* Section 2 */
+    .company-profile-box .col-lg-6 {
+        margin-bottom: 1rem;
+        height: 18rem;
+    }
+    .company-profile-box {
+        height: 30rem;
+    }
+    /* Header */
+    .information-contact > p {
+        color: #000;
+        font-weight: normal !important;
+    }
+    .logo-nav {
+        margin-top: 0;
+    }
+    .mainMenu-open #header #mainMenu {
+        overflow-y: hidden;
+        padding-top: 5.5rem;
+    }
+    /* General */
+    .col-dekstop {
+        display: none;
+    }
+    .col-mobile {
+        display: block;
+    }
+}

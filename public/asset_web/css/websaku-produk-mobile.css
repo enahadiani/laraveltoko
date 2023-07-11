@@ -1,0 +1,126 @@
+@media only screen and (max-width: 480px) {
+    /* Presentasi */
+    .presentation-text {
+        width: 26rem;
+    }
+    #presentation .mulai-sekarang {
+        font-size: 3.5rem !important;
+    }
+    .background-presentation {
+        width: 30.5rem;
+        height: 28rem;
+    }
+    /* Jenis Usaha */
+    .jenis-usaha-container:nth-child(3) .jenis-usaha-col:nth-child(2) {
+        align-self: center;
+        margin-right: 0;
+    }
+    .jenis-usaha-container:nth-child(3) .jenis-usaha-col:nth-child(1) {
+        align-self: center;
+        margin-left: 0;
+    }
+    .jenis-usaha-container:nth-child(2) .jenis-usaha-col:nth-child(2) {
+        align-self: center;
+        margin-right: 0;
+    }
+    .jenis-usaha-container:nth-child(2) .jenis-usaha-col:nth-child(1) {
+        align-self: center;
+        margin-left: 0;
+    }
+    .jenis-usaha-container:nth-child(1) .jenis-usaha-col:nth-child(2) {
+        align-self: center;
+        margin-right: 0;
+    }
+    .jenis-usaha-container:nth-child(1) .jenis-usaha-col:nth-child(1) {
+        align-self: center;
+        margin-left: 0;
+    }
+    .jenis-usaha-col {
+        margin: 1.5rem 0;
+    }
+    .jenis-usaha-container {
+        justify-content: center;
+        flex-direction: column;
+    }
+    /* Produk fitur */
+    .gear-icon {
+        margin-top: 2.2rem;
+        margin-left: 2.9rem;
+    }
+    .card-custom {
+        align-self: center;
+        margin: 0 0 0 0;
+        margin-top: 1rem;
+        width: 28rem;
+    }
+    .card-coba {
+        width: 28rem;
+        align-self: center;
+        margin: 0 0 0 0;
+        margin-bottom: 1rem;
+    }
+    .produk-fitur-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    /* Dashboard */
+    #dashboard .card-dashboard .image-container img {
+        max-height: 100%;
+        max-width: 100%;
+        margin-left: 0.5rem;
+    }
+    #dashboard .card-dashboard .image-container {
+        margin-top: 3rem;
+        position: relative;
+    }
+    .card-dashboard h5 {
+        padding: 0 1rem;
+    }
+    .card-dashboard h1 {
+        font-size: 2.75rem !important;
+    }
+    /* Footer */
+    .layanan-container {
+        margin-left: 0;
+    }
+    .perusahaan-container {
+        margin-left: 0;
+    }
+    .footer-content-mobile .layanan-container {
+        margin-left: 5.2rem;
+    }
+    .footer-content-mobile {
+        display: flex !important;
+        justify-content: space-between;
+    }
+    /* Header */
+    .nav-mobile-daftar {
+        margin: 0 2rem 0 7rem;
+        width: 18rem;
+    }
+    #masuk-link {
+        text-align: center;
+    }
+    #daftar-link {
+        text-align: center;
+    }
+    .header-content-1 {
+        padding: 0;
+    }
+    .mainMenu-open #header #mainMenu {
+        overflow-y: hidden;
+    }
+    #mainMenu > .container {
+        margin-top: 2rem;
+    }
+    .header-content {
+        display: block;
+    }
+    .col-dekstop {
+        display: none;
+    }
+    .col-mobile {
+        display: block;
+    }
+}

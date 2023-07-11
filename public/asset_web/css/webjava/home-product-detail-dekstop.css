@@ -1,0 +1,45 @@
+.polo-carousel-item img {
+    object-fit: cover;
+    height: 400px;
+    width: 600px;
+}
+/* Footer */
+#footer a:not(.btn):not(:hover) {
+    color: #0058e4 !important;
+}
+.footer-background {
+    background-color: #fcfcfc;
+}
+/* Header */
+.sticky-active .header-container span {
+    color: #000;
+}
+.logo-nav {
+    display: flex;
+    justify-content: space-between;
+}
+.header-container {
+    display: flex;
+    flex-direction: column;
+}
+/* General */
+h5 {
+    font-family: "Roboto", sans-serif !important;
+    font-weight: 400;
+    font-size: 1.25rem !important;
+}
+h1 {
+    font-family: "Roboto", sans-serif;
+    font-weight: 700 !important;
+    font-size: 4.75rem !important;
+}
+.col-dekstop {
+    display: flex;
+}
+.col-mobile {
+    display: none;
+}
+#mainMenu-trigger {
+    cursor: pointer !important;
+    z-index: 2;
+}

@@ -1,0 +1,29 @@
+@media only screen and (max-width: 480px) {
+    /* Section 1 */
+    .product-container:nth-child(1),
+    .product-container:nth-child(2),
+    .product-container:nth-child(3),
+    .product-container:nth-child(4),
+    .product-container:nth-child(5) {
+        margin-bottom: 3rem;
+    }
+    /* Header */
+    .information-contact > p {
+        color: #000;
+        font-weight: normal !important;
+    }
+    .logo-nav {
+        margin-top: 0;
+    }
+    .mainMenu-open #header #mainMenu {
+        overflow-y: hidden;
+        padding-top: 5.5rem;
+    }
+    /* General */
+    .col-dekstop {
+        display: none;
+    }
+    .col-mobile {
+        display: block;
+    }
+}

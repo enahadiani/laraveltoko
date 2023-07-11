@@ -1,0 +1,105 @@
+@media only screen and (max-width: 480px) {
+    /* Presentation */
+    .presentation-text {
+        width: 100%;
+        margin: 0 auto;
+    }
+    .background-presentation {
+        width: 100%;
+    }
+    /* Klien */
+    .trusted-client-content > img {
+        width: 75px;
+    }
+    .trusted-client {
+        padding: 0;
+    }
+    .title-klien {
+        width: 100%;
+        margin: 0;
+    }
+    /* Produk */
+    .icon-container {
+        right: 0.5rem !important;
+    }
+    .card-custom {
+        align-self: center;
+        margin: 0 0 0 0;
+        margin-top: 1rem;
+        width: 28rem;
+    }
+    .card-coba {
+        align-self: center;
+        margin: 0 0 0 0;
+        margin-top: 1rem;
+        width: 28rem;
+    }
+    .produk-fitur-container {
+        flex-direction: column;
+    }
+    /* Pengalaman */
+    .image-text h2 {
+        font-size: 1.8rem;
+    }
+    .image-text {
+        width: 100%;
+        padding: 0;
+    }
+    .pengalaman-image > .image-meeting {
+        height: 23rem;
+        width: 26.5rem;
+    }
+    .pengalaman-image {
+        justify-content: flex-start;
+        padding: 0;
+    }
+    .heading-section h1 {
+        font-size: 2.75rem !important;
+    }
+    .pengalaman-container {
+        width: 100%;
+    }
+    /* Footer */
+    .layanan-container {
+        margin-left: 0;
+    }
+    .perusahaan-container {
+        margin-left: 0;
+    }
+    .footer-content-mobile .layanan-container {
+        margin-left: 5.2rem;
+    }
+    .footer-content-mobile {
+        display: flex !important;
+        justify-content: space-between;
+    }
+    /* Header */
+    .nav-mobile-daftar {
+        margin: 0 2rem 0 7rem;
+        width: 18rem;
+    }
+    #masuk-link {
+        text-align: center;
+    }
+    #daftar-link {
+        text-align: center;
+    }
+    .header-content-1 {
+        padding: 0;
+    }
+    .mainMenu-open #header #mainMenu {
+        overflow-y: hidden;
+    }
+    #mainMenu > .container {
+        margin-top: 2rem;
+    }
+    .header-content {
+        display: block;
+    }
+    .col-dekstop {
+        display: none;
+    }
+    .col-mobile {
+        display: block;
+    }
+}

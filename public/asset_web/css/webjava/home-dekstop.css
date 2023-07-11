@@ -1,0 +1,143 @@
+/* Section 4 */
+.project-card .card-footers {
+    position: absolute;
+    bottom: 0;
+}
+.project-card .card-title > h6 {
+    font-weight: bold !important;
+    font-size: 1.2rem !important;
+}
+
+.project-card .card-title {
+    width: 20rem;
+}
+.project-card > img {
+    height: 18.75rem;
+    width: 23.22rem;
+}
+.project-card {
+    height: 28rem;
+    width: 36rem;
+    margin-right: 1.5rem;
+    position: relative;
+}
+.project-content {
+    display: flex;
+    flex-direction: row;
+    margin: 2rem 0;
+}
+#project .heading-text.heading-section h4:before {
+    content: "";
+    position: absolute;
+    height: 2px;
+    width: 100px;
+    background-color: #2250fc;
+    bottom: -30px;
+    left: 0;
+    right: 0;
+}
+#project .project-container {
+    display: flex;
+    flex-direction: column;
+}
+/* Section 3 */
+.total-project-container {
+    display: flex;
+    justify-content: center;
+}
+/* Serction 2 */
+.services-card .card-footers {
+    position: absolute;
+    bottom: 0;
+}
+.services-card > .card-title > h6 {
+    font-weight: bold !important;
+    font-size: 1.2rem !important;
+}
+.services-card {
+    height: 20rem;
+    width: 35rem;
+    margin-right: 1.5rem;
+    position: relative;
+}
+.services-content {
+    display: flex;
+    flex-direction: row;
+    margin: 2rem 0;
+}
+.services-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 4rem;
+}
+#services .heading-text.heading-section h4:before {
+    content: "";
+    position: absolute;
+    height: 2px;
+    width: 100px;
+    background-color: #2250fc;
+    bottom: -30px;
+    left: 0;
+    right: 0;
+}
+/* Section 1 */
+.section-one-space {
+    padding-top: 2rem;
+}
+/* Footer */
+#footer a:not(.btn):not(:hover) {
+    color: #0058e4 !important;
+}
+.footer-background {
+    background-color: #fcfcfc;
+}
+/* Header */
+.sticky-active .header-container > .information-contact {
+    padding-top: 1.5rem;
+}
+.sticky-active .header-container span {
+    color: #000;
+}
+.sticky-active .logo-nav {
+    margin-top: -3.5rem;
+}
+.sticky-active .header-container {
+    margin-top: -3rem;
+}
+.logo-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: -2rem;
+}
+.information-contact > span:nth-child(2) {
+    padding-left: 2rem;
+}
+.information-contact > span {
+    color: #fff;
+    font-weight: normal !important;
+}
+.header-container {
+    display: flex;
+    flex-direction: column;
+}
+/* General */
+h5 {
+    font-family: "Roboto", sans-serif !important;
+    font-weight: 400;
+    font-size: 1.25rem !important;
+}
+h1 {
+    font-family: "Roboto", sans-serif;
+    font-weight: 700 !important;
+    font-size: 4.75rem !important;
+}
+.col-dekstop {
+    display: flex;
+}
+.col-mobile {
+    display: none;
+}
+#mainMenu-trigger {
+    cursor: pointer !important;
+    z-index: 2;
+}

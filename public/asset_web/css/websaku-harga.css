@@ -1,0 +1,296 @@
+/* Presentation */
+.presentation-action {
+    display: flex;
+    justify-content: center;
+}
+.btn-presentation {
+    background-color: #fff;
+    padding: 0.8rem 1rem;
+    border: none;
+    border-radius: 2.5rem;
+}
+.presentation-text {
+    width: 32rem;
+    margin: 0 auto;
+}
+.presentation-content {
+    padding: 2rem;
+}
+#presentation h1,
+#presentation h5 {
+    color: #fff;
+}
+#presentation > .container {
+    display: flex;
+    justify-content: center;
+}
+.background-presentation {
+    background-image: url("../img/esaku/background-produk.png");
+    width: 62rem;
+    height: 29rem;
+    border-radius: 30px;
+    background-repeat: no-repeat;
+}
+/* Section 2 */
+#section-2 .list-klien .list-klien-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+#section-2 h1 {
+    font-size: 2.75rem !important;
+}
+/* Section 1 */
+.card-footer .trial-button > button {
+    border: none;
+    background-color: #f2f2f2;
+    color: #000;
+    padding: 0.5rem;
+    height: 3.5rem;
+    width: 11rem;
+    border-radius: 100px;
+}
+.card-footer.with-trial .trial-text {
+    align-items: center;
+    align-self: center;
+}
+.card-footer.with-trial .trial-button {
+    align-items: center;
+    align-self: center;
+    margin-bottom: 0.5rem;
+}
+.card-footer .register-button > button {
+    border: none;
+    background-color: #0058e4;
+    color: #fff;
+    padding: 0.5rem;
+    height: 3.5rem;
+    width: 11rem;
+    border-radius: 100px;
+}
+.card-footer .register-button {
+    align-items: center;
+    align-self: center;
+}
+.card-footer > .trial-text p {
+    color: #bebebe;
+}
+.card-footer.not-trial .trial-text {
+    margin-top: 4rem;
+    align-items: center;
+    align-self: center;
+}
+.card-harga .card-footer {
+    border: none;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+}
+.list-fitur .not-active {
+    color: #bebebe;
+}
+.list-harga span {
+    font-weight: normal;
+    font-size: 1.2rem;
+    padding-left: 1rem;
+    align-self: flex-end;
+}
+.list-harga img {
+    width: 25px;
+}
+.card-body .list-fitur {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-bottom: 0.5rem;
+}
+.card-harga .card-body {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.2rem;
+}
+h2:not(:last-child) {
+    margin-bottom: 0;
+}
+.paket-price-day .price-day {
+    color: #9c9c9c;
+}
+.paket-price-day .price-day:nth-child(1) {
+    text-decoration: line-through;
+}
+.paket-price-month .price-month:nth-child(1) {
+    text-decoration: line-through;
+}
+.paket-name .free-btn {
+    height: 2.5rem;
+    width: 6rem;
+    padding: 0.5rem;
+    background-color: #8739fe;
+    border: none;
+    border-radius: 100px;
+    color: #fff;
+    margin-top: 0.1rem;
+}
+.paket-name .full {
+    font-weight: normal;
+    color: #0058e4;
+}
+.paket-name .medium {
+    font-weight: normal;
+    color: #00b7d3;
+}
+.paket-name .lite {
+    font-weight: normal;
+    color: #aaaaaa;
+    padding-right: 1rem;
+}
+.card-header .paket-name {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 1rem;
+}
+.card-harga .card-header {
+    background-color: #fff;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+}
+.list-harga .card-harga {
+    box-shadow: 0 4px 10px #828282;
+    border-radius: 30px;
+    height: 48rem;
+    width: 28rem;
+    margin: 0 1rem;
+    padding: 2rem;
+}
+.list-harga {
+    display: flex;
+    justify-content: center;
+}
+/* Footer */
+span.copyright {
+    font-size: 1rem;
+    font-weight: normal;
+}
+.col-footer {
+    margin-left: -0.5rem;
+    margin-bottom: -0.5rem;
+}
+.link-footer > .arrow-tilted {
+    transform: rotate(40deg);
+    padding-left: 0.5rem;
+}
+.link-footer {
+    font-size: 1rem;
+    color: #0058e4 !important;
+    padding-left: 2.8rem;
+}
+.footer-content-text {
+    font-weight: 400;
+    font-size: 1rem;
+    padding-left: 0.5rem;
+    display: inline-block;
+    text-align: left;
+}
+.footer-text-nav {
+    color: #606060;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+/* Header */
+#mainMenu nav > ul > li > a {
+    text-transform: none !important;
+    font-size: 1rem;
+    font-weight: normal !important;
+}
+#mainMenu-trigger {
+    cursor: pointer !important;
+    z-index: 2;
+}
+#daftar-link {
+    background-color: #0058e4;
+    padding: 0.8rem 1rem;
+    border-radius: 2.5rem;
+    color: #fff;
+}
+#masuk-link:hover {
+    color: #007bff;
+}
+#masuk-link {
+    color: #000;
+    font-weight: bold;
+    padding: 1rem;
+}
+#logo {
+    margin-right: 1.5rem;
+}
+#mainMenu nav > ul > li > a {
+    text-transform: none !important;
+    font-size: 1rem;
+}
+#mainMenu2 nav > ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.header-content-2 {
+    display: flex;
+    flex-direction: row;
+    padding-right: 10rem;
+}
+.header-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.header-content-1 {
+    display: flex;
+    flex-direction: row;
+    padding-left: 10rem;
+}
+.header-content-1 .main-menu {
+    margin-top: 0.5rem;
+}
+.header-content-2 .main-menu {
+    margin-top: 0.5rem;
+}
+.col-mobile {
+    display: none;
+}
+h1,
+h2,
+h3 {
+    font-family: "Roboto", sans-serif;
+    font-weight: 700 !important;
+}
+
+p,
+a,
+h4,
+h5,
+h6 {
+    font-family: "Roboto", sans-serif !important;
+    font-weight: 400;
+}
+button {
+    font-family: "Roboto", sans-serif !important;
+    font-size: 1rem;
+}
+span {
+    font-family: "Roboto", sans-serif !important;
+    font-weight: bold;
+}
+
+/* General */
+.heading-text h1 {
+    font-size: 4.75rem !important;
+}
+.heading-text h5 {
+    font-size: 1.25rem !important;
+}
+@media only screen and (min-width: 1440px) {
+    .icon-container {
+        right: 27.2rem;
+    }
+}

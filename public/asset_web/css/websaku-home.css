@@ -1,0 +1,388 @@
+.layanan-container {
+    margin-left: 3.4rem;
+}
+.perusahaan-container {
+    margin-left: 9rem;
+}
+.mulai-sekarang {
+    color: #0058e4;
+}
+section:nth-child(6) {
+    padding-top: 10px !important;
+}
+.heading-text h1 {
+    font-size: 4.75rem !important;
+}
+.heading-text h5 {
+    font-size: 1.25rem !important;
+}
+#logo {
+    margin-right: 1.5rem;
+}
+#mainMenu nav > ul > li > a {
+    text-transform: none !important;
+    font-size: 1rem;
+    font-weight: normal !important;
+}
+.alasan-container {
+    width: 14rem;
+}
+.heading-paragraph-feedback {
+    width: 42rem;
+    text-align: center;
+}
+.heading-paragraph-container-feedback {
+    display: flex;
+    justify-content: center;
+    height: 8rem;
+}
+.heading-paragraph-fitur {
+    width: 40rem;
+    text-align: center;
+}
+.heading-paragraph-container-fitur {
+    display: flex;
+    justify-content: center;
+    height: 6rem;
+}
+.heading-paragraph-welcome-2 {
+    width: 40rem;
+    text-align: center;
+}
+.heading-paragraph-container-welcome-2 {
+    display: flex;
+    justify-content: center;
+    height: 9rem;
+}
+.heading-paragraph {
+    width: 40rem;
+    text-align: center;
+}
+.heading-paragraph-container {
+    display: flex;
+    justify-content: center;
+}
+.btn-presentation {
+    background-color: #0058e4;
+    color: #fff;
+    padding: 0.8rem 1rem;
+    border: none;
+    border-radius: 2.5rem;
+}
+.presentation-action {
+    margin-top: 8rem;
+    display: flex;
+    justify-content: center;
+}
+.background-presentation {
+    background-image: url("../img/esaku/presentation-background.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+span.copyright {
+    font-size: 1rem;
+    font-weight: normal;
+}
+.col-footer {
+    margin-left: -0.5rem;
+    margin-bottom: -0.5rem;
+}
+.link-footer > .arrow-tilted {
+    transform: rotate(40deg);
+    padding-left: 0.5rem;
+}
+.link-footer {
+    font-size: 1rem;
+    color: #0058e4 !important;
+    padding-left: 2.8rem;
+}
+.footer-content-text {
+    font-weight: 400;
+    font-size: 1rem;
+    padding-left: 0.5rem;
+    display: inline-block;
+    text-align: left;
+}
+.footer-text-nav {
+    color: #606060;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+.footer-background {
+    background-color: #f2f2f2;
+}
+#footer .footer-content {
+    padding-top: 2rem !important;
+}
+.trusted-company {
+    font-weight: bold !important;
+    font-size: 1.5rem;
+}
+.trusted-client .trusted-client-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.trusted-client {
+    display: flex;
+    flex-direction: column;
+    padding: 0 8rem;
+}
+.active,
+.dot:hover {
+    background-color: #717171 !important;
+}
+.nav-corousel > .dot {
+    border: 0.5px solid #707070;
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #fff;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+.nav-corousel {
+    position: relative;
+    margin-left: -12rem;
+    margin-top: -0.1rem;
+}
+.jabatan-owner {
+    font-weight: bold;
+}
+.keterangan-owner-container {
+    margin-top: 1rem;
+}
+.keterangan-owner {
+    font-size: 1.25rem;
+}
+.keterangan-client {
+    display: flex;
+    flex-direction: column;
+    padding-top: 1rem;
+}
+.image-client > img {
+    border-radius: 50%;
+}
+.image-client {
+    margin: 0 1rem;
+}
+.nav-corousel {
+    text-align: center;
+}
+.feedback-content {
+    display: flex;
+    flex-direction: row;
+}
+.corousel-content {
+    display: none;
+}
+.feedback-corousel {
+    max-width: 45rem;
+    position: relative;
+}
+.feedback-client {
+    display: flex;
+    justify-content: center;
+}
+.remove-border {
+    border: none !important;
+}
+.list-fitur-body > p {
+    text-align: left;
+    font-size: 1rem;
+}
+.list-fitur-header {
+    padding-bottom: 1.5rem;
+}
+.list-fitur-name {
+    padding: 0.5rem 0 0 0;
+    font-weight: bold;
+}
+.daftar-fitur > .list-fitur {
+    height: 18.75rem;
+    width: 20rem;
+    padding: 1rem;
+}
+.daftar-fitur {
+    display: flex;
+    justify-content: space-around;
+    padding: 0 8rem 4rem 8rem;
+}
+.alasan-content {
+    text-align: left;
+    margin: 1.5rem 0 0 0;
+    font-size: 1rem;
+}
+.alasan-text {
+    color: #0058e4;
+    font-size: 2rem;
+    text-align: left !important;
+}
+.daftar-alasan .box-alasan:nth-child(3) {
+    float: right;
+    margin: 3rem 4rem 0 0;
+}
+.daftar-alasan .box-alasan:nth-child(2) {
+    float: left;
+    margin: 8rem 0 0 12rem;
+}
+.daftar-alasan .box-alasan:nth-child(1) {
+    float: right;
+    margin: 0 4rem 0 0;
+}
+.daftar-alasan .box-alasan {
+    height: 18.75rem;
+    width: 26.4375rem;
+    background-color: #fff;
+    border-radius: 2.5rem;
+    box-shadow: 0px 3px 20px #82828229;
+    padding: 3rem;
+}
+.daftar-alasan {
+    padding: 0 6rem 0 1rem;
+}
+.link-lanjut > .arrow-tilted {
+    transform: rotate(40deg);
+    padding-left: 0.5rem;
+}
+.link-lanjut {
+    font-size: 1.2rem;
+    color: #0058e4;
+    margin-top: -10rem;
+}
+.list-client-welcome > img {
+    margin: 0 0.5rem;
+}
+.list-client-welcome {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.image-welcome {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.image-welcome > img {
+    margin-top: -1rem;
+}
+#hubungi-welcome {
+    background-color: #cee1ff;
+    padding: 0.8rem 1rem;
+    border-radius: 2.5rem;
+    color: #1a69e7;
+    border: none;
+    outline: none;
+    margin: 1rem 1rem 0;
+}
+#daftar-welcome {
+    background-color: #0058e4;
+    padding: 0.8rem 1rem;
+    border-radius: 2.5rem;
+    color: #fff;
+    border: none;
+    outline: none;
+    margin: 1rem 1rem 0;
+}
+.action-welcome {
+    display: flex;
+    justify-content: center;
+    margin-top: -2rem;
+}
+#daftar-link {
+    background-color: #0058e4;
+    padding: 0.8rem 1rem;
+    border-radius: 2.5rem;
+    color: #fff;
+}
+#masuk-link:hover {
+    color: #007bff;
+}
+#masuk-link {
+    color: #000;
+    font-weight: bold;
+    padding: 1rem;
+}
+#mainMenu2 nav > ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+#mainMenu-trigger {
+    cursor: pointer !important;
+    z-index: 2;
+}
+.header-content-2 {
+    display: flex;
+    flex-direction: row;
+    padding-right: 10rem;
+}
+.header-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.header-content-1 {
+    display: flex;
+    flex-direction: row;
+    padding-left: 10rem;
+}
+.header-content-1 .main-menu {
+    margin-top: 0.5rem;
+}
+.header-content-2 .main-menu {
+    margin-top: 0.5rem;
+}
+h1,
+h2,
+h3 {
+    font-family: "Roboto", sans-serif;
+    font-weight: 700 !important;
+}
+
+p,
+a,
+h4,
+h5,
+h6 {
+    font-family: "Roboto", sans-serif !important;
+    font-weight: 400;
+}
+button {
+    font-family: "Roboto", sans-serif !important;
+    font-size: 1rem;
+}
+span {
+    font-family: "Roboto", sans-serif !important;
+    font-weight: bold;
+}
+.fade-corousel {
+    -webkit-animation-name: fade-corousel;
+    -webkit-animation-duration: 1.5s;
+    animation-name: fade-corousel;
+    animation-duration: 1.5s;
+}
+.col-mobile {
+    display: none;
+}
+
+@-webkit-keyframes fade-corousel {
+    from {
+        opacity: 0.1;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fade-corousel {
+    from {
+        opacity: 0.1;
+    }
+    to {
+        opacity: 1;
+    }
+}

@@ -1,0 +1,82 @@
+/* Section 3 */
+/* #organization .highcharts-label:nth-child(2) h4,
+#organization .highcharts-label:nth-child(3) h4,
+#organization .highcharts-label:nth-child(4) h4,
+#organization .highcharts-label:nth-child(5) h4,
+#organization .highcharts-label:nth-child(6) h4,
+#organization .highcharts-label:nth-child(7) h4,
+#organization .highcharts-label:nth-child(8) h4,
+#organization .highcharts-label:nth-child(9) h4,
+#organization .highcharts-label:nth-child(10) h4,
+#organization .highcharts-label:nth-child(11) h4,
+#organization .highcharts-label:nth-child(12) h4,
+#organization .highcharts-label:nth-child(13) h4 {
+    color: #ffffff !important;
+}
+#organization .highcharts-label:nth-child(1) h4 {
+    color: #000000 !important;
+} */
+/* Section 2 */
+.company-profile-box {
+    height: 28rem;
+}
+/* .flickity-viewport {
+    height: 15rem !important;
+} */
+/* Section 1 */
+.slide-captions {
+    z-index: 10;
+}
+.slide::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.6);
+    opacity: 1;
+}
+.inspiro-slider.slider-fullscreen {
+    height: 80vh;
+}
+/* Footer */
+#footer a:not(.btn):not(:hover) {
+    color: #0058e4 !important;
+}
+.footer-background {
+    background-color: #fcfcfc;
+}
+/* Header */
+.sticky-active .header-container span {
+    color: #000;
+}
+.logo-nav {
+    display: flex;
+    justify-content: space-between;
+}
+.header-container {
+    display: flex;
+    flex-direction: column;
+}
+/* General */
+h5 {
+    font-family: "Roboto", sans-serif !important;
+    font-weight: 400;
+    font-size: 1.25rem !important;
+}
+h1 {
+    font-family: "Roboto", sans-serif;
+    font-weight: 700 !important;
+    font-size: 4.75rem !important;
+}
+.col-dekstop {
+    display: flex;
+}
+.col-mobile {
+    display: none;
+}
+#mainMenu-trigger {
+    cursor: pointer !important;
+    z-index: 2;
+}

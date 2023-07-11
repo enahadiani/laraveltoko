@@ -1,0 +1,135 @@
+@media only screen and (max-width: 480px) {
+    /* Presentation */
+    #presentation > .container > .heading-text h1 {
+        font-size: 50px !important;
+    }
+    /* Feedback */
+    #feedback .heading-text {
+        margin-bottom: 0 !important;
+    }
+    #feedback h1 {
+        font-size: 2.75rem !important;
+    }
+    .trusted-client-content > img {
+        width: 70px;
+    }
+    .trusted-client {
+        padding: 0;
+    }
+    .trusted-company {
+        font-size: 1.2rem;
+    }
+    .nav-corousel {
+        margin-left: 1rem;
+        margin-top: 1rem;
+    }
+    .keterangan-client {
+        padding-top: 0;
+    }
+    #feedback .image-client > img {
+        height: 90px;
+        width: 90px;
+    }
+    #feedback .heading-section {
+        height: 34rem;
+    }
+    /* Fitur */
+    .list-fitur-name {
+        font-size: 1.2rem;
+    }
+    .list-fitur-header > img {
+        height: 80px;
+    }
+    .daftar-fitur {
+        padding: 0 1rem 1rem 1rem;
+    }
+    .heading-paragraph-container-fitur {
+        height: 11rem;
+    }
+    #fitur > .container > .heading-text > h1 > img {
+        height: 40px;
+    }
+    #fitur > .container > .heading-text h1 {
+        font-size: 50px !important;
+    }
+    /* Alasan */
+    .daftar-alasan .box-alasan:nth-child(3) {
+        float: none;
+        margin: 1rem 0;
+    }
+    .daftar-alasan .box-alasan:nth-child(2) {
+        float: none;
+        margin: 1rem 0;
+    }
+    .daftar-alasan .box-alasan:nth-child(1) {
+        float: none;
+        margin: 1rem 0;
+    }
+    .daftar-alasan .box-alasan {
+        height: 18rem;
+        width: 24rem;
+    }
+    .daftar-alasan {
+        display: flex;
+        flex-direction: column;
+    }
+    #alasan > .container > .heading-text > h1 > img {
+        height: 40px;
+    }
+    #alasan > .container > .heading-text h1 {
+        font-size: 50px !important;
+    }
+    /* Welcome */
+    .heading-paragraph-container-welcome-2 {
+        height: 14rem;
+    }
+    .list-client-welcome > img {
+        width: 70px;
+    }
+    .image-welcome > img {
+        height: 320px;
+    }
+    /* Footer */
+    .layanan-container {
+        margin-left: 0;
+    }
+    .perusahaan-container {
+        margin-left: 0;
+    }
+    .footer-content-mobile .layanan-container {
+        margin-left: 5.2rem;
+    }
+    .footer-content-mobile {
+        display: flex !important;
+        justify-content: space-between;
+    }
+    /* Header */
+    .nav-mobile-daftar {
+        margin: 0 2rem 0 7rem;
+        width: 18rem;
+    }
+    #masuk-link {
+        text-align: center;
+    }
+    #daftar-link {
+        text-align: center;
+    }
+    .header-content-1 {
+        padding: 0;
+    }
+    .mainMenu-open #header #mainMenu {
+        overflow-y: hidden;
+    }
+    #mainMenu > .container {
+        margin-top: 2rem;
+    }
+    .header-content {
+        display: block;
+    }
+    .col-dekstop {
+        display: none;
+    }
+    .col-mobile {
+        display: block;
+    }
+}

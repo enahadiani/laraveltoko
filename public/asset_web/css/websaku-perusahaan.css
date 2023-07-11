@@ -1,0 +1,379 @@
+/* Presentation */
+.presentation-action {
+    display: flex;
+    justify-content: center;
+}
+.btn-presentation {
+    background-color: #fff;
+    padding: 0.8rem 1rem;
+    border: none;
+    border-radius: 2.5rem;
+}
+.presentation-text {
+    width: 32rem;
+    margin: 0 auto;
+}
+.presentation-content {
+    padding: 2rem;
+}
+#presentation h1,
+#presentation h5 {
+    color: #fff;
+}
+#presentation > .container {
+    display: flex;
+    justify-content: center;
+}
+.background-presentation {
+    background-image: url("../img/esaku/background-produk.png");
+    width: 62rem;
+    height: 29rem;
+    border-radius: 30px;
+    background-repeat: no-repeat;
+}
+/* Klien */
+.trusted-client .trusted-client-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.trusted-client {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 7rem;
+}
+.title-klien {
+    width: 70rem;
+    margin: 2rem 8.5rem;
+}
+/* Produk Fitur */
+.icon-container {
+    position: absolute;
+    right: 16.1rem;
+    bottom: 1px;
+    width: 370px;
+}
+.cog-icon {
+    position: relative;
+    float: right;
+}
+i.fas.fa-cog {
+    clip-path: polygon(50% 0%, 50% 100%, 0% 100%, 0% 0%);
+    background: linear-gradient(
+        to bottom,
+        #f9f9f9 0%,
+        #f9f9f9 0%,
+        #ffffff 1%,
+        #a7d7f1 1%,
+        #1194d8 1%,
+        #008dd6 2%,
+        #008cd6 3%,
+        #0094db 15%,
+        #0095d7 18%,
+        #019bdb 24%,
+        #009bd8 25%,
+        #00a1d8 36%,
+        #01a5dd 40%,
+        #00a4da 40%,
+        #00a9dd 49%,
+        #00aad9 50%,
+        #01b0de 58%,
+        #00b2da 61%,
+        #00b7de 69%,
+        #00b7db 70%,
+        #01b9dd 70%,
+        #00b7db 71%,
+        #01b9dd 71%,
+        #00b7db 72%,
+        #01bbde 74%,
+        #00bfdc 83%,
+        #00c4e0 88%,
+        #02c6df 93%,
+        #00c9dc 97%,
+        #02cbe0 98%,
+        #01cadf 99%,
+        #74dfeb 99%,
+        #f5f7f7 99%,
+        #fafafa 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.cog-tilted {
+    font-size: 10rem;
+    transform: rotate(48deg);
+}
+.link-kontak:hover {
+    color: #fff !important;
+}
+.link-kontak {
+    background: linear-gradient(
+        to bottom,
+        #f9f9f9 0%,
+        #f9f9f9 0%,
+        #ffffff 1%,
+        #a7d7f1 1%,
+        #1194d8 1%,
+        #008dd6 2%,
+        #008cd6 3%,
+        #0094db 15%,
+        #0095d7 18%,
+        #019bdb 24%,
+        #009bd8 25%,
+        #00a1d8 36%,
+        #01a5dd 40%,
+        #00a4da 40%,
+        #00a9dd 49%,
+        #00aad9 50%,
+        #01b0de 58%,
+        #00b2da 61%,
+        #00b7de 69%,
+        #00b7db 70%,
+        #01b9dd 70%,
+        #00b7db 71%,
+        #01b9dd 71%,
+        #00b7db 72%,
+        #01bbde 74%,
+        #00bfdc 83%,
+        #00c4e0 88%,
+        #02c6df 93%,
+        #00c9dc 97%,
+        #02cbe0 98%,
+        #01cadf 99%,
+        #74dfeb 99%,
+        #f5f7f7 99%,
+        #fafafa 100%
+    );
+    padding: 0.8rem 2rem;
+    border-radius: 2.5rem;
+    color: #fff;
+}
+.custom-text {
+    width: 220px;
+}
+.card-custom {
+    background-color: #fff;
+    height: 34rem;
+    width: 30rem;
+    border-radius: 30px;
+    padding: 4rem 3rem;
+    border: 1px solid #f8f8f8;
+    -webkit-box-shadow: 0px 0px 6px 0px rgba(194, 194, 194, 1);
+    -moz-box-shadow: 0px 0px 6px 0px rgba(194, 194, 194, 1);
+    box-shadow: 0px 0px 6px 0px rgba(194, 194, 194, 1);
+    margin: 0 1rem 0 0;
+}
+.link-coba {
+    background-color: #fff;
+    padding: 0.8rem 2rem;
+    border-radius: 2.5rem;
+    color: #000;
+}
+.card-coba h5 {
+    color: #fff;
+}
+.coba-text {
+    width: 200px;
+}
+.card-coba {
+    background: linear-gradient(
+        to bottom,
+        #f9f9f9 0%,
+        #f9f9f9 0%,
+        #ffffff 1%,
+        #a7d7f1 1%,
+        #1194d8 1%,
+        #008dd6 2%,
+        #008cd6 3%,
+        #0094db 15%,
+        #0095d7 18%,
+        #019bdb 24%,
+        #009bd8 25%,
+        #00a1d8 36%,
+        #01a5dd 40%,
+        #00a4da 40%,
+        #00a9dd 49%,
+        #00aad9 50%,
+        #01b0de 58%,
+        #00b2da 61%,
+        #00b7de 69%,
+        #00b7db 70%,
+        #01b9dd 70%,
+        #00b7db 71%,
+        #01b9dd 71%,
+        #00b7db 72%,
+        #01bbde 74%,
+        #00bfdc 83%,
+        #00c4e0 88%,
+        #02c6df 93%,
+        #00c9dc 100%,
+        #02cbe0 98%,
+        #01cadf 99%,
+        #74dfeb 99%,
+        #f5f7f7 99%,
+        #fafafa 100%
+    );
+    height: 34rem;
+    width: 30rem;
+    border-radius: 30px;
+    padding: 4rem 3rem;
+    margin: 0 1rem 0 1rem;
+}
+.produk-fitur-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+/* Pengalaman */
+.image-text h2 {
+    font-weight: normal !important;
+    font-size: 2rem;
+}
+.image-text {
+    text-align: center;
+    margin: 5rem auto;
+    padding: 0 3rem;
+    width: 72rem;
+}
+.pengalaman-image > .image-meeting {
+    border-radius: 30px;
+}
+.pengalaman-image {
+    padding: 0 3.5rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+.heading-section > h5.pengalaman-text {
+    color: #0058e4;
+}
+.pengalaman-container {
+    width: 75rem;
+}
+/* Footer */
+span.copyright {
+    font-size: 1rem;
+    font-weight: normal;
+}
+.col-footer {
+    margin-left: -0.5rem;
+    margin-bottom: -0.5rem;
+}
+.link-footer > .arrow-tilted {
+    transform: rotate(40deg);
+    padding-left: 0.5rem;
+}
+.link-footer {
+    font-size: 1rem;
+    color: #0058e4 !important;
+    padding-left: 2.8rem;
+}
+.footer-content-text {
+    font-weight: 400;
+    font-size: 1rem;
+    padding-left: 0.5rem;
+    display: inline-block;
+    text-align: left;
+}
+.footer-text-nav {
+    color: #606060;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+/* Header */
+#mainMenu nav > ul > li > a {
+    text-transform: none !important;
+    font-size: 1rem;
+    font-weight: normal !important;
+}
+#mainMenu-trigger {
+    cursor: pointer !important;
+    z-index: 2;
+}
+#daftar-link {
+    background-color: #0058e4;
+    padding: 0.8rem 1rem;
+    border-radius: 2.5rem;
+    color: #fff;
+}
+#masuk-link:hover {
+    color: #007bff;
+}
+#masuk-link {
+    color: #000;
+    font-weight: bold;
+    padding: 1rem;
+}
+#logo {
+    margin-right: 1.5rem;
+}
+#mainMenu nav > ul > li > a {
+    text-transform: none !important;
+    font-size: 1rem;
+}
+#mainMenu2 nav > ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.header-content-2 {
+    display: flex;
+    flex-direction: row;
+    padding-right: 10rem;
+}
+.header-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.header-content-1 {
+    display: flex;
+    flex-direction: row;
+    padding-left: 10rem;
+}
+.header-content-1 .main-menu {
+    margin-top: 0.5rem;
+}
+.header-content-2 .main-menu {
+    margin-top: 0.5rem;
+}
+.col-mobile {
+    display: none;
+}
+h1,
+h2,
+h3 {
+    font-family: "Roboto", sans-serif;
+    font-weight: 700 !important;
+}
+
+p,
+a,
+h4,
+h5,
+h6 {
+    font-family: "Roboto", sans-serif !important;
+    font-weight: 400;
+}
+button {
+    font-family: "Roboto", sans-serif !important;
+    font-size: 1rem;
+}
+span {
+    font-family: "Roboto", sans-serif !important;
+    font-weight: bold;
+}
+
+/* General */
+.heading-text h1 {
+    font-size: 4.75rem !important;
+}
+.heading-text h5 {
+    font-size: 1.25rem !important;
+}
+@media only screen and (min-width: 1440px) {
+    .icon-container {
+        right: 27.2rem;
+    }
+}
