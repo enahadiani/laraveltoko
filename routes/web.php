@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Log;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     $domain = $_SERVER['SERVER_NAME'];
     // echo $domain;
+    Log::info($domain);
     switch ($domain){
         case 'laraveltoko' : 
             return redirect('esaku-auth/login');
