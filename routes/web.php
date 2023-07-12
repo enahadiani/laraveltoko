@@ -20,6 +20,19 @@ Route::get('/', function () {
         case 'laraveltoko' : 
             return redirect('esaku-auth/login');
         break;
+        case 'trengginasjaya.com' :
+        case 'www.trengginasjaya.com' : 
+            return redirect('webginas2/');
+        break;
+        case 'rds.esaku.id': 
+            return redirect('esaku-auth/login');
+        break;
+        case 'tjmart.trengginasjaya.com' : 
+            return redirect('esaku-auth/login');
+        break;
+        case 'sdm.trengginasjaya.com' : 
+            return redirect('esaku-auth/login');
+        break;
         default : 
             return view('welcome');
         break;
