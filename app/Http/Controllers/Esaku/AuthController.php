@@ -131,15 +131,255 @@ class AuthController extends Controller
         return redirect('esaku-auth/login')->with('status','logout');
     }
 
-    public function getMenu(){
+    // public function getMenu(){
+    //     try {
+    //         $client = new Client();
+    //         $kodemenu = Session::get('kodeMenu');
+    //         $response = $client->request('GET',  config('api.url').'esaku-auth/menu/'.$kodemenu,[
+    //             'headers' => [
+    //                 'Authorization' => 'Bearer '.Session::get('token'),
+    //                 'Accept'     => 'application/json',
+    //                 ]
+    //         ]);
+
+    //         $hasil = "";
+    //         if ($response->getStatusCode() == 200) { // 200 OK
+    //             $response_data = $response->getBody()->getContents();
+                
+    //             $data = json_decode($response_data,true);
+    //             $main_menu = $data['data'];
+    //                 $main = "<div class='scroll'>
+    //                 <ul class='list-unstyled'>";
+    //                 $submenu = "<div class='scroll'>";
+    //                 $pre_prt = 1;
+    //                 $parent_array = array();
+    //                 $hasil = "";
+    //                 $kode = array(); 
+    //                 if(count($main_menu) > 0){
+    //                     for($i=0; $i<count($main_menu); $i++){
+    //                         $kode_form = $main_menu[$i]['kode_form'];
+    //                         $forms = str_replace("_","/", $main_menu[$i]['form']);
+    //                         $this_lv = $main_menu[$i]['level_menu']; 
+    //                         $forms = explode("/",$forms);
+    //                         if(ISSET($forms[2])){
+    //                             $this_link = $forms[2];
+                                
+    //                             if(isset($forms[3])){
+    //                                 $this_link = $forms[2].'_'.$forms[3];
+    //                             }
+    //                         }else{
+    //                             $this_link = "";
+    //                         }
+                            
+    //                         if($this_lv == 0){
+    //                             if(!ISSET($main_menu[$i-1]['level_menu'])){
+    //                                 $prev_lv2 = 0; 
+    //                             }else{
+    //                                 $prev_lv2 = $main_menu[$i-1]['level_menu'];
+    //                             }
+                        
+    //                             if(!ISSET($main_menu[$i+1]['level_menu'])){
+    //                                 $next_lv2 = $main_menu[$i]['level_menu'];
+    //                             }else{
+    //                                 $next_lv2 = $main_menu[$i+1]['level_menu']; //t1 nv=1
+    //                             }
+    //                             $level_nol = 'sub'.$main_menu[$i]['kode_menu'];
+    //                             $sub[$level_nol] = "";
+    //                             array_push($kode,$level_nol);
+    //                             if($next_lv2 > 0){
+    //                                 if(Session::get('menu') == "menu-main-hidden"){
+    //                                     $active = "active";
+    //                                 }else{
+    //                                     $active = "";
+    //                                 }
+    //                                 $main .=" 
+    //                                 <li class='$active'>
+    //                                         <a href='#main".$main_menu[$i]['kode_menu']."'>
+    //                                         <i class='".$main_menu[$i]['icon']."'></i>
+    //                                             <span>".$main_menu[$i]['nama']."</span>
+    //                                         </a>
+    //                                 </li>";
+
+    //                                 $submenu .= "<ul class='list-unstyled' data-link='main".$main_menu[$i]['kode_menu']."' id='sub".$main_menu[$i]['kode_menu']."'></ul>";
+    //                             }else{
+    //                                 $main .=" 
+    //                                 <li>
+    //                                         <a href='#' data-href='$this_link' data-kode_form='$kode_form' class='a_link'>
+    //                                         <i class='".$main_menu[$i]['icon']."'></i>
+    //                                             <span>".$main_menu[$i]['nama']."</span>
+    //                                         </a>
+    //                                 </li>";
+    //                                 $submenu .="";
+    //                             }
+    //                         }else{
+    //                             if(!ISSET($main_menu[$i-1]['level_menu'])){
+    //                                 $prev_lv = 1; 
+    //                             }else{
+    //                                 $prev_lv = $main_menu[$i-1]['level_menu'];
+    //                             }
+                        
+    //                             if(!ISSET($main_menu[$i+1]['level_menu'])){
+    //                                 $next_lv = $main_menu[$i]['level_menu'];
+    //                             }else{
+    //                                 $next_lv = $main_menu[$i+1]['level_menu']; //t1 nv=1
+    //                             }
+                                
+    //                             // Sintaks Menu Level 0 dan Tanpa Anak
+    //                             if($this_lv == 1 AND $next_lv == 1){
+                                    
+    //                                 $sub[$level_nol] .= "
+    //                                 <li class=''>
+    //                                     <a href='#' class='a_link' data-href='$this_link' data-kode_form='$kode_form'>
+    //                                         <i class='".$main_menu[$i]['icon']."'></i> <span class='d-inline-block'>".$main_menu[$i]['nama']."</span>
+    //                                     </a>
+    //                                 </li>
+    //                                 ";
+                                    
+    //                             }
+    //                             // Sintaks Menu Level 1 dan beranak
+    //                             else if($this_lv == 1 AND $next_lv > 1){
+    //                                 $sub[$level_nol] .="
+    //                                 <li>
+    //                                 <a href='#' data-toggle='collapse' data-target='#collapse".$main_menu[$i]['kode_menu']."' aria-expanded='false'
+    //                                     aria-controls='collapse".$main_menu[$i]['kode_menu']."' class='rotate-arrow-icon'>
+    //                                     <i class='simple-icon-arrow-down'></i> <span class='d-inline-block'>".$main_menu[$i]['nama']."</span>
+    //                                 </a>
+    //                                 <div id='collapse".$main_menu[$i]['kode_menu']."' class='collapse' >
+    //                                     <ul class='list-unstyled inner-level-menu'>
+
+    //                                 ";
+    //                             }else if(($this_lv > $prev_lv OR $this_lv == $prev_lv OR $this_lv < $prev_lv) AND $this_lv < $next_lv){
+    //                                 $sub[$level_nol].= " 
+    //                                 <li>
+    //                                 <a href='#' data-toggle='collapse' data-target='#collapse".$main_menu[$i]['kode_menu']."' aria-expanded='false'
+    //                                     aria-controls='collapse".$main_menu[$i]['kode_menu']."' class='rotate-arrow-icon'>
+    //                                     <i class='simple-icon-arrow-down'></i> <span class='d-inline-block'>".$main_menu[$i]['nama']."</span>
+    //                                 </a>
+    //                                 <div id='collapse".$main_menu[$i]['kode_menu']."' class='collapse' >
+    //                                     <ul class='list-unstyled inner-level-menu'>";
+    //                             }else if(($this_lv > $prev_lv OR $this_lv == $prev_lv OR $this_lv < $prev_lv) AND $this_lv == $next_lv){
+    //                                 $sub[$level_nol].= " 
+    //                                 <li class=''>
+    //                                     <a href='#' class='a_link' data-href='$this_link' data-kode_form='$kode_form'>
+    //                                         <i class='".$main_menu[$i]['icon']."'></i> <span class='d-inline-block'>".$main_menu[$i]['nama']."</span>
+    //                                     </a>
+    //                                 </li>
+    //                                 ";
+    //                             }else if($this_lv > $prev_lv AND $this_lv > $next_lv){
+    //                                 $sub[$level_nol].= " 
+    //                                 <li class=''>
+    //                                     <a href='#' class='a_link' data-href='$this_link' data-kode_form='$kode_form'>
+    //                                         <i class='".$main_menu[$i]['icon']."'></i> <span class='d-inline-block'>".$main_menu[$i]['nama']."</span>
+    //                                     </a>
+    //                                 </li>                                
+    //                                 </ul>
+    //                                 </div>";
+    //                             }else if(($this_lv == $prev_lv OR $this_lv < $prev_lv) AND $this_lv > $next_lv){
+    //                                 $sub[$level_nol].= " 
+    //                                 <li class=''>
+    //                                     <a href='#' class='a_link' data-href='$this_link' data-kode_form='$kode_form'>
+    //                                         <i class='".$main_menu[$i]['icon']."'></i> <span class='d-inline-block'>".$main_menu[$i]['nama']."</span>
+    //                                     </a>
+    //                                 </li>
+    //                                 </div>
+    //                                 </ul>";
+    //                             }
+    //                         }
+    //                     }
+    //                 }
+    //                 $main .="
+    //                     </ul>
+    //                 </div>";
+                    
+    //                 // $str = file_get_contents('http://localhost:8080/laravelsai/public/data.json');
+    //                 // $menu = json_decode($str, true);
+    //                 // $allmenu = $menu['allmenu'];
+                        
+
+    //                 // $output = $this->buildMenu($allmenu);
+
+    //             $submenu .="</div>";
+
+
+    //             $success['status'] = true;
+    //             $success['main_menu'] = $main;
+    //             $success['sub_menu'] = $submenu;
+    //             $success['subdata'] = $sub;
+    //             $success['kode_menu'] = $kode;
+            
+    //         }else{
+    //             $success['status'] = true;
+    //             $success['main_menu'] = "" ;
+    //         }                
+    //         return response()->json([$success], 200);
+    //     } catch (BadResponseException $ex) {
+    //         $response = $ex->getResponse();
+    //         $res = json_decode($response->getBody(),true);
+    //         return response()->json(['message' => $res, 'status'=>false], $response->getStatusCode());
+    //     }          
+    // }
+
+    function subMenu($array = array(), $parentID = 'saimenu-1', $child) {
+        if (!empty($array[$parentID])) {
+            $menu = '';
+            foreach ($array[$parentID] as $items) {
+                $kode_form = $items['kode_form'];
+                $forms = str_replace("_","/", $items['form']);
+                $this_lv = $items['level_menu']; 
+                $forms = explode("/",$forms);
+                $v_icon = explode("|",$items['icon']);
+                $icon_menu = $v_icon[0] == "img" ? "<img src='" . url('asset_dore/icon/'.$v_icon[1]) . "' width='20'>" : "<i class='" . $items['icon'] . "'></i>";
+                if(ISSET($forms[2])){
+                    $this_link = $forms[2];
+                    if(isset($forms[3])){
+                        $this_link = $forms[2].'_'.$forms[3];
+                        if(isset($forms[4])){
+                            $this_link = $forms[2].'_'.$forms[3].'_'.$forms[4];
+                        }
+                    }
+                }else{
+                    $this_link = "";
+                }
+                if($items['child']){
+                    $menu .= "<li>
+                    <a href='#' data-toggle='collapse' data-target='#collapse".$items['kode_menu']."' aria-expanded='false'
+                        aria-controls='collapse".$items['kode_menu']."' class='rotate-arrow-icon'>
+                        <i class='simple-icon-arrow-down font-13px'></i> <span class='d-inline-block'>".$items['nama']."</span>
+                    </a>
+                    <div id='collapse".$items['kode_menu']."' class='collapse' >
+                        <ul class='list-unstyled inner-level-menu'>";
+                        $menu.= $this->subMenu($array, $items['kode'], $items['child']);
+                    
+                    $menu .= "</ul>
+                    </div>
+                    </li>";
+                }else{
+                    $menu .= "<li class=''>
+                        <a href='#' class='a_link tooltip-menu' data-href='$this_link' data-kode_form='$kode_form' >
+                        $icon_menu <span class='d-inline-block'>".$items['nama']."</span>
+                        </a>
+                    </li>";
+                }
+            }
+            $menu .= '';
+            return $menu;
+        }
+    }
+
+    public function getMenu(Request $r)
+    {
         try {
             $client = new Client();
+            
             $kodemenu = Session::get('kodeMenu');
-            $response = $client->request('GET',  config('api.url').'esaku-auth/menu/'.$kodemenu,[
+            if(isset($r->kode_klp) && $r->kode_klp != "" && $r->kode_klp != null){
+                $kodemenu = $r->kode_klp;
+            }
+            $response = $client->request('GET',  config('api.url') . 'esaku-auth/menu/' . $kodemenu, [
                 'headers' => [
-                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Authorization' => 'Bearer ' . Session::get('token'),
                     'Accept'     => 'application/json',
-                    ]
+                ]
             ]);
 
             $hasil = "";
@@ -149,154 +389,112 @@ class AuthController extends Controller
                 $data = json_decode($response_data,true);
                 $main_menu = $data['data'];
                     $main = "<div class='scroll'>
-                    <ul class='list-unstyled'>";
-                    $submenu = "<div class='scroll'>";
-                    $pre_prt = 1;
-                    $parent_array = array();
-                    $hasil = "";
-                    $kode = array(); 
-                    if(count($main_menu) > 0){
-                        for($i=0; $i<count($main_menu); $i++){
-                            $kode_form = $main_menu[$i]['kode_form'];
-                            $forms = str_replace("_","/", $main_menu[$i]['form']);
-                            $this_lv = $main_menu[$i]['level_menu']; 
-                            $forms = explode("/",$forms);
-                            if(ISSET($forms[2])){
-                                $this_link = $forms[2];
-                                
-                                if(isset($forms[3])){
-                                    $this_link = $forms[2].'_'.$forms[3];
-                                }
-                            }else{
-                                $this_link = "";
-                            }
-                            
-                            if($this_lv == 0){
-                                if(!ISSET($main_menu[$i-1]['level_menu'])){
-                                    $prev_lv2 = 0; 
-                                }else{
-                                    $prev_lv2 = $main_menu[$i-1]['level_menu'];
-                                }
-                        
-                                if(!ISSET($main_menu[$i+1]['level_menu'])){
-                                    $next_lv2 = $main_menu[$i]['level_menu'];
-                                }else{
-                                    $next_lv2 = $main_menu[$i+1]['level_menu']; //t1 nv=1
-                                }
-                                $level_nol = 'sub'.$main_menu[$i]['kode_menu'];
-                                $sub[$level_nol] = "";
-                                array_push($kode,$level_nol);
-                                if($next_lv2 > 0){
-                                    if(Session::get('menu') == "menu-main-hidden"){
-                                        $active = "active";
+                        <ul class='list-unstyled'>";
+                            $submenu = "<div class='scroll'>";
+                            $pre_prt = 1;
+                            $parent_array = array();
+                            $hasil = "";
+                            $kode = array(); 
+                            $child = array(); 
+                            if(count($main_menu) > 0){
+                                $array = [];
+                                for($i=0; $i<count($main_menu); $i++){
+                                    if(!ISSET($main_menu[$i-1]['level_menu'])){
+                                        $prev_lv = 0;
                                     }else{
-                                        $active = "";
+                                        $prev_lv = $main_menu[$i-1]['level_menu'];
                                     }
-                                    $main .=" 
-                                    <li class='$active'>
-                                            <a href='#main".$main_menu[$i]['kode_menu']."'>
-                                            <i class='".$main_menu[$i]['icon']."'></i>
-                                                <span>".$main_menu[$i]['nama']."</span>
-                                            </a>
-                                    </li>";
+                                    $next_lv = isset($main_menu[$i+1]) ? $main_menu[$i+1]['level_menu'] : 0;
+                                    if($main_menu[$i]['level_menu'] < $next_lv){
+                                        $main_menu[$i]['child'] = true;
+                                    }else{
+                                        $main_menu[$i]['child'] = false;
+                                    }
+                                    $main_menu[$i]['kode'] = "saimenu-".$i;
+                                    if($main_menu[$i]['level_menu'] == 0){
+                                        $main_menu[$i]['parent_kode'] = "saimenu-00";
+                                        $prev_prt = $i;
+                                        $parent_array[$main_menu[$i]['level_menu']] = $i; 
+                                    }else if($main_menu[$i]['level_menu'] > $prev_lv){
+                                        $main_menu[$i]['parent_kode'] = "saimenu-".($i-1);
+                                        $prev_prt = $i-1;
+                                        $parent_array[$main_menu[$i]['level_menu']] = $i - 1;
+                                    }else if($main_menu[$i]['level_menu'] == $prev_lv){
+                                        $main_menu[$i]['parent_kode'] = "saimenu-".($prev_prt);
+                                    }else if($main_menu[$i]['level_menu'] < $prev_lv){
+                                        $main_menu[$i]['parent_kode'] = "saimenu-".$parent_array[$main_menu[$i]['level_menu']];
+                                    }
 
-                                    $submenu .= "<ul class='list-unstyled' data-link='main".$main_menu[$i]['kode_menu']."' id='sub".$main_menu[$i]['kode_menu']."'></ul>";
-                                }else{
-                                    $main .=" 
-                                    <li>
-                                            <a href='#' data-href='$this_link' data-kode_form='$kode_form' class='a_link'>
-                                            <i class='".$main_menu[$i]['icon']."'></i>
-                                                <span>".$main_menu[$i]['nama']."</span>
-                                            </a>
-                                    </li>";
-                                    $submenu .="";
-                                }
-                            }else{
-                                if(!ISSET($main_menu[$i-1]['level_menu'])){
-                                    $prev_lv = 1; 
-                                }else{
-                                    $prev_lv = $main_menu[$i-1]['level_menu'];
-                                }
-                        
-                                if(!ISSET($main_menu[$i+1]['level_menu'])){
-                                    $next_lv = $main_menu[$i]['level_menu'];
-                                }else{
-                                    $next_lv = $main_menu[$i+1]['level_menu']; //t1 nv=1
-                                }
+                                    $kode_form = $main_menu[$i]['kode_form'];
+                                    $forms = str_replace("_","/", $main_menu[$i]['form']);
+                                    $this_lv = $main_menu[$i]['level_menu']; 
+                                    $forms = explode("/",$forms);
+                                    $v_icon = explode("|",$main_menu[$i]['icon']);
+                                    $icon_menu = $v_icon[0] == "img" ? "<img src='" . url('asset_dore/icon/'.$v_icon[1]) . "' width='20'>" : "<i class='" . $main_menu[$i]['icon'] . "'></i>";
+                                    if(ISSET($forms[2])){
+                                        $this_link = $forms[2];
+                                        if(isset($forms[3])){
+                                            $this_link = $forms[2].'_'.$forms[3];
+                                            if(isset($forms[4])){
+                                                $this_link = $forms[2].'_'.$forms[3].'_'.$forms[4];
+                                            }
+                                        }
+                                    }else{
+                                        $this_link = "";
+                                    }
+                                    
+                                    if($this_lv == 0){
+                                        if(!ISSET($main_menu[$i-1]['level_menu'])){
+                                            $prev_lv2 = 0; 
+                                        }else{
+                                            $prev_lv2 = $main_menu[$i-1]['level_menu'];
+                                        }
                                 
-                                // Sintaks Menu Level 0 dan Tanpa Anak
-                                if($this_lv == 1 AND $next_lv == 1){
-                                    
-                                    $sub[$level_nol] .= "
-                                    <li class=''>
-                                        <a href='#' class='a_link' data-href='$this_link' data-kode_form='$kode_form'>
-                                            <i class='".$main_menu[$i]['icon']."'></i> <span class='d-inline-block'>".$main_menu[$i]['nama']."</span>
-                                        </a>
-                                    </li>
-                                    ";
-                                    
+                                        if(!ISSET($main_menu[$i+1]['level_menu'])){
+                                            $next_lv2 = $main_menu[$i]['level_menu'];
+                                        }else{
+                                            $next_lv2 = $main_menu[$i+1]['level_menu']; //t1 nv=1
+                                        }
+                                        $level_nol = $main_menu[$i]['kode'];
+                                        $sub[$level_nol] = "";
+                                        array_push($kode,$level_nol);
+                                        array_push($child,$main_menu[$i]['child']);
+                                        if($next_lv2 > 0){
+                                            if(Session::get('menu') == "menu-main-hidden"){
+                                                $active = "active";
+                                            }else{
+                                                $active = "";
+                                            }
+                                            $main .=" 
+                                            <li class='$active'>
+                                                <a href='#main".$level_nol."'>
+                                                $icon_menu</i>
+                                                    <span>".$main_menu[$i]['nama']."</span>
+                                                </a>
+                                            </li>";
+        
+                                            $submenu .= "<ul class='list-unstyled' data-link='main".$level_nol."' id='".$level_nol."'></ul>";
+                                        }else{
+                                            $main .=" 
+                                            <li>
+                                                    <a href='#' data-href='$this_link' data-kode_form='$kode_form' class='tooltip-menu a_link' >
+                                                    $icon_menu</i>
+                                                        <span>".$main_menu[$i]['nama']."</span>
+                                                    </a>
+                                            </li>";
+                                            $submenu .="";
+                                        }
+                                    }else{
+                                        $array[$main_menu[$i]['parent_kode']][] = $main_menu[$i];
+                                    }
                                 }
-                                // Sintaks Menu Level 1 dan beranak
-                                else if($this_lv == 1 AND $next_lv > 1){
-                                    $sub[$level_nol] .="
-                                    <li>
-                                    <a href='#' data-toggle='collapse' data-target='#collapse".$main_menu[$i]['kode_menu']."' aria-expanded='false'
-                                        aria-controls='collapse".$main_menu[$i]['kode_menu']."' class='rotate-arrow-icon'>
-                                        <i class='simple-icon-arrow-down'></i> <span class='d-inline-block'>".$main_menu[$i]['nama']."</span>
-                                    </a>
-                                    <div id='collapse".$main_menu[$i]['kode_menu']."' class='collapse' >
-                                        <ul class='list-unstyled inner-level-menu'>
-
-                                    ";
-                                }else if(($this_lv > $prev_lv OR $this_lv == $prev_lv OR $this_lv < $prev_lv) AND $this_lv < $next_lv){
-                                    $sub[$level_nol].= " 
-                                    <li>
-                                    <a href='#' data-toggle='collapse' data-target='#collapse".$main_menu[$i]['kode_menu']."' aria-expanded='false'
-                                        aria-controls='collapse".$main_menu[$i]['kode_menu']."' class='rotate-arrow-icon'>
-                                        <i class='simple-icon-arrow-down'></i> <span class='d-inline-block'>".$main_menu[$i]['nama']."</span>
-                                    </a>
-                                    <div id='collapse".$main_menu[$i]['kode_menu']."' class='collapse' >
-                                        <ul class='list-unstyled inner-level-menu'>";
-                                }else if(($this_lv > $prev_lv OR $this_lv == $prev_lv OR $this_lv < $prev_lv) AND $this_lv == $next_lv){
-                                    $sub[$level_nol].= " 
-                                    <li class=''>
-                                        <a href='#' class='a_link' data-href='$this_link' data-kode_form='$kode_form'>
-                                            <i class='".$main_menu[$i]['icon']."'></i> <span class='d-inline-block'>".$main_menu[$i]['nama']."</span>
-                                        </a>
-                                    </li>
-                                    ";
-                                }else if($this_lv > $prev_lv AND $this_lv > $next_lv){
-                                    $sub[$level_nol].= " 
-                                    <li class=''>
-                                        <a href='#' class='a_link' data-href='$this_link' data-kode_form='$kode_form'>
-                                            <i class='".$main_menu[$i]['icon']."'></i> <span class='d-inline-block'>".$main_menu[$i]['nama']."</span>
-                                        </a>
-                                    </li>                                
-                                    </ul>
-                                    </div>";
-                                }else if(($this_lv == $prev_lv OR $this_lv < $prev_lv) AND $this_lv > $next_lv){
-                                    $sub[$level_nol].= " 
-                                    <li class=''>
-                                        <a href='#' class='a_link' data-href='$this_link' data-kode_form='$kode_form'>
-                                            <i class='".$main_menu[$i]['icon']."'></i> <span class='d-inline-block'>".$main_menu[$i]['nama']."</span>
-                                        </a>
-                                    </li>
-                                    </div>
-                                    </ul>";
+                                for($x =0; $x < count($kode); $x++){
+                                    $sub[$kode[$x]] = $this->subMenu($array,$kode[$x],$child[$x]);
                                 }
                             }
-                        }
-                    }
                     $main .="
                         </ul>
                     </div>";
-                    
-                    // $str = file_get_contents('http://localhost:8080/laravelsai/public/data.json');
-                    // $menu = json_decode($str, true);
-                    // $allmenu = $menu['allmenu'];
-                        
-
-                    // $output = $this->buildMenu($allmenu);
 
                 $submenu .="</div>";
 
@@ -310,13 +508,13 @@ class AuthController extends Controller
             }else{
                 $success['status'] = true;
                 $success['main_menu'] = "" ;
-            }                
+            }  
             return response()->json([$success], 200);
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
-            $res = json_decode($response->getBody(),true);
-            return response()->json(['message' => $res, 'status'=>false], $response->getStatusCode());
-        }          
+            $res = json_decode($response->getBody(), true);
+            return response()->json(['message' => $res, 'status' => false], $response->getStatusCode());
+        }
     }
 
     public function getProfile(){

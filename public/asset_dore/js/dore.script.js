@@ -680,7 +680,7 @@ $.dore = function (element, options) {
         // Prevent sub menu closing on collapse click 
         if ($(event.target).parents("a[data-toggle='collapse']").length > 0 || $(event.target).attr("data-toggle") == 'collapse') {
           // Request mas afnan hanya tampil satu collapse kalo klik menu lain collapse menu sebelumnya ke hide
-          $('.collapse.show').collapse('hide');
+          // $('.collapse.show').collapse('hide');
           return;
         }
         if (
