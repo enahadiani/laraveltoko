@@ -39,7 +39,7 @@ function drawRptPage(data,res,from,to) {
                     <td style="width: 83%;">PT. Tregginas Jaya</td>        
                 </tr>
                 <tr>
-                    <td style="width: 83%;">TJ Mart Sumur Bandung</td>        
+                    <td style="width: 83%;">${row.kode_gudang}</td>        
                 </tr>
                 <tr>
                     <td>Kasir : ${row.nik_user}</td>
@@ -61,16 +61,16 @@ function drawRptPage(data,res,from,to) {
                             <th style="width: 25px;" class="text-center">HPP</th>    
                             <th style="width: 25px;" class="text-center">Margin</th>    
                             <th style="width: 25px;" class="text-center">%</th>    
-                            <th style="width: 25px;" class="text-center">Struk</th>    
-                            <th style="width: 25px;" class="text-center">Rata2</th>    
-                            <th style="width: 50px;" class="text-center">Brg Kena Pajak</th>    
-                            <th style="width: 50px;" class="text-center">Brg Non Pajak</th>    
+                            <th style="width: 25px; display:none;" class="text-center">Struk</th>    
+                            <th style="width: 25px; display:none;" class="text-center">Rata2</th>    
+                            <th style="width: 50px; display:none;" class="text-center">Brg Kena Pajak</th>    
+                            <th style="width: 50px; display:none;" class="text-center">Brg Non Pajak</th>    
                         </tr> 
                     </thead>    
                     <tbody>`
                     for(var j=0;j<dataRes.data_detail.length;j++) {
                         var row2 = dataRes.data_detail[j];
-                        if(row.nik_user == row2.kasir) {
+                        if(row.nik_user == row2.kasir && row.kode_gudang == row2.kode_gudang) {
                             totalTot +=+ parseFloat(row2.total)
                             totalPPN +=+ parseFloat(row2.ppn);
                             totalBersih +=+ parseFloat(row2.bersih);
@@ -92,11 +92,11 @@ function drawRptPage(data,res,from,to) {
                                 <td style="text-align: right;">${sepNum(row2.hpp)}</td>    
                                 <td style="text-align: right;">${sepNum(row2.margin)}</td>    
                                 <td style="text-align: right;">${sepNum(row2.persen)}</td>    
-                                <td style="text-align: right;">${sepNum(row2.struk)}</td>    
-                                <td style="text-align: right;">${sepNum(row2.rata)}</td>    
-                                <td style="text-align: right;">${sepNum(row2.brg_pajak)}</td>    
-                                <td style="text-align: right;">${sepNum(row2.brg_non_pajak)}</td>    
-                            </tr>
+                                <td style="text-align: right; display:none;">${sepNum(row2.struk)}</td>    
+                                <td style="text-align: right; display:none;">${sepNum(row2.rata)}</td>    
+                                <td style="text-align: right; display:none;">${sepNum(row2.brg_pajak)}</td>    
+                                <td style="text-align: right; display:none;">${sepNum(row2.brg_non_pajak)}</td>    
+                            </tr> 
                             `
                             no++;
                         }
@@ -110,10 +110,10 @@ function drawRptPage(data,res,from,to) {
                         <td style="text-align: right; font-weight: bold;">${sepNum(totalHPP)}</td>    
                         <td style="text-align: right; font-weight: bold;">${sepNum(totalMargin)}</td>    
                         <td style="text-align: right; font-weight: bold;">${sepNum(totalPersen)}</td>    
-                        <td style="text-align: right; font-weight: bold;">${sepNum(totalStruk)}</td>    
-                        <td style="text-align: right; font-weight: bold;">${sepNum(totalRata)}</td>    
-                        <td style="text-align: right; font-weight: bold;">${sepNum(totalPajak)}</td>    
-                        <td style="text-align: right; font-weight: bold;">${sepNum(totalNonPajak)}</td>    
+                        <td style="text-align: right; font-weight: bold; display:none;">${sepNum(totalStruk)}</td>    
+                        <td style="text-align: right; font-weight: bold; display:none;">${sepNum(totalRata)}</td>    
+                        <td style="text-align: right; font-weight: bold; display:none;">${sepNum(totalPajak)}</td>    
+                        <td style="text-align: right; font-weight: bold; display:none;">${sepNum(totalNonPajak)}</td>    
                     </tr>
                 </table>    
             </div>    

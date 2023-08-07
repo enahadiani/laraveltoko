@@ -177,7 +177,8 @@
                     'query' => [
                         'periode' => $request->periode,
                         'tanggal' => $request->tanggal,
-                        'nik_kasir' => $request->nik_kasir
+                        'nik_kasir' => $request->nik_kasir,
+                        'gudang' => $request->kode_gudang
                     ]
                 ]);
 
