@@ -400,7 +400,7 @@
     function getBarang(param,id,isEdit=false){
         $.ajax({
             type: 'GET',
-            url: "{{url('toko-trans/retur-beli-barang')}}/"+id,
+            url: "{{url('esaku-trans/retur-beli-barang')}}/"+id,
             dataType: 'json',
             async:false,
             success:function(result){    
@@ -602,7 +602,7 @@
         var kode = $(this).closest('tr').find('td:eq(0)').text();
         $.ajax({
             type: 'GET',
-            url: "{{url('toko-trans/retur-beli-detail')}}/"+kode,
+            url: "{{url('esaku-trans/retur-beli-detail')}}/"+kode,
             dataType: 'json',
             async:false,
             success:function(result){
@@ -715,7 +715,7 @@
                 }
                 $.ajax({
                     type: 'POST',
-                    url: "{{url('toko-trans/retur-beli')}}",
+                    url: "{{url('esaku-trans/retur-beli')}}",
                     dataType: 'json',
                     data: formData,
                     contentType: false,

@@ -100,8 +100,8 @@ Route::post('retur-beli', 'Esaku\Inventori\ReturBeliController@store');
 Route::delete('retur-beli', 'Esaku\Inventori\ReturBeliController@delete');
 Route::get('retur-beli-new', 'Esaku\Inventori\ReturBeliController@getNew');
 Route::get('retur-beli-finish', 'Esaku\Inventori\ReturBeliController@getFinish');
-Route::get('retur-beli-barang/{no_bukti1}/{no_bukti2}/{no_bukti3}', 'Esaku\Inventori\ReturBeliController@getBarang');
-Route::get('retur-beli-detail/{no_bukti1}/{no_bukti2}/{no_bukti3}', 'Esaku\Inventori\ReturBeliController@show');
+Route::get('retur-beli-barang/{no_bukti1}/{no_bukti2}/{no_bukti3}/{no_bukti4}', 'Esaku\Inventori\ReturBeliController@getBarang');
+Route::get('retur-beli-detail/{no_bukti1}/{no_bukti2}/{no_bukti3}/{no_bukti4}', 'Esaku\Inventori\ReturBeliController@show');
 
 
 // Pemasukan Routes //
