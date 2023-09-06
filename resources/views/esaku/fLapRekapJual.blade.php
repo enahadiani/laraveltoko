@@ -15,6 +15,7 @@
                                         <x-inp-filter kode="periode" nama="Periode" selected="3" :option="array('3')"/>
                                         <x-inp-filter kode="tanggal" nama="Tanggal" selected="1" :option="array('1','3','i')"/>
                                         <x-inp-filter kode="kasir" nama="Kasir" selected="1" :option="array('1','3')"/>
+                                        <x-inp-filter kode="gudang" nama="Gudang" selected="1" :option="array('1','3')"/>
                                         <!-- END COMPONENT -->
                                     </div>
                                     <button id="btn-tampil" style="float:right;width:110px" class="btn btn-primary ml-2 mb-3" type="submit" >Tampilkan</button>
@@ -76,6 +77,13 @@
             to : "",
             toname : "",
         }
+    var $gudang = {
+            type : "all",
+            from : "",
+            fromname : "",
+            to : "",
+            toname : "",
+        }
     var $aktif = "";
 
     $.fn.DataTable.ext.pager.numbers_length = 5;
@@ -114,16 +122,18 @@
 
     $('.selectize').selectize();
     $('#inputFilter').reportFilter({
-        kode : ['periode','tanggal','kasir'],
-        nama : ['Periode','Tanggal','Kasir'],
+        kode : ['periode','tanggal','kasir','gudang'],
+        nama : ['Periode','Tanggal','Kasir','Gudang'],
         header : [
             ['Periode'],
             ['Tanggal'],
             ['Kode','Nama'],
+            ['Kode','Nama']
         ],
         headerpilih : [
             ['Periode','Action'],
             ['Tanggal','Action'],
+            ['Kode','Nama','Action'],
             ['Kode','Nama','Action']
         ],
         columns: [
@@ -136,21 +146,28 @@
             [
                 { data: 'nik_user' },
                 { data: 'nama' }
+            ],
+            [
+                { data: 'kode_gudang' },
+                { data: 'nama' }
             ]
         ],
         url :[
             "{{ url('esaku-report/filter-periode') }}",
             "{{ url('esaku-report/filter-tanggal') }}",
-            "{{ url('esaku-report/filter-nik') }}"
+            "{{ url('esaku-report/filter-nik') }}",
+            "{{ url('esaku-report/filter-gudang') }}"
          ],
         parameter:[
             {},
             {
                 'periode': $periode.from
             },
+            {},
             {}
         ],
         orderby:[
+            [[0,"desc"]],
             [[0,"desc"]],
             [[0,"desc"]],
             [[0,"desc"]],
@@ -159,23 +176,26 @@
             ['30%','70%'],
             ['30%','70%'],
             ['30%','70%'],   
+            ['30%','70%'],   
         ],
-        display:['kode','kode','kode'],
-        pageLength:[12,10,10]
+        display:['kode','kode','kode','kode'],
+        pageLength:[12,10,10,10]
     })
     $('#inputFilter').on('change','input',function(e){
         setTimeout(() => {
             $('#inputFilter').reportFilter({
-                kode : ['periode','tanggal','kasir'],
-                nama : ['Periode','Tanggal','Kasir'],
+                kode : ['periode','tanggal','kasir','gudang'],
+                nama : ['Periode','Tanggal','Kasir','Gudang'],
                 header : [
                     ['Periode'],
                     ['Tanggal'],
+                    ['Kode','Nama'],
                     ['Kode','Nama'],
                 ],
                 headerpilih : [
                     ['Periode','Action'],
                     ['Tanggal','Action'],
+                    ['Kode','Nama','Action'],
                     ['Kode','Nama','Action']
                 ],
                 columns: [
@@ -188,21 +208,28 @@
                     [
                         { data: 'nik_user' },
                         { data: 'nama' }
+                    ],
+                    [
+                        { data: 'kode_gudang' },
+                        { data: 'nama' }
                     ]
                 ],
                 url :[
                     "{{ url('esaku-report/filter-periode') }}",
                     "{{ url('esaku-report/filter-tanggal') }}",
-                    "{{ url('esaku-report/filter-nik') }}"
+                    "{{ url('esaku-report/filter-nik') }}",
+                    "{{ url('esaku-report/filter-gudang') }}"
                 ],
                 parameter:[
                     {},
                     {
                         'periode': $periode.from
                     },
+                    {},
                     {}
                 ],
                 orderby:[
+                    [[0,"desc"]],
                     [[0,"desc"]],
                     [[0,"desc"]],
                     [[0,"desc"]],
@@ -211,9 +238,10 @@
                     ['30%','70%'],
                     ['30%','70%'],
                     ['30%','70%'],   
+                    ['30%','70%'],   
                 ],
-                display:['kode','kode','kode'],
-                pageLength:[12,10,10]
+                display:['kode','kode','kode','kode'],
+                pageLength:[12,10,10,10]
             })
         }, 500)
     });
@@ -230,6 +258,9 @@
         $formData.append("tanggal[]",$tanggal.to);
         $formData.append("nik_kasir[]",$kasir.type);
         $formData.append("nik_kasir[]",$kasir.from);
+        $formData.append("kode_gudang[]",$gudang.type);
+        $formData.append("kode_gudang[]",$gudang.from);
+        $formData.append("kode_gudang[]",$gudang.to);
         for(var pair of $formData.entries()) {
             console.log(pair[0]+ ', '+ pair[1]); 
         }
@@ -249,6 +280,9 @@
         $formData.append("nik_kasir[]",$kasir.type);
         $formData.append("nik_kasir[]",$kasir.from);
         $formData.append("nik_kasir[]",$kasir.to);
+        $formData.append("kode_gudang[]",$gudang.type);
+        $formData.append("kode_gudang[]",$gudang.from);
+        $formData.append("kode_gudang[]",$gudang.to);
         for(var pair of $formData.entries()) {
             console.log(pair[0]+ ', '+ pair[1]); 
         }

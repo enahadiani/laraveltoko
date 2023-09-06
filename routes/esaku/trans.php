@@ -100,8 +100,8 @@ Route::post('retur-beli', 'Esaku\Inventori\ReturBeliController@store');
 Route::delete('retur-beli', 'Esaku\Inventori\ReturBeliController@delete');
 Route::get('retur-beli-new', 'Esaku\Inventori\ReturBeliController@getNew');
 Route::get('retur-beli-finish', 'Esaku\Inventori\ReturBeliController@getFinish');
-Route::get('retur-beli-barang/{no_bukti1}/{no_bukti2}/{no_bukti3}', 'Esaku\Inventori\ReturBeliController@getBarang');
-Route::get('retur-beli-detail/{no_bukti1}/{no_bukti2}/{no_bukti3}', 'Esaku\Inventori\ReturBeliController@show');
+Route::get('retur-beli-barang/{no_bukti1}/{no_bukti2}/{no_bukti3}/{no_bukti4}', 'Esaku\Inventori\ReturBeliController@getBarang');
+Route::get('retur-beli-detail/{no_bukti1}/{no_bukti2}/{no_bukti3}/{no_bukti4}', 'Esaku\Inventori\ReturBeliController@show');
 
 
 // Pemasukan Routes //
@@ -271,6 +271,36 @@ Route::get('stok-opname', 'Esaku\Inventori\StokOpnameController@index');
 Route::get('stok-nobukti','Esaku\Inventori\StokOpnameController@GenerateBukti');
 Route::get('get-loaddata-stok', 'Esaku\Inventori\StokOpnameController@getLoadData');
 Route::post('stok-opname', 'Esaku\Inventori\StokOpnameController@store');
+
+// Pembayaran Pembelian
+Route::get('bayar-beli', 'Esaku\Inventori\PembayaranPembelianController@index');
+Route::get('bayar-beli-nobukti','Esaku\Inventori\PembayaranPembelianController@GenerateBukti');
+Route::get('bayar-beli-vendor', 'Esaku\Inventori\PembayaranPembelianController@getVendor');
+Route::get('bayar-beli-detail', 'Esaku\Inventori\PembayaranPembelianController@getDetailPembelian');
+Route::post('bayar-beli', 'Esaku\Inventori\PembayaranPembelianController@store');
+Route::delete('bayar-beli', 'Esaku\Inventori\PembayaranPembelianController@destroy');
+
+// Pembelian (PPn) //
+Route::get('pembelian3-ppn', 'Esaku\Inventori\PembelianPPnController@index');
+Route::get('pembelian3-ppn-barang', 'Esaku\Inventori\PembelianPPnController@getBarang');
+Route::post('pembelian3-ppn', 'Esaku\Inventori\PembelianPPnController@store'); 
+Route::put('pembelian3-ppn-update', 'Esaku\Inventori\PembelianPPnController@update');
+Route::delete('pembelian3-ppn/{no_bukti1}/{no_bukti2}/{no_bukti3}', 'Esaku\Inventori\PembelianPPnController@delete');
+Route::get('pembelian3-ppn-detail', 'Esaku\Inventori\PembelianPPnController@show');
+Route::get('pembelian3-ppn-nota', 'Esaku\Inventori\PembelianPPnController@printNota'); 
+Route::get('pembelian3-ppn-data-nota', 'Esaku\Inventori\PembelianPPnController@getDataNota'); 
+
+// Pembelian (Non PPn) //
+Route::get('pembelian3-non', 'Esaku\Inventori\PembelianNonPPn2Controller@index');
+Route::get('pembelian3-non-barang', 'Esaku\Inventori\PembelianNonPPn2Controller@getBarang');
+Route::post('pembelian3-non', 'Esaku\Inventori\PembelianNonPPn2Controller@store'); 
+Route::put('pembelian3-non-update', 'Esaku\Inventori\PembelianNonPPn2Controller@update');
+Route::delete('pembelian3-non/{no_bukti1}/{no_bukti2}/{no_bukti3}', 'Esaku\Inventori\PembelianNonPPn2Controller@delete');
+Route::get('pembelian3-non-detail', 'Esaku\Inventori\PembelianNonPPn2Controller@show');
+Route::get('pembelian3-non-nota', 'Esaku\Inventori\PembelianNonPPn2Controller@printNota'); 
+Route::get('pembelian3-non-data-nota', 'Esaku\Inventori\PembelianNonPPn2Controller@getDataNota');
+
+
 /*
 |--------------------------------------------------------------------------
 | Modul Simpanan -Transaksi

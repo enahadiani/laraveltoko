@@ -80,9 +80,9 @@ class ReturBeliController extends Controller
         }
     }
 
-    public function getBarang($id1,$id2,$id3){
+    public function getBarang($id1,$id2,$id3,$id4){
         try {
-            $id = $id1."/".$id2."/".$id3;
+            $id = $id1."/".$id2."/".$id3."/".$id4;
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'esaku-trans/retur-beli-barang?no_bukti='.$id,[
                 'headers' => [
@@ -106,9 +106,9 @@ class ReturBeliController extends Controller
         }
     }
 
-    public function show($id1,$id2,$id3) {
+    public function show($id1,$id2,$id3,$id4) {
         try{
-            $id = $id1."/".$id2."/".$id3;
+            $id = $id1."/".$id2."/".$id3."/".$id4;
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'esaku-trans/retur-beli-detail?no_bukti='.$id,
             [
