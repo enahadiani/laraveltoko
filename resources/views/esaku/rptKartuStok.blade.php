@@ -32,26 +32,25 @@ function drawRptPage(data,res,from,to) {
             html += "<tbody>";
             html += "<tr>";
             html += "<th>Kode Barang</th>"
-            html += "<th colspan='7'>"+value.kode_barang+"</th>";
+            html += "<th colspan='6'>"+value.kode_barang+"</th>";
             html += "</tr>";
             html += "<tr>";
             html += "<th>Nama Barang</th>";
-            html += "<th colspan='7'>"+value.nama_barang+"</th>";
+            html += "<th colspan='6'>"+value.nama_barang+"</th>";
             html += "</tr>";
             html += "<tr>";
             html += "<th>Gudang</th>";
-            html += "<th colspan='7'>"+value.nama_gudang+"</th>";
+            html += "<th colspan='6'>"+value.nama_gudang+"</th>";
             html += "</tr>";
             html += "<tr>"
             html += "<th>Stok Awal</th>";
-            html += "<th colspan='7'>"+sepNum(value.stok)+"</th>";
+            html += "<th colspan='6'>"+sepNum(value.stok)+"</th>";
             html += "</tr>";
             html += "</tbody>";
             html += "<tbody>";
             html += "<tr>";
             html += "<th class='text-center'>Tanggal</th>";
             html += "<th class='text-center'>No. Bukti</th>";
-            html += "<th class='text-center'>Keterangan</th>";
             html += "<th class='text-center'>Modul</th>";
             html += "<th class='text-center'>Masuk</th>";
             html += "<th class='text-center'>Keluar</th>";
@@ -71,7 +70,6 @@ function drawRptPage(data,res,from,to) {
                     html += "<tr>";
                     html += "<td class=''>"+line.tgl+"</td>";
                     html += "<td class=''>"+line.no_bukti+"</td>";
-                    html += "<td class=''>"+line.keterangan+"</td>";
                     html += "<td class=''>"+line.modul+"</td>";
                     html += "<td class='text-right'>"+number_format(line.debet)+"</td>";
                     html += "<td class='text-right'>"+number_format(line.kredit)+"</td>";
@@ -80,7 +78,7 @@ function drawRptPage(data,res,from,to) {
                 }
             }
             html += "<tr>";
-            html += "<td colspan='4' class='text-right isi_laporan'>Jumlah</td>"
+            html += "<td colspan='3' class='text-right isi_laporan'>Jumlah</td>"
             html += "<td class='text-right isi_laporan'>"+number_format(debet)+"</td>"
             html += "<td class='text-right isi_laporan'>"+number_format(kredit)+"</td>"
             html += "<td class='text-right isi_laporan'>"+number_format(stok)+"</td>"
