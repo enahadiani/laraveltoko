@@ -115,7 +115,7 @@ date_default_timezone_set('Asia/Jakarta');
                                                 <label for="judul" class="col-1 col-form-label" >PPN</label>
                                                 <div class="col-5">
                                                    <div class="input-group mb-3">
-                                                       <input type="text" name="total_ppn" min="1" class='form-control currency' id='toppn' required value="0" style="border-bottom-right-radius: 0 !important;border-top-right-radius: 0 !important;">
+                                                       <input type="text" name="total_ppn" min="1" class='form-control currency' id='toppn' required value="0" style="border-bottom-right-radius: 0 !important;border-top-right-radius: 0 !important;" readonly>
                                                        <div class="input-group-append">
                                                            <button class="btn btn-info" id="getPPN" type="button" style="border-bottom-left-radius: 0 !important;border-top-left-radius: 0 !important;padding: 0.1rem 0.85rem;"><i class="simple-icon-refresh" style="font-size:18px !important"></i></button>
                                                        </div>
@@ -332,6 +332,8 @@ date_default_timezone_set('Asia/Jakarta');
     var $dtBrg2 = new Array();
     $('#kd-barang2').focus();
     $('#area_print').hide();
+
+    $('#btnBayar').prop('disabled', true);
 
     setHeightFormPOS();
     document.onkeyup = function(e) {
@@ -757,6 +759,10 @@ date_default_timezone_set('Asia/Jakarta');
         
         $('#tostlh').val(number_format(total));   
         $('#toppn').val(number_format(total_ppn));   
+
+        if (total > 0) {
+            $('#btnBayar').prop('disabled', false);
+        }
     }
 
     var count= 0;
@@ -795,6 +801,7 @@ date_default_timezone_set('Asia/Jakarta');
             no++;
         });
         hitungTotal();
+        $('#btnBayar').prop('disabled', true);
     }
 
     $("#input-grid2").on("click", '.hapus-item', function(){
@@ -911,6 +918,7 @@ date_default_timezone_set('Asia/Jakarta');
             $('#kd-barang')[0].selectize.setValue('');
             $("#input-grid2 tr:last").focus();
             $('.gridexample').formNavigation();
+            $('#btnBayar').prop('disabled', true);
         }
     }
 
@@ -1001,6 +1009,7 @@ date_default_timezone_set('Asia/Jakarta');
             $("#input-grid2 tr:last").focus();
             $('#kd-barang2').focus();
             $('.gridexample').formNavigation();
+            $('#btnBayar').prop('disabled', true);
         }
     }
 
@@ -1049,8 +1058,9 @@ date_default_timezone_set('Asia/Jakarta');
         $(this).closest('tr').find('.inp-subbhit').val(subb);
     });
 
-    $('#input-grid2').on('change', '.inp-qtyb,.inp-subb,.inp-disc,.inp-subbhit', function(e){
+    $('#input-grid2').on('change', '.inp-qtyb,.inp-subb,.inp-disc,.inp-subbhit,.inp-hrgjual', function(e){
         hitungTotal(); 
+        $('#btnBayar').prop('disabled', true);
     });
 
     // $('#input-grid2').on('change', '.inp-disc', function(e){
@@ -1126,6 +1136,7 @@ date_default_timezone_set('Asia/Jakarta');
         hitungTotal();
         $('.gridexample').formNavigation();
         $('#modal-edit').modal('hide');
+        $('#btnBayar').prop('disabled', true);
     });
 
     $('#web-form-pos').submit(function(e){
@@ -1182,6 +1193,7 @@ date_default_timezone_set('Asia/Jakarta');
                     if(result.data.status){
                         getNota(result.data.no_bukti);
                         sts_harga = 0;
+                        $('#btnBayar').prop('disabled', true);
                         // $('#modal-totrans').text(sepNum(totrans));
                         // $('#modal-diskon').text(sepNum(todisk));
                         // $('#modal-ppn').text(sepNum(toppn)); 
