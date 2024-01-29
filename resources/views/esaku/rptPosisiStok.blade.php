@@ -77,6 +77,7 @@
                         <th width='20' class='header_laporan text-center' style='text-transform:uppercase'>No</th>
                         <th width='80' class='header_laporan text-center' style='text-transform:uppercase'>Kode Barang</th>
                         <th width='200' class='header_laporan text-center' style='text-transform:uppercase'>Nama Barang </th>
+                        <th width='80' class='header_laporan text-center' style='text-transform:uppercase'>Kode Rak</th>
                         <th width='80' class='header_laporan text-center' style='text-transform:uppercase'>Stok Awal</th>
                         <th width='80' class='header_laporan text-center' style='text-transform:uppercase'>Penerimaan</th>
                         <th width='80' class='header_laporan text-center' style='text-transform:uppercase'>Pengeluaran</th>
@@ -110,6 +111,7 @@
                             <td align='center' class='isi_laporan'>`+no+`</td>
                             <td class='isi_laporan'>`+line2.kode_barang+`</td>
                             <td class='isi_laporan'>`+line2.nama+`</td>
+                            <td class='isi_laporan'>`+line2.kode_rak+`</td>
                             <td  class='isi_laporan text-right'>`+number_format(parseFloat(line2.so_awal))+`</td>
                             <td  class='isi_laporan text-right'>`+number_format(parseFloat(line2.debet))+`</td>
                             <td  class='isi_laporan text-right'>`+number_format(parseFloat(line2.kredit))+`</td>
@@ -122,6 +124,7 @@
                         }
                         det+=`<tr>
                         <th colspan='3' class='text-right bold'>Total</th>
+                        <th class='bold text-right'></th>
                         <th class='bold text-right'>`+number_format(so_awal)+`</th>
                         <th class='bold text-right'>`+number_format(debet)+`</th>
                         <th class='bold text-right'>`+number_format(kredit)+`</th>
