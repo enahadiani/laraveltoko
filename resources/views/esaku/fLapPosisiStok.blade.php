@@ -91,7 +91,7 @@
             success:function(result){   
                 if(result.status){
                     $('#kode_lokasi-from').val(result.kode_lokasi);
-                    $('#periode-from').val(namaPeriode(result.periode));
+                    $('#periode-from').val(namaPeriode("{{ date('Ym') }}"));
                     $('#kode_gudang-from').val(result.kode_gudang);
                    
                     $kode_lokasi = {
@@ -104,8 +104,8 @@
 
                     $periode = {
                         type : "=",
-                        from : result.periode,
-                        fromname : namaPeriode(result.periode),
+                        from : "{{ date('Ym') }}",
+                        fromname : namaPeriode("{{ date('Ym') }}"),
                         to : "",
                         toname : "",
                     }
@@ -120,7 +120,7 @@
     
                     generateRptFilter('#inputFilter',{
                         kode : ['kode_lokasi','periode','kode_gudang'],
-                        nama : ['Lokasi','Periode','Kode Gudng'],
+                        nama : ['Lokasi','Periode','Kode Gudang'],
                         header : [['Kode', 'Nama'],['Periode', 'Nama'],['Kode', 'Nama']],
                         headerpilih : [['Kode', 'Nama','Action'],['Periode', 'Nama','Action'],['Kode', 'Nama','Action']],
                         columns: [
@@ -201,7 +201,7 @@
 
             generateRptFilter('#inputFilter',{
                 kode : ['kode_lokasi','periode','kode_gudang'],
-                nama : ['Lokasi','Periode','Kode Gudng'],
+                nama : ['Lokasi','Periode','Kode Gudang'],
                 header : [['Kode', 'Nama'],['Periode', 'Nama'],['Kode', 'Nama']],
                 headerpilih : [['Kode', 'Nama','Action'],['Periode', 'Nama','Action'],['Kode', 'Nama','Action']],
                 columns: [

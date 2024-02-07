@@ -206,6 +206,45 @@
             } 
         }
 
+        public function getRekapJualSetor(Request $request) {
+            try{
+                 $client = new Client();
+                 $response = $client->request('GET',  config('api.url').'esaku-report/lap-rekap-jualstr',[
+                     'headers' => [
+                         'Authorization' => 'Bearer '.Session::get('token'),
+                         'Accept'     => 'application/json',
+                     ],
+                     'query' => [
+                         'periode' => $request->periode,
+                         'nik_kasir' => $request->nik_kasir,
+                         'gudang' => $request->kode_gudang
+                     ]
+                 ]);
+ 
+                 if ($response->getStatusCode() == 200) { // 200 OK
+                     $response_data = $response->getBody()->getContents();
+                     
+                     $res = json_decode($response_data,true);
+                     $data = $res["data"];
+                 }
+                 if($request->periode != ""){
+                     $periode = $request->periode;
+                 }else{
+                     $periode = "Semua Periode";
+                 }
+ 
+                 if(isset($request->back)){
+                     $res['back']=true;
+                 }
+                 
+                 return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'periode'=>$periode,'sumju'=>$request->sumju,'res'=>$res], 200); 
+             } catch (BadResponseException $ex) {
+                 $response = $ex->getResponse();
+                 $res = json_decode($response->getBody(),true);
+                 return response()->json(['message' => $res["message"], 'status'=>false, 'auth_status'=>2], 200);
+             } 
+         }
+
         public function getRekapBeli(Request $request) {
             try{
                  $client = new Client();
@@ -692,6 +731,7 @@
                     'query' => [
                         'periode' => $request->periode,
                         'nik_kasir' => $request->nik_kasir,
+                        'kode_gudang' => $request->kode_gudang,
                         'no_bukti' => $request->no_bukti
                     ]
                 ]);
@@ -1930,6 +1970,90 @@
                          'periode' => $request->periode,
                          'kode_gudang' => $request->kode_gudang,
                          'kode_lokasi' => $request->kode_lokasi
+                     ]
+                 ]);
+ 
+                 if ($response->getStatusCode() == 200) { // 200 OK
+                     $response_data = $response->getBody()->getContents();
+                     
+                     $res = json_decode($response_data,true);
+                     $data = $res["data"];
+                 }
+                 if($request->periode != ""){
+                     $periode = $request->periode;
+                 }else{
+                     $periode = "Semua Periode";
+                 }
+ 
+                 if(isset($request->back)){
+                    $back = true;
+                }else{
+                    $back = false;
+                }
+                date_default_timezone_set('Asia/Jakarta');
+                return response()->json(['result' => $data, 'tgl_cetak' => date('Y-m-d H:i:s'), 'status'=>true, 'auth_status'=>1,'periode'=>$periode,'res'=>$res,'back'=>$back], 200); 
+             } catch (BadResponseException $ex) {
+                 $response = $ex->getResponse();
+                 $res = json_decode($response->getBody(),true);
+                 return response()->json(['message' => $res["message"], 'status'=>false, 'auth_status'=>2], 200);
+             } 
+        }
+
+        public function getRekapJualBarang(Request $request) {
+            try{
+                 $client = new Client();
+                 $response = $client->request('GET',  config('api.url').'esaku-report/lap-rekap-jual-perbrg',[
+                     'headers' => [
+                         'Authorization' => 'Bearer '.Session::get('token'),
+                         'Accept'     => 'application/json',
+                     ],
+                     'query' => [
+                         'periode' => $request->periode,
+                         'tanggal' => $request->tanggal,
+                         'kode_gudang' => $request->kode_gudang,
+                         'kode_barang' => $request->kode_barang
+                     ]
+                 ]);
+ 
+                 if ($response->getStatusCode() == 200) { // 200 OK
+                     $response_data = $response->getBody()->getContents();
+                     
+                     $res = json_decode($response_data,true);
+                     $data = $res["data"];
+                 }
+                 if($request->periode != ""){
+                     $periode = $request->periode;
+                 }else{
+                     $periode = "Semua Periode";
+                 }
+ 
+                 if(isset($request->back)){
+                    $back = true;
+                }else{
+                    $back = false;
+                }
+                date_default_timezone_set('Asia/Jakarta');
+                return response()->json(['result' => $data, 'tgl_cetak' => date('Y-m-d H:i:s'), 'status'=>true, 'auth_status'=>1,'periode'=>$periode,'res'=>$res,'back'=>$back], 200); 
+             } catch (BadResponseException $ex) {
+                 $response = $ex->getResponse();
+                 $res = json_decode($response->getBody(),true);
+                 return response()->json(['message' => $res["message"], 'status'=>false, 'auth_status'=>2], 200);
+             } 
+        }
+
+        public function getRekapBeliBarang(Request $request) {
+            try{
+                 $client = new Client();
+                 $response = $client->request('GET',  config('api.url').'esaku-report/lap-rekap-beli-perbrg',[
+                     'headers' => [
+                         'Authorization' => 'Bearer '.Session::get('token'),
+                         'Accept'     => 'application/json',
+                     ],
+                     'query' => [
+                         'periode' => $request->periode,
+                         'tanggal' => $request->tanggal,
+                         'kode_gudang' => $request->kode_gudang,
+                         'kode_barang' => $request->kode_barang
                      ]
                  ]);
  

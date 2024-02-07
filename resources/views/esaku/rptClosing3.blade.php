@@ -87,7 +87,7 @@ function drawRptPage(data,res,from,to){
                                     var detail = res.res.data_detail[j]
                                     if(row.no_bukti_close == detail.no_bukti) {
                                         diskon = parseFloat(detail.diskon) + diskon;
-                                        total+= parseFloat(detail.nilai);
+                                        total+= parseFloat(detail.cash) + parseFloat(detail.qris) + parseFloat(detail.link_aja);
                                         cash+= parseFloat(detail.cash);
                                         qris+= parseFloat(detail.qris);
                                         link_aja+= parseFloat(detail.link_aja);

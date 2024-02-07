@@ -110,7 +110,7 @@
             success:function(result){   
                 if(result.status){
                     $('#kode_lokasi-from').val(result.kode_lokasi);
-                    $('#periode-from').val(namaPeriode(result.periode));
+                    $('#periode-from').val(namaPeriode("{{ date('Ym') }}"));
                     $('#kode_gudang-from').val(result.kode_gudang);
                     $('#jenis-from').val("Saldo");
                    
@@ -122,10 +122,10 @@
                         toname : "",
                     }
 
-                    $periode = {
-                        type : "=",
-                        from : result.periode,
-                        fromname : namaPeriode(result.periode),
+                   $periode = {
+                        type : "<=",
+                        from : "{{ date('Ym') }}",
+                        fromname : namaPeriode("{{ date('Ym') }}"),
                         to : "",
                         toname : "",
                     }

@@ -10,6 +10,7 @@ Route::get('filter-tanggal', 'Esaku\HelperController@getTanggalPnj');
 Route::get('filter-bukti-pnj', 'Esaku\HelperController@getBuktiPnj');
 Route::get('filter-periode-pmb', 'Esaku\HelperController@getPeriodePmb');
 Route::get('filter-nik-pmb', 'Esaku\HelperController@getNikPmb');
+Route::get('filter-gudang-pmb', 'Esaku\HelperController@getGudangPmb');
 Route::get('filter-bukti-pmb', 'Esaku\HelperController@getBuktiPmb');
 Route::get('filter-periode-close', 'Esaku\HelperController@getPeriodeClose');
 Route::get('filter-tanggal-close', 'Esaku\HelperController@getTanggalClose');
@@ -47,6 +48,14 @@ Route::get('filter-lokasi', 'Esaku\HelperController@getFilterLokasi');
 Route::get('filter-default', 'Esaku\HelperController@getFilterDefault');
 Route::get('filter-vendor', 'Esaku\HelperController@getFilterVendor');
 Route::get('filter-jenis-saldo', 'Esaku\HelperController@getFilterJenisSaldo');
+
+Route::get('filter-periode-jualstr', 'Esaku\HelperController@getPeriodeJualSetor');
+Route::get('filter-tahun-jualstr', 'Esaku\HelperController@getTahunJualSetor');
+Route::get('filter-nik-jualstr', 'Esaku\HelperController@getNikJualSetor');
+Route::get('filter-gudang-jualstr', 'Esaku\HelperController@getFilterGudangJualSetor');
+
+Route::get('filter-tanggal-pmb', 'Esaku\HelperController@getTanggalPmb');
+
 
 //AKTAP//
 Route::get('filter-periode-perolehan', 'Esaku\Aktap\FilterAktapController@getPeriodePerolehan');
@@ -98,6 +107,9 @@ Route::post('lap-labarugi-unit', 'Esaku\Inventori\LaporanController@getLabaRugiU
 Route::post('lap-labarugi-unit-dc', 'Esaku\Inventori\LaporanController@getLabaRugiUnitDC');
 Route::post('lap-rekap-jual', 'Esaku\Inventori\LaporanController@getRekapJual');
 Route::post('lap-rekap-beli', 'Esaku\Inventori\LaporanController@getRekapBeli');
+Route::post('lap-rekap-jualstr', 'Esaku\Inventori\LaporanController@getRekapJualSetor');
+Route::post('lap-rekap-jual-perbrg', 'Esaku\Inventori\LaporanController@getRekapJualBarang');
+Route::post('lap-rekap-beli-perbrg', 'Esaku\Inventori\LaporanController@getRekapBeliBarang');
 
 Route::get('lap-nota-jual-print', 'Esaku\Inventori\LaporanController@printNotaJual');
 Route::get('lap-nota-jual-print-baru', 'Esaku\Inventori\LaporanController@printNotaJualBaru');

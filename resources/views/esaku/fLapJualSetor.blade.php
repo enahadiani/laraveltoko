@@ -2,7 +2,7 @@
 <div class="row" id="saku-filter">
     <div class="col-12">
         <div class="card" >
-            <x-report-header judul="Laporan Rekap Penjualan Harian"/>
+            <x-report-header judul="Laporan Rekap Penjualan Bulanan"/>
             <div class="separator"></div>
                 <div class="row">
                     <div class="col-12 col-sm-12">
@@ -12,8 +12,9 @@
                                     <h6>Filter</h6>
                                     <div id="inputFilter">
                                         <!-- COMPONENT -->
-                                        <x-inp-filter kode="periode" nama="Periode" selected="3" :option="array('3')"/>
-                                        <x-inp-filter kode="tanggal" nama="Tanggal" selected="1" :option="array('1','3','i')"/>
+                                        <x-inp-filter kode="periode" nama="Periode" selected="3" :option="array('2','3','i')"/>
+                                        {{-- <x-inp-filter kode="tahun" nama="Tahun" selected="3" :option="array('3')"/> --}}
+                                        {{-- <x-inp-filter kode="tanggal" nama="Tanggal" selected="1" :option="array('1','3','i')"/> --}}
                                         <x-inp-filter kode="kasir" nama="Kasir" selected="1" :option="array('1','3')"/>
                                         <x-inp-filter kode="gudang" nama="Gudang" selected="1" :option="array('1','3')"/>
                                         <!-- END COMPONENT -->
@@ -49,6 +50,13 @@
         }
     });
 
+    // var $tahun = {
+    //         type : "=",
+    //         from : "{{ date('Y') }}",
+    //         fromname : ("{{ date('Y') }}"),
+    //         to : "",
+    //         toname : "",
+    //     }
     var $periode = {
             type : "=",
             from : "{{ date('Ym') }}",
@@ -56,13 +64,13 @@
             to : "",
             toname : "",
         }
-    var $tanggal = {
-            type : "all",
-            from : "",
-            fromname : "",
-            to : "",
-            toname : "",
-        }
+    // var $tanggal = {
+    //         type : "all",
+    //         from : "",
+    //         fromname : "",
+    //         to : "",
+    //         toname : "",
+    //     }
     var $kasir = {
             type : "all",
             from : "",
@@ -88,7 +96,7 @@
 
     $.fn.DataTable.ext.pager.numbers_length = 5;
 
-    $('#periode-from').val(namaPeriode("{{ date('Ym') }}"));
+    $('#periode-from').val("{{ date('Ym') }}");
 
     $('#btn-filter').click(function(e){
         $('#collapseFilter').show();
@@ -122,26 +130,21 @@
 
     $('.selectize').selectize();
     $('#inputFilter').reportFilter({
-        kode : ['periode','tanggal','kasir','gudang'],
-        nama : ['Periode','Tanggal','Kasir','Gudang'],
+        kode : ['periode','kasir','gudang'],
+        nama : ['Periode','Kasir','Gudang'],
         header : [
             ['Periode'],
-            ['Tanggal'],
             ['Kode','Nama'],
             ['Kode','Nama']
         ],
         headerpilih : [
             ['Periode','Action'],
-            ['Tanggal','Action'],
             ['Kode','Nama','Action'],
             ['Kode','Nama','Action']
         ],
         columns: [
             [
                 { data: 'periode' },
-            ],
-            [
-                { data: 'tanggal' },
             ],
             [
                 { data: 'nik_user' },
@@ -153,16 +156,12 @@
             ]
         ],
         url :[
-            "{{ url('esaku-report/filter-periode') }}",
-            "{{ url('esaku-report/filter-tanggal') }}",
+            "{{ url('esaku-report/filter-periode-jualstr') }}",
             "{{ url('esaku-report/filter-nik') }}",
             "{{ url('esaku-report/filter-gudang') }}"
          ],
         parameter:[
             {},
-            {
-                'periode': $periode.from
-            },
             {},
             {}
         ],
@@ -170,40 +169,33 @@
             [[0,"desc"]],
             [[0,"desc"]],
             [[0,"desc"]],
-            [[0,"desc"]],
         ],
          width:[
             ['30%','70%'],
-            ['30%','70%'],
             ['30%','70%'],   
             ['30%','70%'],   
         ],
-        display:['kode','kode','kode','kode'],
-        pageLength:[12,10,10,10]
+        display:['kode','kode','kode'],
+        pageLength:[12,10,10]
     })
     $('#inputFilter').on('change','input',function(e){
         setTimeout(() => {
             $('#inputFilter').reportFilter({
-                kode : ['periode','tanggal','kasir','gudang'],
-                nama : ['Periode','Tanggal','Kasir','Gudang'],
+                kode : ['periode','kasir','gudang'],
+                nama : ['Periode','Kasir','Gudang'],
                 header : [
                     ['Periode'],
-                    ['Tanggal'],
                     ['Kode','Nama'],
                     ['Kode','Nama'],
                 ],
                 headerpilih : [
                     ['Periode','Action'],
-                    ['Tanggal','Action'],
                     ['Kode','Nama','Action'],
                     ['Kode','Nama','Action']
                 ],
                 columns: [
                     [
                         { data: 'periode' },
-                    ],
-                    [
-                        { data: 'tanggal' },
                     ],
                     [
                         { data: 'nik_user' },
@@ -215,16 +207,12 @@
                     ]
                 ],
                 url :[
-                    "{{ url('esaku-report/filter-periode') }}",
-                    "{{ url('esaku-report/filter-tanggal') }}",
+                    "{{ url('esaku-report/filter-periode-jualstr') }}",
                     "{{ url('esaku-report/filter-nik') }}",
                     "{{ url('esaku-report/filter-gudang') }}"
                 ],
                 parameter:[
                     {},
-                    {
-                        'periode': $periode.from
-                    },
                     {},
                     {}
                 ],
@@ -232,16 +220,14 @@
                     [[0,"desc"]],
                     [[0,"desc"]],
                     [[0,"desc"]],
-                    [[0,"desc"]],
                 ],
                 width:[
                     ['30%','70%'],
-                    ['30%','70%'],
                     ['30%','70%'],   
                     ['30%','70%'],   
                 ],
-                display:['kode','kode','kode','kode'],
-                pageLength:[12,10,10,10]
+                display:['kode','kode','kode'],
+                pageLength:[12,10,10]
             })
         }, 500)
     });
@@ -253,30 +239,6 @@
         $formData.append("periode[]",$periode.type);
         $formData.append("periode[]",$periode.from);
         $formData.append("periode[]",$periode.to);
-        $formData.append("tanggal[]",$tanggal.type);
-        $formData.append("tanggal[]",$tanggal.from);
-        $formData.append("tanggal[]",$tanggal.to);
-        $formData.append("nik_kasir[]",$kasir.type);
-        $formData.append("nik_kasir[]",$kasir.from);
-        $formData.append("kode_gudang[]",$gudang.type);
-        $formData.append("kode_gudang[]",$gudang.from);
-        $formData.append("kode_gudang[]",$gudang.to);
-        for(var pair of $formData.entries()) {
-            console.log(pair[0]+ ', '+ pair[1]); 
-        }
-        $('#saku-report').removeClass('hidden');
-        xurl = "{{ url('esaku-auth/form/rptRekapPnj') }}";
-        $('#saku-report #canvasPreview').load(xurl);
-    });
-
-    $('#show').change(function(e){
-        $formData = new FormData();
-        $formData.append("periode[]",$tanggal.type);
-        $formData.append("periode[]",$tanggal.from);
-        $formData.append("periode[]",$tanggal.to);
-        $formData.append("tanggal[]",$tanggal.type);
-        $formData.append("tanggal[]",$tanggal.from);
-        $formData.append("tanggal[]",$tanggal.to);
         $formData.append("nik_kasir[]",$kasir.type);
         $formData.append("nik_kasir[]",$kasir.from);
         $formData.append("nik_kasir[]",$kasir.to);
@@ -287,7 +249,26 @@
             console.log(pair[0]+ ', '+ pair[1]); 
         }
         $('#saku-report').removeClass('hidden');
-        xurl = "{{ url('esaku-auth/form/rptRekapPnj') }}";
+        xurl = "{{ url('esaku-auth/form/rptRekapJualSetor') }}";
+        $('#saku-report #canvasPreview').load(xurl);
+    });
+
+    $('#show').change(function(e){
+        $formData = new FormData();
+        $formData.append("periode[]",$periode.type);
+        $formData.append("periode[]",$periode.from);
+        $formData.append("periode[]",$periode.to);
+        $formData.append("nik_kasir[]",$kasir.type);
+        $formData.append("nik_kasir[]",$kasir.from);
+        $formData.append("nik_kasir[]",$kasir.to);
+        $formData.append("kode_gudang[]",$gudang.type);
+        $formData.append("kode_gudang[]",$gudang.from);
+        $formData.append("kode_gudang[]",$gudang.to);
+        for(var pair of $formData.entries()) {
+            console.log(pair[0]+ ', '+ pair[1]); 
+        }
+        $('#saku-report').removeClass('hidden');
+        xurl = "{{ url('esaku-auth/form/rptRekapJualSetor') }}";
         $('#saku-report #canvasPreview').load(xurl);
     });
 
@@ -307,8 +288,8 @@
         e.preventDefault();
         $("#saku-report #canvasPreview").table2excel({
             // exclude: ".excludeThisClass",
-            name: "Lap_Rekap_Pnj_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
-            filename: "Lap_Rekap_Pnj_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
+            name: "Lap_Rekap_Pnj_Str_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
+            filename: "Lap_Rekap_Pnj_Str_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
             preserveColors: false // set to true if you want background colors and font colors preserved
         });
     });

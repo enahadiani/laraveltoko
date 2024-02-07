@@ -609,6 +609,24 @@
             return response()->json(['daftar' => $data['data'], 'status' => true], 200);
         }
 
+        public function getGudangPmb(Request $request) {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'esaku-report/filter-gudang-pmb',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+                $data = $data;
+            }
+            return response()->json(['daftar' => $data['data'], 'status' => true], 200);
+        }
+
         public function getPeriodePmb() {
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'esaku-report/filter-periode-pmb',[
@@ -1154,6 +1172,100 @@
             return response()->json(['daftar' => $data['data'], 'status' => true], 200);
         }
 
+        public function getPeriodeJualSetor() {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'esaku-report/filter-periode-jualstr',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+                $data = $data;
+            }
+            return response()->json(['daftar' => $data['data'], 'status' => true], 200);
+        }
+
+        public function getTahunJualSetor() {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'esaku-report/filter-tahun-jualstr',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+                $data = $data;
+            }
+            return response()->json(['daftar' => $data['data'], 'status' => true], 200);
+        }
+
+        
+        public function getNikJualSetor() {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'esaku-report/filter-nik-jualstr',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+                $data = $data;
+            }
+            return response()->json(['daftar' => $data['data'], 'status' => true], 200);
+        }
+
+        public function getFilterGudangJualSetor() {
+
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'esaku-report/filter-gudang-jualstr',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+                $data = $data['data'];
+            }
+            return response()->json(['daftar' => $data, 'status' => true], 200);
+        }
+
+        public function getTanggalPmb(Request $request) {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'esaku-report/filter-tanggal-pmb',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ],
+            'query' => [
+                'periode' => $request->query('periode')
+            ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+                $data = $data;
+            }
+            return response()->json(['daftar' => $data['data'], 'status' => true], 200);
+        }
 
     }
 ?>
