@@ -100,7 +100,7 @@
                                          <label for="judul" class="col-1 col-form-label" >PPN</label>
                                          <div class="col-3">
                                             <div class="input-group mb-3">
-                                                <input type="text" name="total_ppn" min="1" class='form-control currency' id='toppn' required value="0" style="border-bottom-right-radius: 0 !important;border-top-right-radius: 0 !important;">
+                                                <input type="text" name="total_ppn" min="1" class='form-control currency' id='toppn' required value="0" style="border-bottom-right-radius: 0 !important;border-top-right-radius: 0 !important;" readonly>
                                                 <div class="input-group-append">
                                                     <button class="btn btn-info" id="getPPN" type="button" style="border-bottom-left-radius: 0 !important;border-top-left-radius: 0 !important;padding: 0.1rem 0.85rem;"><i class="simple-icon-refresh" style="font-size:18px !important"></i></button>
                                                 </div>
@@ -636,7 +636,7 @@
         var todisk = toNilai($('#todisk').val());
         var totrans = toNilai($('#totrans').val());
         var total = totrans - todisk;
-        var ppn = (total * 10)/100;
+        var ppn = (total * 11)/100;
         $("#toppn").val(toRp(ppn));
         // var total2 = total+ppn;
         // $("#tostlh").val(toRp(total2));
