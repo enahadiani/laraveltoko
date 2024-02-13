@@ -1140,6 +1140,7 @@
         }
         else{
             var formData = new FormData(this);
+            formData.append('versi', 'V1');
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]);
                 if(pair[1] == '')  {

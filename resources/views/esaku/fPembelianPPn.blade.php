@@ -1166,6 +1166,7 @@ date_default_timezone_set('Asia/Jakarta');
         }
         else{
             var formData = new FormData(this);
+            formData.append('versi', 'V3');
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]);
                 if(pair[1] == '')  {
