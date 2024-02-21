@@ -310,12 +310,12 @@ Route::get('pembelian3-non-nota', 'Esaku\Inventori\PembelianNonPPn2Controller@pr
 Route::get('pembelian3-non-data-nota', 'Esaku\Inventori\PembelianNonPPn2Controller@getDataNota');
 
 //Barang Hilang/Rusak/Kadaluarsa //
-Route::get('penjualan-open', 'Esaku\Inventori\BarangHilangController@getNoOpen');
-Route::get('penjualan-bonus/{kd_barang}/{tanggal}/{jumlah}/{harga}', 'Esaku\Inventori\BarangHilangController@cekBonus');
-Route::post('penjualan', 'Esaku\Inventori\BarangHilangController@store');
-Route::post('penjualan-ubah', 'Esaku\Inventori\BarangHilangController@update');
-Route::get('nota', 'Esaku\Inventori\BarangHilangController@printNota');
-Route::get('nota-tes', 'Esaku\Inventori\BarangHilangController@printNotaJualBaru');
+// Route::get('penjualan-open', 'Esaku\Inventori\BarangHilangController@getNoOpen');
+// Route::get('penjualan-bonus/{kd_barang}/{tanggal}/{jumlah}/{harga}', 'Esaku\Inventori\BarangHilangController@cekBonus');
+// Route::post('penjualan', 'Esaku\Inventori\BarangHilangController@store');
+// Route::post('penjualan-ubah', 'Esaku\Inventori\BarangHilangController@update');
+// Route::get('nota', 'Esaku\Inventori\BarangHilangController@printNota');
+// Route::get('nota-tes', 'Esaku\Inventori\BarangHilangController@printNotaJualBaru');
 
 
 /*
