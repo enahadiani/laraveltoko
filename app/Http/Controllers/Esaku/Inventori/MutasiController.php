@@ -184,14 +184,17 @@ class MutasiController extends Controller {
                 'no_dokumen' => 'required',
                 'tanggal' => 'required',
                 'no_bukti' => 'required',
-                'bukti_kirim' => 'required',
+                // 'bukti_kirim' => 'required',
                 'keterangan' => 'required',
                 'asal' => 'required',
                 'tujuan' => 'required',
+                'total_trans' => 'required',
                 'kode_barang.*' => 'required',
                 'satuan.*' => 'required',
                 'stok.*' => 'required',
-                'jumlah.*' => 'required'
+                'hpp.*' => 'required',
+                'jumlah.*' => 'required',
+                'total.*' => 'required'
             ]);
 
             $detail = array();
@@ -199,13 +202,17 @@ class MutasiController extends Controller {
                 $kode_barang = $request->kode_barang;
                 $satuan = $request->satuan;
                 $stok = $request->stok;
+                $hpp = $request->hpp;
                 $jumlah = $request->jumlah;
+                $total = $request->total;
                 for($i=0;$i<count($kode_barang);$i++){
                     $detail[] = array(
                         'kode_barang' => $kode_barang[$i],
                         'satuan' => $satuan[$i],
                         'stok' => $this->joinNum($stok[$i]),
+                        'hpp' => $this->joinNum($hpp[$i]),
                         'jumlah' => $this->joinNum($jumlah[$i]),
+                        'total' => $this->joinNum($total[$i]),
                     );
                 }
             }
@@ -219,13 +226,14 @@ class MutasiController extends Controller {
 
             $fields['mutasi'][0] = array(
                 'no_dokumen' => $request->no_dokumen,
-                'bukti_kirim' => $request->bukti_kirim,
+                // 'bukti_kirim' => $request->bukti_kirim,
                 'tanggal' => $this->reverseDate($request->tanggal,'/','-'),
                 'no_bukti' => $request->no_bukti,
                 'jenis' => $jenis,
                 'keterangan' => $request->keterangan,
                 'gudang_asal' => $request->asal,
                 'gudang_tujuan' => $request->tujuan,
+                'total_trans' => $request->total_trans,
                 'detail' => $detail
             );
 
@@ -259,14 +267,17 @@ class MutasiController extends Controller {
                 'no_dokumen' => 'required',
                 'tanggal' => 'required',
                 'no_bukti' => 'required',
-                'bukti_kirim' => 'required',
+                'total_trans' => 'required',
+                // 'bukti_kirim' => 'required',
                 'keterangan' => 'required',
                 'asal' => 'required',
                 'tujuan' => 'required',
                 'kode_barang.*' => 'required',
                 'satuan.*' => 'required',
                 'stok.*' => 'required',
-                'jumlah.*' => 'required'
+                'hpp.*' => 'required',
+                'jumlah.*' => 'required',
+                'total.*' => 'required'
             ]);
 
             $detail = array();
@@ -274,13 +285,17 @@ class MutasiController extends Controller {
                 $kode_barang = $request->kode_barang;
                 $satuan = $request->satuan;
                 $stok = $request->stok;
+                $hpp = $request->hpp;
                 $jumlah = $request->jumlah;
+                $total = $request->total;
                 for($i=0;$i<count($kode_barang);$i++){
                     $detail[] = array(
                         'kode_barang' => $kode_barang[$i],
                         'satuan' => $satuan[$i],
                         'stok' => $this->joinNum($stok[$i]),
+                        'hpp' => $this->joinNum($hpp[$i]),
                         'jumlah' => $this->joinNum($jumlah[$i]),
+                        'total' => $this->joinNum($total[$i]),
                     );
                 }
             }
@@ -301,6 +316,7 @@ class MutasiController extends Controller {
                 'keterangan' => $request->keterangan,
                 'gudang_asal' => $request->asal,
                 'gudang_tujuan' => $request->tujuan,
+                'total_trans' => $this->joinNum($request->total_trans),
                 'detail' => $detail
             );
 
@@ -333,9 +349,11 @@ class MutasiController extends Controller {
             $this->validate($request, [
                 'kode_barang' => 'required',
                 'kode_gudang' => 'required',
+                'periode' => 'required',
             ]);
             $barang = $request->kode_barang;
             $gudang = $request->kode_gudang;
+            $periode = $request->periode;
 
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'esaku-trans/barang-mutasi-detail',[
@@ -345,7 +363,9 @@ class MutasiController extends Controller {
                 ],
                 'query' => [
                     'kode_barang' => $barang,
-                    'kode_gudang' => $gudang
+                    'kode_gudang' => $gudang,
+                    'periode' => $periode,
+                    'nik_user' => Session::get('nikUser')
                 ]
             ]);
 
@@ -391,6 +411,43 @@ class MutasiController extends Controller {
                 
                 $data = json_decode($response_data,true);
                 $data = $data;
+            }
+            return response()->json(['result' => $data, 'status'=>true], 200); 
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        }
+    }
+
+    public function generateHpp(Request $request){
+        try {
+            $this->validate($request, [
+                'periode' => 'required',
+                'kode_gudang' => 'required',
+            ]);
+
+            $periode = $request->periode;
+            $kode_gudang = $request->kode_gudang;
+
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'esaku-trans/generate-hpp-mutasi',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'periode' => $periode,
+                    'kode_gudang' => $kode_gudang,
+                    'nik_user' => Session::get('nikUser')
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
             }
             return response()->json(['result' => $data, 'status'=>true], 200); 
 

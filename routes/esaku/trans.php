@@ -11,6 +11,7 @@ use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 
 // Mutasi Routes //
 Route::get('generate-mutasi', 'Esaku\Inventori\MutasiController@generateKode');
+Route::get('generate-hpp-mutasi', 'Esaku\Inventori\MutasiController@generateHpp');
 Route::get('barang-mutasi-detail', 'Esaku\Inventori\MutasiController@getBarangDetail');
 Route::get('filter-barang-mutasi', 'Esaku\HelperController@getFilterMutasiBarang');
 Route::get('filter-bukti-mutasi-kirim', 'Esaku\HelperController@getFilterBuktiMutasiKirim');
@@ -37,6 +38,14 @@ Route::post('penjualan', 'Esaku\Inventori\PenjualanController@store');
 Route::post('penjualan-ubah', 'Esaku\Inventori\PenjualanController@update');
 Route::get('nota', 'Esaku\Inventori\PenjualanController@printNota');
 Route::get('nota-tes', 'Esaku\Inventori\PenjualanController@printNotaJualBaru');
+
+//Penjualan Routes //
+Route::get('brghilang-open', 'Esaku\Inventori\BarangHilangController@getNoOpen');
+Route::get('brghilang-bonus/{kd_barang}/{tanggal}/{jumlah}/{harga}', 'Esaku\Inventori\BarangHilangController@cekBonus');
+Route::post('brghilang', 'Esaku\Inventori\BarangHilangController@store');
+Route::post('brghilang-ubah', 'Esaku\Inventori\BarangHilangController@update');
+// Route::get('nota', 'Esaku\Inventori\BarangHilangController@printNota');
+// Route::get('nota-tes', 'Esaku\Inventori\BarangHilangController@printNotaJualBaru');
 
 //Open Kasir //
 Route::get('open-kasir', 'Esaku\Inventori\OpenKasirController@index');
@@ -299,6 +308,14 @@ Route::delete('pembelian3-non/{no_bukti1}/{no_bukti2}/{no_bukti3}', 'Esaku\Inven
 Route::get('pembelian3-non-detail', 'Esaku\Inventori\PembelianNonPPn2Controller@show');
 Route::get('pembelian3-non-nota', 'Esaku\Inventori\PembelianNonPPn2Controller@printNota'); 
 Route::get('pembelian3-non-data-nota', 'Esaku\Inventori\PembelianNonPPn2Controller@getDataNota');
+
+//Barang Hilang/Rusak/Kadaluarsa //
+Route::get('penjualan-open', 'Esaku\Inventori\BarangHilangController@getNoOpen');
+Route::get('penjualan-bonus/{kd_barang}/{tanggal}/{jumlah}/{harga}', 'Esaku\Inventori\BarangHilangController@cekBonus');
+Route::post('penjualan', 'Esaku\Inventori\BarangHilangController@store');
+Route::post('penjualan-ubah', 'Esaku\Inventori\BarangHilangController@update');
+Route::get('nota', 'Esaku\Inventori\BarangHilangController@printNota');
+Route::get('nota-tes', 'Esaku\Inventori\BarangHilangController@printNotaJualBaru');
 
 
 /*

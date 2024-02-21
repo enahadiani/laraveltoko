@@ -72,23 +72,25 @@
             return response()->json(['daftar' => $data, 'status' => true], 200);
         }
 
-        public function getFilterMutasiBarang() {
+        public function getFilterMutasiBarang(Request $request) {
 
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'esaku-trans/filter-barang-mutasi',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
-                ]
+                ],
+                'query' => $request->all()
             ]);
 
             if ($response->getStatusCode() == 200) { // 200 OK
                 $response_data = $response->getBody()->getContents();
             
                 $data = json_decode($response_data,true);
+                $res = $data;
                 $data = $data['data'];
             }
-            return response()->json(['daftar' => $data, 'status' => true], 200);
+            return response()->json(['daftar' => $data, 'res' => $res, 'status' => true], 200);
         }
 
         public function getFilterKlpBarang() {

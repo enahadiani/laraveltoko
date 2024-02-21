@@ -68,6 +68,7 @@
                         <div class="col-9">
                             <input class="form-control" type="text" id="id" name="id" readonly hidden>
                             <input class="form-control" type="text" id="id_edit" name="id_edit" readonly >
+                            <input type='text' name="total_trans" class='form-control currency' id='totrans' required hidden>                        
                         </div>
                     </div>
                     <div class="form-row">
@@ -124,7 +125,7 @@
                                         <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                             <span class="input-group-text info-code_asal" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                         </div>
-                                        <input type="text" class="form-control inp-label-asal" id="asal" name="asal" value="" title="">
+                                        <input type="text" class="form-control inp-label-asal" id="asal" name="asal" value="" title="" readonly>
                                         <span class="info-name_asal hidden">
                                             <span></span> 
                                         </span>
@@ -138,7 +139,7 @@
                                         <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                             <span class="input-group-text info-code_tujuan" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                         </div>
-                                        <input type="text" class="form-control inp-label-tujuan" id="tujuan" name="tujuan" value="" title="">
+                                        <input type="text" class="form-control inp-label-tujuan" id="tujuan" name="tujuan" value="" title="" readonly>
                                         <span class="info-name_tujuan hidden">
                                             <span></span> 
                                         </span>
@@ -363,6 +364,8 @@
         var satuan = "";
         var stok = 0;
         var jumlah = 0;
+        var hpp = 0;
+        var total = 0;
         no=no+2;
         var input = "";
         input += "<tr class='row-grid'>";
@@ -370,8 +373,10 @@
         input += "<td><span class='td-kode tdbarangke"+no+" tooltip-span'>"+kode_barang+"</span><input type='text' name='kode_barang[]' class='form-control inp-kode barangke"+no+" hidden' value='"+kode_barang+"' required='' style='z-index: 1;position: relative;' id='barangkode"+no+"'><a href='#' class='search-item search-barang hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
         input += "<td><span class='td-nama tdnmbarangke"+no+" tooltip-span'>"+nama+"</span><input type='text' name='nama_barang[]' class='form-control inp-nama nmbarangke"+no+" hidden'  value='"+nama+"' readonly></td>";
         input += "<td><span class='td-satuan tdsatuanke"+no+" tooltip-span'>"+satuan+"</span><input type='text' name='satuan[]' class='form-control inp-satuan satuanke"+no+" hidden'  value='"+satuan+"' readonly></td>";
-        input += "<td><span class='td-stok tdstokke"+no+" tooltip-span'>"+stok+"</span><input type='text' name='stok[]' class='form-control inp-stok stokke"+no+" hidden'  value='"+stok+"' readonly></td>";
+        input += "<td class='text-right'><span class='td-stok tdstokke"+no+" tooltip-span'>"+stok+"</span><input type='text' name='stok[]' class='form-control inp-stok stokke"+no+" hidden'  value='"+stok+"' readonly></td>";
+        input += "<td style='display:none;''><input type='text' name='hpp[]' class='form-control inp-hpp hppke"+no+" hidden'  value='"+hpp+"' readonly></td>";
         input += "<td class='text-right'><span class='td-jumlah tdjumlahke"+no+" tooltip-span'>"+jumlah+"</span><input type='text' name='jumlah[]' class='form-control inp-jumlah jumlahke"+no+" hidden'  value='"+jumlah+"' required></td>";
+        input += "<td style='display:none;''><input type='text' name='total[]' class='form-control inp-total totalke"+no+" hidden'  value='"+total+"' readonly></td>";
         input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
         input += "</tr>";
 
@@ -485,8 +490,10 @@
                             input += "<td><span class='td-kode tdbarangke"+no+" tooltip-span'>"+data[i].kode_barang+"</span><input type='text' name='kode_barang[]' class='form-control inp-kode barangke"+no+" hidden' value='"+data[i].kode_barang+"' required='' style='z-index: 1;position: relative;' id='barangkode"+no+"'><a href='#' class='search-item search-barang hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
                             input += "<td><span class='td-nama tdnmbarangke"+no+" tooltip-span'>"+data[i].nama+"</span><input type='text' name='nama_barang[]' class='form-control inp-nama nmbarangke"+no+" hidden'  value='"+data[i].nama+"' readonly></td>";
                             input += "<td><span class='td-satuan tdsatuanke"+no+" tooltip-span'>"+data[i].satuan+"</span><input type='text' name='satuan[]' class='form-control inp-satuan satuanke"+no+" hidden'  value='"+data[i].satuan+"' readonly></td>";
-                            input += "<td><span class='td-stok tdstokke"+no+" tooltip-span'>"+data[i].stok+"</span><input type='text' name='stok[]' class='form-control inp-stok stokke"+no+" hidden'  value='"+data[i].stok+"' readonly></td>";
-                            input += "<td class='text-right'><span class='td-jumlah tdjumlahke"+no+" tooltip-span'>0</span><input type='text' name='jumlah[]' class='form-control inp-jumlah jumlahke"+no+" hidden'  value='0' required></td>";
+                            input += "<td class='text-right'><span class='td-stok tdstokke"+no+" tooltip-span'>"+parseFloat(data[i].stok)+"</span><input type='text' name='stok[]' class='form-control inp-stok stokke"+no+" hidden'  value='"+parseFloat(data[i].stok)+"' readonly></td>";
+                            input += "<td style='display:none;''><input type='text' name='hpp[]' class='form-control inp-hpp hppke"+no+" hidden'  value='"+parseFloat(data[i].hpp)+"' readonly></td>";
+                            input += "<td class='text-right'><span class='td-jumlah tdjumlahke"+no+" tooltip-span'>"+parseFloat(data[i].stok)+"</span><input type='text' name='jumlah[]' class='form-control inp-jumlah jumlahke"+no+" hidden'  value="+parseFloat(data[i].stok)+" readonly required></td>";
+                            input += "<td style='display:none;''><input type='text' name='total[]' class='form-control inp-total totalke"+no+" hidden'  value='"+parseFloat(data[i].total)+"' readonly></td>";
                             input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
                             input += "</tr>";
                             no++;   
@@ -557,9 +564,9 @@
                     $(target).parents("tr").find(".td-satuan").text(result.sat_kecil);
                     $(target).parents("tr").find(".inp-stok").val(format_number(result.stok)); 
                     $(target).parents("tr").find(".td-stok").text(format_number(result.stok));
-                    $(target).parents("tr").find(".inp-jumlah").show();
-                    $(target).parents("tr").find(".td-jumlah").hide();    
-                    setTimeout(function() {  $(target).parents("tr").find(".inp-jumlah").focus(); }, 100);    
+                    $(target).parents("tr").find(".inp-jumlah").val(format_number(result.stok)); 
+                    $(target).parents("tr").find(".td-jumlah").text(format_number(result.stok));   
+                    // setTimeout(function() {  $(target).parents("tr").find(".inp-jumlah").focus(); }, 100);    
                 }
             }
         });
@@ -663,8 +670,10 @@
                             input += "<td><span class='td-kode tdbarangke"+no+" tooltip-span'>"+line.kode_barang+"</span><input type='text' name='kode_barang[]' class='form-control inp-kode barangke"+no+" hidden' value='"+line.kode_barang+"' required='' style='z-index: 1;position: relative;' id='barangkode"+no+"'><a href='#' class='search-item search-barang hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
                             input += "<td><span class='td-nama tdnmbarangke"+no+" tooltip-span'>"+line.nama+"</span><input type='text' name='nama_barang[]' class='form-control inp-nama nmbarangke"+no+" hidden'  value='"+line.nama+"' readonly></td>";
                             input += "<td><span class='td-satuan tdsatuanke"+no+" tooltip-span'>"+line.satuan+"</span><input type='text' name='satuan[]' class='form-control inp-satuan satuanke"+no+" hidden'  value='"+line.satuan+"' readonly></td>";
-                            input += "<td><span class='td-stok tdstokke"+no+" tooltip-span'>"+line.stok+"</span><input type='text' name='stok[]' class='form-control inp-stok stokke"+no+" hidden'  value='"+line.stok+"' readonly></td>";
+                            input += "<td class='text-right'><span class='td-stok tdstokke"+no+" tooltip-span'>"+line.stok+"</span><input type='text' name='stok[]' class='form-control inp-stok stokke"+no+" hidden'  value='"+line.stok+"' readonly></td>";
+                            input += "<td style='display:none;''><input type='text' name='hpp[]' class='form-control inp-hpp hppke"+no+" hidden'  value='"+parseFloat(line.hpp)+"' readonly></td>";
                             input += "<td class='text-right'><span class='td-jumlah tdjumlahke"+no+" tooltip-span'>"+format_number(line.jumlah)+"</span><input type='text' name='jumlah[]' class='form-control inp-jumlah jumlahke"+no+" hidden'  value='"+parseInt(line.jumlah)+"' required></td>";
+                            input += "<td style='display:none;''><input type='text' name='total[]' class='form-control inp-total totalke"+no+" hidden'  value='"+parseFloat(line.total)+"' readonly></td>";
                             input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
                             input += "</tr>";
         
@@ -815,6 +824,11 @@
         $('#id').val('');
         $('#input-grid tbody').html('');
         $('#saku-datatable').hide();
+
+        $('#asal').parents('.input-group').addClass('readonly');
+        $('#tujuan').parents('.input-group').addClass('readonly');
+        $('#totrans').val(0);
+
         $('#saku-form').show();
         resetForm();
         addRow();
@@ -829,7 +843,7 @@
 
     $('#input-grid').on('click', 'td', function(){
         var idx = $(this).index();
-        if(idx == 0 || idx == 2 || idx == 3 || idx == 4){
+        if(idx == 0 || idx == 2 || idx == 3 || idx == 4 || idx == 5){
             return false;
         }else{
             if($(this).hasClass('px-0 py-0 aktif')){
@@ -854,16 +868,16 @@
                     $(this).parents("tr").find(".search-barang").hide();   
                 }
         
-                $(this).parents("tr").find(".inp-jumlah").val(jumlah);
-                $(this).parents("tr").find(".td-jumlah").text(jumlah);
-                if(idx == 5){
-                    $(this).parents("tr").find(".inp-jumlah").show();
-                    $(this).parents("tr").find(".td-jumlah").hide();
-                    $(this).parents("tr").find(".inp-jumlah").focus();
-                }else{
-                    $(this).parents("tr").find(".inp-jumlah").hide();
-                    $(this).parents("tr").find(".td-jumlah").show();
-                }
+                // $(this).parents("tr").find(".inp-jumlah").val(jumlah);
+                // $(this).parents("tr").find(".td-jumlah").text(jumlah);
+                // if(idx == 5){
+                //     $(this).parents("tr").find(".inp-jumlah").show();
+                //     $(this).parents("tr").find(".td-jumlah").hide();
+                //     $(this).parents("tr").find(".inp-jumlah").focus();
+                // }else{
+                //     $(this).parents("tr").find(".inp-jumlah").hide();
+                //     $(this).parents("tr").find(".td-jumlah").show();
+                // }
             }
         }
     });
@@ -928,7 +942,17 @@
                     target2 : ".info-name_"+id,
                     target3 : "",
                     target4 : "custom",
-                    width : ["30%","70%"]
+                    width : ["30%","70%"],
+                    onItemSelected: function(data){
+                        showInfoField('bukti_kirim', data.no_bukti, data.keterangan);
+
+                        showInfoField('asal',data.gudang_asal,data.nama_gudang_asal);
+                        showInfoField('tujuan',data.gudang_tujuan,data.nama_gudang_tujuan);
+                        $('#totrans').val(parseFloat(data.total_trans));
+                        // hitungTotal();
+                        custTarget(".info-code_"+id,$(this).closest('tr'));
+
+                    }
                 }
             break;
         }
@@ -1200,5 +1224,30 @@
             type:'keluar'
         });
     });
+
+    // $('#input-grid').on('change', '.inp-jumlah', function(e){
+    //     hitungTotal(); 
+    // })
+
+    function hitungTotal(){
+        var total = 0;
+        var total_trans = 0;
+        $('.row-grid').each(function(){
+            var hpp = $(this).closest('tr').find('.inp-hpp').val();
+            var jumlah = $(this).closest('tr').find('.inp-jumlah').val();
+
+            hpp = removeFormat(hpp);
+            jumlah = removeFormat(jumlah);
+
+            total = hpp * jumlah;
+            
+            total_trans += +total;
+
+            $(this).closest('tr').find('.inp-total').val(number_format(total));
+            // $(this).closest('tr').find('.td-total').text(number_format(total));
+            
+        }); 
+        $('#totrans').val(number_format(total_trans));
+    }
 
 </script>

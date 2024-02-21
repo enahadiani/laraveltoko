@@ -68,6 +68,8 @@
                         <div class="col-9">
                             <input class="form-control" type="text" id="id" name="id" readonly hidden>
                             <input class="form-control" type="text" id="id_edit" name="id_edit" readonly >
+                            <input class="form-control" type="text" id="bukti_kirim" name="bukti_kirim" readonly hidden>
+                            <input type='text' name="total_trans" class='form-control currency' id='totrans' required hidden>                        
                         </div>
                     </div>
                     <div class="form-row">
@@ -152,7 +154,9 @@
                                             <th style="width:25%">Nama</th>
                                             <th style="width:10%">Satuan</th>
                                             <th style="width:10%">Stok</th>
+                                            <th style="width:10%">Harga Hpp</th>
                                             <th style="width:10%">Jumlah</th>
+                                            <th style="width:10%">Total</th>
                                             <th style="width:5%"></th>
                                         </tr>
                                     </thead>
@@ -200,6 +204,7 @@
     var $dtgudangTujuan = [];
 
     var jenis = "KRM";
+    var bukti_kirim = "-";
     var tanggal = $('#tanggal').val();
     var scrollform = document.getElementById('form-body');
     var psscrollform = new PerfectScrollbar(scrollform);
@@ -287,6 +292,21 @@
         }
     }
 
+    function generateHpp(tanggal, kode_gudang) {
+        var periode = $('#tanggal').val().substr(6,4)+""+$('#tanggal').val().substr(3,2);
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('esaku-trans/generate-hpp-mutasi') }}",
+            data:{'periode':periode, 'kode_gudang':kode_gudang},
+            dataType: 'json',
+            success:function(response){
+                if(response.result.status) {
+                    console.log('Berhasil Generate Hpp');
+                }
+            }
+        });
+    }
+
     function getDataTypeAhead(url,param,kode){
         $.ajax({
             type: 'GET',
@@ -347,6 +367,8 @@
         var satuan = "";
         var stok = 0;
         var jumlah = 0;
+        var harga_hpp = 0;
+        var total = 0;
         no=no+2;
         var input = "";
         input += "<tr class='row-grid'>";
@@ -354,8 +376,10 @@
         input += "<td><span class='td-kode tdbarangke"+no+" tooltip-span'>"+kode_barang+"</span><input type='text' name='kode_barang[]' class='form-control inp-kode barangke"+no+" hidden' value='"+kode_barang+"' required='' style='z-index: 1;position: relative;' id='barangkode"+no+"'><a href='#' class='search-item search-barang hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
         input += "<td><span class='td-nama tdnmbarangke"+no+" tooltip-span'>"+nama+"</span><input type='text' name='nama_barang[]' class='form-control inp-nama nmbarangke"+no+" hidden'  value='"+nama+"' readonly></td>";
         input += "<td><span class='td-satuan tdsatuanke"+no+" tooltip-span'>"+satuan+"</span><input type='text' name='satuan[]' class='form-control inp-satuan satuanke"+no+" hidden'  value='"+satuan+"' readonly></td>";
-        input += "<td><span class='td-stok tdstokke"+no+" tooltip-span'>"+stok+"</span><input type='text' name='stok[]' class='form-control inp-stok stokke"+no+" hidden'  value='"+stok+"' readonly></td>";
+        input += "<td class='text-right'><span class='td-stok tdstokke"+no+" tooltip-span'>"+stok+"</span><input type='text' name='stok[]' class='form-control inp-stok stokke"+no+" hidden'  value='"+stok+"' readonly></td>";
+        input += "<td class='text-right'><span class='td-hpp tdhppke"+no+" tooltip-span'>"+harga_hpp+"</span><input type='text' name='hpp[]' class='form-control inp-hpp hppke"+no+" hidden'  value='"+harga_hpp+"' readonly></td>";
         input += "<td class='text-right'><span class='td-jumlah tdjumlahke"+no+" tooltip-span'>"+jumlah+"</span><input type='text' name='jumlah[]' class='form-control inp-jumlah jumlahke"+no+" hidden'  value='"+jumlah+"' required></td>";
+        input += "<td class='text-right'><span class='td-total tdtotalke"+no+" tooltip-span'>"+total+"</span><input type='text' name='total[]' class='form-control inp-total totalke"+no+" hidden'  value='"+total+"' readonly></td>";
         input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
         input += "</tr>";
 
@@ -370,6 +394,21 @@
             autoGroup: true,
             rightAlign: true
         });
+        $('.hppke'+no).inputmask("numeric", {
+            radixPoint: ",",
+            groupSeparator: ".",
+            digits: 2,
+            autoGroup: true,
+            rightAlign: true
+        });
+        $('.totalke'+no).inputmask("numeric", {
+            radixPoint: ",",
+            groupSeparator: ".",
+            digits: 2,
+            autoGroup: true,
+            rightAlign: true
+        });
+        
         hideUnselectedRow();
         $('#input-grid td').removeClass('px-0 py-0 aktif');
         $('#input-grid tbody tr:last').find("td:eq(1)").addClass('px-0 py-0 aktif');
@@ -407,7 +446,9 @@
                 var nama_barang = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama").val();
                 var satuan = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-satuan").val();
                 var stok = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-stok").val();
+                var hpp = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-hpp").val();
                 var jumlah = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-jumlah").val();
+                var total = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-total").val();
 
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-kode").val(kode_barang);
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-kode").text(kode_barang);
@@ -417,8 +458,12 @@
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-satuan").text(satuan);
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-stok").val(stok);
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-stok").text(stok);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-hpp").val(hpp);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-hpp").text(hpp);
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-jumlah").val(jumlah);
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-jumlah").text(jumlah);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-total").val(total);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-total").text(total);
 
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-kode").hide();
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-kode").show();
@@ -431,6 +476,10 @@
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-jumlah").hide();
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-stok").show();
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-stok").hide();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-hpp").show();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-hpp").hide();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-total").show();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-total").hide();
             }
         })
     }
@@ -453,13 +502,15 @@
     function custTarget(target,tr){
         var kode_barang = $(target).parents("tr").find(".inp-kode").val();
         var kode_gudang = $('#asal').val();
+        var periode = $('#tanggal').val().substr(6,4)+""+$('#tanggal').val().substr(3,2);
         $.ajax({
             type: 'GET',
             url: "{{ url('esaku-trans/barang-mutasi-detail') }}",
-            data:{'kode_barang':kode_barang, 'kode_gudang':kode_gudang},
+            data:{'kode_barang':kode_barang, 'kode_gudang':kode_gudang, 'periode':periode},
             dataType: 'json',
             success:function(response){
                 var result = response.result.data[0];
+                var total = 0;
 
                 if(response.status) {
                     $(target).parents("tr").find(".inp-kode").hide(); 
@@ -470,19 +521,24 @@
                     $(target).parents("tr").find(".td-satuan").text(result.sat_kecil);
                     $(target).parents("tr").find(".inp-stok").val(format_number(result.stok)); 
                     $(target).parents("tr").find(".td-stok").text(format_number(result.stok));
+                    $(target).parents("tr").find(".inp-hpp").val(format_number(result.harga_hpp)); 
+                    $(target).parents("tr").find(".td-hpp").text(format_number(result.harga_hpp));
                     $(target).parents("tr").find(".inp-jumlah").show();
                     $(target).parents("tr").find(".td-jumlah").hide();    
+                    $(target).parents("tr").find(".inp-total").val(format_number(total)); 
+                    $(target).parents("tr").find(".td-total").text(format_number(total));
                     setTimeout(function() {  $(target).parents("tr").find(".inp-jumlah").focus(); }, 100);    
                 }
             }
         });
     }
 
-    function getBarang(id,target1,target2,target3,target4,target5,jenis) { 
+    function getBarang(id,target1,target2,target3,target4,target5,target6,target7,jenis) { 
         var kode_gudang = $('#asal').val();
         var tmp = id.split(" - ");
+        var periode = $('#tanggal').val().substr(6,4)+""+$('#tanggal').val().substr(3,2);
         kode = tmp[0];
-
+        
         if(kode_gudang == '') {
             alert('Harap pilih gudang asal dahulu')
             $('.'+target1).val('');
@@ -497,10 +553,14 @@
         $.ajax({
             type: 'GET',
             url: "{{ url('esaku-trans/barang-mutasi-detail') }}",
-            data:{'kode_barang':kode, 'kode_gudang':kode_gudang},
+            data:{'kode_barang':kode, 'kode_gudang':kode_gudang, 'periode':periode},
             dataType: 'json',
             success:function(response){
                 var result = response.result.data[0];
+                var total = 0;
+                var hpp = result.harga_hpp;
+                var jumlah = $('.'+target6).val();
+                total = hpp+jumlah;
                 if(response.status) {
                     if(jenis == 'change'){
                         $('.'+target1).val(kode);
@@ -515,9 +575,15 @@
                         $('.'+target4).val(format_number(result.stok));
                         $('.td'+target4).text(format_number(result.stok));
 
-                        $('.'+target5).show();
-                        $('.td'+target5).hide();
-                        $('.'+target5).focus();
+                        $('.'+target5).val(format_number(result.harga_hpp));
+                        $('.td'+target5).text(format_number(result.harga_hpp));
+
+                        $('.'+target6).show();
+                        $('.td'+target6).hide();
+                        $('.'+target6).focus();
+
+                        $('.'+target7).val(format_number(result.harga_hpp));
+                        $('.td'+target7).text(format_number(result.harga_hpp));
                     } else {
                         $("#input-grid td").removeClass("px-0 py-0 aktif");
                         $('.'+target2).closest('td').addClass("px-0 py-0 aktif");
@@ -537,9 +603,15 @@
                         $('.'+target4).val(format_number(result.stok));
                         $('.td'+target4).text(format_number(result.stok));
 
-                        $('.'+target5).show();
-                        $('.td'+target5).hide();
-                        $('.'+target5).focus();
+                        $('.'+target5).val(format_number(result.harga_hpp));
+                        $('.td'+target5).text(format_number(result.harga_hpp));
+
+                        $('.'+target6).show();
+                        $('.td'+target6).hide();
+                        $('.'+target6).focus();
+
+                        $('.'+target7).val(format_number(result.harga_hpp));
+                        $('.td'+target7).text(format_number(result.harga_hpp));
                     }
                 }
             }
@@ -568,15 +640,19 @@
                     if(result.detail.length > 0){
                         var input = '';
                         var no=1;
+                        var total = 0;
                         for(var i=0;i<result.detail.length;i++){
                             var line =result.detail[i];
+                            total = parseFloat(line.harga_hpp)*parseFloat(line.jumlah);
                             input += "<tr class='row-grid'>";
                             input += "<td class='no-grid text-center'>"+no+"</td>";
                             input += "<td><span class='td-kode tdbarangke"+no+" tooltip-span'>"+line.kode_barang+"</span><input type='text' name='kode_barang[]' class='form-control inp-kode barangke"+no+" hidden' value='"+line.kode_barang+"' required='' style='z-index: 1;position: relative;' id='barangkode"+no+"'><a href='#' class='search-item search-barang hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
                             input += "<td><span class='td-nama tdnmbarangke"+no+" tooltip-span'>"+line.nama+"</span><input type='text' name='nama_barang[]' class='form-control inp-nama nmbarangke"+no+" hidden'  value='"+line.nama+"' readonly></td>";
                             input += "<td><span class='td-satuan tdsatuanke"+no+" tooltip-span'>"+line.satuan+"</span><input type='text' name='satuan[]' class='form-control inp-satuan satuanke"+no+" hidden'  value='"+line.satuan+"' readonly></td>";
-                            input += "<td><span class='td-stok tdstokke"+no+" tooltip-span'>"+line.stok+"</span><input type='text' name='stok[]' class='form-control inp-stok stokke"+no+" hidden'  value='"+line.stok+"' readonly></td>";
+                            input += "<td class='text-right'><span class='td-stok tdstokke"+no+" tooltip-span'>"+line.stok+"</span><input type='text' name='stok[]' class='form-control inp-stok stokke"+no+" hidden'  value='"+line.stok+"' readonly></td>";
+                            input += "<td class='text-right'><span class='td-hpp tdhppke"+no+" tooltip-span'>"+parseFloat(line.harga_hpp)+"</span><input type='text' name='hpp[]' class='form-control inp-hpp hppke"+no+" hidden'  value='"+parseFloat(line.harga_hpp)+"' readonly></td>";
                             input += "<td class='text-right'><span class='td-jumlah tdjumlahke"+no+" tooltip-span'>"+format_number(line.jumlah)+"</span><input type='text' name='jumlah[]' class='form-control inp-jumlah jumlahke"+no+" hidden'  value='"+parseInt(line.jumlah)+"' required></td>";
+                            input += "<td class='text-right'><span class='td-total tdtotalke"+no+" tooltip-span'>"+total+"</span><input type='text' name='total[]' class='form-control inp-total totalke"+no+" hidden'  value='"+total+"' readonly></td>";
                             input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
                             input += "</tr>";
         
@@ -605,6 +681,22 @@
                                 }
                             });
                             $('.jumlahke'+no).inputmask("numeric", {
+                                radixPoint: ",",
+                                groupSeparator: ".",
+                                digits: 2,
+                                autoGroup: true,
+                                rightAlign: true,
+                                oncleared: function () { self.Value(''); }
+                            });
+                            $('.hppke'+no).inputmask("numeric", {
+                                radixPoint: ",",
+                                groupSeparator: ".",
+                                digits: 2,
+                                autoGroup: true,
+                                rightAlign: true,
+                                oncleared: function () { self.Value(''); }
+                            });
+                            $('.totalke'+no).inputmask("numeric", {
                                 radixPoint: ",",
                                 groupSeparator: ".",
                                 digits: 2,
@@ -713,6 +805,7 @@
         $('#input-grid tbody').html('');
         $('#saku-datatable').hide();
         $('#saku-form').show();
+        $('#bukti_kirim').val(bukti_kirim);
         resetForm();
         addRow();
         getKode(tanggal, jenis, action);
@@ -726,7 +819,7 @@
 
     $('#input-grid').on('click', 'td', function(){
         var idx = $(this).index();
-        if(idx == 0 || idx == 2 || idx == 3 || idx == 4){
+        if(idx == 0 || idx == 2 || idx == 3 || idx == 4 || idx == 5 || idx == 7){
             return false;
         }else{
             if($(this).hasClass('px-0 py-0 aktif')){
@@ -737,7 +830,9 @@
         
                 var kode_barang = $(this).parents("tr").find(".inp-kode").val();
                 var jumlah = $(this).parents("tr").find(".inp-jumlah").val();
+                var hpp = $(this).parents("tr").find(".inp-hpp").val();
                 var no = $(this).parents("tr").find(".no-grid").text();
+
                 $(this).parents("tr").find(".inp-kode").val(kode_barang);
                 $(this).parents("tr").find(".td-kode").text(kode_barang);
                 if(idx == 1){
@@ -753,7 +848,7 @@
         
                 $(this).parents("tr").find(".inp-jumlah").val(jumlah);
                 $(this).parents("tr").find(".td-jumlah").text(jumlah);
-                if(idx == 5){
+                if(idx == 6){
                     $(this).parents("tr").find(".inp-jumlah").show();
                     $(this).parents("tr").find(".td-jumlah").hide();
                     $(this).parents("tr").find(".inp-jumlah").focus();
@@ -767,23 +862,54 @@
 
     $('#form-tambah').on('click', '.search-item2', function(){
         var id = $(this).closest('div').find('input').attr('name');
-        var options = {
-            id : id,
-            header : ['NIK', 'Nama'],
-            url : "{{ url('esaku-report/filter-gudang') }}",
-            columns : [
-                { data: 'kode_gudang' },
-                { data: 'nama' }
-            ],
-            judul : "Daftar Gudang",
-            pilih : "",
-            jTarget1 : "text",
-            jTarget2 : "text",
-            target1 : ".info-code_"+id,
-            target2 : ".info-name_"+id,
-            target3 : "",
-            target4 : "",
-            width : ["30%","70%"]
+        switch(id) {
+            case 'asal':
+                var options = {
+                    id : id,
+                    header : ['NIK', 'Nama'],
+                    url : "{{ url('esaku-report/filter-gudang') }}",
+                    columns : [
+                        { data: 'kode_gudang' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar Gudang",
+                    pilih : "",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"],
+                    onItemSelected: function(data){
+                        showInfoField('asal',data.kode_gudang,data.nama);
+
+                        var tanggal = $('#tanggal').val();
+                        generateHpp(tanggal,data.kode_gudang);
+
+                    }
+                }
+            break;
+            case 'tujuan':
+                var options = {
+                    id : id,
+                    header : ['NIK', 'Nama'],
+                    url : "{{ url('esaku-report/filter-gudang') }}",
+                    columns : [
+                        { data: 'kode_gudang' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar Gudang",
+                    pilih : "",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"]
+                }
+            break;
         }
         showInpFilter(options);
     });
@@ -878,7 +1004,8 @@
             var idx_next = idx+1;
             var kunci = $(this).closest('td').index()+1;
             var isi = $(this).val();
-            var stok = $(this).closest('td').prev().find('.inp-stok').val();
+            var stok = $(this).closest('td').prev().prev().find('.inp-stok').val();
+            console.log(idx);
             switch (idx) {
                 case 0:
                     var noidx = $(this).parents("tr").find(".no-grid").text();
@@ -887,10 +1014,12 @@
                     var target2 = "nmbarangke"+noidx;
                     var target3 = "satuanke"+noidx;
                     var target4 = "stokke"+noidx;
-                    var target5 = "jumlahke"+noidx;
+                    var target5 = "hppke"+noidx;
+                    var target6 = "jumlahke"+noidx;
+                    var target7 = "totalke"+noidx;
                     getBarang(kode,target1,target2,target3,target4,target5,'tab');
                 break;
-                case 4:
+                case 5:
                     stok = toNilai(stok);
                     isi = toNilai(isi);
                     if(isi === 0 || isi > stok || isNaN(isi)) {
@@ -902,6 +1031,8 @@
                         $(this).closest('tr').find(nxt[idx]).hide();
                         $(this).closest('tr').find(nxt2[idx]).show();
 
+                        hitungTotal();
+                        
                         var cek = $(this).parents('tr').next('tr').find('.td-kode');
                         if(cek.length > 0){
                             cek.click();
@@ -927,10 +1058,12 @@
         var target2 = "nmbarangke"+noidx;
         var target3 = "satuanke"+noidx;
         var target4 = "stokke"+noidx;
-        var target5 = "jumlahke"+noidx;
+        var target5 = "hppke"+noidx;
+        var target6 = "jumlahke"+noidx;
+        var target7 = "totalke"+noidx;
         if($.trim($(this).closest('tr').find('.inp-kode').val()).length){
             var kode = $(this).val();
-            getBarang(kode,target1,target2,target3,target4,target5,'change');
+            getBarang(kode,target1,target2,target3,target4,target5,target6,target7,'change');
         }else{
             alert('Barang yang dimasukkan tidak valid');
             return false;
@@ -1053,5 +1186,30 @@
             type:'keluar'
         });
     });
+
+    $('#input-grid').on('change', '.inp-jumlah', function(e){
+        hitungTotal(); 
+    })
+
+    function hitungTotal(){
+        var total = 0;
+        var total_trans = 0;
+        $('.row-grid').each(function(){
+            var hpp = $(this).closest('tr').find('.inp-hpp').val();
+            var jumlah = $(this).closest('tr').find('.inp-jumlah').val();
+
+            hpp = removeFormat(hpp);
+            jumlah = removeFormat(jumlah);
+
+            total = hpp * jumlah;
+            
+            total_trans += +total;
+
+            $(this).closest('tr').find('.inp-total').val(number_format(total));
+            $(this).closest('tr').find('.td-total').text(number_format(total));
+            
+        }); 
+        $('#totrans').val(number_format(total_trans));
+    }
 
 </script>
