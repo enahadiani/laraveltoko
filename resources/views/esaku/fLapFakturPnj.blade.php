@@ -293,6 +293,31 @@
         $('#saku-report #canvasPreview').load(xurl);
     });
 
+    function closePrint () {
+        document.body.removeChild(this.__container__);
+    }
+
+    function setPrint() {
+        this.contentWindow.__container__ = this;
+        this.contentWindow.onbeforeunload = closePrint;
+        this.contentWindow.onafterprint = closePrint;
+        this.contentWindow.focus();
+        this.contentWindow.print();
+    }
+
+    function printPage (sURL) {
+        var oHiddFrame = document.createElement("iframe");
+        oHiddFrame.onload = setPrint;
+        oHiddFrame.style.position = "fixed";
+        oHiddFrame.style.right = "0";
+        oHiddFrame.style.bottom = "0";
+        oHiddFrame.style.width = "0";
+        oHiddFrame.style.height = "0";
+        oHiddFrame.style.border = "0";
+        oHiddFrame.src = sURL;
+        document.body.appendChild(oHiddFrame);
+    }
+
     $('#sai-rpt-print').click(function(){
         var no_jual = $no_bukti.from;
         printPage("{{ url('esaku-trans/nota') }}/?no_jual="+no_jual);
