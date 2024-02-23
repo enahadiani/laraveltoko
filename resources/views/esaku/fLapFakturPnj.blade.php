@@ -296,15 +296,6 @@
     $('#sai-rpt-print').click(function(){
         var no_jual = $no_bukti.from;
         printPage("{{ url('esaku-trans/nota') }}/?no_jual="+no_jual);
-
-        // let myWindow;
-        // myWindow = window.open("{{ url('esaku-report/lap-nota-jual-print-baru') }}/?periode[]=all&periode[]=&periode[]=&no_bukti[]==&no_bukti[]="+no_jual+"&no_bukti[]=","","width=200,height=100");
-        
-        // setTimeout(function (){
-  
-        //   myWindow.close();
-                    
-        // }, 2000);
     });
 
     $('#sai-rpt-print-prev').click(function(){
