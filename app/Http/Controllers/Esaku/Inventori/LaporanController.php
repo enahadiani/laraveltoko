@@ -2277,5 +2277,45 @@
             return response()->json($response, 200);
         }
 
+        public function getRekapStockOpname(Request $request) {
+            try{
+                 $client = new Client();
+                 $response = $client->request('GET',  config('api.url').'esaku-report/lap-stock-opname',[
+                     'headers' => [
+                         'Authorization' => 'Bearer '.Session::get('token'),
+                         'Accept'     => 'application/json',
+                     ],
+                     'query' => [
+                         'tanggal' => $request->tanggal,
+                         'kode_gudang' => $request->kode_gudang,
+                     ]
+                 ]);
+ 
+                 if ($response->getStatusCode() == 200) { // 200 OK
+                     $response_data = $response->getBody()->getContents();
+                     
+                     $res = json_decode($response_data,true);
+                     $data = $res["data"];
+                 }
+                 if($request->tanggal != ""){
+                     $tanggal = $request->input('tanggal')[1];
+                 }else{
+                     $tanggal = date('Y-m-d H:i:s');
+                 }
+ 
+                 if(isset($request->back)){
+                    $back = true;
+                }else{
+                    $back = false;
+                }
+                date_default_timezone_set('Asia/Jakarta');
+                return response()->json(['result' => $data, 'tgl_cetak' => $tanggal, 'status'=>true, 'auth_status'=>1,'res'=>$res,'back'=>$back], 200); 
+             } catch (BadResponseException $ex) {
+                 $response = $ex->getResponse();
+                 $res = json_decode($response->getBody(),true);
+                 return response()->json(['message' => $res["message"], 'status'=>false, 'auth_status'=>2], 200);
+             } 
+        }
+
     }
 ?>

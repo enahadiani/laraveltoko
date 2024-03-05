@@ -18,6 +18,7 @@ Route::get('filter-tanggal-close', 'Esaku\HelperController@getTanggalClose');
 Route::get('filter-nik-close', 'Esaku\HelperController@getNikClose');
 Route::get('filter-bukti-close', 'Esaku\HelperController@getBuktiClose');
 Route::get('filter-barang', 'Esaku\HelperController@getBarang');
+Route::get('filter-barang-hpp', 'Esaku\HelperController@getBarangHpp');
 Route::get('filter-periode-retur', 'Esaku\HelperController@getPeriodeRetur');
 Route::get('filter-nik-retur', 'Esaku\HelperController@getNikRetur');
 Route::get('filter-bukti-retur', 'Esaku\HelperController@getBuktiRetur');
@@ -112,6 +113,8 @@ Route::post('lap-rekap-beli', 'Esaku\Inventori\LaporanController@getRekapBeli');
 Route::post('lap-rekap-jualstr', 'Esaku\Inventori\LaporanController@getRekapJualSetor');
 Route::post('lap-rekap-jual-perbrg', 'Esaku\Inventori\LaporanController@getRekapJualBarang');
 Route::post('lap-rekap-beli-perbrg', 'Esaku\Inventori\LaporanController@getRekapBeliBarang');
+Route::post('lap-stock-opname', 'Esaku\Inventori\LaporanController@getRekapStockOpname');
+
 
 Route::get('lap-nota-jual-print', 'Esaku\Inventori\LaporanController@printNotaJual');
 Route::get('lap-nota-jual-print-baru', 'Esaku\Inventori\LaporanController@printNotaJualBaru');
