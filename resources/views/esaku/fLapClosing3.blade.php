@@ -231,8 +231,7 @@
 
     $("#sai-rpt-pdf").click(function(e) {
         e.preventDefault();
-        alert('Incoming')
-        // var link = "{{ url('esaku-report/lap-jurnal-pdf') }}?periode[]="+$periode.type+"&periode[]="+$periode.from+"&periode[]="+$periode.to+"&modul[]="+$modul.type+"&modul[]="+$modul.from+"&modul[]="+$modul.to+"&no_bukti[]="+$no_bukti.type+"&no_bukti[]="+$no_bukti.from+"&no_bukti[]="+$no_bukti.to+"&sum_ju[]="+$sum_ju.type+"&sum_ju[]="+$sum_ju.from+"&sum_ju[]="+$sum_ju.to;
-        // window.open(link, '_blank'); 
+        var link = "{{ url('esaku-report/lap-closing-pdf') }}?tanggal[]="+$tanggal.type+"&tanggal[]="+$tanggal.from+"&tanggal[]="+$tanggal.to+"&nik_kasir[]="+$kasir.type+"&nik_kasir[]="+$kasir.from+"&nik_kasir[]="+$kasir.to+"&no_bukti[]="+$no_bukti.type+"&no_bukti[]="+$no_bukti.from+"&no_bukti[]="+$no_bukti.to;
+        window.open(link, '_blank'); 
     });    
 </script>

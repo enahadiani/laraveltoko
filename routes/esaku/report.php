@@ -134,6 +134,7 @@ Route::get('lap-coa-struktur-pdf', 'Esaku\Inventori\LaporanController@getCOAStru
 Route::get('lap-labarugi-unit-pdf', 'Esaku\Inventori\LaporanController@getLabaRugiUnitPDF');
 Route::get('lap-labarugi-unit-dc-pdf', 'Esaku\Inventori\LaporanController@getLabaRugiUnitDCPDF');
 
+Route::get('lap-closing-pdf', 'Esaku\Inventori\LaporanController@getClosingPDF');
 
 Route::post('lap-jurnal-kb', 'Esaku\Inventori\LaporanController@getJurnalKB');
 Route::get('lap-jurnal-kb-pdf', 'Esaku\Inventori\LaporanController@getJurnalKBPDF');

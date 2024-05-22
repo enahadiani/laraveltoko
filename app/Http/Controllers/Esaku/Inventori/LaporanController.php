@@ -720,6 +720,23 @@
             } 
         }
 
+        function getClosingPDF(Request $request)
+        {
+            set_time_limit(300);
+            $tmp = app('App\Http\Controllers\Esaku\Inventori\LaporanController')->getClosing($request);
+            $tmp = json_decode(json_encode($tmp),true);
+            $data = $tmp['original'];
+            if($request->periode != ""){
+                $periode = $request->periode;
+            }else{
+                $periode = "Semua Periode";
+            }
+
+            // return view('esaku.rptClosing3PDF',['data'=>$data["result"],'periode'=>$periode,'sumju'=>$data['sumju'],'res'=>$data['res']]);
+            $pdf = PDF::loadview('esaku.rptClosing3PDF',['data'=>$data["result"],'periode'=>$periode,'sumju'=>$data['sumju'],'res'=>$data['res']])->setPaper('a4', 'landscape');
+            return $pdf->download('laporan-closing-pdf.pdf');   
+        }
+
         public function getPembelian(Request $request) {
            try{
                 $client = new Client();
