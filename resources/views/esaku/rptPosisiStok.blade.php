@@ -109,7 +109,7 @@
                             nilai_stok+=parseFloat(line2.nilai_stok);
                             det+=`<tr>
                             <td align='center' class='isi_laporan'>`+no+`</td>
-                            <td class='isi_laporan'>`+line2.kode_barang+`</td>
+                            <td class='isi_laporan'>`+line2.kode_barang+`&nbsp;</td>
                             <td class='isi_laporan'>`+line2.nama+`</td>
                             <td class='isi_laporan'>`+line2.kode_rak+`</td>
                             <td  class='isi_laporan text-right'>`+number_format(parseFloat(line2.so_awal))+`</td>
