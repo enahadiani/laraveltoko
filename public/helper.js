@@ -219,56 +219,62 @@ function showInpFilter(settings){
     $('#modal-search .modal-body').html(table);
 
     if(settings.multi2 != undefined){
-        var searchTable = $("#table-search").DataTable({
-            sDom: '<"row view-filter"<"col-sm-12"<f>>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
-            ajax: {
-                "url": toUrl,
-                "data": parameter,
-                "type": "GET",
-                "async": false,
-                "dataSrc" : function(json) {
-                    return json.daftar;
-                }
-            },
-            columnDefs: [
-                {
-                    "targets": 0,
-                    "searchable": false,
-                    "orderable": false,
-                    "className": 'selectall-checkbox_search',
-                    'render': function (data, type, full, meta){
-                        return '<input type="checkbox" name="checked_search[]">';
+        if ( $.fn.dataTable.isDataTable( '#table-search' ) ) {
+            var searchTable = $('#table-search').DataTable();
+        }
+        else {
+            var searchTable = $("#table-search").DataTable({
+                sDom: '<"row view-filter"<"col-sm-12"<f>>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
+                ajax: {
+                    "url": toUrl,
+                    "data": parameter,
+                    "type": "GET",
+                    "async": false,
+                    "dataSrc" : function(json) {
+                        return json.daftar;
                     }
-                }
-            ],
-            select: {
-                style:    'multi',
-                selector: 'td:first-child'
-            },
-            columns: columns,
-            drawCallback: function () {
-                $($(".dataTables_wrapper .pagination li:first-of-type"))
-                    .find("a")
-                    .addClass("prev");
-                $($(".dataTables_wrapper .pagination li:last-of-type"))
-                    .find("a")
-                    .addClass("next");
-    
-                $(".dataTables_wrapper .pagination").addClass("pagination-sm");
-            },
-            language: {
-                paginate: {
-                    previous: "<i class='simple-icon-arrow-left'></i>",
-                    next: "<i class='simple-icon-arrow-right'></i>"
                 },
-                search: "_INPUT_",
-                searchPlaceholder: "Search...",
-                lengthMenu: "Items Per Page _MENU_",
-                info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
-                infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
-                infoFiltered: "(terfilter dari _MAX_ total entri)"
-            },
-        });
+                bDestroy: true,
+                columnDefs: [
+                    {
+                        "targets": 0,
+                        "searchable": false,
+                        "orderable": false,
+                        "className": 'selectall-checkbox_search',
+                        'render': function (data, type, full, meta){
+                            return '<input type="checkbox" name="checked_search[]">';
+                        }
+                    }
+                ],
+                select: {
+                    style:    'multi',
+                    selector: 'td:first-child'
+                },
+                columns: columns,
+                drawCallback: function () {
+                    $($(".dataTables_wrapper .pagination li:first-of-type"))
+                        .find("a")
+                        .addClass("prev");
+                    $($(".dataTables_wrapper .pagination li:last-of-type"))
+                        .find("a")
+                        .addClass("next");
+        
+                    $(".dataTables_wrapper .pagination").addClass("pagination-sm");
+                },
+                language: {
+                    paginate: {
+                        previous: "<i class='simple-icon-arrow-left'></i>",
+                        next: "<i class='simple-icon-arrow-right'></i>"
+                    },
+                    search: "_INPUT_",
+                    searchPlaceholder: "Search...",
+                    lengthMenu: "Items Per Page _MENU_",
+                    info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
+                    infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
+                    infoFiltered: "(terfilter dari _MAX_ total entri)"
+                },
+            });
+        }
 
         searchTable.on('select.dt deselect.dt', function (e, dt, type, indexes){
         
@@ -304,42 +310,47 @@ function showInpFilter(settings){
         });
 
     }else{
-
-        var searchTable = $("#table-search").DataTable({
-            sDom: '<"row view-filter"<"col-sm-12"<f>>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
-            ajax: {
-                "url": toUrl,
-                "data": parameter,
-                "type": "GET",
-                "async": false,
-                "dataSrc" : function(json) {
-                    return json.daftar;
-                }
-            },
-            columns: columns,
-            drawCallback: function () {
-                $($(".dataTables_wrapper .pagination li:first-of-type"))
-                    .find("a")
-                    .addClass("prev");
-                $($(".dataTables_wrapper .pagination li:last-of-type"))
-                    .find("a")
-                    .addClass("next");
-    
-                $(".dataTables_wrapper .pagination").addClass("pagination-sm");
-            },
-            language: {
-                paginate: {
-                    previous: "<i class='simple-icon-arrow-left'></i>",
-                    next: "<i class='simple-icon-arrow-right'></i>"
+        if ( $.fn.dataTable.isDataTable( '#table-search' ) ) {
+            var searchTable = $('#table-search').DataTable();
+        }
+        else {
+            var searchTable = $("#table-search").DataTable({
+                sDom: '<"row view-filter"<"col-sm-12"<f>>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
+                ajax: {
+                    "url": toUrl,
+                    "data": parameter,
+                    "type": "GET",
+                    "async": false,
+                    "dataSrc" : function(json) {
+                        return json.daftar;
+                    }
                 },
-                search: "_INPUT_",
-                searchPlaceholder: "Search...",
-                lengthMenu: "Items Per Page _MENU_",
-                info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
-                infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
-                infoFiltered: "(terfilter dari _MAX_ total entri)"
-            },
-        });
+                bDestroy: true,
+                columns: columns,
+                drawCallback: function () {
+                    $($(".dataTables_wrapper .pagination li:first-of-type"))
+                        .find("a")
+                        .addClass("prev");
+                    $($(".dataTables_wrapper .pagination li:last-of-type"))
+                        .find("a")
+                        .addClass("next");
+        
+                    $(".dataTables_wrapper .pagination").addClass("pagination-sm");
+                },
+                language: {
+                    paginate: {
+                        previous: "<i class='simple-icon-arrow-left'></i>",
+                        next: "<i class='simple-icon-arrow-right'></i>"
+                    },
+                    search: "_INPUT_",
+                    searchPlaceholder: "Search...",
+                    lengthMenu: "Items Per Page _MENU_",
+                    info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
+                    infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
+                    infoFiltered: "(terfilter dari _MAX_ total entri)"
+                },
+            });
+        }
     }
 
 
@@ -352,33 +363,39 @@ function showInpFilter(settings){
     searchTable.columns.adjust().draw();
 
     if(settings.multi != undefined){
-        var searchTable2 = $("#table-search2").DataTable({
-            sDom: '<"row view-filter"<"col-sm-12"<f>>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
-            columns: columns,
-            order: settings.orderby,
-            drawCallback: function () {
-                $($(".dataTables_wrapper .pagination li:first-of-type"))
-                    .find("a")
-                    .addClass("prev");
-                $($(".dataTables_wrapper .pagination li:last-of-type"))
-                    .find("a")
-                    .addClass("next");
+        if ( $.fn.dataTable.isDataTable( '#table-search2' ) ) {
+            var searchTable2 = $('#table-search2').DataTable();
+        }
+        else {
+            var searchTable2 = $("#table-search2").DataTable({
+                sDom: '<"row view-filter"<"col-sm-12"<f>>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
+                columns: columns,
+                order: settings.orderby,
+                bDestroy: true,
+                drawCallback: function () {
+                    $($(".dataTables_wrapper .pagination li:first-of-type"))
+                        .find("a")
+                        .addClass("prev");
+                    $($(".dataTables_wrapper .pagination li:last-of-type"))
+                        .find("a")
+                        .addClass("next");
 
-                $(".dataTables_wrapper .pagination").addClass("pagination-sm");
-            },
-            language: {
-                paginate: {
-                    previous: "<i class='simple-icon-arrow-left'></i>",
-                    next: "<i class='simple-icon-arrow-right'></i>"
+                    $(".dataTables_wrapper .pagination").addClass("pagination-sm");
                 },
-                search: "_INPUT_",
-                searchPlaceholder: "Search...",
-                lengthMenu: "Items Per Page _MENU_"
-            },
-            "columnDefs": [{
-                "targets": settings.header.length, "data": null, "defaultContent": "<a class='hapus-item'><i class='simple-icon-trash' style='font-size:18px'></i></a>"
-            }]
-        });
+                language: {
+                    paginate: {
+                        previous: "<i class='simple-icon-arrow-left'></i>",
+                        next: "<i class='simple-icon-arrow-right'></i>"
+                    },
+                    search: "_INPUT_",
+                    searchPlaceholder: "Search...",
+                    lengthMenu: "Items Per Page _MENU_"
+                },
+                "columnDefs": [{
+                    "targets": settings.header.length, "data": null, "defaultContent": "<a class='hapus-item'><i class='simple-icon-trash' style='font-size:18px'></i></a>"
+                }]
+            });
+        }
         searchTable2.columns.adjust().draw();
 
         $('#table-search tbody').on('click', 'tr', function () {
@@ -644,56 +661,62 @@ function showInpFilterBSheet(settings){
 
 
     if(settings.multi2 != undefined){
-        var searchTable = $("#table-search").DataTable({
-            sDom: '<"row view-filter"<"col-sm-12"<f>>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
-            ajax: {
-                "url": toUrl,
-                "data": parameter,
-                "type": "GET",
-                "async": false,
-                "dataSrc" : function(json) {
-                    return json.daftar;
-                }
-            },
-            columnDefs: [
-                {
-                    "targets": 0,
-                    "searchable": false,
-                    "orderable": false,
-                    "className": 'selectall-checkbox_search',
-                    'render': function (data, type, full, meta){
-                        return '<input type="checkbox" name="checked_search[]">';
+        if ( $.fn.dataTable.isDataTable( '#table-search' ) ) {
+            var searchTable = $('#table-search').DataTable();
+        }
+        else {
+            var searchTable = $("#table-search").DataTable({
+                sDom: '<"row view-filter"<"col-sm-12"<f>>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
+                bDestroy: true,
+                ajax: {
+                    "url": toUrl,
+                    "data": parameter,
+                    "type": "GET",
+                    "async": false,
+                    "dataSrc" : function(json) {
+                        return json.daftar;
                     }
-                }
-            ],
-            select: {
-                style:    'multi',
-                selector: 'td:first-child'
-            },
-            columns: columns,
-            drawCallback: function () {
-                $($(".dataTables_wrapper .pagination li:first-of-type"))
-                    .find("a")
-                    .addClass("prev");
-                $($(".dataTables_wrapper .pagination li:last-of-type"))
-                    .find("a")
-                    .addClass("next");
-    
-                $(".dataTables_wrapper .pagination").addClass("pagination-sm");
-            },
-            language: {
-                paginate: {
-                    previous: "<i class='simple-icon-arrow-left'></i>",
-                    next: "<i class='simple-icon-arrow-right'></i>"
                 },
-                search: "_INPUT_",
-                searchPlaceholder: "Search...",
-                lengthMenu: "Items Per Page _MENU_",
-                info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
-                infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
-                infoFiltered: "(terfilter dari _MAX_ total entri)"
-            },
-        });
+                columnDefs: [
+                    {
+                        "targets": 0,
+                        "searchable": false,
+                        "orderable": false,
+                        "className": 'selectall-checkbox_search',
+                        'render': function (data, type, full, meta){
+                            return '<input type="checkbox" name="checked_search[]">';
+                        }
+                    }
+                ],
+                select: {
+                    style:    'multi',
+                    selector: 'td:first-child'
+                },
+                columns: columns,
+                drawCallback: function () {
+                    $($(".dataTables_wrapper .pagination li:first-of-type"))
+                        .find("a")
+                        .addClass("prev");
+                    $($(".dataTables_wrapper .pagination li:last-of-type"))
+                        .find("a")
+                        .addClass("next");
+        
+                    $(".dataTables_wrapper .pagination").addClass("pagination-sm");
+                },
+                language: {
+                    paginate: {
+                        previous: "<i class='simple-icon-arrow-left'></i>",
+                        next: "<i class='simple-icon-arrow-right'></i>"
+                    },
+                    search: "_INPUT_",
+                    searchPlaceholder: "Search...",
+                    lengthMenu: "Items Per Page _MENU_",
+                    info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
+                    infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
+                    infoFiltered: "(terfilter dari _MAX_ total entri)"
+                },
+            });
+        }
 
         searchTable.on('select.dt deselect.dt', function (e, dt, type, indexes){
         
@@ -729,42 +752,47 @@ function showInpFilterBSheet(settings){
         });
 
     }else{
-
-        var searchTable = $("#table-search").DataTable({
-            sDom: '<"row view-filter"<"col-sm-12"<f>>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
-            ajax: {
-                "url": toUrl,
-                "data": parameter,
-                "type": "GET",
-                "async": false,
-                "dataSrc" : function(json) {
-                    return json.daftar;
-                }
-            },
-            columns: columns,
-            drawCallback: function () {
-                $($(".dataTables_wrapper .pagination li:first-of-type"))
-                    .find("a")
-                    .addClass("prev");
-                $($(".dataTables_wrapper .pagination li:last-of-type"))
-                    .find("a")
-                    .addClass("next");
-    
-                $(".dataTables_wrapper .pagination").addClass("pagination-sm");
-            },
-            language: {
-                paginate: {
-                    previous: "<i class='simple-icon-arrow-left'></i>",
-                    next: "<i class='simple-icon-arrow-right'></i>"
+        if ( $.fn.dataTable.isDataTable( '#table-search' ) ) {
+            var searchTable = $('#table-search').DataTable();
+        }
+        else {
+            var searchTable = $("#table-search").DataTable({
+                sDom: '<"row view-filter"<"col-sm-12"<f>>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
+                ajax: {
+                    "url": toUrl,
+                    "data": parameter,
+                    "type": "GET",
+                    "async": false,
+                    "dataSrc" : function(json) {
+                        return json.daftar;
+                    }
                 },
-                search: "_INPUT_",
-                searchPlaceholder: "Search...",
-                lengthMenu: "Items Per Page _MENU_",
-                info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
-                infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
-                infoFiltered: "(terfilter dari _MAX_ total entri)"
-            },
-        });
+                bDestroy: true,
+                columns: columns,
+                drawCallback: function () {
+                    $($(".dataTables_wrapper .pagination li:first-of-type"))
+                        .find("a")
+                        .addClass("prev");
+                    $($(".dataTables_wrapper .pagination li:last-of-type"))
+                        .find("a")
+                        .addClass("next");
+        
+                    $(".dataTables_wrapper .pagination").addClass("pagination-sm");
+                },
+                language: {
+                    paginate: {
+                        previous: "<i class='simple-icon-arrow-left'></i>",
+                        next: "<i class='simple-icon-arrow-right'></i>"
+                    },
+                    search: "_INPUT_",
+                    searchPlaceholder: "Search...",
+                    lengthMenu: "Items Per Page _MENU_",
+                    info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
+                    infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
+                    infoFiltered: "(terfilter dari _MAX_ total entri)"
+                },
+            });
+        }
     }
 
 
@@ -778,33 +806,39 @@ function showInpFilterBSheet(settings){
     searchTable.columns.adjust().draw();
 
     if(settings.multi != undefined){
-        var searchTable2 = $("#table-search2").DataTable({
-            sDom: '<"row view-filter"<"col-sm-12"<f>>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
-            columns: columns,
-            order: settings.orderby,
-            drawCallback: function () {
-                $($(".dataTables_wrapper .pagination li:first-of-type"))
-                    .find("a")
-                    .addClass("prev");
-                $($(".dataTables_wrapper .pagination li:last-of-type"))
-                    .find("a")
-                    .addClass("next");
+        if ( $.fn.dataTable.isDataTable( '#table-search2' ) ) {
+            var searchTable2 = $('#table-search2').DataTable();
+        }
+        else {
+            var searchTable2 = $("#table-search2").DataTable({
+                sDom: '<"row view-filter"<"col-sm-12"<f>>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
+                columns: columns,
+                bDestroy: true,
+                order: settings.orderby,
+                drawCallback: function () {
+                    $($(".dataTables_wrapper .pagination li:first-of-type"))
+                        .find("a")
+                        .addClass("prev");
+                    $($(".dataTables_wrapper .pagination li:last-of-type"))
+                        .find("a")
+                        .addClass("next");
 
-                $(".dataTables_wrapper .pagination").addClass("pagination-sm");
-            },
-            language: {
-                paginate: {
-                    previous: "<i class='simple-icon-arrow-left'></i>",
-                    next: "<i class='simple-icon-arrow-right'></i>"
+                    $(".dataTables_wrapper .pagination").addClass("pagination-sm");
                 },
-                search: "_INPUT_",
-                searchPlaceholder: "Search...",
-                lengthMenu: "Items Per Page _MENU_"
-            },
-            "columnDefs": [{
-                "targets": settings.header.length, "data": null, "defaultContent": "<a class='hapus-item'><i class='simple-icon-trash' style='font-size:18px'></i></a>"
-            }]
-        });
+                language: {
+                    paginate: {
+                        previous: "<i class='simple-icon-arrow-left'></i>",
+                        next: "<i class='simple-icon-arrow-right'></i>"
+                    },
+                    search: "_INPUT_",
+                    searchPlaceholder: "Search...",
+                    lengthMenu: "Items Per Page _MENU_"
+                },
+                "columnDefs": [{
+                    "targets": settings.header.length, "data": null, "defaultContent": "<a class='hapus-item'><i class='simple-icon-trash' style='font-size:18px'></i></a>"
+                }]
+            });
+        }
         searchTable2.columns.adjust().draw();
 
         $('#table-search tbody').on('click', 'tr', function () {
@@ -1089,48 +1123,11 @@ function showRptFilterBSheet(settings,idx,target1,tipe,aktif=null){
     
     $('#btn-ok').addClass('disabled');
     $('#btn-ok').prop('disabled', true);
-
-    var searchTable = $("#table-search").DataTable({
-        sDom: '<"row view-filter"<"col-sm-12"<f>>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
-        ajax: {
-            "url": toUrl,
-            "data": parameter,
-            "type": "GET",
-            "async": false,
-            "dataSrc" : function(json) {
-                return json.daftar;
-            }
-        },
-        columns: columns,
-        order: orderby,
-        drawCallback: function () {
-            $($(".dataTables_wrapper .pagination li:first-of-type"))
-                .find("a")
-                .addClass("prev");
-            $($(".dataTables_wrapper .pagination li:last-of-type"))
-                .find("a")
-                .addClass("next");
-
-            $(".dataTables_wrapper .pagination").addClass("pagination-sm");
-        },
-        language: {
-            paginate: {
-                previous: "<i class='simple-icon-arrow-left'></i>",
-                next: "<i class='simple-icon-arrow-right'></i>"
-            },
-            search: "_INPUT_",
-            searchPlaceholder: "Search...",
-            lengthMenu: "Items Per Page _MENU_"
-        },
-        pageLength : pageLength
-    });
-
-    $('.search-header .title').html(judul);
-    $('#trigger-bottom-sheet').trigger("click");
-    searchTable.columns.adjust().draw();
-
-    if(type == "range"){
-        var searchTable2 = $("#table-search2").DataTable({
+    if ( $.fn.dataTable.isDataTable( '#table-search' ) ) {
+        var searchTable = $('#table-search').DataTable();
+    }
+    else {
+        var searchTable = $("#table-search").DataTable({
             sDom: '<"row view-filter"<"col-sm-12"<f>>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
             ajax: {
                 "url": toUrl,
@@ -1141,6 +1138,7 @@ function showRptFilterBSheet(settings,idx,target1,tipe,aktif=null){
                     return json.daftar;
                 }
             },
+            bDestroy: true,
             columns: columns,
             order: orderby,
             drawCallback: function () {
@@ -1164,6 +1162,53 @@ function showRptFilterBSheet(settings,idx,target1,tipe,aktif=null){
             },
             pageLength : pageLength
         });
+    }
+
+    $('.search-header .title').html(judul);
+    $('#trigger-bottom-sheet').trigger("click");
+    searchTable.columns.adjust().draw();
+
+    if(type == "range"){
+        if ( $.fn.dataTable.isDataTable( '#table-search2' ) ) {
+            var searchTable2 = $('#table-search2').DataTable();
+        }
+        else {
+            var searchTable2 = $("#table-search2").DataTable({
+                sDom: '<"row view-filter"<"col-sm-12"<f>>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
+                ajax: {
+                    "url": toUrl,
+                    "data": parameter,
+                    "type": "GET",
+                    "async": false,
+                    "dataSrc" : function(json) {
+                        return json.daftar;
+                    }
+                },
+                bDestroy: true,
+                columns: columns,
+                order: orderby,
+                drawCallback: function () {
+                    $($(".dataTables_wrapper .pagination li:first-of-type"))
+                        .find("a")
+                        .addClass("prev");
+                    $($(".dataTables_wrapper .pagination li:last-of-type"))
+                        .find("a")
+                        .addClass("next");
+
+                    $(".dataTables_wrapper .pagination").addClass("pagination-sm");
+                },
+                language: {
+                    paginate: {
+                        previous: "<i class='simple-icon-arrow-left'></i>",
+                        next: "<i class='simple-icon-arrow-right'></i>"
+                    },
+                    search: "_INPUT_",
+                    searchPlaceholder: "Search...",
+                    lengthMenu: "Items Per Page _MENU_"
+                },
+                pageLength : pageLength
+            });
+        }
 
         $('#search-content .modal-subtitle').html('[Rentang Awal]');
         searchTable2.columns.adjust().draw();
@@ -1205,34 +1250,40 @@ function showRptFilterBSheet(settings,idx,target1,tipe,aktif=null){
         }); 
         $('.bootstrap-tagsinput').css({'text-align':'left','border':'0','min-height':'41.2px'});
     }else if(type == "in"){
-        var searchTable2 = $("#table-search2").DataTable({
-            sDom: '<"row view-filter"<"col-sm-12"<f>>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
-            columns: columns,
-            order: orderby,
-            drawCallback: function () {
-                $($(".dataTables_wrapper .pagination li:first-of-type"))
-                    .find("a")
-                    .addClass("prev");
-                $($(".dataTables_wrapper .pagination li:last-of-type"))
-                    .find("a")
-                    .addClass("next");
+        if ( $.fn.dataTable.isDataTable( '#table-search2' ) ) {
+            var searchTable2 = $('#table-search2').DataTable();
+        }
+        else {
+            var searchTable2 = $("#table-search2").DataTable({
+                sDom: '<"row view-filter"<"col-sm-12"<f>>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
+                columns: columns,
+                order: orderby,
+                bDestroy: true,
+                drawCallback: function () {
+                    $($(".dataTables_wrapper .pagination li:first-of-type"))
+                        .find("a")
+                        .addClass("prev");
+                    $($(".dataTables_wrapper .pagination li:last-of-type"))
+                        .find("a")
+                        .addClass("next");
 
-                $(".dataTables_wrapper .pagination").addClass("pagination-sm");
-            },
-            language: {
-                paginate: {
-                    previous: "<i class='simple-icon-arrow-left'></i>",
-                    next: "<i class='simple-icon-arrow-right'></i>"
+                    $(".dataTables_wrapper .pagination").addClass("pagination-sm");
                 },
-                search: "_INPUT_",
-                searchPlaceholder: "Search...",
-                lengthMenu: "Items Per Page _MENU_"
-            },
-            "columnDefs": [{
-                "targets": settings.headerpilih[idx].length - 1, "data": null, "defaultContent": "<a class='hapus-item'><i class='simple-icon-trash' style='font-size:18px'></i></a>"
-            }],
-            pageLength : pageLength
-        });
+                language: {
+                    paginate: {
+                        previous: "<i class='simple-icon-arrow-left'></i>",
+                        next: "<i class='simple-icon-arrow-right'></i>"
+                    },
+                    search: "_INPUT_",
+                    searchPlaceholder: "Search...",
+                    lengthMenu: "Items Per Page _MENU_"
+                },
+                "columnDefs": [{
+                    "targets": settings.headerpilih[idx].length - 1, "data": null, "defaultContent": "<a class='hapus-item'><i class='simple-icon-trash' style='font-size:18px'></i></a>"
+                }],
+                pageLength : pageLength
+            });
+        }
         searchTable2.columns.adjust().draw();
     }
 
@@ -1350,7 +1401,6 @@ function showRptFilterBSheet(settings,idx,target1,tipe,aktif=null){
 
                 field["to"] = kode;
                 field["toname"] = nama;   
-                console.log(field);      
                 
                 $('#rentang-tag2').tagsinput('add', { id: kode, text: 'Rentang akhir:'+kode }); 
                 
@@ -1363,7 +1413,6 @@ function showRptFilterBSheet(settings,idx,target1,tipe,aktif=null){
     $('#table-search2 tbody').on('click', '.hapus-item', function () {
         var kode = $(this).closest('tr').find('td:nth-child(1)').text();
         searchTable2.row( $(this).parents('tr') ).remove().draw();
-        console.log('kode_akun='+kode);
         var rowIndexes = [];
         searchTable.rows( function ( idx, data, node ) {             
             if(data[kunci] === kode){
@@ -1376,7 +1425,6 @@ function showRptFilterBSheet(settings,idx,target1,tipe,aktif=null){
 
     $('#search-content').on('click','#btn-ok',function(){
         var datain = searchTable.cells('.selected',0).data();
-        console.log(datain.length);
         var kode = '';
         var nama = '';
         for(var i=0;i<datain.length;i++){
@@ -1440,7 +1488,7 @@ function showRptDatePickerBSheet(options,idx,target1,tipe,kunci,aktif=null){
 
     $('.c-bottom-sheet').removeClass('active');
     var content = `
-    <div id="search-content">
+    <div id="search-content" class="ml-3">
         <div style="display: block;" class="search-header">
             <h6 class="title" style="padding-left: 1.8rem;"></h6>
             <ul class="nav nav-tabs col-12 hidden justify-content-end" style="margin-top:15px" role="tablist">
@@ -1465,6 +1513,9 @@ function showRptDatePickerBSheet(options,idx,target1,tipe,kunci,aktif=null){
     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
     var yyyy = today.getFullYear();
     var datenow = dd+"/"+mm+"/"+yyyy;
+    
+    var datenow = (field['from'] == "" ? dd+"/"+mm+"/"+yyyy : field['from']);
+    var datenowto = (field['to'] == "" ? dd+"/"+mm+"/"+yyyy : field['to']);
 
     switch(type){
         case '=':
@@ -1473,7 +1524,7 @@ function showRptDatePickerBSheet(options,idx,target1,tipe,kunci,aktif=null){
                 <div class='col-md-12' id='date-`+kunci+`' data-date='`+datenow+`'></div>
             </div>`;
             $('.search-body').html(html);
-            $('#date-'+kunci).datepicker({
+            $('#date-'+kunci).bootstrapDP({
                 format: 'dd/mm/yyyy',
                 templates: {
                     leftArrow: '<i class="simple-icon-arrow-left"></i>',
@@ -1481,10 +1532,10 @@ function showRptDatePickerBSheet(options,idx,target1,tipe,kunci,aktif=null){
                 }
             });
             $('#date-'+kunci).on('changeDate', function() {
-                $($target).val($('#date-'+kunci).datepicker('getFormattedDate'));
+                $($target).val($('#date-'+kunci).bootstrapDP('getFormattedDate'));
                 $($target).trigger('change');
-                field[target2] = $('#date-'+kunci).datepicker('getFormattedDate');
-                field[target3] = $('#date-'+kunci).datepicker('getFormattedDate');
+                field[target2] = $('#date-'+kunci).bootstrapDP('getFormattedDate');
+                field[target3] = $('#date-'+kunci).bootstrapDP('getFormattedDate');
                 $('.c-bottom-sheet').removeClass('active');
             });
             break;
@@ -1495,7 +1546,7 @@ function showRptDatePickerBSheet(options,idx,target1,tipe,kunci,aktif=null){
                 <div class='col-md-4 float-right'><button id='btn-ok-`+kunci+`-in' class='btn btn-primary'>OK</button></div>
             </div>`;
             $('.search-body').html(html);
-            $('#date-'+kunci+'-in').datepicker({
+            $('#date-'+kunci+'-in').bootstrapDP({
                 format: 'dd/mm/yyyy',
                 templates: {
                     leftArrow: '<i class="simple-icon-arrow-left"></i>',
@@ -1505,14 +1556,14 @@ function showRptDatePickerBSheet(options,idx,target1,tipe,kunci,aktif=null){
             });
             $('#date-'+kunci+'-in').on('changeDate', function() {
                 $('#inp_date-'+kunci+'-in').val(
-                    $('#date-'+kunci+'-in').datepicker('getFormattedDate')
+                    $('#date-'+kunci+'-in').bootstrapDP('getFormattedDate')
                 );
             });
             $('div.in').on('click','#btn-ok-'+kunci+'-in',function(){
-                $($target).val($('#date-'+kunci+'-in').datepicker('getFormattedDate'));
+                $($target).val($('#date-'+kunci+'-in').bootstrapDP('getFormattedDate'));
                 $($target).trigger('change');
-                field[target2] = $('#date-'+kunci+'-in').datepicker('getFormattedDate');
-                field[target3] = $('#date-'+kunci+'-in').datepicker('getFormattedDate');
+                field[target2] = $('#date-'+kunci+'-in').bootstrapDP('getFormattedDate');
+                field[target3] = $('#date-'+kunci+'-in').bootstrapDP('getFormattedDate');
                 $('.c-bottom-sheet').removeClass('active');
             });
             break;
@@ -1536,10 +1587,10 @@ function showRptDatePickerBSheet(options,idx,target1,tipe,kunci,aktif=null){
             });
             $('#date-'+kunci+'-from').on('changeDate', function() {
                 $('#inp_date-'+kunci+'-from').val(
-                    $('#date-'+kunci+'-from').datepicker('getFormattedDate')
+                    $('#date-'+kunci+'-from').bootstrapDP('getFormattedDate')
                 );
             });
-            $('#date-'+kunci+'-to').datepicker({
+            $('#date-'+kunci+'-to').bootstrapDP({
                 autoclose: true,
                 format: 'dd/mm/yyyy',
                 templates: {
@@ -1549,21 +1600,213 @@ function showRptDatePickerBSheet(options,idx,target1,tipe,kunci,aktif=null){
             });
             $('#date-'+kunci+'-to').on('changeDate', function() {
                 $('#inp_date-'+kunci+'-to').val(
-                    $('#date-'+kunci+'-to').datepicker('getFormattedDate')
+                    $('#date-'+kunci+'-to').bootstrapDP('getFormattedDate')
                 );
             });
             $('div.range').on('click','#btn-ok-'+kunci+'-range',function(){
-                $($target).val($('#date-'+kunci+'-from').datepicker('getFormattedDate'));
-                $($target).trigger('change');
-                field["from"] = $('#date-'+kunci+'-from').datepicker('getFormattedDate');
-                field["fromname"] = $('#date-'+kunci+'-from').datepicker('getFormattedDate');
-                field["to"] = $('#date-'+kunci+'-to').datepicker('getFormattedDate');;
-                field["toname"] = $('#date-'+kunci+'-to').datepicker('getFormattedDate');;  
+                var tmp = $target.attr("id").split("-");
+                $('#'+tmp[0]+'-from').val($('#date-'+kunci+'-from').bootstrapDP('getFormattedDate'));
+                $('#'+tmp[0]+'-from').trigger('change');
+                $('#'+tmp[0]+'-to').val($('#date-'+kunci+'-to').bootstrapDP('getFormattedDate'));
+                $('#'+tmp[0]+'-to').trigger('change');
+                field["from"] = $('#date-'+kunci+'-from').bootstrapDP('getFormattedDate');
+                field["fromname"] = $('#date-'+kunci+'-from').bootstrapDP('getFormattedDate');
+                field["to"] = $('#date-'+kunci+'-to').bootstrapDP('getFormattedDate');;
+                field["toname"] = $('#date-'+kunci+'-to').bootstrapDP('getFormattedDate');;  
                 $('.c-bottom-sheet').removeClass('active');
+                onCloseBSheet(aktif,field,display);
             });
             break;
     }
+    
+    $('#trigger-bottom-sheet').trigger("click");
+}
+
+function showRptDatePickerBSheet2(options,idx,target1,tipe,kunci,aktif=null){
+    var settings = {
+        header:[],
+        columns:[],
+        url:[],
+        parameter:[],
+        nama:[],
+        kode:[],
+        orderby:[],
+        width:[],
+        headerpilih:[],
+        display:[],
+        pageLength:[]
+    }
+    
+    $.extend(settings, options);
+    
+    $target = target1;
+    var tmp = $target.attr('id');
+    tmp = tmp.split("-");
+    var target2 = tmp[1];
+    var target3 = tmp[1]+'name';
+    
+    var toUrl = settings.url[idx];
+    var columns = settings.columns[idx];
+    var parameter = settings.parameter[idx];
+    var judul = "Pilih "+settings.nama[idx]+" <span class='modal-subtitle'></span>";
+    pilih = settings.nama[idx];
+    display = settings.display[idx];
+    var field = eval('$'+settings.kode[idx]);
+    var kunci = settings.kode[idx];
+    var orderby = settings.orderby[idx];
+    var width = settings.width[idx];
+    var type = tipe;
+    if(settings.pageLength != undefined){
+        if(settings.pageLength[idx] != undefined){
+            var pageLength = settings.pageLength[idx];
+        }else{
+            var pageLength = 10;
+        }
+    }else{
+        var pageLength =10;
+    }
+
     $('.c-bottom-sheet').removeClass('active');
+    var content = `
+    <div id="search-content" class="ml-3">
+        <div style="display: block;" class="search-header">
+            <h6 class="title" style="padding-left: 1.8rem;"></h6>
+            <ul class="nav nav-tabs col-12 hidden justify-content-end" style="margin-top:15px" role="tablist">
+            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#list" role="tab" aria-selected="true"><span class="hidden-xs-down">Data</span></a></li>
+            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#terpilih" role="tab" aria-selected="false"><span class="hidden-xs-down">Terpilih</span></a> </li>
+            </ul>
+        </div>
+        <div class='separator'></div>
+        <div class="search-body p-3" style="height: calc(75vh - 56px);position:sticky">
+                    
+        </div>
+    </div>
+    `;
+    $('#content-bottom-sheet').html(content);
+
+    $('.c-bottom-sheet__sheet').css({ "width":"50%","margin-left": "25%", "margin-right":"25%"});
+    var scrollsrc = document.querySelector('.search-body');
+    var psscrollsrc = new PerfectScrollbar(scrollsrc);
+    
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+    var datenow = (field['from'] == "" ? mm+"-"+yyyy : field['from']);
+    var datenowto = (field['to'] == "" ? mm+"-"+yyyy : field['to']);
+
+    switch(type){
+        case '=':
+            case '<=':
+            var html = `<div class='row sama'>
+                <div class='col-md-12' id='date-`+kunci+`' data-date='`+datenow+`'></div>
+            </div>`;
+            $('.search-body').html(html);
+            $('#date-'+kunci).bootstrapDP({
+                format: "mm-yyyy",
+                viewMode: "months", 
+                minViewMode: "months",
+                templates: {
+                    leftArrow: '<i class="simple-icon-arrow-left"></i>',
+                    rightArrow: '<i class="simple-icon-arrow-right"></i>'
+                }
+            });
+            $('#date-'+kunci).on('changeDate', function() {
+                $($target).val($('#date-'+kunci).bootstrapDP('getFormattedDate'));
+                $($target).trigger('change');
+                field[target2] = $('#date-'+kunci).bootstrapDP('getFormattedDate');
+                field[target3] = $('#date-'+kunci).bootstrapDP('getFormattedDate');
+                $('.c-bottom-sheet').removeClass('active');
+            });
+            break;
+        case 'in':
+            var html = `<div class='row in'>
+                <input type='text' class='form-control col-md-12' id='inp_date-`+kunci+`-in'>
+                <div class='col-md-12' id='date-`+kunci+`-in' data-date='`+datenow+`'></div>
+                <div class='col-md-4 float-right'><button id='btn-ok-`+kunci+`-in' class='btn btn-primary'>OK</button></div>
+            </div>`;
+            $('.search-body').html(html);
+            $('#date-'+kunci+'-in').bootstrapDP({
+                format: "mm-yyyy",
+                viewMode: "months", 
+                minViewMode: "months",
+                templates: {
+                    leftArrow: '<i class="simple-icon-arrow-left"></i>',
+                    rightArrow: '<i class="simple-icon-arrow-right"></i>'
+                },
+                multidate:true
+            });
+            $('#date-'+kunci+'-in').on('changeDate', function() {
+                $('#inp_date-'+kunci+'-in').val(
+                    $('#date-'+kunci+'-in').bootstrapDP('getFormattedDate')
+                );
+            });
+            $('div.in').on('click','#btn-ok-'+kunci+'-in',function(){
+                $($target).val($('#date-'+kunci+'-in').bootstrapDP('getFormattedDate'));
+                $($target).trigger('change');
+                field[target2] = $('#date-'+kunci+'-in').bootstrapDP('getFormattedDate');
+                field[target3] = $('#date-'+kunci+'-in').bootstrapDP('getFormattedDate');
+                $('.c-bottom-sheet').removeClass('active');
+            });
+            break;
+        case 'range':
+            var html = `<div class='row range'>
+                <input type='text' class='form-control col-md-6' id='inp_date-`+kunci+`-from' value='`+datenow+`'>
+                <input type='text' class='form-control col-md-6' id='inp_date-`+kunci+`-to' value='`+datenowto+`'>
+                <div class='col-md-6' id='date-`+kunci+`-from' data-date='`+datenow+`'></div>
+                <div class='col-md-6' id='date-`+kunci+`-to' data-date='`+datenowto+`'></div>
+                <div class='col-md-4 float-right'><button id='btn-ok-`+kunci+`-range' class='btn btn-primary'>OK</button></div>
+            </div>`;
+            
+            $('.search-body').html(html);
+            $('#date-'+kunci+'-from').bootstrapDP({
+                autoclose: true,
+                format: "mm-yyyy",
+                viewMode: "months", 
+                minViewMode: "months",
+                templates: {
+                    leftArrow: '<i class="simple-icon-arrow-left"></i>',
+                    rightArrow: '<i class="simple-icon-arrow-right"></i>'
+                }
+            });
+            $('#date-'+kunci+'-from').on('changeDate', function() {
+                $('#inp_date-'+kunci+'-from').val(
+                    $('#date-'+kunci+'-from').bootstrapDP('getFormattedDate')
+                );
+            });
+            $('#date-'+kunci+'-to').bootstrapDP({
+                autoclose: true,
+                format: "mm-yyyy",
+                viewMode: "months", 
+                minViewMode: "months",
+                templates: {
+                    leftArrow: '<i class="simple-icon-arrow-left"></i>',
+                    rightArrow: '<i class="simple-icon-arrow-right"></i>'
+                }
+            });
+            $('#date-'+kunci+'-to').on('changeDate', function() {
+                $('#inp_date-'+kunci+'-to').val(
+                    $('#date-'+kunci+'-to').bootstrapDP('getFormattedDate')
+                );
+            });
+            $('div.range').on('click','#btn-ok-'+kunci+'-range',function(){
+                
+                var tmp = $target.attr("id").split("-");
+                $('#'+tmp[0]+'-from').val($('#date-'+kunci+'-from').bootstrapDP('getFormattedDate'));
+                $('#'+tmp[0]+'-from').trigger('change');
+                $('#'+tmp[0]+'-to').val($('#date-'+kunci+'-to').bootstrapDP('getFormattedDate'));
+                $('#'+tmp[0]+'-to').trigger('change');
+                field["from"] = $('#date-'+kunci+'-from').bootstrapDP('getFormattedDate');
+                field["fromname"] = $('#date-'+kunci+'-from').bootstrapDP('getFormattedDate');
+                field["to"] = $('#date-'+kunci+'-to').bootstrapDP('getFormattedDate');;
+                field["toname"] = $('#date-'+kunci+'-to').bootstrapDP('getFormattedDate');;  
+                $('.c-bottom-sheet').removeClass('active');
+                onCloseBSheet(aktif,field,display);
+            });
+            break;
+    }
+    
+    $('#trigger-bottom-sheet').trigger("click");
 }
 
 function onCloseBSheet(aktif,field,display){
@@ -1574,7 +1817,6 @@ function onCloseBSheet(aktif,field,display){
         field.to = field.to;
         field.fromname =  field.fromname ;
         field.toname =  field.toname ;
-        console.log(field);
         aktif.closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').removeClass('col-md-8');
         aktif.closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').addClass('col-md-3');
         if(display == "nama"){
@@ -1608,6 +1850,7 @@ function generateRptFilter(id,settings){
         var tmp = $(this).closest('div.sai-rpt-filter-entry-row').find('div > div > input').last().attr('class');
         var tmp = tmp.split(" ");
         datepicker = tmp.includes("datepicker");
+        datepicker1 = tmp.includes("datepicker1");
         switch(type){
             case "all":
                 
@@ -1635,6 +1878,8 @@ function generateRptFilter(id,settings){
                 $aktif = "";
                 if(datepicker){
                     showRptDatePickerBSheet(settings,idx,target1,type,kunci);
+                }else if(datepicker1){
+                    showRptDatePickerBSheet2(settings,idx,target1,type,kunci);
                 }else{
                     showRptFilterBSheet(settings,idx,target1);
                 }
@@ -1656,6 +1901,8 @@ function generateRptFilter(id,settings){
                 $aktif = $(this);
                 if(datepicker){
                     showRptDatePickerBSheet(settings,idx,target1,type,kunci,$aktif);
+                }else if(datepicker1){
+                    showRptDatePickerBSheet2(settings,idx,target1,type,kunci,$aktif);
                 }else{
                     showRptFilterBSheet(settings,idx,target1,"range",$aktif);
                 }
@@ -1667,6 +1914,8 @@ function generateRptFilter(id,settings){
                 
                 if(datepicker){
                     showRptDatePickerBSheet(settings,idx,target1,type,kunci);
+                }else if(datepicker1){
+                    showRptDatePickerBSheet2(settings,idx,target1,type,kunci);
                 }else{
                     showRptFilterBSheet(settings,idx,target1,"in");
                 }
@@ -1699,8 +1948,12 @@ function generateRptFilter(id,settings){
         var tmp = $(this).closest('div.sai-rpt-filter-entry-row').find('div > div > input').last().attr('class');
         var datepicker = tmp.split(" ");
         if(datepicker.includes("datepicker")){
-            showRptDatePickerBSheet(settings,idx,target1,type,kunci);
-        }else{
+            showRptDatePickerBSheet(settings,idx,target1,type,kunci,$(this));
+        }
+        else if(datepicker.includes("datepicker1")){
+            showRptDatePickerBSheet2(settings,idx,target1,type,kunci,$(this));
+        }
+        else{
 
             if(type == "in"){
                 showRptFilterBSheet(settings,idx,target1,type);
@@ -1711,6 +1964,218 @@ function generateRptFilter(id,settings){
 
     });    
 
+}
+
+
+function setSelectValue(kode,nama,url,url_sesi,parameter,columns,display,default_value,type='normal'){
+    $.ajax({
+        type:"GET",
+        url:url,
+        data: parameter,
+        dataType: "JSON",
+        success: function(result){
+            $("#"+kode+"-type").selectize();
+            
+            $('#'+kode+'-from').removeAttr("multiple");
+            var select = $("#"+kode+"-from").selectize();
+            select = select[0];
+            var control = select.selectize;
+            var field = eval('$'+kode);
+
+            if(type == "in"){
+                $('#'+kode+'-from').attr("multiple","multiple");
+                control.destroy();
+                var select = $("#"+kode+"-from").selectize({
+                    maxItems: 5,
+                    onChange: function(value) {
+                        field.type = $("#"+kode+"-type")[0].selectize.getValue();
+                        field.from = value;
+                        field.to = "";
+                        field.fromname = $("#"+kode+"-from option:selected").text();
+                        field.toname = "";
+                    }
+                });
+                select = select[0];
+                var control = select.selectize;
+            }else{
+                $('#'+kode+'-from').removeAttr("multiple");
+                control.destroy();
+                var select = $("#"+kode+"-from").selectize({
+                    onChange: function(value) {
+                        field.type = $("#"+kode+"-type")[0].selectize.getValue();
+                        field.from = value;
+                        field.to = "";
+                        field.fromname = $("#"+kode+"-from option:selected").text();
+                        field.toname = "";
+                    }
+                });
+                select = select[0];
+                var control = select.selectize;
+            }
+
+            $('#'+kode+'-to').removeAttr("multiple");
+            var select2 = $("#"+kode+"-to").selectize();
+            select2 = select2[0];
+            var control2 = select2.selectize;
+
+            if(type == "in"){
+                $('#'+kode+'-to').attr("multiple","multiple");
+                control2.destroy();
+                var select2 = $("#"+kode+"-to").selectize({
+                    maxItems: 5,
+                    onChange: function(value) {
+                        field.type = $("#"+kode+"-type")[0].selectize.getValue();
+                        field.from = field.from;
+                        field.to = value;
+                        field.fromname = field.fromname;
+                        field.toname = $("#"+kode+"-to option:selected").text();
+                    }
+                });
+                select2 = select2[0];
+                var control2 = select2.selectize;
+            }else{
+                $('#'+kode+'-to').removeAttr("multiple");
+                control2.destroy();
+                var select2 = $("#"+kode+"-to").selectize({
+                    onChange: function(value) {
+                        field.type = $("#"+kode+"-type")[0].selectize.getValue();
+                        field.from = field.from;
+                        field.to = value;
+                        field.fromname = field.fromname;
+                        field.toname = $("#"+kode+"-to option:selected").text();
+                    }
+                });
+                select2 = select2[0];
+                var control2 = select2.selectize;
+            }
+
+            if(result.status){
+                if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                    for(i=0;i<result.daftar.length;i++){
+                        if(display == 'kode'){
+                            control.addOption([{text:result.daftar[i][columns[0].data], value:result.daftar[i][columns[0].data]}]);
+                            control2.addOption([{text:result.daftar[i][columns[0].data], value:result.daftar[i][columns[0].data]}]);
+                        }else if(display == 'name'){
+                            control.addOption([{text:result.daftar[i][columns[1].data], value:result.daftar[i][columns[0].data]}]);
+                            control2.addOption([{text:result.daftar[i][columns[1].data], value:result.daftar[i][columns[0].data]}]);
+                        }else if(display == 'kodename'){
+                            control.addOption([{text:result.daftar[i][columns[0].data] +' - '+result.daftar[i][columns[1].data], value:result.daftar[i][columns[0].data]}]);
+                            control2.addOption([{text:result.daftar[i][columns[0].data] +' - '+result.daftar[i][columns[1].data], value:result.daftar[i][columns[0].data]}]);
+                        }
+                    }
+
+                    control.setValue(default_value);
+                    control2.setValue(default_value);
+                }                
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location=url_sesi;
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
+            
+        }
+    });
+}
+
+function generateRptFilterSelect(id,settings){
+    
+    $('.selectize').selectize();
+    for(var i=0; i < settings.kode.length; i++){
+        setSelectValue(settings.kode[i],settings.nama[i],settings.url[i],settings.url_sesi,settings.parameter[i],settings.columns[i],settings.display[i],settings.default_value[i]);
+    }
+    $(id+' .sai-rpt-filter-type').unbind('change');
+    $(id+' .sai-rpt-filter-type ').bind('change', function(){
+        var type = $(this).val();
+        
+        var kunci = $(this).closest('div.sai-rpt-filter-entry-row').find('.kunci').text();
+        var field = eval('$'+kunci);
+        var idx = settings.kode.indexOf(kunci);
+        
+        var target1 = $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from select');
+        var tmp = $(this).closest('div.sai-rpt-filter-entry-row').find('div > div > select').last().attr('class');
+        var tmp = tmp.split(" ");
+        switch(type){
+            case "all":
+                
+                $aktif = '';
+                $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').addClass('hidden');
+                pilih = $('label[for="'+kunci+'"]').html();
+                $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from select')[0].selectize.setValue('');
+                $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-to select')[0].selectize.setValue('');
+                $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from select').trigger('change');
+                $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-to').addClass('hidden');
+                $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-sampai').addClass('hidden');
+                
+                field.type = "all";
+                field.from = "";
+                field.to = "";
+                field.fromname = "";
+                field.toname = "";
+                
+            break;
+            case "=": 
+            case "<=":
+                
+                $aktif = "";
+                setSelectValue(settings.kode[idx],settings.nama[idx],settings.url[idx],settings.url_sesi,settings.parameter[idx],settings.columns[idx],settings.display[idx],settings.default_value[idx],"=");
+                
+                $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').removeClass('col-md-8');
+                $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').removeClass('col-md-3');
+                $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').addClass('col-md-3');
+                $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').removeClass('hidden');
+                $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from select')[0].selectize.setValue(field.fromname);
+                $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-to').addClass('hidden');
+                $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-sampai').addClass('hidden');
+                field.type = type;
+                field.from = field.from;
+                field.to = "";
+                field.fromname = field.fromname;
+                field.toname = "";
+            break;
+            case "range":
+                
+                $aktif = $(this);
+                setSelectValue(settings.kode[idx],settings.nama[idx],settings.url[idx],settings.url_sesi,settings.parameter[idx],settings.columns[idx],settings.display[idx],settings.default_value[idx],"range");
+                
+                $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').removeClass('col-md-8');
+                $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').removeClass('col-md-3');
+                $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').addClass('col-md-3');
+                $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').removeClass('hidden');
+                $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from select')[0].selectize.setValue('');
+                $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-to').removeClass('hidden');
+                $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-sampai').removeClass('hidden');
+                
+            break;
+            case "in":
+                
+                $aktif = '';
+                setSelectValue(settings.kode[idx],settings.nama[idx],settings.url[idx],settings.url_sesi,settings.parameter[idx],settings.columns[idx],settings.display[idx],settings.default_value[idx],"in");
+                // showSelectRptFilter(settings,idx,target1,"in");
+                $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').removeClass('hidden');
+                $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').removeClass('col-md-3');
+                $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').addClass('col-md-8');
+                $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from select')[0].selectize.setValue('');
+                $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-to').addClass('hidden');
+                $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-sampai').addClass('hidden');
+                
+                field.type = "in";
+                field.from = "";
+                field.to = "";
+                field.fromname = "";
+                field.toname = "";
+                
+            break;
+        }
+    
+    });
 }
 
 
