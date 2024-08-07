@@ -2024,7 +2024,7 @@
                          'Accept'     => 'application/json',
                      ],
                      'query' => [
-                         'periode' => $request->periode,
+                         'tanggal' => $request->tanggal,
                          'kode_gudang' => $request->kode_gudang,
                          'kode_lokasi' => $request->kode_lokasi
                      ]
@@ -2036,11 +2036,6 @@
                      $res = json_decode($response_data,true);
                      $data = $res["data"];
                  }
-                 if($request->periode != ""){
-                     $periode = $request->periode;
-                 }else{
-                     $periode = "Semua Periode";
-                 }
  
                  if(isset($request->back)){
                     $back = true;
@@ -2048,7 +2043,7 @@
                     $back = false;
                 }
                 date_default_timezone_set('Asia/Jakarta');
-                return response()->json(['result' => $data, 'tgl_cetak' => date('Y-m-d H:i:s'), 'status'=>true, 'auth_status'=>1,'periode'=>$periode,'res'=>$res,'back'=>$back], 200); 
+                return response()->json(['result' => $data, 'tgl_cetak' => date('Y-m-d H:i:s'), 'status'=>true, 'auth_status'=>1,'res'=>$res,'back'=>$back], 200); 
              } catch (BadResponseException $ex) {
                  $response = $ex->getResponse();
                  $res = json_decode($response->getBody(),true);

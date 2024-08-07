@@ -37,7 +37,6 @@
                 }
             </style>
             `;
-            periode = $periode;
             var lokasi = "{{ Session::get('namaLokasi') }}";
             html+=`
             <div class='table-responsive'>
@@ -53,8 +52,8 @@
                         <td class="vtop text-right">&nbsp;</td>
                     </tr>
                     <tr>
-                        <td colspan="2" style='width:100px'>PERIODE</td>
-                        <td colspan="" style='width:400px;text-transform:uppercase'>:&nbsp;`+namaPeriode($periode.from)+`</td>
+                        <td colspan="2" style='width:100px'>TANGGAL</td>
+                        <td colspan="" style='width:400px;text-transform:uppercase'>:&nbsp;`+$tanggal.from+`</td>
                         <td colspan="12" class="vtop">&nbsp;</td>
                         <td class="vtop text-right">&nbsp;</td>
                     </tr>

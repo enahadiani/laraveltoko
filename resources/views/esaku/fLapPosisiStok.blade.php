@@ -13,7 +13,7 @@
                                     <div id="inputFilter">
                                         <!-- COMPONENT -->
                                         <x-inp-filter kode="kode_lokasi" nama="Lokasi" selected="3" :option="array('3')"/>
-                                        <x-inp-filter kode="periode" nama="Periode" selected="3" :option="array('3')"/>
+                                        <x-inp-filter kode="tanggal" nama="Tanggal" selected="3" :option="array('3')" datepicker="true"/>
                                         <x-inp-filter kode="kode_gudang" nama="Gudang" selected="3" :option="array('3')"/>
                                         <!-- END COMPONENT -->
                                     </div>
@@ -40,13 +40,14 @@
 <button id="trigger-bottom-sheet" style="display:none">Bottom ?</button>
 <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
 <script src="{{ asset('helper.js') }}"></script>
+<script src="{{ asset('reportFilter.js') }}"></script>
 
 <script type="text/javascript">
 
 
     var bottomSheet = new BottomSheet("country-selector");
-            document.getElementById("trigger-bottom-sheet").addEventListener("click", bottomSheet.activate);
-            window.bottomSheet = bottomSheet;
+    document.getElementById("trigger-bottom-sheet").addEventListener("click", bottomSheet.activate);
+    window.bottomSheet = bottomSheet;
 
     $.ajaxSetup({
         headers: {
@@ -54,12 +55,19 @@
         }
     });
 
-    var $periode = {
-        type : "=",
-        from : "{{ date('Ym') }}",
-        fromname : namaPeriode("{{ date('Ym') }}"),
-        to : "",
-        toname : "",
+    var d = new Date();
+    var day = String(d.getDate()).padStart(2, '0');
+    var mm = String(d.getMonth() + 1).padStart(2, '0');
+    var yyyy = d.getFullYear();
+    
+    $date = day + '/'+ mm + '/' + yyyy;
+
+    var $tanggal = {
+        type: "=",
+        from: $date,
+        fromname: $date,
+        to: "",
+        toname: "",
     }
 
     var $kode_gudang = {
@@ -91,21 +99,12 @@
             success:function(result){   
                 if(result.status){
                     $('#kode_lokasi-from').val(result.kode_lokasi);
-                    $('#periode-from').val(namaPeriode("{{ date('Ym') }}"));
                     $('#kode_gudang-from').val(result.kode_gudang);
                    
                     $kode_lokasi = {
                         type : "=",
                         from : result.kode_lokasi,
                         fromname : result.kode_lokasi,
-                        to : "",
-                        toname : "",
-                    }
-
-                    $periode = {
-                        type : "=",
-                        from : "{{ date('Ym') }}",
-                        fromname : namaPeriode("{{ date('Ym') }}"),
                         to : "",
                         toname : "",
                     }
@@ -117,39 +116,40 @@
                         to : "",
                         toname : "",
                     }
-    
+
+
                     generateRptFilter('#inputFilter',{
-                        kode : ['kode_lokasi','periode','kode_gudang'],
-                        nama : ['Lokasi','Periode','Kode Gudang'],
-                        header : [['Kode', 'Nama'],['Periode', 'Nama'],['Kode', 'Nama']],
-                        headerpilih : [['Kode', 'Nama','Action'],['Periode', 'Nama','Action'],['Kode', 'Nama','Action']],
+                        kode : ['kode_lokasi','tanggal','kode_gudang'],
+                        nama : ['Lokasi','Tanggal','Kode Gudang'],
+                        header : [['Kode', 'Nama'],['Kode'],['Kode', 'Nama']],
+                        headerpilih : [['Kode', 'Nama','Action'],['Kode','Action'],['Kode', 'Nama','Action']],
                         columns: [
                             [
                                 { data: 'kode_lokasi' },
                                 { data: 'nama' }
-                            ],[
-                                { data: 'periode' },
-                                { data: 'nama' }
-                            ],[
+                            ],
+                            [
+                                { data: 'kode'}
+                            ],
+                            [
                                 { data: 'kode_gudang' },
                                 { data: 'nama' }
                             ]
                         ],
-                        url :["{{ url('esaku-report/filter-lokasi') }}","{{ url('esaku-report/filter-periode-keu') }}","{{ url('esaku-report/filter-gudang') }}"],
-                        parameter:[{},{
-                            'kode_lokasi[0]':$kode_lokasi.type,
-                            'kode_lokasi[1]':$kode_lokasi.from,
-                            'kode_lokasi[2]':$kode_lokasi.to,
-                        },{
+                        url :["{{ url('esaku-report/filter-lokasi') }}","","{{ url('esaku-report/filter-gudang') }}"],
+                        parameter:[{},{},{
                             'kode_lokasi[0]':$kode_lokasi.type,
                             'kode_lokasi[1]':$kode_lokasi.from,
                             'kode_lokasi[2]':$kode_lokasi.to,
                         }],
-                        orderby:[[],[[0,"desc"]],[]],
+                        orderby:[[],[],[]],
                         width:[['30%','70%'],['30%','70%'],['30%','70%']],
-                        display:['kode','name','kode'],
-                        pageLength:[10,12,10]
+                        display:['kode','kode','kode'],
+                        pageLength:[10,10,10]
                     });
+
+                    $('#tanggal-from').val($date);
+                    $('#tanggal-to').addClass("datepicker");
                 
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
@@ -200,36 +200,33 @@
             var kode_lokasi = $kode_lokasi;
 
             generateRptFilter('#inputFilter',{
-                kode : ['kode_lokasi','periode','kode_gudang'],
-                nama : ['Lokasi','Periode','Kode Gudang'],
-                header : [['Kode', 'Nama'],['Periode', 'Nama'],['Kode', 'Nama']],
-                headerpilih : [['Kode', 'Nama','Action'],['Periode', 'Nama','Action'],['Kode', 'Nama','Action']],
+                kode : ['kode_lokasi','tanggal','kode_gudang'],
+                nama : ['Lokasi','Tanggal','Kode Gudang'],
+                header : [['Kode', 'Nama'],['Kode'],['Kode', 'Nama']],
+                headerpilih : [['Kode', 'Nama','Action'],['Kode','Action'],['Kode', 'Nama','Action']],
                 columns: [
                     [
                         { data: 'kode_lokasi' },
                         { data: 'nama' }
-                    ],[
-                        { data: 'periode' },
-                        { data: 'nama' }
-                    ],[
+                    ],
+                    [
+                        { data: 'kode'}
+                    ],
+                    [
                         { data: 'kode_gudang' },
                         { data: 'nama' }
                     ]
                 ],
-                url :["{{ url('esaku-report/filter-lokasi') }}","{{ url('esaku-report/filter-periode-keu') }}","{{ url('esaku-report/filter-gudang') }}"],
-                parameter:[{},{
-                    'kode_lokasi[0]':kode_lokasi.type,
-                    'kode_lokasi[1]':kode_lokasi.from,
-                    'kode_lokasi[2]':kode_lokasi.to,
-                },{
-                    'kode_lokasi[0]':kode_lokasi.type,
-                    'kode_lokasi[1]':kode_lokasi.from,
-                    'kode_lokasi[2]':kode_lokasi.to,
+                url :["{{ url('esaku-report/filter-lokasi') }}","","{{ url('esaku-report/filter-gudang') }}"],
+                parameter:[{},{},{
+                    'kode_lokasi[0]':$kode_lokasi.type,
+                    'kode_lokasi[1]':$kode_lokasi.from,
+                    'kode_lokasi[2]':$kode_lokasi.to,
                 }],
-                orderby:[[],[[0,"desc"]],[]],
+                orderby:[[],[],[]],
                 width:[['30%','70%'],['30%','70%'],['30%','70%']],
-                display:['kode','name','kode'],
-                pageLength:[10,12,10]
+                display:['kode','kode','kode'],
+                pageLength:[10,10,10]
             });
         }, 500)
     });
@@ -241,9 +238,9 @@
         $formData.append("kode_lokasi[]",$kode_lokasi.type);
         $formData.append("kode_lokasi[]",$kode_lokasi.from);
         $formData.append("kode_lokasi[]",$kode_lokasi.to);
-        $formData.append("periode[]",$periode.type);
-        $formData.append("periode[]",$periode.from);
-        $formData.append("periode[]",$periode.to);
+        $formData.append("tanggal[]", $tanggal.type);
+        $formData.append("tanggal[]", ($tanggal.from != "" ? reverseDate2($tanggal.from, "/", "-") : "") );
+        $formData.append("tanggal[]", ($tanggal.to != "" ? reverseDate2($tanggal.to, "/", "-") : ""));
         $formData.append("kode_gudang[]",$kode_gudang.type);
         $formData.append("kode_gudang[]",$kode_gudang.from);
         $formData.append("kode_gudang[]",$kode_gudang.to);
@@ -260,9 +257,9 @@
         $formData.append("kode_lokasi[]",$kode_lokasi.type);
         $formData.append("kode_lokasi[]",$kode_lokasi.from);
         $formData.append("kode_lokasi[]",$kode_lokasi.to);
-        $formData.append("periode[]",$periode.type);
-        $formData.append("periode[]",$periode.from);
-        $formData.append("periode[]",$periode.to);
+        $formData.append("tanggal[]", $tanggal.type);
+        $formData.append("tanggal[]", ($tanggal.from != "" ? reverseDate2($tanggal.from, "/", "-") : "") );
+        $formData.append("tanggal[]", ($tanggal.to != "" ? reverseDate2($tanggal.to, "/", "-") : ""));
         $formData.append("kode_gudang[]",$kode_gudang.type);
         $formData.append("kode_gudang[]",$kode_gudang.from);
         $formData.append("kode_gudang[]",$kode_gudang.to);
