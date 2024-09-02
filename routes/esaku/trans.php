@@ -516,6 +516,9 @@ Route::post('retur-jual', 'Esaku\Inventori\ReturJualController@store');
 Route::get('retur-jual-bukti', 'Esaku\Inventori\ReturJualController@getPenjualan');
 Route::get('retur-jual-detail/{no_bukti}', 'Esaku\Inventori\ReturJualController@show');
 
+// Daftar Penjualan Cetak //
+Route::get('daftar-penjualan-cetak', 'Esaku\Inventori\CetakStrukController@index');
+
 Route::get('/tes-print', function () {
     try {
         // $ip = ''; // IP Komputer kita atau printer lain yang masih satu jaringan
