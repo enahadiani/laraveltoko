@@ -958,7 +958,7 @@
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
 
-        $('#judul-form').html('Edit Data Vendor');
+        $('#judul-form').html('Edit Data Gudang');
         editData(id);
     });
     // END BUTTON EDIT
@@ -1044,7 +1044,7 @@
         var id= $('#modal-preview-id').text();
         // $iconLoad.show();
         $('#form-tambah').validate().resetForm();
-        $('#judul-form').html('Edit Data Vendor');
+        $('#judul-form').html('Edit Data Gudang');
         
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
