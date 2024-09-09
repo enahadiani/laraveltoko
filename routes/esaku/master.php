@@ -51,6 +51,12 @@ Route::delete('vendor/{id}', 'Esaku\Inventori\VendorController@delete');
 // Data Gudang //
 Route::get('gudang', 'Esaku\Inventori\GudangController@index');
 Route::get('gudang/{id}', 'Esaku\Inventori\GudangController@getData');
+Route::get('gudang-akun-piutang', 'Esaku\Inventori\GudangController@getAkunPiutang');
+Route::get('gudang-akun-pdpt', 'Esaku\Inventori\GudangController@getAkunPdpt');
+Route::get('gudang-akun-pers', 'Esaku\Inventori\GudangController@getAkunPers');
+Route::get('gudang-akun-hpp', 'Esaku\Inventori\GudangController@getAkunHpp');
+Route::get('gudang-akun-disbeli', 'Esaku\Inventori\GudangController@getAkunDisbeli');
+Route::get('gudang-akun-selisih', 'Esaku\Inventori\GudangController@getAkunSelisih');
 Route::post('gudang', 'Esaku\Inventori\GudangController@store');
 Route::put('gudang/{id}', 'Esaku\Inventori\GudangController@update');
 Route::delete('gudang/{id}', 'Esaku\Inventori\GudangController@delete');

@@ -82,6 +82,96 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="akun_piutang">Akun Piutang</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                        <span class="input-group-text info-code_akun_piutang" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                    </div>
+                                    <input type="text" class="form-control inp-label-akun_piutang" id="akun_piutang" name="akun_piutang" value="" title="">
+                                    <span class="info-name_akun_piutang hidden">
+                                        <span></span> 
+                                    </span>
+                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                    <i class="simple-icon-magnifier search-item2" id="search_akun_piutang"></i>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="akun_pdpt">Akun Pendapatan</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                        <span class="input-group-text info-code_akun_pdpt" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                    </div>
+                                    <input type="text" class="form-control inp-label-akun_pdpt" id="akun_pdpt" name="akun_pdpt" value="" title="">
+                                    <span class="info-name_akun_pdpt hidden">
+                                        <span></span> 
+                                    </span>
+                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                    <i class="simple-icon-magnifier search-item2" id="search_akun_pdpt"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="akun_pers">Akun Persediaan</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                        <span class="input-group-text info-code_akun_pers" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                    </div>
+                                    <input type="text" class="form-control inp-label-akun_pers" id="akun_pers" name="akun_pers" value="" title="">
+                                    <span class="info-name_akun_pers hidden">
+                                        <span></span> 
+                                    </span>
+                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                    <i class="simple-icon-magnifier search-item2" id="search_akun_pers"></i>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="akun_hpp">Akun HPP</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                        <span class="input-group-text info-code_akun_hpp" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                    </div>
+                                    <input type="text" class="form-control inp-label-akun_hpp" id="akun_hpp" name="akun_hpp" value="" title="">
+                                    <span class="info-name_akun_hpp hidden">
+                                        <span></span> 
+                                    </span>
+                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                    <i class="simple-icon-magnifier search-item2" id="search_akun_hpp"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="akun_disbeli">Akun Diskon Pembelian</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                        <span class="input-group-text info-code_akun_disbeli" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                    </div>
+                                    <input type="text" class="form-control inp-label-akun_disbeli" id="akun_disbeli" name="akun_disbeli" value="" title="">
+                                    <span class="info-name_akun_disbeli hidden">
+                                        <span></span> 
+                                    </span>
+                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                    <i class="simple-icon-magnifier search-item2" id="search_akun_disbeli"></i>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="akun_selisih">Akun Selisih</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                        <span class="input-group-text info-code_akun_selisih" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                    </div>
+                                    <input type="text" class="form-control inp-label-akun_selisih" id="akun_selisih" name="akun_selisih" value="" title="">
+                                    <span class="info-name_akun_selisih hidden">
+                                        <span></span> 
+                                    </span>
+                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                    <i class="simple-icon-magnifier search-item2" id="search_akun_selisih"></i>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     {{-- Save Button --}}
                     <div class="card-form-footer">
@@ -223,6 +313,162 @@
         });
     }
 
+    function getAkunPiutang(id=null){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('esaku-master/gudang-akun-piutang') }}",
+            dataType: 'json',
+            data:{ kode_akun: id},
+            async:false,
+            success:function(res){   
+                var result = res.data;
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        showInfoField('akun_piutang',result.daftar[0].kode_akun,result.daftar[0].nama);
+                    }else{
+                        $('#akun_piutang').attr('readonly',false);
+                        $('#akun_piutang').css('border-left','1px solid #d7d7d7');
+                        $('#akun_piutang').val('');
+                        $('#akun_piutang').focus();
+                    }
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                }
+            }
+        });
+    }
+
+    function getAkunPdpt(id=null){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('esaku-master/gudang-akun-pdpt') }}",
+            dataType: 'json',
+            data:{ kode_akun: id},
+            async:false,
+            success:function(res){   
+                var result = res.data;
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        showInfoField('akun_pdpt',result.daftar[0].kode_akun,result.daftar[0].nama);
+                    }else{
+                        $('#akun_pdpt').attr('readonly',false);
+                        $('#akun_pdpt').css('border-left','1px solid #d7d7d7');
+                        $('#akun_pdpt').val('');
+                        $('#akun_pdpt').focus();
+                    }
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                }
+            }
+        });
+    }
+
+    function getAkunPers(id=null){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('esaku-master/gudang-akun-pers') }}",
+            dataType: 'json',
+            data:{ kode_akun: id},
+            async:false,
+            success:function(res){   
+                var result = res.data;
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        showInfoField('akun_pers',result.daftar[0].kode_akun,result.daftar[0].nama);
+                    }else{
+                        $('#akun_pers').attr('readonly',false);
+                        $('#akun_pers').css('border-left','1px solid #d7d7d7');
+                        $('#akun_pers').val('');
+                        $('#akun_pers').focus();
+                    }
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                }
+            }
+        });
+    }
+
+    function getAkunHpp(id=null){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('esaku-master/gudang-akun-hpp') }}",
+            dataType: 'json',
+            data:{ kode_akun: id},
+            async:false,
+            success:function(res){   
+                var result = res.data;
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        showInfoField('akun_hpp',result.daftar[0].kode_akun,result.daftar[0].nama);
+                    }else{
+                        $('#akun_hpp').attr('readonly',false);
+                        $('#akun_hpp').css('border-left','1px solid #d7d7d7');
+                        $('#akun_hpp').val('');
+                        $('#akun_hpp').focus();
+                    }
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                }
+            }
+        });
+    }
+
+    function getAkunDisbeli(id=null){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('esaku-master/gudang-akun-disbeli') }}",
+            dataType: 'json',
+            data:{ kode_akun: id},
+            async:false,
+            success:function(res){   
+                var result = res.data;
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        showInfoField('akun_disbeli',result.daftar[0].kode_akun,result.daftar[0].nama);
+                    }else{
+                        $('#akun_disbeli').attr('readonly',false);
+                        $('#akun_disbeli').css('border-left','1px solid #d7d7d7');
+                        $('#akun_disbeli').val('');
+                        $('#akun_disbeli').focus();
+                    }
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                }
+            }
+        });
+    }
+
+    function getAkunSelisih(id=null){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('esaku-master/gudang-akun-selisih') }}",
+            dataType: 'json',
+            data:{ kode_akun: id},
+            async:false,
+            success:function(res){   
+                var result = res.data;
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        showInfoField('akun_selisih',result.daftar[0].kode_akun,result.daftar[0].nama);
+                    }else{
+                        $('#akun_selisih').attr('readonly',false);
+                        $('#akun_selisih').css('border-left','1px solid #d7d7d7');
+                        $('#akun_selisih').val('');
+                        $('#akun_selisih').focus();
+                    }
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                }
+            }
+        });
+    }
+
     $('[data-toggle="tooltip"]').tooltip(); 
 
     //LIST DATA
@@ -353,6 +599,126 @@
                     width : ["30%","70%"],
                 }
             break;
+            case 'akun_piutang':
+                var settings = {
+                    id : id,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('esaku-master/gudang-akun-piutang') }}",
+                    columns : [
+                        { data: 'kode_akun' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar Akun",
+                    pilih : "akun",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"],
+                }
+            break;
+            case 'akun_pdpt':
+                var settings = {
+                    id : id,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('esaku-master/gudang-akun-pdpt') }}",
+                    columns : [
+                        { data: 'kode_akun' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar Akun",
+                    pilih : "akun",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"],
+                }
+            break;
+            case 'akun_pers':
+                var settings = {
+                    id : id,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('esaku-master/gudang-akun-pers') }}",
+                    columns : [
+                        { data: 'kode_akun' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar Akun",
+                    pilih : "akun",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"],
+                }
+            break;
+            case 'akun_hpp':
+                var settings = {
+                    id : id,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('esaku-master/gudang-akun-hpp') }}",
+                    columns : [
+                        { data: 'kode_akun' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar Akun",
+                    pilih : "akun",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"],
+                }
+            break;
+            case 'akun_disbeli':
+                var settings = {
+                    id : id,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('esaku-master/gudang-akun-disbeli') }}",
+                    columns : [
+                        { data: 'kode_akun' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar Akun",
+                    pilih : "akun",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"],
+                }
+            break;
+            case 'akun_selisih':
+                var settings = {
+                    id : id,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('esaku-master/gudang-akun-selisih') }}",
+                    columns : [
+                        { data: 'kode_akun' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar Akun",
+                    pilih : "akun",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"],
+                }
+            break;
         }
         showInpFilter(settings);
     });
@@ -365,6 +731,36 @@
     $('#form-tambah').on('change', '#kode_pp', function(){
         var par = $(this).val();
         getPP(par);
+    });
+
+    $('#form-tambah').on('change', '#akun_piutang', function(){
+        var par = $(this).val();
+        getAkunPiutang(par);
+    });
+
+    $('#form-tambah').on('change', '#akun_pdpt', function(){
+        var par = $(this).val();
+        getAkunPdpt(par);
+    });
+
+    $('#form-tambah').on('change', '#akun_pers', function(){
+        var par = $(this).val();
+        getAkunPers(par);
+    });
+
+    $('#form-tambah').on('change', '#akun_hpp', function(){
+        var par = $(this).val();
+        getAkunHpp(par);
+    });
+
+    $('#form-tambah').on('change', '#akun_disbeli', function(){
+        var par = $(this).val();
+        getAkunDisbeli(par);
+    });
+
+    $('#form-tambah').on('change', '#akun_selisih', function(){
+        var par = $(this).val();
+        getAkunSelisih(par);
     });
     // TRIGGER CHANGE
 
@@ -540,6 +936,12 @@
                     $('#saku-form').show();
                     showInfoField('pic',result.data[0].pic,result.data[0].nama_pic);
                     showInfoField('kode_pp',result.data[0].kode_pp,result.data[0].nama_pp);
+                    showInfoField('akun_piutang',result.data[0].akun_piutang,result.data[0].nama_akun_piutang);
+                    showInfoField('akun_pdpt',result.data[0].akun_pdpt,result.data[0].nama_akun_pdpt);
+                    showInfoField('akun_pers',result.data[0].akun_pers,result.data[0].nama_akun_pers);
+                    showInfoField('akun_hpp',result.data[0].akun_hpp,result.data[0].nama_akun_hpp);
+                    showInfoField('akun_disbeli',result.data[0].akun_disbeli,result.data[0].nama_akun_disbeli);
+                    showInfoField('akun_selisih',result.data[0].akun_selisih,result.data[0].nama_akun_selisih);
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
                     window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
@@ -562,9 +964,9 @@
     // END BUTTON EDIT
     
     // HANDLER untuk enter dan tab
-    $('#kode_gudang,#nama,#telp,#pic,#alamat,#kode_pp').keydown(function(e){
+    $('#kode_gudang,#nama,#telp,#pic,#alamat,#kode_pp,#akun_piutang,#akun_pdpt,#akun_pers,#akun_hpp,#akun_disbeli,#akun_selisih').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['kode_gudang','nama','telp','pic','alamat','kode_pp'];
+        var nxt = ['kode_gudang','nama','telp','pic','alamat','kode_pp','akun_piutang','akun_pdpt','akun_pers','akun_hpp','akun_disbeli','akun_selisih'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
