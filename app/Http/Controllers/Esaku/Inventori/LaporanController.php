@@ -653,6 +653,7 @@
                         'Accept'     => 'application/json',
                     ],
                     'query' => [
+                        'kode_gudang' => $request->kode_gudang,
                         'kode_barang' => $request->kode_barang,
                     ]
                 ]);

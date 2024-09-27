@@ -410,13 +410,17 @@
             return response()->json(['daftar' => $data['data'], 'status' => true], 200);
         }
 
-        public function getBarang() {
+        public function getBarang(Request $request) {
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'esaku-report/filter-barang',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
+            ],
+            'query' => [
+                'kode_gudang' => $request->query('kode_gudang'),
             ]
+            
             ]);
 
             if ($response->getStatusCode() == 200) { // 200 OK

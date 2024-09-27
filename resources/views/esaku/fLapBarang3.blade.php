@@ -12,6 +12,7 @@
                                     <h6>Filter</h6>
                                     <div id="inputFilter">
                                         <!-- COMPONENT -->
+                                        <x-inp-filter kode="gudang" nama="Gudang" selected="3" :option="array('3')"/>
                                         <x-inp-filter kode="barang" nama="Barang" selected="1" :option="array('1','3')"/>
                                         <!-- END COMPONENT -->
                                     </div>
@@ -34,16 +35,30 @@
 @php
     date_default_timezone_set("Asia/Bangkok");
 @endphp
-
+<button id="trigger-bottom-sheet" style="display:none">Bottom ?</button>
 <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
+<script src="{{ asset('helper.js') }}"></script>
 <script src="{{ asset('reportFilter.js') }}"></script>
 
 <script type="text/javascript">
+
+    var bottomSheet = new BottomSheet("country-selector");
+    document.getElementById("trigger-bottom-sheet").addEventListener("click", bottomSheet.activate);
+    window.bottomSheet = bottomSheet;
+
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
     });
+
+    var $gudang = {
+        type : "=",
+        from : "",
+        fromname : "",
+        to : "",
+        toname : "",
+    }
 
     var $barang = {
         type : "all",
@@ -87,43 +102,89 @@
     });
 
     $('.selectize').selectize();
-    $('#inputFilter').reportFilter({
-        kode : ['barang'],
-        nama : ['Barang'],
-        header : [['Kode', 'Nama']],
-        headerpilih : [['Kode', 'Nama', 'Action']],
-        columns: [
-            [
-                { data: 'kode_barang' },
-                { data: 'nama' },
-            ]
-        ],
-        url :["{{ url('esaku-report/filter-barang') }}"],
-        parameter:[{}],
-        orderby:[[[0,"desc"]]],
-        width:[['30%','70%']],
-        display:['kode'],
-        pageLength:[10]
-    });
+    
+    function loadFilterDefault(){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('esaku-report/filter-default') }}",
+            dataType: 'json',
+            async:false,
+            success:function(result){   
+                if(result.status){
+                    $('#gudang-from').val(result.kode_gudang);
+
+                    $gudang = {
+                        type : "=",
+                        from : result.kode_gudang,
+                        fromname : result.kode_gudang,
+                        to : "",
+                        toname : "",
+                    }
+
+                    generateRptFilter('#inputFilter',{
+                        kode : ['gudang','barang'],
+                        nama : ['Gudang','Barang'],
+                        header : [['Kode', 'Nama'],['Kode', 'Nama']],
+                        headerpilih : [['Kode', 'Nama', 'Action'],['Kode', 'Nama', 'Action']],
+                        columns: [
+                            [
+                                { data: 'kode_gudang' },
+                                { data: 'nama' }
+                            ],
+                            [
+                                { data: 'kode_barang' },
+                                { data: 'nama' },
+                            ]
+                        ],
+                        url :["{{ url('esaku-report/filter-gudang') }}","{{ url('esaku-report/filter-barang') }}"],
+                        parameter:[{},{
+                            'kode_gudang': $gudang.from
+                        }],
+                        orderby:[[[0,"desc"]],[[0,"desc"]]],
+                        width:[['30%','70%'],['30%','70%']],
+                        display:['kode','kode'],
+                        pageLength:[10,10]
+                    });
+                
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('bdh-auth/sesi-habis') }}";
+                }else{
+                    alert(JSON.stringify(result.message));
+                }
+            }
+        });
+    }
+    
+    loadFilterDefault();
+
     $('#inputFilter').on('change','input',function(e){
         setTimeout(() => {
-            $('#inputFilter').reportFilter({
-                kode : ['barang'],
-                nama : ['Barang'],
-                header : [['Kode', 'Nama']],
-                headerpilih : [['Kode', 'Nama', 'Action']],
+            var kode_lokasi = $kode_lokasi;
+
+            generateRptFilter('#inputFilter',{
+                kode : ['gudang','barang'],
+                nama : ['Gudang','Barang'],
+                header : [['Kode', 'Nama'],['Kode', 'Nama']],
+                headerpilih : [['Kode', 'Nama', 'Action'],['Kode', 'Nama', 'Action']],
                 columns: [
+                    [
+                        { data: 'kode_gudang' },
+                        { data: 'nama' }
+                    ],
                     [
                         { data: 'kode_barang' },
                         { data: 'nama' },
                     ]
                 ],
-                url :["{{ url('esaku-report/filter-barang') }}"],
-                parameter:[{}],
-                orderby:[[[0,"desc"]]],
-                width:[['30%','70%']],
-                display:['kode'],
-                pageLength:[10]
+                url :["{{ url('esaku-report/filter-gudang') }}","{{ url('esaku-report/filter-barang') }}"],
+                parameter:[{},{
+                    'kode_gudang': $gudang.from
+                }],
+                orderby:[[[0,"desc"]],[[0,"desc"]]],
+                width:[['30%','70%'],['30%','70%']],
+                display:['kode','kode'],
+                pageLength:[10,10]
             });
         }, 500)
     });
@@ -132,9 +193,12 @@
     $('#form-filter').submit(function(e){
         e.preventDefault();
         $formData = new FormData();
+        $formData.append("kode_gudang[]",$gudang.type);
+        $formData.append("kode_gudang[]",$gudang.from);
+        $formData.append("kode_gudang[]",$gudang.to);
         $formData.append("kode_barang[]",$barang.type);
         $formData.append("kode_barang[]",$barang.from);
-        $formData.append("kode_barang[]",$barang.to);
+        $formData.append("kode_barang[]",$barang.to)
         for(var pair of $formData.entries()) {
             console.log(pair[0]+ ', '+ pair[1]); 
         }
@@ -145,6 +209,9 @@
 
     $('#show').change(function(e){
         $formData = new FormData();
+        $formData.append("kode_gudang[]",$gudang.type);
+        $formData.append("kode_gudang[]",$gudang.from);
+        $formData.append("kode_gudang[]",$gudang.to);
         $formData.append("kode_barang[]",$barang.type);
         $formData.append("kode_barang[]",$barang.from);
         $formData.append("kode_barang[]",$barang.to);

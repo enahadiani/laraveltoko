@@ -13,7 +13,7 @@
                                     <div id="inputFilter">
                                         <!-- COMPONENT -->
                                         <x-inp-filter kode="periode" nama="Periode" selected="3" :option="array('3')"/>
-                                        <x-inp-filter kode="gudang" nama="Gudang" selected="1" :option="array('1','3')"/>
+                                        <x-inp-filter kode="gudang" nama="Gudang" selected="3" :option="array('3')"/>
                                         <x-inp-filter kode="kelompok" nama="Kelompok" selected="1" :option="array('1','3')"/>
                                         <x-inp-filter kode="barang" nama="Kode Barang" selected="1" :option="array('1','3')"/>
                                         <!-- END COMPONENT -->
@@ -38,10 +38,16 @@
     date_default_timezone_set("Asia/Bangkok");
 @endphp
 
+<button id="trigger-bottom-sheet" style="display:none">Bottom ?</button>
 <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
 <script src="{{ asset('reportFilter.js') }}"></script>
 
 <script type="text/javascript">
+
+    var bottomSheet = new BottomSheet("country-selector");
+    document.getElementById("trigger-bottom-sheet").addEventListener("click", bottomSheet.activate);
+    window.bottomSheet = bottomSheet;
+
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -114,35 +120,79 @@
 
     $('.selectize').selectize();
 
-    $('#inputFilter').reportFilter({
-        kode : ['periode','gudang','kelompok', 'barang'],
-        nama : ['Periode','Gudang','Kelompok', 'Barang'],
-        header : [['Periode'],['Kode','Nama'],['Kode','Nama'], ['Kode','Nama']],
-        headerpilih : [['Periode','Action'],['Kode','Nama','Action'],['Kode','Nama','Action'],['Kode','Nama','Action']],
-        columns: [
-            [
-                { data: 'periode' },
-            ],[
-                { data: 'kode_gudang' },
-                { data: 'nama' }
-            ],[
-                { data: 'kode_klp' },
-                { data: 'nama' }
-            ],[
-                { data: 'kode_barang' },
-                { data: 'nama' }
-            ]
-        ],
-        url :["{{ url('esaku-report/filter-periode') }}","{{ url('esaku-report/filter-gudang') }}","{{ url('esaku-report/filter-barang-klp') }}", "{{ url('esaku-report/filter-barang') }}"],
-        parameter:[{},{},{},{}],
-        orderby:[[[0,"desc"]],[[0,"desc"]],[[0,"asc"]],[[0,"asc"]]],
-        width:[['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%']],
-        display:['kode','kode','kode','kode'],
-        pageLength:[12,10,10,10]
-    })
+    function loadFilterDefault(){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('esaku-report/filter-default') }}",
+            dataType: 'json',
+            async:false,
+            success:function(result){   
+                if(result.status){
+                    $('#periode-from').val(result.periode);
+                    $('#gudang-from').val(result.kode_gudang);
+
+                    $periode = {
+                        type : "=",
+                        from : result.periode,
+                        fromname : namaPeriode(result.periode),
+                        to : "",
+                        toname : "",
+                    }
+
+                    $gudang = {
+                        type : "=",
+                        from : result.kode_gudang,
+                        fromname : result.kode_gudang,
+                        to : "",
+                        toname : "",
+                    }
+
+                    generateRptFilter('#inputFilter',{
+                        kode : ['periode','gudang','kelompok', 'barang'],
+                        nama : ['Periode','Gudang','Kelompok', 'Barang'],
+                        header : [['Periode'],['Kode','Nama'],['Kode','Nama'], ['Kode','Nama']],
+                        headerpilih : [['Periode','Action'],['Kode','Nama','Action'],['Kode','Nama','Action'],['Kode','Nama','Action']],
+                        columns: [
+                            [
+                                { data: 'periode' },
+                            ],[
+                                { data: 'kode_gudang' },
+                                { data: 'nama' }
+                            ],[
+                                { data: 'kode_klp' },
+                                { data: 'nama' }
+                            ],[
+                                { data: 'kode_barang' },
+                                { data: 'nama' }
+                            ]
+                        ],
+                        url :["{{ url('esaku-report/filter-periode') }}","{{ url('esaku-report/filter-gudang') }}","{{ url('esaku-report/filter-barang-klp') }}", "{{ url('esaku-report/filter-barang') }}"],
+                        parameter:[{},{},{},{
+                            'kode_gudang': $gudang.from
+                        }],
+                        orderby:[[[0,"desc"]],[[0,"desc"]],[[0,"asc"]],[[0,"asc"]]],
+                        width:[['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%']],
+                        display:['kode','kode','kode','kode'],
+                        pageLength:[12,10,10,10]
+                    });
+                
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('bdh-auth/sesi-habis') }}";
+                }else{
+                    alert(JSON.stringify(result.message));
+                }
+            }
+        });
+    }
+    
+    loadFilterDefault();
+
     $('#inputFilter').on('change','input',function(e){
         setTimeout(() => {
-            $('#inputFilter').reportFilter({
+            var kode_lokasi = $kode_lokasi;
+
+            generateRptFilter('#inputFilter',{
                 kode : ['periode','gudang','kelompok', 'barang'],
                 nama : ['Periode','Gudang','Kelompok', 'Barang'],
                 header : [['Periode'],['Kode','Nama'],['Kode','Nama'], ['Kode','Nama']],
@@ -162,12 +212,14 @@
                     ]
                 ],
                 url :["{{ url('esaku-report/filter-periode') }}","{{ url('esaku-report/filter-gudang') }}","{{ url('esaku-report/filter-barang-klp') }}", "{{ url('esaku-report/filter-barang') }}"],
-                parameter:[{},{},{},{}],
+                parameter:[{},{},{},{
+                    'kode_gudang': $gudang.from
+                }],
                 orderby:[[[0,"desc"]],[[0,"desc"]],[[0,"asc"]],[[0,"asc"]]],
                 width:[['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%']],
                 display:['kode','kode','kode','kode'],
                 pageLength:[12,10,10,10]
-            })
+            });
         }, 500)
     });
 
