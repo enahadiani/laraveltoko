@@ -247,7 +247,7 @@ $('#cetakBtn').click(function(){
                 
     }, 2000);
     resetForm();
-    $('#modal-bayar2').modal('hide');
+    // $('#modal-bayar2').modal('hide');
 });
 
 $('#closeBtn').click(function(){

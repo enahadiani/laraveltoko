@@ -929,7 +929,7 @@ date_default_timezone_set('Asia/Jakarta');
                     
         }, 2000);
         resetForm();
-        $('#modal-bayar2').modal('hide');
+        // $('#modal-bayar2').modal('hide');
     });
     
     $('#closeBtn').click(function(){
