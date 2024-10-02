@@ -472,6 +472,40 @@
             return response()->json($data, 200);
         }
 
+        public function getFilterDefaultPnj() {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'esaku-report/filter-default-pnj',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+            }
+            return response()->json($data, 200);
+        }
+
+        public function getFilterDefaultPmb() {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'esaku-report/filter-default-pmb',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+            }
+            return response()->json($data, 200);
+        }
+
         public function getFilterVendor(Request $request) {
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'esaku-report/filter-vendor',[

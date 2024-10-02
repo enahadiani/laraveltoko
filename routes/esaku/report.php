@@ -48,6 +48,8 @@ Route::get('filter-vendor', 'Esaku\HelperController@getVendor');
 Route::get('filter-tanggal-stok', 'Esaku\HelperController@getTglStok');
 Route::get('filter-lokasi', 'Esaku\HelperController@getFilterLokasi');
 Route::get('filter-default', 'Esaku\HelperController@getFilterDefault');
+Route::get('filter-default-pnj', 'Esaku\HelperController@getFilterDefaultPnj');
+Route::get('filter-default-pmb', 'Esaku\HelperController@getFilterDefaultPmb');
 Route::get('filter-vendor', 'Esaku\HelperController@getFilterVendor');
 Route::get('filter-jenis-saldo', 'Esaku\HelperController@getFilterJenisSaldo');
 

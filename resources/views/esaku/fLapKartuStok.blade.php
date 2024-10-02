@@ -123,7 +123,7 @@
     function loadFilterDefault(){
         $.ajax({
             type: 'GET',
-            url: "{{ url('esaku-report/filter-default') }}",
+            url: "{{ url('esaku-report/filter-default-pnj') }}",
             dataType: 'json',
             async:false,
             success:function(result){   
@@ -190,7 +190,6 @@
 
     $('#inputFilter').on('change','input',function(e){
         setTimeout(() => {
-            var kode_lokasi = $kode_lokasi;
 
             generateRptFilter('#inputFilter',{
                 kode : ['periode','gudang','kelompok', 'barang'],
