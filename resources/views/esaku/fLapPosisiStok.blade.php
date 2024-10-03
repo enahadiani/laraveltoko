@@ -304,7 +304,7 @@
         $formData.delete('kode_barang[]');
         var aktif = $('.breadcrumb-item.active').attr('aria-current');
         
-        if(aktif == "posisi"){
+        if(aktif == "buku-barang"){
             xurl = "{{ url('esaku-auth/form/rptPosisiStok') }}";
             $formData.delete('back');
             $('.breadcrumb').html('');
