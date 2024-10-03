@@ -15,7 +15,7 @@
                                         <x-inp-filter kode="kode_lokasi" nama="Lokasi" selected="3" :option="array('3')"/>
                                         <x-inp-filter kode="tanggal" nama="Tanggal" selected="3" :option="array('3')" datepicker="true"/>
                                         <x-inp-filter kode="kode_gudang" nama="Gudang" selected="3" :option="array('3')"/>
-                                        <x-inp-filter kode="kode_barang" nama="Barang" selected="1" :option="array('1','2','3','i')"/>
+                                        <x-inp-filter kode="kode_barang" nama="Barang" selected="3" :option="array('3')"/>
                                         <!-- END COMPONENT -->
                                     </div>
                                     <button id="btn-tampil" style="float:right;width:110px" class="btn btn-primary ml-2 mb-3" type="submit" >Tampilkan</button>
@@ -79,7 +79,7 @@
     }
 
     var $kode_barang = {
-        type : "all",
+        type : "=",
         from : "",
         fromname : "",
         to : "",
