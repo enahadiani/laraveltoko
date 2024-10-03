@@ -116,6 +116,7 @@ Route::post('lap-rekap-jualstr', 'Esaku\Inventori\LaporanController@getRekapJual
 Route::post('lap-rekap-jual-perbrg', 'Esaku\Inventori\LaporanController@getRekapJualBarang');
 Route::post('lap-rekap-beli-perbrg', 'Esaku\Inventori\LaporanController@getRekapBeliBarang');
 Route::post('lap-stock-opname', 'Esaku\Inventori\LaporanController@getRekapStockOpname');
+Route::post('lap-buku-barang', 'Esaku\Inventori\LaporanController@getBukuBarang');
 
 
 Route::get('lap-nota-jual-print', 'Esaku\Inventori\LaporanController@printNotaJual');

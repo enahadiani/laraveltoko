@@ -1,8 +1,8 @@
-<link rel="stylesheet" href="{{ asset('report.css') }}" />
+<link rel="stylesheet" href="{{ asset('report.css?version=_').time() }}" />
 <div class="row" id="saku-filter">
     <div class="col-12">
         <div class="card" >
-            <x-report-header judul="Laporan Posisi Stok"/>
+            <x-report-header judul="Laporan Buku Besar Barang"/>
             <div class="separator"></div>
                 <div class="row">
                     <div class="col-12 col-sm-12">
@@ -15,6 +15,7 @@
                                         <x-inp-filter kode="kode_lokasi" nama="Lokasi" selected="3" :option="array('3')"/>
                                         <x-inp-filter kode="tanggal" nama="Tanggal" selected="3" :option="array('3')" datepicker="true"/>
                                         <x-inp-filter kode="kode_gudang" nama="Gudang" selected="3" :option="array('3')"/>
+                                        <x-inp-filter kode="kode_barang" nama="Barang" selected="1" :option="array('1','2','3','i')"/>
                                         <!-- END COMPONENT -->
                                     </div>
                                     <button id="btn-tampil" style="float:right;width:110px" class="btn btn-primary ml-2 mb-3" type="submit" >Tampilkan</button>
@@ -28,7 +29,7 @@
         </div>
     </div>
 </div>
-<x-report-result judul="Laporan Posisi Stok" padding="px-4 py-4"/>
+<x-report-result judul="Laporan Buku Besar Barang" padding="px-4 py-4"/>
 
 @include('modal_search')
 @include('modal_email')
@@ -39,8 +40,7 @@
 
 <button id="trigger-bottom-sheet" style="display:none">Bottom ?</button>
 <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
-<script src="{{ asset('helper.js') }}"></script>
-<script src="{{ asset('reportFilter.js') }}"></script>
+<script src="{{ asset('helper.js?version=_').time() }}"></script>
 
 <script type="text/javascript">
 
@@ -72,6 +72,14 @@
 
     var $kode_gudang = {
         type : "=",
+        from : "",
+        fromname : "",
+        to : "",
+        toname : "",
+    }
+
+    var $kode_barang = {
+        type : "all",
         from : "",
         fromname : "",
         to : "",
@@ -116,13 +124,15 @@
                         to : "",
                         toname : "",
                     }
-
+                    
+                    $('#tanggal-from').val($date);
+                    $('#tanggal-to').addClass("datepicker");
 
                     generateRptFilter('#inputFilter',{
-                        kode : ['kode_lokasi','tanggal','kode_gudang'],
-                        nama : ['Lokasi','Tanggal','Kode Gudang'],
-                        header : [['Kode', 'Nama'],['Kode'],['Kode', 'Nama']],
-                        headerpilih : [['Kode', 'Nama','Action'],['Kode','Action'],['Kode', 'Nama','Action']],
+                        kode : ['kode_lokasi','tanggal','kode_gudang','kode_barang'],
+                        nama : ['Lokasi','Tanggal','Kode Gudang','Barang'],
+                        header : [['Kode', 'Nama'],['Kode'],['Kode', 'Nama'],['Kode', 'Nama']],
+                        headerpilih : [['Kode', 'Nama','Action'],['Kode','Action'],['Kode', 'Nama','Action'],['Kode', 'Nama','Action']],
                         columns: [
                             [
                                 { data: 'kode_lokasi' },
@@ -134,22 +144,28 @@
                             [
                                 { data: 'kode_gudang' },
                                 { data: 'nama' }
+                            ],
+                            [
+                                { data: 'kode_barang' },
+                                { data: 'nama' }
                             ]
                         ],
-                        url :["{{ url('esaku-report/filter-lokasi') }}","","{{ url('esaku-report/filter-gudang') }}"],
+                        url :["{{ url('esaku-report/filter-lokasi') }}","","{{ url('esaku-report/filter-gudang') }}","{{ url('esaku-report/filter-barang') }}"],
                         parameter:[{},{},{
                             'kode_lokasi[0]':$kode_lokasi.type,
                             'kode_lokasi[1]':$kode_lokasi.from,
                             'kode_lokasi[2]':$kode_lokasi.to,
+                        },{
+                            'kode_lokasi[0]':$kode_lokasi.type,
+                            'kode_lokasi[1]':$kode_lokasi.from,
+                            'kode_lokasi[2]':$kode_lokasi.to,
+                            'kode_gudang':$kode_gudang.from
                         }],
-                        orderby:[[],[],[]],
-                        width:[['30%','70%'],['30%','70%'],['30%','70%']],
-                        display:['kode','kode','kode'],
-                        pageLength:[10,10,10]
+                        orderby:[[],[],[],[]],
+                        width:[['30%','70%'],['100%'],['30%','70%'],['30%','70%']],
+                        display:['kode','kode','kode','kode'],
+                        pageLength:[10,10,10,10]
                     });
-
-                    $('#tanggal-from').val($date);
-                    $('#tanggal-to').addClass("datepicker");
                 
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
@@ -198,12 +214,13 @@
     $('#inputFilter').on('change','input',function(e){
         setTimeout(() => {
             var kode_lokasi = $kode_lokasi;
+            var kode_gudang = $kode_gudang;
 
             generateRptFilter('#inputFilter',{
-                kode : ['kode_lokasi','tanggal','kode_gudang'],
-                nama : ['Lokasi','Tanggal','Kode Gudang'],
-                header : [['Kode', 'Nama'],['Kode'],['Kode', 'Nama']],
-                headerpilih : [['Kode', 'Nama','Action'],['Kode','Action'],['Kode', 'Nama','Action']],
+                kode : ['kode_lokasi','tanggal','kode_gudang','kode_barang'],
+                nama : ['Lokasi','Tanggal','Kode Gudang','Barang'],
+                header : [['Kode', 'Nama'],['Kode'],['Kode', 'Nama'],['Kode', 'Nama']],
+                headerpilih : [['Kode', 'Nama','Action'],['Kode','Action'],['Kode', 'Nama','Action'],['Kode', 'Nama','Action']],
                 columns: [
                     [
                         { data: 'kode_lokasi' },
@@ -215,18 +232,27 @@
                     [
                         { data: 'kode_gudang' },
                         { data: 'nama' }
+                    ],
+                    [
+                        { data: 'kode_barang' },
+                        { data: 'nama' }
                     ]
                 ],
-                url :["{{ url('esaku-report/filter-lokasi') }}","","{{ url('esaku-report/filter-gudang') }}"],
+                url :["{{ url('esaku-report/filter-lokasi') }}","","{{ url('esaku-report/filter-gudang') }}","{{ url('esaku-report/filter-barang') }}"],
                 parameter:[{},{},{
-                    'kode_lokasi[0]':$kode_lokasi.type,
-                    'kode_lokasi[1]':$kode_lokasi.from,
-                    'kode_lokasi[2]':$kode_lokasi.to,
+                    'kode_lokasi[0]':kode_lokasi.type,
+                    'kode_lokasi[1]':kode_lokasi.from,
+                    'kode_lokasi[2]':kode_lokasi.to,
+                },{
+                    'kode_lokasi[0]':kode_lokasi.type,
+                    'kode_lokasi[1]':kode_lokasi.from,
+                    'kode_lokasi[2]':kode_lokasi.to,
+                    'kode_gudang':kode_gudang.from
                 }],
-                orderby:[[],[],[]],
-                width:[['30%','70%'],['30%','70%'],['30%','70%']],
-                display:['kode','kode','kode'],
-                pageLength:[10,10,10]
+                orderby:[[],[],[],[]],
+                width:[['30%','70%'],['100%'],['30%','70%'],['30%','70%']],
+                display:['kode','kode','kode','kode'],
+                pageLength:[10,10,10,10]
             });
         }, 500)
     });
@@ -238,17 +264,20 @@
         $formData.append("kode_lokasi[]",$kode_lokasi.type);
         $formData.append("kode_lokasi[]",$kode_lokasi.from);
         $formData.append("kode_lokasi[]",$kode_lokasi.to);
-        $formData.append("tanggal[]", $tanggal.type);
-        $formData.append("tanggal[]", ($tanggal.from != "" ? reverseDate2($tanggal.from, "/", "-") : "") );
-        $formData.append("tanggal[]", ($tanggal.to != "" ? reverseDate2($tanggal.to, "/", "-") : ""));
         $formData.append("kode_gudang[]",$kode_gudang.type);
         $formData.append("kode_gudang[]",$kode_gudang.from);
         $formData.append("kode_gudang[]",$kode_gudang.to);
+        $formData.append("kode_barang[]",$kode_barang.type);
+        $formData.append("kode_barang[]",$kode_barang.from);
+        $formData.append("kode_barang[]",$kode_barang.to);
+        $formData.append("tanggal[]", $tanggal.type);
+        $formData.append("tanggal[]", ($tanggal.from != "" ? reverseDate2($tanggal.from, "/", "-") : "") );
+        $formData.append("tanggal[]", ($tanggal.to != "" ? reverseDate2($tanggal.to, "/", "-") : ""));
         for(var pair of $formData.entries()) {
             console.log(pair[0]+ ', '+ pair[1]); 
         }
         $('#saku-report').removeClass('hidden');
-        xurl = "{{ url('esaku-auth/form/rptPosisiStok') }}";
+        xurl = "{{ url('esaku-auth/form/rptBukuBarang') }}";
         $('#saku-report #canvasPreview').load(xurl);
     });
 
@@ -257,83 +286,22 @@
         $formData.append("kode_lokasi[]",$kode_lokasi.type);
         $formData.append("kode_lokasi[]",$kode_lokasi.from);
         $formData.append("kode_lokasi[]",$kode_lokasi.to);
-        $formData.append("tanggal[]", $tanggal.type);
-        $formData.append("tanggal[]", ($tanggal.from != "" ? reverseDate2($tanggal.from, "/", "-") : "") );
-        $formData.append("tanggal[]", ($tanggal.to != "" ? reverseDate2($tanggal.to, "/", "-") : ""));
         $formData.append("kode_gudang[]",$kode_gudang.type);
         $formData.append("kode_gudang[]",$kode_gudang.from);
         $formData.append("kode_gudang[]",$kode_gudang.to);
+        $formData.append("kode_barang[]",$kode_barang.type);
+        $formData.append("kode_barang[]",$kode_barang.from);
+        $formData.append("kode_barang[]",$kode_barang.to);
+        $formData.append("tanggal[]", $tanggal.type);
+        $formData.append("tanggal[]", ($tanggal.from != "" ? reverseDate2($tanggal.from, "/", "-") : "") );
+        $formData.append("tanggal[]", ($tanggal.to != "" ? reverseDate2($tanggal.to, "/", "-") : ""));
         for(var pair of $formData.entries()) {
             console.log(pair[0]+ ', '+ pair[1]); 
         }
         $('#saku-report').removeClass('hidden');
-        xurl = "{{ url('esaku-auth/form/rptPosisiStok') }}";
+        xurl = "{{ url('esaku-auth/form/rptBukuBarang') }}";
         $('#saku-report #canvasPreview').load(xurl);
     });
-
-    
-     // TRACE
-     var param_trace = {};
-    $('#saku-report #canvasPreview').on('click', '.detail-buku', function(e){
-        e.preventDefault();
-        var kode_barang = $(this).data('kode_barang');
-        param_trace.kode_barang = kode_barang;
-        var back = true;
-        
-        $formData.delete('kode_barang[]');
-        $formData.append('kode_barang[]', "=");
-        $formData.append('kode_barang[]', kode_barang);
-        $formData.append('kode_barang[]', "");
-
-        $formData.delete('back');
-        $formData.append('back', back);
-        $('.breadcrumb').html('');
-        $('.breadcrumb').append(`
-        <li class="breadcrumb-item">
-        <a href="#" class="klik-report" data-href="posisi">Posisi Stok</a>
-        </li>
-        <li class="breadcrumb-item active" aria-current="buku-barang">Buku Besar Barang</li>
-        `);
-        xurl ="{{ url('esaku-auth/form/rptBukuBarang') }}";
-        $('#saku-report #canvasPreview').load(xurl);
-        // drawLapReg(formData);
-    });
-    
-    $('.navigation-lap').on('click', '#btn-back', function(e){
-        e.preventDefault();
-        $formData.delete('kode_barang[]');
-        var aktif = $('.breadcrumb-item.active').attr('aria-current');
-        
-        if(aktif == "posisi"){
-            xurl = "{{ url('esaku-auth/form/rptPosisiStok') }}";
-            $formData.delete('back');
-            $('.breadcrumb').html('');
-            $('.breadcrumb').append(`
-            <li class="breadcrumb-item active" aria-current="posisi">Posisi Stok</li>
-            `);
-            $('.navigation-lap').addClass('hidden');
-        }
-        $('#saku-report #canvasPreview').load(xurl);
-        // drawLapReg(formData);
-    });
-    
-    $('.breadcrumb').on('click', '.klik-report', function(e){
-        e.preventDefault();
-        var tujuan = $(this).data('href');
-        $formData.delete('kode_barang[]');
-        if(tujuan == "posisi"){
-            $formData.delete('back');
-            xurl = "{{ url('esaku-auth/form/rptPosisiStok') }}";
-            $('.breadcrumb').html('');
-            $('.breadcrumb').append(`
-            <li class="breadcrumb-item active" aria-current="posisi">Posisi Stok</li>
-            `);
-            $('.navigation-lap').addClass('hidden');
-        }
-        $('#saku-report #canvasPreview').load(xurl);
-        
-    });
-    // END TRACE
 
     $('#sai-rpt-print').click(function(){
         $('#saku-report #canvasPreview').printThis({
@@ -351,8 +319,8 @@
         e.preventDefault();
         $("#saku-report #canvasPreview").table2excel({
             // exclude: ".excludeThisClass",
-            name: "Lap_Posisi_Stok_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
-            filename: "Lap_Posisi_Stok_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
+            name: "LapBukuBesarBarang_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
+            filename: "LapBukuBesarBarang_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
             preserveColors: false // set to true if you want background colors and font colors preserved
         });
     });

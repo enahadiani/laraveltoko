@@ -108,7 +108,7 @@
                             nilai_stok+=parseFloat(line2.nilai_stok);
                             det+=`<tr>
                             <td align='center' class='isi_laporan'>`+no+`</td>
-                            <td class='isi_laporan'>`+line2.kode_barang+`&nbsp;</td>
+                            <td class='isi_laporan'><a href='#' class='detail-buku' style='color:blue' data-kode_barang='`+line2.kode_barang+`'>`+line2.kode_barang+`</a></td>
                             <td class='isi_laporan'>`+line2.nama+`</td>
                             <td class='isi_laporan'>`+line2.kode_rak+`</td>
                             <td  class='isi_laporan text-right'>`+number_format(parseFloat(line2.so_awal))+`</td>
