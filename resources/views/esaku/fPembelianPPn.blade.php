@@ -904,10 +904,18 @@ date_default_timezone_set('Asia/Jakarta');
             input += "</tr>";
             
             $("#input-grid2").append(input);
-            $('.inp-qtyb,.inp-subb,.inp-disc,.inp-hrgjual,.inp-saldo,.inp-hrgseb,.inp-hrgb, .inp-subbhit').inputmask("numeric", {
+            $('.inp-subb,.inp-disc,.inp-hrgjual,.inp-saldo,.inp-hrgseb,.inp-hrgb, .inp-subbhit').inputmask("numeric", {
                 radixPoint: ",",
                 groupSeparator: ".",
                 digits: 2,
+                autoGroup: true,
+                rightAlign: true,
+                oncleared: function () { self.Value(''); }
+            });
+            $('.inp-qtyb').inputmask("numeric", {
+                radixPoint: ",",
+                groupSeparator: ".",
+                digits: 0,
                 autoGroup: true,
                 rightAlign: true,
                 oncleared: function () { self.Value(''); }
@@ -995,10 +1003,18 @@ date_default_timezone_set('Asia/Jakarta');
             
             $("#input-grid2").append(input);
             
-            $('.inp-qtyb,.inp-subb,.inp-disc,.inp-hrgjual,.inp-subbhit').inputmask("numeric", {
+            $('.inp-subb,.inp-disc,.inp-hrgjual,.inp-subbhit').inputmask("numeric", {
                 radixPoint: ",",
                 groupSeparator: ".",
                 digits: 2,
+                autoGroup: true,
+                rightAlign: true,
+                oncleared: function () { self.Value(''); }
+            });
+            $('.inp-qtyb').inputmask("numeric", {
+                radixPoint: ",",
+                groupSeparator: ".",
+                digits: 0,
                 autoGroup: true,
                 rightAlign: true,
                 oncleared: function () { self.Value(''); }
@@ -1125,10 +1141,18 @@ date_default_timezone_set('Asia/Jakarta');
         $(".set-selected").closest('tr').append(input);
 
 
-        $('.inp-qtyb,.inp-subb,.inp-disc,.inp-hrgjual,.inp-subb').inputmask("numeric", {
+        $('.inp-subb,.inp-disc,.inp-hrgjual,.inp-subb').inputmask("numeric", {
             radixPoint: ",",
             groupSeparator: ".",
             digits: 2,
+            autoGroup: true,
+            rightAlign: true,
+            oncleared: function () { self.Value(''); }
+        });
+        $('.inp-qtyb').inputmask("numeric", {
+            radixPoint: ",",
+            groupSeparator: ".",
+            digits: 0,
             autoGroup: true,
             rightAlign: true,
             oncleared: function () { self.Value(''); }
