@@ -43,6 +43,7 @@
 <script src="{{ asset('asset_dore/js/jquery.scannerdetection.js')}}"></script>
 <script src="{{ asset('reportFilter.js') }}"></script>
 <script src="{{ asset('main.js') }}"></script>
+<script src="{{ asset('helper.js') }}"></script>
 
 <script type="text/javascript">
 
