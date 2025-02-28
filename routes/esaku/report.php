@@ -118,6 +118,8 @@ Route::post('lap-rekap-beli-perbrg', 'Esaku\Inventori\LaporanController@getRekap
 Route::post('lap-stock-opname', 'Esaku\Inventori\LaporanController@getRekapStockOpname');
 Route::post('lap-buku-barang', 'Esaku\Inventori\LaporanController@getBukuBarang');
 
+Route::post('lap-nota-pnj', 'Esaku\Inventori\LaporanController@getNotaPnj');
+Route::get('lap-nota-pnj-print', 'Esaku\Inventori\LaporanController@printNotaPnj');
 
 Route::get('lap-nota-jual-print', 'Esaku\Inventori\LaporanController@printNotaJual');
 Route::get('lap-nota-jual-print-baru', 'Esaku\Inventori\LaporanController@printNotaJualBaru');

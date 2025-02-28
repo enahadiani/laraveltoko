@@ -1,0 +1,112 @@
+.ticket * {
+    font-size: 10px !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+}
+
+.ticket td,
+.ticket th,
+.ticket tr,
+.ticket table {
+    padding: 0px !important;
+    border-top: 0px solid black !important;
+    border-collapse: collapse !important;
+}
+.ticket .bold{
+    font-weight: bold !important;
+}
+.ticket td.judul {
+	text-align: center !important;
+    width: 170px !important;
+    max-width: 170px !important;
+}
+
+.ticket td.judul2 {
+    font-size: 12px !important;
+    font-weight: bold;
+	text-align: center !important;
+    width: 170px !important;
+    max-width: 170px !important;
+}
+
+.ticket td.kolom1 {
+	text-align: left !important;
+    width: 60px !important;
+    max-width: 60px !important;
+}
+.ticket td.kolom4 {
+	text-align: center !important;
+    width: 170px !important;
+    max-width: 170px !important;
+}
+.ticket td.kolom5 {
+	text-align: justify !important;
+    width: 170px !important;
+    max-width: 170px !important;
+}
+.ticket hr{
+    border: none;
+}
+.ticket hr.dotted {
+  border-top: 3px dotted #bbb !important;
+}
+.ticket td.kolom2 {
+	text-align: left !important;
+    width: 120px !important;
+    max-width: 120px !important;
+}
+
+.ticket td.kolom3{
+	text-align: left !important;
+    width: 110px !important;
+    max-width: 110px !important;
+}
+
+.ticket td.description,
+.ticket th.description {
+    width: 90px !important;
+    max-width: 90px !important;
+}
+
+.ticket td.quantity,
+.ticket th.quantity {
+    width: 20px !important;
+    max-width: 20px !important;
+    word-break: break-all !important;
+}
+
+.ticket td.quantity2,
+.ticket th.quantity2 {
+    width: 50px !important;
+    max-width: 50px !important;
+    word-break: break-all !important;
+}
+
+.ticket td.price,
+.ticket th.price {
+    width: 60px !important;
+	text-align: right !important;
+    max-width: 60px !important;
+    word-break: break-all !important;
+}
+
+.ticket .centered {
+    text-align: center !important;
+    align-content: center !important;
+}
+
+.ticket {
+    width: 170 !important;
+    max-width: 170px !important;
+}
+
+.ticket img {
+    max-width: inherit !important;
+    width: inherit !important;
+}
+
+@media print {
+    .hidden-print,
+    .hidden-print * {
+        display: none !important;
+    }
+}
