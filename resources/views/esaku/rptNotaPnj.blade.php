@@ -8,7 +8,7 @@
                 generatePaginationDore('pagination',show,res);
                 
             }else{
-                $('#saku-report #canvasPreview').load("{{ url('esaku-auth/form/blank') }}");
+                $($form_parent).load("{{ url('esaku-auth/form/blank') }}");
             }
         });
     }
@@ -129,7 +129,7 @@
             }  
             html+="</div>"; 
         }
-        $('#canvasPreview').html(html);
+        $($form_parent).html(html);
         $('li.prev a ').html("<i class='simple-icon-arrow-left'></i>");
         $('li.next a ').html("<i class='simple-icon-arrow-right'></i>");
     }

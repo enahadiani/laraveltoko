@@ -46,8 +46,9 @@
 
 <script type="text/javascript">
 
+    var $form_parent = "#saku-report #canvasPreview";
 
-var bottomSheet = new BottomSheet("country-selector");
+    var bottomSheet = new BottomSheet("country-selector");
     document.getElementById("trigger-bottom-sheet").addEventListener("click", bottomSheet.activate);
     window.bottomSheet = bottomSheet;
 
@@ -250,7 +251,7 @@ var bottomSheet = new BottomSheet("country-selector");
         }
         $('#saku-report').removeClass('hidden');
         xurl = "{{ url('esaku-auth/form/rptNotaPnj') }}";
-        $('#saku-report #canvasPreview').load(xurl);
+        $($form_parent).load(xurl);
     });
 
     $('#show').change(function(e){
@@ -269,7 +270,7 @@ var bottomSheet = new BottomSheet("country-selector");
         }
         $('#saku-report').removeClass('hidden');
         xurl = "{{ url('esaku-auth/form/rptNotaPnj') }}";
-        $('#saku-report #canvasPreview').load(xurl);
+        $($form_parent).load(xurl);
     });
 
     function closePrint () {
@@ -309,7 +310,7 @@ var bottomSheet = new BottomSheet("country-selector");
 
     $("#sai-rpt-excel").click(function(e) {
         e.preventDefault();
-        $("#saku-report #canvasPreview").table2excel({
+        $($form_parent).table2excel({
             // exclude: ".excludeThisClass",
             name: "Lap_NotaJual_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
             filename: "Lap_NotaJual_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
