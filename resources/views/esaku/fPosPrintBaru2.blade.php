@@ -945,7 +945,7 @@ date_default_timezone_set('Asia/Jakarta');
 
         var html = `<div class="preview-header" style="display:block;height:39px;padding: 0 1.75rem" >
             <div>
-                <h6 style="position: absolute;" id="preview-judul">Preview Dokumen</h6>
+                <h6 style="position: absolute;" id="preview-judul">Laporan Nota Penjualan</h6>
             </div>
             <div>
                 <div class="dropdown d-inline-block float-right">
@@ -960,6 +960,7 @@ date_default_timezone_set('Asia/Jakarta');
         <input type="hidden" id="show" value="All">
         <div class='preview-body' style='padding: 0 1.75rem;height: calc(75vh - 56px) ;position:sticky'>
             <div id="load-print"></div>
+            <div class="mt-2"></div>
             <div class='canvasPreview'></div>
         </div>`;
         $('#content-bottom-sheet').html(html);
