@@ -31,7 +31,7 @@ date_default_timezone_set('Asia/Jakarta');
                                                 <input class='form-control datepicker' type="text" id="tanggal" name="tanggal" value="{{ date('d/m/Y') }}">
                                                 <i style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
                                             </div>
-                                            <p style="color:#007AFF"><i class="fa fa-user"></i> {{ Session::get('userLog') }}</p>
+                                            <p style="color:#007AFF">NIK User : {{ Session::get('userLog') }}</p>
                                         </div>
                                     </div>
                                 </div>
