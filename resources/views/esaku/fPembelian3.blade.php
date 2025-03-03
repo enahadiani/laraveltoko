@@ -2,6 +2,13 @@
 date_default_timezone_set('Asia/Jakarta');
 ?>
 <link rel="stylesheet" href="{{ asset('trans.css') }}" />
+<style>
+    #tanggal-dp .datepicker-dropdown
+    {
+        left: 20px !important;
+        top: 190px !important;
+    }
+</style>
 <div class="container-fluid mt-3">
     <div class="row">
         <div class="col-12">
@@ -18,7 +25,12 @@ date_default_timezone_set('Asia/Jakarta');
                                     </div>
                                     <div class="col-8">
                                         <div class="label-header">
-                                        <p>{{$new_time = date("Y-m-d H:i:s", strtotime('+7 hours', strtotime(date("Y-m-d H:i:s"))))}}</p>
+                                        {{-- <p>{{$new_time = date("Y-m-d H:i:s", strtotime('+7 hours', strtotime(date("Y-m-d H:i:s"))))}}</p> --}}
+                                            <div>
+                                                <span id="tanggal-dp"></span>
+                                                <input class='form-control datepicker' type="text" id="tanggal" name="tanggal" value="{{ date('d/m/Y') }}">
+                                                <i style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
+                                            </div>
                                             <p style="color:#007AFF"><i class="fa fa-user"></i> {{ Session::get('userLog') }}</p>
                                         </div>
                                     </div>
@@ -302,6 +314,17 @@ date_default_timezone_set('Asia/Jakarta');
     $('#kd-barang2').focus();
     $('#area_print').hide();
 
+    $("#tanggal").bootstrapDP({
+        autoclose: true,
+        format: 'dd/mm/yyyy',
+        container:'span#tanggal-dp',
+        templates: {
+            leftArrow: '<i class="simple-icon-arrow-left"></i>',
+            rightArrow: '<i class="simple-icon-arrow-right"></i>'
+        },
+        orientation: 'bottom left'
+    });
+
     setHeightFormPOS();
     document.onkeyup = function(e) {
         if (e.ctrlKey && e.which == 66) {
@@ -434,6 +457,9 @@ date_default_timezone_set('Asia/Jakarta');
             url:"{{url('esaku-trans/pembelian3-barang')}}",
             dataType: 'json',
             async: false,
+            data:{  
+                tanggal : $('#tanggal').val(),
+            },
             success: function(result) {
                 if(result.status) {
                     var res = result.daftar.data;
@@ -1039,6 +1065,7 @@ date_default_timezone_set('Asia/Jakarta');
         var nama = $('#modal-edit-kode option:selected').text();
         var sub =  removeFormat($('#modal-edit-subb').val());
         var hrg= sub/qty;
+        var flag_ppn = setFlagPPN(kd);
 
         var no = $(".set-selected").closest('tr').find('.no-barang').text();
         var input="";
@@ -1053,7 +1080,7 @@ date_default_timezone_set('Asia/Jakarta');
         input += "<td style='text-align:right'><input type='text' name='qty_barang[]' class='change-validation inp-qtyb form-control currency'  value='"+qty+"' required></td>";
         input += "<td style='text-align:right'><input type='text' name='disc_barang[]' class='change-validation inp-disc form-control currency'  value='"+disc+"' readonly required></td>";
         input += "<td style='text-align:right'><input type='text' name='sub_barang[]' class='change-validation inp-subb form-control currency'  value='"+sub+"'  required></td>";
-        input += "<td class='text-center'></a><a class='btn btn-sm ubah-barang' style='padding:0;font-size:18px !important'><i class='simple-icon-pencil'></i></a>&nbsp;<a class='btn btn-sm hapus-item ml-2' style='padding:0;font-size:18px !important'><i class='simple-icon-trash'></i></td>";
+        input += "<td class='text-center'></a><a class='btn btn-sm ubah-barang' style='padding:0;font-size:18px !important'><i class='simple-icon-pencil'></i></a>&nbsp;<a class='btn btn-sm hapus-item ml-2' style='padding:0;font-size:18px !important'><i class='simple-icon-trash'></i><input type='hidden' name='flag_ppn[]' value='"+flag_ppn+"'></td>";
         
         $(".set-selected").closest('tr').text('');
         $(".set-selected").closest('tr').append(input);
@@ -1222,6 +1249,13 @@ date_default_timezone_set('Asia/Jakarta');
        $('.inp-qtyb').first().focus();
        $('.inp-qtyb').first().select();
         
+    });
+
+    $('#modal-edit').on('change', '#modal-edit-qty,#modal-edit-subb', function(e){
+        var qty = $('#modal-edit-qty').val();
+        var subb = $('#modal-edit-subb').val();
+        var hrg = Math.round(toNilai(subb)/toNilai(qty),0);
+        $('#modal-edit-harga').val(hrg);
     });
 
     $(document).on("keypress", 'form', function (e) {

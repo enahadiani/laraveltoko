@@ -17,10 +17,15 @@ class PembelianController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function __contruct(){
+    public function __construct(){
         if(!Session::get('login')){
             return redirect('esaku-auth/login');
         }
+    }
+
+    public function reverseDate($ymd_or_dmy_date, $org_sep = '/', $new_sep = '-') {
+        $arr = explode($org_sep, $ymd_or_dmy_date);
+        return $arr[2] . $new_sep . $arr[1] . $new_sep . $arr[0];
     }
 
     /**
@@ -54,13 +59,16 @@ class PembelianController extends Controller
         }
     }
 
-    public function getBarang(){
+    public function getBarang(Request $r){
         try {
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'esaku-trans/pembelian-barang',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'tanggal' => $this->reverseDate($r->input('tanggal'),'/','-'),
                 ]
             ]);
 
@@ -81,6 +89,7 @@ class PembelianController extends Controller
 
     public function store(Request $request) {
         $this->validate($request, [
+            'tanggal' => 'required|date_format:d/m/Y',
             'kode_vendor' => 'required',
             'no_faktur' => 'required',
             'total_trans' => 'required',
@@ -93,6 +102,7 @@ class PembelianController extends Controller
             $fields = array (
                 'kode_pp' => Session::get('kodePP'),
                 'nik_user' => Session::get('nikUser'),
+                'tanggal' => $this->reverseDate($request->input('tanggal'),'/','-'),
                 'kode_vendor' => $request->kode_vendor,
                 'no_faktur' => $request->no_faktur,
                 'keterangan' => $request->keterangan,
@@ -123,6 +133,7 @@ class PembelianController extends Controller
 
     public function storeDetail(Request $request) {
         $this->validate($request, [
+            'tanggal' => 'required|date_format:d/m/Y',
             'nik_user' => 'required',
             'kode_akun' => 'required',
             'kode_barang' => 'required',
@@ -138,6 +149,7 @@ class PembelianController extends Controller
         try {
 
             $fields = array (
+                'tanggal' => $this->reverseDate($request->input('tanggal'),'/','-'),
                 'nik_user' => $request->input('nik_user'),
                 'kode_akun' => $request->input('kode_akun'),
                 'kode_barang' => $request->input('kode_barang'),
@@ -173,6 +185,7 @@ class PembelianController extends Controller
 
     public function updateDetail(Request $request) {
         $this->validate($request, [
+            'tanggal' => 'required|date_format:d/m/Y',
             'nik_user' => 'required',
             'no_urut' => 'required',
             'kode_barang' => 'required',
@@ -186,6 +199,7 @@ class PembelianController extends Controller
         try {
 
             $fields = array (
+                'tanggal' => $this->reverseDate($request->input('tanggal'),'/','-'),
                 'nik_user' => $request->input('nik_user'),
                 'no_urut' => $request->input('no_urut'),
                 'kode_barang' => $request->input('kode_barang'),

@@ -17,10 +17,15 @@ class Pembelian3Controller extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function __contruct(){
+    public function __construct(){
         if(!Session::get('login')){
             return redirect('esaku-auth/login');
         }
+    }
+
+    public function reverseDate($ymd_or_dmy_date, $org_sep = '/', $new_sep = '-') {
+        $arr = explode($org_sep, $ymd_or_dmy_date);
+        return $arr[2] . $new_sep . $arr[1] . $new_sep . $arr[0];
     }
 
     public function joinNum($num){
@@ -61,13 +66,16 @@ class Pembelian3Controller extends Controller
         }
     }
 
-    public function getBarang(){
+    public function getBarang(Request $r){
         try {
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'esaku-trans/pembelian3-barang',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'tanggal' => $this->reverseDate($r->input('tanggal'),'/','-'),
                 ]
             ]);
 
@@ -82,12 +90,13 @@ class Pembelian3Controller extends Controller
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
-            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+            return response()->json(['message' => isset($res["message"]) ? $res['message'] : $res, 'status'=>false], 200);
         }
     }
 
     public function store(Request $request) {
         $this->validate($request, [
+            'tanggal' => 'required|date_format:d/m/Y',
             'kode_vendor' => 'required',
             'no_faktur' => 'required',
             'total_trans' => 'required',
@@ -119,6 +128,7 @@ class Pembelian3Controller extends Controller
             }
 
             $fields = array (
+                'tanggal' => $this->reverseDate($request->input('tanggal'),'/','-'),
                 'kode_pp' => Session::get('kodePP'),
                 'kode_vendor' => $request->kode_vendor,
                 'no_faktur' => $request->no_faktur,

@@ -17,10 +17,15 @@ class PembelianNonPPn2Controller extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function __contruct(){
+    public function __construct(){
         if(!Session::get('login')){
             return redirect('esaku-auth/login');
         }
+    }
+
+    public function reverseDate($ymd_or_dmy_date, $org_sep = '/', $new_sep = '-') {
+        $arr = explode($org_sep, $ymd_or_dmy_date);
+        return $arr[2] . $new_sep . $arr[1] . $new_sep . $arr[0];
     }
 
     public function joinNum($num){
@@ -61,13 +66,16 @@ class PembelianNonPPn2Controller extends Controller
         }
     }
 
-    public function getBarang(){
+    public function getBarang(Request $r){
         try {
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'esaku-trans/pembelian3-non-barang',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'tanggal' => $this->reverseDate($r->input('tanggal'),'/','-'),
                 ]
             ]);
 
@@ -88,6 +96,7 @@ class PembelianNonPPn2Controller extends Controller
 
     public function store(Request $request) {
         $this->validate($request, [
+            'tanggal' => 'required|date_format:d/m/Y',
             'kode_vendor' => 'required',
             'no_faktur' => 'required',
             'total_trans' => 'required',
@@ -120,6 +129,7 @@ class PembelianNonPPn2Controller extends Controller
             }
 
             $fields = array (
+                'tanggal' => $this->reverseDate($request->input('tanggal'),'/','-'),
                 'kode_pp' => Session::get('kodePP'),
                 'kode_vendor' => $request->kode_vendor,
                 'no_faktur' => $request->no_faktur,

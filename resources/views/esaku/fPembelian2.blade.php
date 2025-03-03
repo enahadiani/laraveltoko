@@ -6,6 +6,11 @@
     #input-barang, .dataTable {
         border-collapse: collapse !important;
     }
+    #tanggal-dp .datepicker-dropdown
+    {
+        left: 20px !important;
+        top: 190px !important;
+    }
 </style>
 <div class="container-fluid mt-3">
     <div class="row">
@@ -23,8 +28,13 @@
                                     </div>
                                     <div class="col-8">
                                         <div class="label-header">
-                                            <p>{{ date("Y-m-d H:i:s") }}</p>
-                                            <p style="color:#007AFF"><i class="fa fa-user"></i> {{ Session::get('userLog') }}</p>
+                                            {{-- <p>{{ date("Y-m-d H:i:s") }}</p> --}}
+                                            <div>
+                                                <span id="tanggal-dp"></span>
+                                                <input class='form-control datepicker' type="text" id="tanggal" name="tanggal" value="{{ date('d/m/Y') }}">
+                                                <i style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
+                                            </div>
+                                            <p style="color:#007AFF">NIK User : {{ Session::get('userLog') }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -60,7 +70,7 @@
                                         </th>
                                     </tr>
                                 </table>
-                                <div class="col-12 grid-table" style="overflow-y: scroll; margin:0px; padding:0px;">
+                                <div class="col-12" style="overflow-y: scroll; margin:0px; padding:0px; height: calc(100vh - 400px);">
                                     <table class="table table-striped table-bordered table-condensed gridexample" id="input-barang">
                                         <thead>
                                             <tr>
@@ -307,9 +317,23 @@
 <script src="{{url('asset_dore/js/jquery.formnavigation.js')}}"></script>
 
 <script type="text/javascript">
+
+    $("#tanggal").bootstrapDP({
+        autoclose: true,
+        format: 'dd/mm/yyyy',
+        container:'span#tanggal-dp',
+        templates: {
+            leftArrow: '<i class="simple-icon-arrow-left"></i>',
+            rightArrow: '<i class="simple-icon-arrow-right"></i>'
+        },
+        orientation: 'bottom left'
+    });
+
     $('.gridexample').formNavigation();
+
     var $dtBrg = new Array();
     var $dtBrg2 = new Array();
+
     $('#kd-barang2').focus();
     $('#area_print').hide();
 
@@ -447,6 +471,9 @@
             url:"{{url('esaku-trans/pembelian-barang')}}",
             dataType: 'json',
             async: false,
+            data:{  
+                tanggal : $('#tanggal').val(),
+            },
             success: function(result) {
                 if(result.status) {
                     var res = result.daftar.data;
@@ -860,6 +887,7 @@
             var disc = disc1;
             var sub = 0;
             var param = {
+                tanggal : $('#tanggal').val(),
                 nik_user : "{{ Session::get('nikUser') }}",
                 kode_akun : kode_akun,
                 kode_barang : kd,
@@ -965,6 +993,7 @@
             var sub=0;
             
             var param = {
+                tanggal : $('#tanggal').val(),
                 nik_user : "{{ Session::get('nikUser') }}",
                 kode_akun : kode_akun,
                 kode_barang : kd,
@@ -1064,6 +1093,7 @@
         var hrg= sub/qty;
 
         param = {
+            tanggal : $('#tanggal').val(),
             nik_user : "{{ Session::get('nikUser') }}",
             no_urut : no_urut,
             harga_barang : hrg,
