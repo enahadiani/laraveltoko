@@ -728,7 +728,7 @@
                             msgDialog({
                                 id: id,
                                 type: result.data.jenis,
-                                text:'Kode vendor sudah digunakan'
+                                text:'Kode Barang sudah digunakan'
                             });
                         }else{
 
