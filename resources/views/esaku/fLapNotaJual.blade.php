@@ -15,7 +15,7 @@
                                         <x-inp-filter kode="periode" nama="Periode" selected="3" :option="array('3')"/>
                                         <!-- <x-inp-filter kode="tanggal" nama="Tanggal" selected="1" :option="array('1','3','i')"/>
                                         <x-inp-filter kode="kasir" nama="Kasir" selected="1" :option="array('1','3')"/> -->
-                                        <x-inp-filter kode="no_bukti" nama="No Bukti" selected="1" :option="array('1','2','3','i')"/>
+                                        <x-inp-filter kode="no_bukti" nama="No Bukti" selected="3" :option="array('1','2','3','i')"/>
                                         <x-inp-filter kode="mode" nama="Mode Print" selected="3" :option="array('3')"/>
                                         <!-- END COMPONENT -->
                                     </div>
@@ -73,14 +73,14 @@
             toname : "",
         }
     var $kasir = {
-            type : "all",
-            from : "",
+            type : "=",
+            from : "{{ Session::get('userLog') }}",
             fromname : "",
             to : "",
             toname : "",
         }
     var $no_bukti = {
-            type : "all",
+            type : "=",
             from : "",
             fromname : "",
             to : "",
@@ -143,13 +143,11 @@
         ],
         url :["{{ url('esaku-report/filter-periode') }}","{{ url('esaku-report/filter-bukti-pnj') }}","{{ url('esaku-report/filter-mode-print') }}"],
         parameter:[{},{
-            'periode': $periode.from
-        },{},{
             'periode': $periode.from,
             'tanggal': $tanggal.from,
             'kasir': $kasir.from
-        }],
-        orderby:[[[0,"desc"]],[[0,"asc"]],[[0,"asc"]]],
+        },{}],
+        orderby:[[[0,"desc"]],[[0,"desc"]],[[0,"asc"]]],
         width:[['30%','70%'],['30%','70%'],['30%','70%']],
         display:['kode','kode','kode'],
         pageLength:[12,10,10]
@@ -175,13 +173,11 @@
                 ],
                 url :["{{ url('esaku-report/filter-periode') }}","{{ url('esaku-report/filter-bukti-pnj') }}","{{ url('esaku-report/filter-mode-print') }}"],
                 parameter:[{},{
-                    'periode': $periode.from
-                },{},{
                     'periode': $periode.from,
                     'tanggal': $tanggal.from,
                     'kasir': $kasir.from
-                }],
-                orderby:[[[0,"desc"]],[[0,"asc"]],[[0,"asc"]]],
+                },{}],
+                orderby:[[[0,"desc"]],[[0,"desc"]],[[0,"asc"]]],
                 width:[['30%','70%'],['30%','70%'],['30%','70%']],
                 display:['kode','kode','kode'],
                 pageLength:[12,10,10]
@@ -199,9 +195,9 @@
         // $formData.append("tanggal[]",$tanggal.type);
         // $formData.append("tanggal[]",$tanggal.from);
         // $formData.append("tanggal[]",$tanggal.to);
-        // $formData.append("nik_kasir[]",$kasir.type);
-        // $formData.append("nik_kasir[]",$kasir.from);
-        // $formData.append("nik_kasir[]",$kasir.to);
+        $formData.append("nik_kasir[]",$kasir.type);
+        $formData.append("nik_kasir[]",$kasir.from);
+        $formData.append("nik_kasir[]",$kasir.to);
         $formData.append("no_bukti[]",$no_bukti.type);
         $formData.append("no_bukti[]",$no_bukti.from);
         $formData.append("no_bukti[]",$no_bukti.to);
@@ -221,9 +217,9 @@
         // $formData.append("tanggal[]",$tanggal.type);
         // $formData.append("tanggal[]",$tanggal.from);
         // $formData.append("tanggal[]",$tanggal.to);
-        // $formData.append("nik_kasir[]",$kasir.type);
-        // $formData.append("nik_kasir[]",$kasir.from);
-        // $formData.append("nik_kasir[]",$kasir.to);
+        $formData.append("nik_kasir[]",$kasir.type);
+        $formData.append("nik_kasir[]",$kasir.from);
+        $formData.append("nik_kasir[]",$kasir.to);
         $formData.append("no_bukti[]",$no_bukti.type);
         $formData.append("no_bukti[]",$no_bukti.from);
         $formData.append("no_bukti[]",$no_bukti.to);
