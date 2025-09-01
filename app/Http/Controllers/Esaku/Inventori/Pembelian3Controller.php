@@ -119,12 +119,14 @@ class Pembelian3Controller extends Controller
             $data_sub = array();
             $data_harga_jual = array();
             $data_flag_ppn = array();
+            $data_qty_barang = array();
             for($i=0;$i<count($request->kode_barang);$i++){
                 $data_harga[] = $this->joinNum($request->harga_barang[$i]);
                 $data_diskon[] = $this->joinNum($request->disc_barang[$i]);
                 $data_sub[] = $this->joinNum($request->sub_barang[$i]);
                 $data_harga_jual[] = $this->joinNum($request->harga_jual[$i]);
                 $data_flag_ppn[] = $this->joinNum($request->flag_ppn[$i]);
+                $data_qty_barang[] = $this->joinNum($request->qty_barang[$i]);
             }
 
             $fields = array (
@@ -138,7 +140,7 @@ class Pembelian3Controller extends Controller
                 // 'total_ppn' => $this->joinNum($request->total_ppn),
                 'kode_barang' => $request->kode_barang,
                 'kode_akun' => $request->kode_akun,
-                'qty_barang' => $request->qty_barang,
+                'qty_barang' => $data_qty_barang,
                 'satuan_barang' => $request->satuan_barang,
                 'harga_barang' => $data_harga,
                 'harga_jual' => $data_harga_jual,
