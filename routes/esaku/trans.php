@@ -519,6 +519,24 @@ Route::get('retur-jual-detail/{no_bukti}', 'Esaku\Inventori\ReturJualController@
 // Daftar Penjualan Cetak //
 Route::get('daftar-penjualan-cetak', 'Esaku\Inventori\CetakStrukController@index');
 
+Route::get('hold-rak-nobukti', 'Esaku\Inventori\HoldRakController@generateNoBukti');
+Route::get('hold-rak-gudang', 'Esaku\Inventori\HoldRakController@getGudang');
+Route::get('hold-rak-rak', 'Esaku\Inventori\HoldRakController@getRak');
+Route::get('hold-rak', 'Esaku\Inventori\HoldRakController@index');
+Route::get('hold-rak/{no_bukti}', 'Esaku\Inventori\HoldRakController@show');
+Route::post('hold-rak', 'Esaku\Inventori\HoldRakController@store');
+Route::post('hold-rak/{no_bukti}', 'Esaku\Inventori\HoldRakController@update');
+Route::delete('hold-rak/{no_bukti}', 'Esaku\Inventori\HoldRakController@destroy');
+
+Route::get('release-rak-nobukti', 'Esaku\Inventori\ReleaseRakController@generateNoBukti');
+Route::get('release-rak-hold', 'Esaku\Inventori\ReleaseRakController@getHold');
+Route::get('release-rak-load', 'Esaku\Inventori\ReleaseRakController@loadData');
+Route::get('release-rak', 'Esaku\Inventori\ReleaseRakController@index');
+Route::get('release-rak/{no_bukti}', 'Esaku\Inventori\ReleaseRakController@show');
+Route::post('release-rak', 'Esaku\Inventori\ReleaseRakController@store');
+Route::post('release-rak/{no_bukti}', 'Esaku\Inventori\ReleaseRakController@update');
+Route::delete('release-rak/{no_bukti}', 'Esaku\Inventori\ReleaseRakController@destroy');
+
 Route::get('/tes-print', function () {
     try {
         // $ip = ''; // IP Komputer kita atau printer lain yang masih satu jaringan

@@ -2323,3 +2323,50 @@ function isiEdit(value, tipe, kode, view, defaultVal = false) {
     }
 }
 
+function showInfoField(kode, isi_kode, isi_nama) {
+    $("#" + kode).val(isi_kode);
+    $("#" + kode).attr(
+        "style",
+        "border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important;color: #ffffff !important;"
+    );
+    $(".info-code_" + kode)
+        .text(isi_kode)
+        .parent("div")
+        .removeClass("hidden");
+    $(".info-code_" + kode).attr("title", isi_nama);
+    $(".info-name_" + kode).removeClass("hidden");
+    $(".info-name_" + kode).attr("title", isi_nama);
+    $(".info-name_" + kode).css({ width: "68%", left: "30px" });
+    $(".info-name_" + kode + " span").text(isi_nama);
+    $(".info-name_" + kode)
+        .closest("div")
+        .find(".info-icon-hapus")
+        .removeClass("hidden");
+    resizeNameField(kode);
+}
+
+function removeInfoField(par) {
+    $('#' + par).val('');
+    $('#' + par).attr('style', 'border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
+    $('.info-code_' + par).parent('div').addClass('hidden');
+    $('.info-name_' + par).addClass('hidden');
+    $('#search_' + par).siblings('i').addClass('hidden');
+}
+
+function resizeNameField(kode) {
+    var width = $('#' + kode).width() - $('#search_' + kode).width() - 10;
+    var height = $('#' + kode).height();
+    var pos = $('#' + kode).position();
+    $('.info-name_' + kode).width(width).css({ 'left': pos.left, 'height': height });
+}
+
+$('.info-icon-hapus').click(function () {
+    var par = $(this).closest('div').find('input').attr('name');
+    $('#' + par).val('');
+    $('#' + par).attr('readonly', false);
+    $('#' + par).attr('style', 'border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
+    $('.info-code_' + par).parent('div').addClass('hidden');
+    $('.info-name_' + par).addClass('hidden');
+    $(this).addClass('hidden');
+});
+
