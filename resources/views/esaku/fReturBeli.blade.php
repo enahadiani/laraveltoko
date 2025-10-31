@@ -446,8 +446,25 @@
                                     var qty = toNilai($(this).closest('tr').find('.inp-qtybeli').val());
                                     console.log(qty);
                                     $(this).closest('tr').find('.inp-qtyretur').val(qty).trigger('change');
+                                    $(this).closest('tr').find('.inp-qtyretur').attr("readonly",false);
                                 }else{
                                     $(this).closest('tr').find('.inp-qtyretur').val(0).trigger('change');
+                                    $(this).closest('tr').find('.inp-qtyretur').attr("readonly",true);
+                                }
+                                hitungTotal();
+                            });
+
+                            $('.inp-qtyretur').change(function(e){
+                                var qty_beli = toNilai($(this).closest('tr').find('.inp-qtybeli').val());
+                                var qty_retur = toNilai($(this).closest('tr').find('.inp-qtyretur').val());
+
+                                if(qty_retur > qty_beli){
+                                    $(this).closest('tr').find('.inp-qtyretur').val(qty_beli).trigger('change');
+                                    msgDialog({
+                                        id: '',
+                                        type:'warning',
+                                        text: 'Jumlah barang yang diretur lebih besar dari jumlah beli'
+                                    });
                                 }
                                 hitungTotal();
                             });
