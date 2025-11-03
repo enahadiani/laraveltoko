@@ -54,7 +54,7 @@
                                     <div class="col-md-4 col-sm-12">
                                         <label for="tanggal">Tanggal</label>
                                         <span id="tanggal-dp"></span>
-                                        <input class='form-control datepicker' type="text" id="tanggal" name="tanggal" value="{{ date('d/m/Y') }}">
+                                        <input class='form-control datepicker' type="text" id="tanggal" name="tanggal" value="{{ date('d/m/Y') }}" readonly>
                                         <i style="font-size: 18px;margin-left:5px;position: absolute;top: 32px;right: 25px;" class="simple-icon-calendar date-search"></i>
                                     </div>
                                     <div class="col-md-4 col-sm-12">
@@ -182,16 +182,16 @@
             }
         });
 
-        $("#tanggal").bootstrapDP({
-            autoclose: true,
-            format: 'dd/mm/yyyy',
-            container:'span#tanggal-dp',
-            templates: {
-                leftArrow: '<i class="simple-icon-arrow-left"></i>',
-                rightArrow: '<i class="simple-icon-arrow-right"></i>'
-            },
-            orientation: 'bottom left'
-        });
+        // $("#tanggal").bootstrapDP({
+        //     autoclose: true,
+        //     format: 'dd/mm/yyyy',
+        //     container:'span#tanggal-dp',
+        //     templates: {
+        //         leftArrow: '<i class="simple-icon-arrow-left"></i>',
+        //         rightArrow: '<i class="simple-icon-arrow-right"></i>'
+        //     },
+        //     orientation: 'bottom left'
+        // });
         
     
         // END 
