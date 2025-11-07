@@ -13,7 +13,7 @@
                                     <div id="inputFilter">
                                         <!-- COMPONENT -->
                                         <x-inp-filter kode="periode" nama="Periode" selected="3" :option="array('3')"/>
-                                        <x-inp-filter kode="tanggal" nama="Tanggal" selected="1" :option="array('1','3')"/>
+                                        <x-inp-filter kode="gudang" nama="Gudang" selected="3" :option="array('3')"/>
                                         <x-inp-filter kode="no_bukti" nama="No Bukti" selected="3" :option="array('3')"/>
                                         <!-- END COMPONENT -->
                                     </div>
@@ -55,10 +55,10 @@
             to : "",
             toname : "",
         }
-    var $tanggal = {
-            type : "all",
-            from : "",
-            fromname : "",
+    var $gudang = {
+            type : "=",
+            from : "{{ Session::get('pabrik') }}",
+            fromname : "{{ Session::get('pabrik') }}",
             to : "",
             toname : "",
         }
@@ -71,9 +71,12 @@
         }
     var $aktif = "";
 
+    console.log("{{ Session::get('pabrik') }}");
+
     $.fn.DataTable.ext.pager.numbers_length = 5;
 
     $('#periode-from').val(namaPeriode("{{ date('Ym') }}"));
+    $('#gudang-from').val("{{ Session::get('pabrik') }}");
 
     $('#btn-filter').click(function(e){
         $('#collapseFilter').show();
@@ -107,16 +110,16 @@
 
     $('.selectize').selectize();
     $('#inputFilter').reportFilter({
-        kode : ['periode','tanggal','no_bukti'],
-        nama : ['Periode','Tanggal','No Bukti'],
+        kode : ['periode','gudang','no_bukti'],
+        nama : ['Periode','Gudang','No Bukti'],
         header : [
             ['Periode'],
-            ['Tanggal'],
+            ['Kode','Nama'],
             ['No Bukti','Keterangan']
         ],
         headerpilih : [
             ['Periode','Action'],
-            ['Tanggal','Action'],
+            ['Kode','Nama','Action'],
             ['No Bukti','Keterangan','Action']
         ],
         columns: [
@@ -124,7 +127,8 @@
                 { data: 'periode' },
             ],
             [
-                { data: 'tanggal' },
+                { data: 'kode_gudang' },
+                { data: 'nama' }
             ],
             [
                 { data: 'no_bukti' },
@@ -133,17 +137,15 @@
         ],
         url :[
             "{{ url('esaku-report/filter-periode-hold') }}",
-            "{{ url('esaku-report/filter-tanggal-hold') }}",
+            "{{ url('esaku-report/filter-gudang') }}",
             "{{ url('esaku-report/filter-bukti-hold') }}"
          ],
         parameter:[
             {},
-            {
-                'periode': $periode.from
-            },
+            {},
             {
                 'periode': $periode.from,
-                'tanggal': $tanggal.from,
+                'gudang': $gudang.from,
             }
         ],
         orderby:[
@@ -162,16 +164,16 @@
     $('#inputFilter').on('change','input',function(e){
         setTimeout(() => {
             $('#inputFilter').reportFilter({
-                kode : ['periode','tanggal','no_bukti'],
-                nama : ['Periode','Tanggal','No Bukti'],
+                kode : ['periode','gudang','no_bukti'],
+                nama : ['Periode','Gudang','No Bukti'],
                 header : [
                     ['Periode'],
-                    ['Tanggal'],
+                    ['Kode','Nama'],
                     ['No Bukti','Keterangan']
                 ],
                 headerpilih : [
                     ['Periode','Action'],
-                    ['Tanggal','Action'],
+                    ['Kode','Nama','Action'],
                     ['No Bukti','Keterangan','Action']
                 ],
                 columns: [
@@ -179,7 +181,8 @@
                         { data: 'periode' },
                     ],
                     [
-                        { data: 'tanggal' },
+                        { data: 'kode_gudang' },
+                        { data: 'nama' }
                     ],
                     [
                         { data: 'no_bukti' },
@@ -188,17 +191,15 @@
                 ],
                 url :[
                     "{{ url('esaku-report/filter-periode-hold') }}",
-                    "{{ url('esaku-report/filter-tanggal-hold') }}",
+                    "{{ url('esaku-report/filter-gudang') }}",
                     "{{ url('esaku-report/filter-bukti-hold') }}"
                 ],
                 parameter:[
                     {},
-                    {
-                        'periode': $periode.from
-                    },
+                    {},
                     {
                         'periode': $periode.from,
-                        'tanggal': $tanggal.from,
+                        'gudang': $gudang.from,
                     }
                 ],
                 orderby:[
@@ -224,9 +225,9 @@
         $formData.append("periode[]",$periode.type);
         $formData.append("periode[]",$periode.from);
         $formData.append("periode[]",$periode.to);
-        $formData.append("tanggal[]",$tanggal.type);
-        $formData.append("tanggal[]",$tanggal.from);
-        $formData.append("tanggal[]",$tanggal.to);
+        $formData.append("gudang[]",$gudang.type);
+        $formData.append("gudang[]",$gudang.from);
+        $formData.append("gudang[]",$gudang.to);
         $formData.append("no_bukti[]",$no_bukti.type);
         $formData.append("no_bukti[]",$no_bukti.from);
         $formData.append("no_bukti[]",$no_bukti.to);
@@ -243,9 +244,9 @@
         $formData.append("periode[]",$periode.type);
         $formData.append("periode[]",$periode.from);
         $formData.append("periode[]",$periode.to);
-        $formData.append("tanggal[]",$tanggal.type);
-        $formData.append("tanggal[]",$tanggal.from);
-        $formData.append("tanggal[]",$tanggal.to);
+        $formData.append("gudang[]",$gudang.type);
+        $formData.append("gudang[]",$gudang.from);
+        $formData.append("gudang[]",$gudang.to);
         $formData.append("no_bukti[]",$no_bukti.type);
         $formData.append("no_bukti[]",$no_bukti.from);
         $formData.append("no_bukti[]",$no_bukti.to);

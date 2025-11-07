@@ -2340,7 +2340,7 @@
                      ],
                      'query' => [
                          'periode' => $request->periode,
-                         'tangal' => $request->tanggal,
+                         'gudang' => $request->gudang,
                          'no_bukti' => $request->no_bukti
                      ]
                  ]);

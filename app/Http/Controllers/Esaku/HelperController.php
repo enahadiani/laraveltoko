@@ -1378,7 +1378,7 @@
             ],
             'query' => [
                 'periode' => $request->query('periode'),
-                'tanggal' => $request->query('tanggal'),
+                'kode_gudang' => $request->query('gudang'),
             ]
             ]);
 

@@ -75,6 +75,14 @@
                         <td colspan="12" class="vtop">&nbsp;</td>
                         <td class="vtop text-right">&nbsp;</td>
                     </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
                 </table>
                 <table width='100%' class='table table-bordered table-striped'>
                     <thead>
@@ -123,8 +131,59 @@
                         // </tr>`;
                         html+=det+`
                     </tbody>
-                    </table>
-                <DIV style='page-break-after:always'></DIV>`;
+                    </table>`;
+                html+=`
+                <table class="borderless mb-2 table-header" style="width:100%;" >
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td style='width:200px' >&nbsp;</td>
+                        <td style='width:250px' >&nbsp;</td>
+                        <td style='width:250px' >&nbsp;</td>
+                        <td style='width:250px' >&nbsp;</td>
+                        <td style='width:250px' >&nbsp;</td>
+                        <td style='width:250px' class="vtop text-center">Bandung, `+data.tanggal+`</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                </table>`;
+                html+=`<DIV style='page-break-after:always'></DIV>`;
                         
             html+="</div>"; 
         }
