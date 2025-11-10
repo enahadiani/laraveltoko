@@ -117,7 +117,7 @@
                                 <td class='isi_laporan'>`+line2.kode_barang+`</a></td>
                                 <td class='isi_laporan'>`+line2.nama+`</td>
                                 <td  class='isi_laporan text-right'>`+number_format(parseFloat(line2.stok_sistem))+`</td>
-                                <td  class='isi_laporan text-right'>`+number_format(parseFloat(line2.stok_fisik))+`</td>
+                                <td  class='isi_laporan text-right'></td>
                                 </tr>`;	
                                 no++;
                             }
