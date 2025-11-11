@@ -88,6 +88,11 @@ function sepNum(x){
     }
 }
 
+function number_format_decimal(number){
+    number = number == null ? 0 : number;
+    number = isNaN(number) ? 0 : number;
+    return new Intl.NumberFormat(['ban','id']).format(number).toString();
+}
 
 function namaPeriode(periode){
     var bulan = periode.substr(4,2);

@@ -1,7 +1,7 @@
     <link rel="stylesheet" href="{{ asset('trans.css?version=_').time() }}" />
     <link rel="stylesheet" href="{{ asset('form.css?version=_').time() }}" />
     <!-- LIST DATA -->
-    <x-list-data judul="Data Release Rak" tambah="true" :thead="array('No Bukti','Tanggal','Keterangan','Kode Gudang','Tgl Input','Aksi')" :thwidth="array(15,10,55,10,0,10)" :thclass="array('','','','','','text-center')" />
+    <x-list-data judul="Data Stok Opname Harian" tambah="true" :thead="array('No Bukti','Tanggal','Keterangan','Kode Gudang','Tgl Input','Aksi')" :thwidth="array(15,10,55,10,0,10)" :thclass="array('','','','','','text-center')" />
     <!-- END LIST DATA -->
     <style>
         #tanggal-dp .datepicker-dropdown
@@ -9,23 +9,29 @@
             left: 20px !important;
             top: 190px !important;
         }
-
-        #input-rak tbody td
-        {
-            overflow:hidden;
-        }
-
         .selected-cell{
             padding: 0px !important;
         }
 
-         .icon-tambah{
+        .icon-tambah{
             background: #505050;
             /* mask: url("{{ url('img/add.svg') }}"); */
             -webkit-mask-image: url("{{ url('img/add.svg') }}");
             mask-image: url("{{ url('img/add.svg') }}");
             width: 12px;
             height: 12px;
+        }
+        .editing{
+            padding: 0px !important;
+        }
+        .editing input{
+            height: 36px !important;
+            width: -moz-available;
+            width: -webkit-fill-available;
+            padding: 0px 8px !important;
+        }
+        .edit-input[readonly] {
+            background: #e9ecef !important;
         }
     </style>
     <!-- FORM INPUT -->
@@ -49,7 +55,7 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-md-12 col-sm-12">
+                            <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
                                     <div class="col-md-4 col-sm-12">
                                         <label for="tanggal">Tanggal</label>
@@ -58,7 +64,7 @@
                                         <i style="font-size: 18px;margin-left:5px;position: absolute;top: 32px;right: 25px;" class="simple-icon-calendar date-search"></i>
                                     </div>
                                     <div class="col-md-4 col-sm-12">
-                                        <label for="no_bukti">No Release</label>
+                                        <label for="no_bukti">No Bukti</label>
                                         <input class='form-control' type="text" id="no_bukti" name="no_bukti" readonly>
                                         <i style="font-size: 18px;margin-left:5px;position: absolute;top: 32px;right: 25px;cursor:pointer" class="simple-icon-refresh" id="generate-nobukti"></i>
                                     </div>
@@ -66,8 +72,32 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-md-12 col-sm-12">
+                            <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
+                                    <div class="col-md-12">
+                                        <label for="keterangan">Deskripsi</label>
+                                        <input class="form-control" id="keterangan" name="keterangan" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="kode_gudang">Toko/Gudang</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                <span class="input-group-text info-code_kode_gudang" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                            </div>
+                                            <input type="text" class="form-control inp-label-kode_gudang" id="kode_gudang" name="kode_gudang" value="" title="">
+                                            <span class="info-name_kode_gudang hidden">
+                                                <span></span> 
+                                            </span>
+                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                            <i class="simple-icon-magnifier search-item2" id="search_kode_gudang"></i>
+                                        </div>
+                                    </div>
                                     <div class="col-md-6 col-sm-12">
                                         <label for="no_hold">No Hold</label>
                                         <div class="input-group">
@@ -82,64 +112,39 @@
                                             <i class="simple-icon-magnifier search-item2" id="search_no_hold"></i>
                                         </div>
                                     </div>
-                                    <div class="col-md-6 col-sm-12">
-                                        <label for="kode_gudang">Toko/Gudang</label>
-                                        <div class="input-group readonly">
-                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                                <span class="input-group-text info-code_kode_gudang" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
-                                            </div>
-                                            <input type="text" class="form-control inp-label-kode_gudang" id="kode_gudang" name="kode_gudang" value="" title="">
-                                            <span class="info-name_kode_gudang hidden">
-                                                <span></span> 
-                                            </span>
-                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                            <i class="simple-icon-magnifier search-item2" id="search_kode_gudang"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-12 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <label for="keterangan_hold">Keterangan Hold</label>
-                                        <input class="form-control" id="keterangan_hold" name="keterangan_hold" readonly>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-12 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <label for="keterangan">Keterangan Release</label>
-                                        <input class="form-control" id="keterangan" name="keterangan" required>
-                                    </div>
                                 </div>
                             </div>
                         </div>
                         <ul class="nav nav-tabs col-12 " role="tablist">
-                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-rak" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Rak</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-barang" role="tab" aria-selected="true"><span class="hidden-xs-down">Detail Barang</span></a> </li>
                         </ul>
                         <div class="tab-content tabcontent-border col-12 p-0">
-                            <div class="tab-pane active" id="data-rak" role="tabpanel">
-                                <div class='col-md-12 nav-control nav-control-rak' style="padding: 5px;">
-                                    <a style="font-size:18px;float: right;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row" ></span></a>
+                            <div class="tab-pane active" id="data-barang" role="tabpanel">
+                                <div class='col-md-12 nav-control nav-control-barang' style="padding: 5px;min-height:32px;">
+                                    <a style="font-size:18px;float: right;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row_input-barang" ></span></a>
                                 </div>
                                 <div class='col-md-12 table-responsive' style='margin:0px; padding:0px;'>
-                                    <table class="table table-bordered table-condensed gridexample input-grid" id="input-rak" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                    <table class="table table-bordered table-condensed gridexample input-grid" id="input-barang" style="table-layout:fixed;word-wrap:break-word;white-space:nowrap">
                                     <thead style="background:#F8F8F8">
                                         <tr>
-                                            <th style="width:5%">No</th>
-                                            <th style="width:5%"></th>
-                                            <th style="width:20%">Kode Rak</th>
-                                            <th style="width:70%">Nama Rak</th>
+                                            @php 
+                                                $col2 = ["No", "", "Kode Barang", "Nama", "No Rak", "Stok Sistem", "Stok Fisik", "Selisih"];
+                                                $width2 = ["4%", "4%", "22%", "30%", "10%", "10%", "10%", "10%"];
+                                                $x=0;
+                                            @endphp
+                                            @foreach ($col2 as $c)
+                                                <th style="width:{{ $width2[$x] }}!important;">{{ $c }}</th>
+                                                @php $x++ @endphp
+                                            @endforeach
                                         </tr>
                                     </thead>
                                     <tbody>
                                     </tbody>
                                     </table>
+                                    <div class="row mx-0">
+                                        <div id="pagination-info-input-barang" class="col-6 mt-2 text-muted small"></div>
+                                        <div id="pagination-controls-input-barang" class="col-6 mt-1 d-flex justify-content-end"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -175,14 +180,15 @@
     <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
     <script src="{{ asset('helper.js?version=_').time() }}"></script>
+    <script src="{{ asset('editable.js?version=_') . time() }}"></script>
     <script>
         // INISIASI AWAL FORM
 
         var scrollform = document.querySelector('.form-body');
         var psscrollform = new PerfectScrollbar(scrollform);    
         
-        $('#saku-form > .col-12').addClass('mx-auto col-lg-6');
-        $('#modal-preview > .modal-dialog').css({ 'max-width':'600px'});
+        // $('#saku-form > .col-12').addClass('mx-auto col-lg-6');
+        // $('#modal-preview > .modal-dialog').css({ 'max-width':'600px'});
 
         var bottomSheet = new BottomSheet("country-selector");
         document.getElementById("trigger-bottom-sheet").addEventListener("click", bottomSheet.activate);
@@ -191,6 +197,9 @@
         $('#kode_form').val($form_aktif);
         $stsSimpan = 1;
         $noEdit = "";
+
+        var $btnSave = $('#btn-save');
+        var originalBtnHtml = $btnSave.html();
 
         var $iconLoad = $('.preloader');
         var $target = "";
@@ -219,18 +228,13 @@
 
         // FUNCTION TAMBAHAN
 
-        function hitungTotalRow(){
-            var total_row = $('#input-rak tbody tr').length;
-            $('#total-row').html(total_row+' Baris');
-        }
-
         function generateNoBukti(tanggal){
             if($stsSimpan == 0){
                 return false;
             }
             $.ajax({
                 type: 'GET',
-                url: "{{ url('esaku-trans/release-rak-nobukti') }}",
+                url: "{{ url('esaku-trans/soph-nobukti') }}",
                 dataType: 'json',
                 async:false,
                 data:{tanggal: tanggal},
@@ -283,12 +287,12 @@
             generateNoBukti(tanggal);
         })
 
-        function getHold(no_hold){
+        function getHold(kode_gudang, no_hold){
             $.ajax({
                 type: 'GET',
-                url: "{{ url('/esaku-trans/release-rak-hold') }}",
+                url: "{{ url('/esaku-trans/soph-hold') }}",
                 dataType: 'json',
-                data:{no_hold: no_hold},
+                data:{kode_gudang: kode_gudang, no_hold: no_hold},
                 async:false,
                 success:function(result){    
                     if(result.status){
@@ -309,6 +313,30 @@
             });
         }
 
+        function getGudang(kode_gudang){
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('/esaku-master/gudang') }}/"+kode_gudang,
+                dataType: 'json',
+                async:false,
+                success:function(result){    
+                    if(result.status){
+                        if(typeof result.data !== 'undefined' && result.data.length>0){
+                            showInfoField('kode_gudang',result.data[0].kode_gudang,result.data[0].nama);
+                        }else{
+                            $('#kode_gudang').attr('readonly',false);
+                            $('#kode_gudang').css('border-left','1px solid #d7d7d7');
+                            $('#kode_gudang').val('');
+                            $('#kode_gudang').focus();
+                        }
+                    }
+                    else if(!result.status && result.message == 'Unauthorized'){
+                        window.location.href = "{{ url('finest/sesi-habis') }}";
+                    }
+                }
+            });
+        }
+
         function activaTab(tab){
             $('.nav-tabs a[href="#' + tab + '"]').tab('show');
         }
@@ -319,7 +347,7 @@
         var action_html2 = "<a href='#' title='Preview' id='btn-preview'><i class='simple-icon-doc' style='font-size:18px'></i></a>";
         var dataTable = generateTable(
             "table-data",
-            "{{ url('esaku-trans/release-rak') }}", 
+            "{{ url('esaku-trans/soph') }}", 
             [
                 {
                     "targets": 0,
@@ -345,7 +373,7 @@
                 }
             ],
             [
-                { data: 'no_release' },
+                { data: 'no_bukti' },
                 { data: 'tanggal' },
                 { data: 'keterangan' },
                 { data: 'kode_gudang' },
@@ -374,18 +402,19 @@
             $stsSimpan = 0;
             $('#btn-save').attr('type','button');
             $('#btn-save').attr('id','btn-update');
-            $('#judul-form').html('Edit Data Release Rak');
+            $('#judul-form').html('Edit Data Stok Opname Harian');
             $('#form-tambah')[0].reset();
             $('#form-tambah').validate().resetForm();
             $("#no_hold").parents('.input-group').addClass('readonly');
+            $("#kode_gudang").parents('.input-group').addClass('readonly');
             $.ajax({
                 type: 'GET',
-                url: "{{ url('/esaku-trans/release-rak') }}/"+id,
+                url: "{{ url('/esaku-trans/soph') }}/"+id,
                 dataType: 'json',
                 async:false,
                 success:function(res){
                     var result= res.data;
-                    $('#input-rak tbody').html('');
+                    $('#input-barang tbody').html('');
                     if(result.status){
                         $('#id').val('edit');
                         $('#method').val('post');
@@ -394,47 +423,13 @@
                         $('#tanggal').val(reverseDate2(result.data[0].tanggal,'-','/')); 
                         $('#no_hold').val(result.data[0].no_hold);
                         $('#kode_gudang').val(result.data[0].kode_gudang);
-                        $('#keterangan_hold').val(result.data[0].keterangan_hold);
                         $('#keterangan').val(result.data[0].keterangan);
                         showInfoField("no_hold",result.data[0].no_hold,result.data[0].keterangan_hold);
                         showInfoField("kode_gudang",result.data[0].kode_gudang,result.data[0].nama_gudang);
-
-                        if(result.detail_rak.length > 0){
-                            var input = '';
-                            var no=1;
-                            for(var i=0;i<result.detail_rak.length;i++){
-                                var line =result.detail_rak[i];
-                                
-                                var id = `row-grid-${no}`;
-                                var idInput = `input-${id}`;
-                                var idText = `text-${id}`;
-                                var idNumeric = `numeric-${id}`;
-        
-                                input+= `<tr class="row-detail-grid" id="${id}">
-                                    <td class="text-center">
-                                        <span class="no-detail-grid ">${no}</span>
-                                    </td>
-                                    <td class='text-center'>
-                                    </td>
-                                    <td>
-                                        <span class="tooltip-span text-value ${idText}">${line.kode_rak}</span>
-                                    </td>
-                                    <td>
-                                        <span class="tooltip-span text-value ${idText}">${line.nama_rak}</span>
-                                    </td>
-                                </tr>`;
-                                no++;
-                            }
-                            $('#input-rak tbody').html(input);
-                            $('.tooltip-span').attr('title','tooltip');
-                            $('.tooltip-span').tooltip({
-                                content: function(){
-                                    return $(this).text();
-                                },
-                                tooltipClass: "custom-tooltip-sai"
-                            });
-                    
-                        }
+                        
+                        if(result.detail_barang.length > 0) {
+                            sophTable.loadData(result.detail_barang);
+                        }  
 
                         hitungTotalRow();
                         $('#saku-datatable').hide();
@@ -461,13 +456,13 @@
         function hapusData(id){
             $.ajax({
                 type: 'DELETE',
-                url: "{{ url('esaku-trans/release-rak') }}/"+id,
+                url: "{{ url('esaku-trans/soph') }}/"+id,
                 dataType: 'json',
                 async:false,
                 success:function(result){
                     if(result.data.status){
                         dataTable.ajax.reload();                    
-                        showNotification("top", "center", "success",'Hapus Data','Data Release Rak ('+id+') berhasil dihapus ');
+                        showNotification("top", "center", "success",'Hapus Data','Data Stok Opname Harian ('+id+') berhasil dihapus ');
                         // $('#modal-preview-id').html('');
                         $('#table-delete tbody').html('');
                         if(typeof M == 'undefined'){
@@ -507,16 +502,17 @@
         $('#saku-datatable').on('click', '#btn-tambah', function(){
             $('#row-id').hide();
             $('#method').val('post');
-            $('#judul-form').html('Tambah Data Release Rak');
+            $('#judul-form').html('Tambah Data Stok Opname Harian');
             $('#btn-update').attr('id','btn-save');
             $('#btn-save').attr('type','submit');
             $('#form-tambah')[0].reset();
             $('#form-tambah').validate().resetForm();
             $('#id').val('');
-            $('#input-rak tbody').html('');
+            $('#input-barang tbody').html('');
             $('#saku-datatable').hide();
             $('#saku-form').show();
             $("#no_hold").parents('.input-group').removeClass('readonly');
+            $("#kode_gudang").parents('.input-group').removeClass('readonly');
             $('.input-group-prepend').addClass('hidden');
             $('span[class^=info-name]').addClass('hidden');
             $('.info-icon-hapus').addClass('hidden');
@@ -556,7 +552,7 @@
                 var data = dataTable.row(this).data();
                 $.ajax({
                     type: 'GET',
-                    url: "{{ url('/esaku-trans/release-rak') }}/"+id,
+                    url: "{{ url('/esaku-trans/soph') }}/"+id,
                     dataType: 'json',
                     async:false,
                     success:function(res){
@@ -682,105 +678,144 @@
             submitHandler: function (form) {
 
                 var formData = new FormData(form);
-                for(var pair of formData.entries()) {
-                    console.log(pair[0]+ ', '+ pair[1]); 
-                }
-                
-                var jumdet2 = $('#input-rak tr').length;
-                var param = $('#id').val();
-                var id = $('#no_bukti').val();
-                // $iconLoad.show();
-                if(param == "edit"){
-                    var url = "{{ url('/esaku-trans/release-rak') }}/"+id;
-                }else{
-                    var url = "{{ url('/esaku-trans/release-rak') }}";
-                }
 
-                if(jumdet2 <= 1){
+                // Show loading on save button
+                $btnSave.prop('disabled', true);
+                $btnSave.addClass('disabled');
+                $btnSave.html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Menyimpan...');
+
+                var arr_numeric = ['stok_sistem', 'stok_fisik', 'selisih']; //format kolom nilai 
+                var exclude_keys = ['nama']; // kolom yang ingin dihapus
+                var details = sophTable.getData().map(row => {
+                    return Object.fromEntries(
+                        Object.entries(row)
+                            .filter(([key]) => !exclude_keys.includes(key))
+                            .map(([key, value]) => [
+                                key,
+                                arr_numeric.includes(key) ? toNilai(value) : value
+                            ])
+                    );
+                });
+
+                if(details.length == 0){
                     msgDialog({
                         id: '-',
                         type: 'warning',
                         title: 'Transaksi tidak valid',
-                        text: "Detail Rak tidak boleh kosong"
+                        text: 'Data barang tidak boleh kosong!'
                     });
+
+                    Swal.hideLoading();
+                    $btnSave.removeClass('disabled');
+                    $btnSave.prop('disabled', false);
+                    $btnSave.html(originalBtnHtml);
+                    return;
+                }
+
+                // Append JSON string of detail
+                formData.append('detail_barang', JSON.stringify(details));
+                
+                var param = $('#id').val();
+                var id = $('#no_bukti').val();
+                // $iconLoad.show();
+                if(param == "edit"){
+                    var url = "{{ url('/esaku-trans/soph') }}/"+id;
                 }else{
+                    var url = "{{ url('/esaku-trans/soph') }}";
+                }
 
-                    $.ajax({
-                        type: 'POST',
-                        url: url,
-                        dataType: 'json',
-                        data: formData,
-                        async:false,
-                        contentType: false,
-                        cache: false,
-                        processData: false, 
-                        success:function(result){
-                            if(result.data.status){
-                                dataTable.ajax.reload();
-                                $stsSimpan = 1;
-                                $('#form-tambah')[0].reset();
-                                $('#form-tambah').validate().resetForm();
-                                $('#row-id').hide();
-                                $('#method').val('post');
-                                $('#judul-form').html('Tambah Data Release Rak');
-                                $('#id').val('');
-                                $('#input-rak tbody').html('');
-                                $('[id^=label]').html('');
-                                $('#kode_form').val($form_aktif);
-                                getGudang("{{ Session::get('pabrik') }}");
-                                msgDialog({
-                                    id:result.data.no_bukti,
-                                    type:'warning',
-                                    title: 'Sukses',
-                                    text: result.data.message+'<br/> ID Transaksi: <b>'+result.data.no_bukti+'</b>'
-                                });    
-                                $("#saku-form").hide();
-                                $("#saku-datatable").show();
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    dataType: 'json',
+                    data: formData,
+                    async:false,
+                    contentType: false,
+                    cache: false,
+                    processData: false, 
+                    success:function(result){
+                         // Restore button state
+                        $btnSave.prop('disabled', false);
+                        $btnSave.removeClass('disabled');
+                        $btnSave.html(originalBtnHtml);
 
-                            }
-                            else if(!result.data.status && result.data.message == 'Unauthorized'){
-                                window.location.href = "{{ url('finest/sesi-habis') }}";
-                            }
-                            else{
-                                msgDialog({
-                                    id: '-',
-                                    type: 'warning',
-                                    title: 'Gagal',
-                                    text: result.data.message
-                                });
-                            }
-                            $iconLoad.hide();
-                        },
-                        error: function(xhr, status, error) {
-                            var error = JSON.parse(xhr.responseText);
-                            var detail = Object.values(error.errors);
-                            if(xhr.status == 422){
-                                var keys = Object.keys(error.errors);
-                                var tab =  $('#'+keys[0]).parents('.tab-pane').attr('id');
-                                $('a[href="#'+tab+'"]').click();
-                                $('#'+keys[0]).addClass('error');
-                                $('#'+keys[0]).parent('.input-group').addClass('input-group-error');
-                                $("label[for='"+keys[0]+"']").append("<br/>");
-                                $("label[for='"+keys[0]+"']").append('<label id="'+keys[0]+'-error" class="error" for="'+keys[0]+'">'+detail[0]+'</label>');
-                                $('#'+keys[0]).focus();
-                            }
-                            Swal.fire({
-                                type: 'error',
-                                title: error.message,
-                                text: detail[0]
-                            })
-                        },
-                        fail: function(xhr, textStatus, errorThrown){
+                        if(result.data.status){
+                            dataTable.ajax.reload();
+                            $stsSimpan = 1;
+                            $('#form-tambah')[0].reset();
+                            $('#form-tambah').validate().resetForm();
+                            $('#row-id').hide();
+                            $('#method').val('post');
+                            $('#judul-form').html('Tambah Data Stok Opname Harian');
+                            $('#id').val('');
+                            $('#input-barang tbody').html('');
+                            $('[id^=label]').html('');
+                            $('#kode_form').val($form_aktif);
+                            getGudang("{{ Session::get('pabrik') }}");
+                            msgDialog({
+                                id:result.data.no_bukti,
+                                type:'warning',
+                                title: 'Sukses',
+                                text: result.data.message+'<br/> ID Transaksi: <b>'+result.data.no_bukti+'</b>'
+                            });    
+                            $("#saku-form").hide();
+                            $("#saku-datatable").show();
+
+                        }
+                        else if(!result.data.status && result.data.message == 'Unauthorized'){
+                            window.location.href = "{{ url('finest/sesi-habis') }}";
+                        }
+                        else{
                             msgDialog({
                                 id: '-',
                                 type: 'warning',
-                                title: 'Failed',
-                                text: JSON.stringify(textStatus)
+                                title: 'Gagal',
+                                text: result.data.message
                             });
-                            
                         }
-                    });
-                }
+                        Swal.hideLoading();
+                    },
+                    error: function(xhr, status, error) {
+                         // Restore button state
+                        $btnSave.prop('disabled', false);
+                        $btnSave.removeClass('disabled');
+                        $btnSave.html(originalBtnHtml);
+                        Swal.hideLoading();
+
+                        var error = JSON.parse(xhr.responseText);
+                        var detail = Object.values(error.errors);
+                        if(xhr.status == 422){
+                            var keys = Object.keys(error.errors);
+                            var tab =  $('#'+keys[0]).parents('.tab-pane').attr('id');
+                            $('a[href="#'+tab+'"]').click();
+                            $('#'+keys[0]).addClass('error');
+                            $('#'+keys[0]).parent('.input-group').addClass('input-group-error');
+                            $("label[for='"+keys[0]+"']").append("<br/>");
+                            $("label[for='"+keys[0]+"']").append('<label id="'+keys[0]+'-error" class="error" for="'+keys[0]+'">'+detail[0]+'</label>');
+                            $('#'+keys[0]).focus();
+                        }
+                        Swal.fire({
+                            type: 'error',
+                            title: error.message,
+                            text: detail[0]
+                        })
+                    },
+                    fail: function(xhr, textStatus, errorThrown){
+                         // Restore button state
+                        $btnSave.prop('disabled', false);
+                        $btnSave.removeClass('disabled');
+                        $btnSave.html(originalBtnHtml);
+                        Swal.hideLoading();
+
+                        msgDialog({
+                            id: '-',
+                            type: 'warning',
+                            title: 'Failed',
+                            text: JSON.stringify(textStatus)
+                        });
+                        
+                    }
+                });
 
             },
             errorPlacement: function (error, element) {
@@ -793,9 +828,9 @@
         // END SIMPAN
 
         // ENTER FIELD FORM
-        $('#tanggal,#no_bukti,#no_hold,#kode_gudang,#keterangan_hold,#keterangan').keydown(function(e){
+        $('#tanggal,#no_bukti,#keterangan,#no_hold,#kode_gudang').keydown(function(e){
             var code = (e.keyCode ? e.keyCode : e.which);
-            var nxt = ['tanggal','no_bukti','no_hold','kode_gudang','keterangan_hold','keterangan'];
+            var nxt = ['tanggal','no_bukti','keterangan','no_hold','kode_gudang'];
             if (code == 13 || code == 40) {
                 e.preventDefault();
                 var idx = nxt.indexOf(e.target.id);
@@ -819,7 +854,7 @@
                     showInpFilterBSheet({
                         id : id,
                         header : ['No Bukti', 'Keterangan'],
-                        url : "{{ url('esaku-trans/release-rak-hold') }}",
+                        url : "{{ url('esaku-trans/soph-hold') }}",
                         columns : [
                             { data: 'no_hold' },
                             { data: 'keterangan' }
@@ -833,18 +868,51 @@
                         target3 : "",
                         target4 : "",
                         width : ["30%","70%"],
+                        parameter:{
+                            kode_gudang: $('#kode_gudang').val()
+                        },
                         onItemSelected: function(data){
                             showInfoField('no_hold',data.no_hold,data.keterangan);
                             loadData(data.no_hold);
                         }
                     })
                 break;
+                case 'kode_gudang':
+                    showInpFilterBSheet({
+                        id : id,
+                        header : ['Kode', 'Nama'],
+                        url : "{{ url('esaku-master/gudang') }}",
+                        columns : [
+                            { data: 'kode_gudang' },
+                            { data: 'nama' }
+                        ],
+                        judul : "Daftar Gudang",
+                        pilih : "gudang",
+                        jTarget1 : "text",
+                        jTarget2 : "text",
+                        target1 : ".info-code_"+id,
+                        target2 : ".info-name_"+id,
+                        target3 : "",
+                        target4 : "",
+                        width : ["30%","70%"],
+                        onItemSelected: function(data){
+                            showInfoField('kode_gudang',data.kode_gudang,data.nama);
+                        }
+                    })
+                break;
+
             }
+        });
+
+        $('#form-tambah').on('change', '#kode_gudang', function(){
+            var par = $(this).val();
+            getGudang(par);
         });
 
         $('#form-tambah').on('change', '#no_hold', function(){
             var par = $(this).val();
-            getHold(par);
+            var kode_gudang = $('#kode_gudang').val();
+            getHold(kode_gudang,par);
         });
 
         $('.currency').inputmask("numeric", {
@@ -861,49 +929,14 @@
         function loadData(no_hold){
             $.ajax({
                 type: 'GET',
-                url: "{{ url('esaku-trans/release-rak-load') }}",
+                url: "{{ url('esaku-trans/soph-load') }}",
                 dataType: 'json',
                 data:{no_hold: no_hold},
                 async:false,
                 success:function(result){    
                     if(result.status){
-                        if(result.data.length > 0){
-                            $('#keterangan_hold').val(result.data[0].keterangan);
-                            showInfoField('kode_gudang', result.data[0].kode_gudang, result.data[0].nama_gudang);
-                            var input = '';
-                            var no=1;
-                            for(var i=0;i<result.detail_rak.length;i++){
-                                var line =result.detail_rak[i];
-                                
-                                var id = `row-grid-${no}`;
-                                var idInput = `input-${id}`;
-                                var idText = `text-${id}`;
-                                var idNumeric = `numeric-${id}`;
-        
-                                input+= `<tr class="row-detail-grid" id="${id}">
-                                    <td class="text-center">
-                                        <span class="no-detail-grid ">${no}</span>
-                                    </td>
-                                    <td class='text-center'>
-                                    </td>
-                                    <td>
-                                        <span class="tooltip-span text-value ${idText}">${line.kode_rak}</span>
-                                    </td>
-                                    <td>
-                                        <span class="tooltip-span text-value ${idText}">${line.nama_rak}</span>
-                                    </td>
-                                </tr>`;
-                                no++;
-                            }
-                            $('#input-rak tbody').html(input);
-                            $('.tooltip-span').attr('title','tooltip');
-                            $('.tooltip-span').tooltip({
-                                content: function(){
-                                    return $(this).text();
-                                },
-                                tooltipClass: "custom-tooltip-sai"
-                            });
-                    
+                        if(result.detail_rak.length > 0){
+                            sophTable.loadData(result.detail_rak);
                         }
                     }
                     else if(!result.status && result.message == 'Unauthorized'){
@@ -921,4 +954,25 @@
             });
         }
 
+        var sophTable = new EditableTablePlugin("#input-barang", {
+            allowDelete: false,   
+            inputs: {
+                kode_barang: {type: "text", readonly: true},
+                nama: {type: "text", readonly: true},
+                no_rak: {type: "text", readonly: true},
+                stok_sistem: {type: "currency", readonly: true},
+                stok_fisik: {type: "currency", readonly: false},
+                selisih: {type: "currency", readonly: true}
+            },
+            data: [],
+            onChange: function(index, key, value) {
+                if(key == "stok_fisik" || key == "stok_sistem"){
+                    let stok_sistem = toNilai(sophTable.getCell(index, 'stok_sistem')) || 0;
+                    let stok_fisik = toNilai(sophTable.getCell(index, 'stok_fisik')) || 0;
+                    let selisih = stok_sistem - stok_fisik;
+                    sophTable.setCellSilent(index, 'selisih', number_format_decimal(selisih));
+                    sophTable.renderCell(index, 'selisih');
+                }
+            }
+        });
     </script>

@@ -537,6 +537,15 @@ Route::post('release-rak', 'Esaku\Inventori\ReleaseRakController@store');
 Route::post('release-rak/{no_bukti}', 'Esaku\Inventori\ReleaseRakController@update');
 Route::delete('release-rak/{no_bukti}', 'Esaku\Inventori\ReleaseRakController@destroy');
 
+Route::get('soph-nobukti', 'Esaku\Inventori\SopHController@generateNoBukti');
+Route::get('soph-hold', 'Esaku\Inventori\SopHController@getHold');
+Route::get('soph-load', 'Esaku\Inventori\SopHController@loadData');
+Route::get('soph', 'Esaku\Inventori\SopHController@index');
+Route::get('soph/{no_bukti}', 'Esaku\Inventori\SopHController@show');
+Route::post('soph', 'Esaku\Inventori\SopHController@store');
+Route::post('soph/{no_bukti}', 'Esaku\Inventori\SopHController@update');
+Route::delete('soph/{no_bukti}', 'Esaku\Inventori\SopHController@destroy');
+
 Route::get('/tes-print', function () {
     try {
         // $ip = ''; // IP Komputer kita atau printer lain yang masih satu jaringan
