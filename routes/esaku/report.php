@@ -60,6 +60,10 @@ Route::get('filter-gudang-jualstr', 'Esaku\HelperController@getFilterGudangJualS
 
 Route::get('filter-tanggal-pmb', 'Esaku\HelperController@getTanggalPmb');
 
+Route::get('filter-periode-hold', 'Esaku\HelperController@getPeriodeHold');
+Route::get('filter-tanggal-hold', 'Esaku\HelperController@getTanggalHold');
+Route::get('filter-bukti-hold', 'Esaku\HelperController@getBuktiHold');
+
 
 //AKTAP//
 Route::get('filter-periode-perolehan', 'Esaku\Aktap\FilterAktapController@getPeriodePerolehan');
@@ -116,6 +120,7 @@ Route::post('lap-rekap-jualstr', 'Esaku\Inventori\LaporanController@getRekapJual
 Route::post('lap-rekap-jual-perbrg', 'Esaku\Inventori\LaporanController@getRekapJualBarang');
 Route::post('lap-rekap-beli-perbrg', 'Esaku\Inventori\LaporanController@getRekapBeliBarang');
 Route::post('lap-stock-opname', 'Esaku\Inventori\LaporanController@getRekapStockOpname');
+Route::post('lap-stock-opname-hari', 'Esaku\Inventori\LaporanController@getRekapStockOpnameHari');
 Route::post('lap-buku-barang', 'Esaku\Inventori\LaporanController@getBukuBarang');
 
 Route::post('lap-nota-pnj', 'Esaku\Inventori\LaporanController@getNotaPnj');

@@ -1330,5 +1330,65 @@
             return response()->json(['daftar' => $data['data'], 'status' => true], 200);
         }
 
+        public function getPeriodeHold() {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'esaku-report/filter-periode-hold',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+                $data = $data;
+            }
+            return response()->json(['daftar' => $data['data'], 'status' => true], 200);
+        }
+
+        public function getTanggalHold(Request $request) {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'esaku-report/filter-tanggal-hold',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ],
+            'query' => [
+                'periode' => $request->query('periode')
+            ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+                $data = $data;
+            }
+            return response()->json(['daftar' => $data['data'], 'status' => true], 200);
+        }
+
+        public function getBuktiHold(Request $request) {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'esaku-report/filter-bukti-hold',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ],
+            'query' => [
+                'periode' => $request->query('periode'),
+                'kode_gudang' => $request->query('gudang'),
+            ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+                $data = $data;
+            }
+            return response()->json(['daftar' => $data['data'], 'data' => $data, 'status' => true], 200);
+        }
     }
 ?>
