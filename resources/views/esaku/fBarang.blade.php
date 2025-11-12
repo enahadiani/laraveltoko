@@ -91,6 +91,12 @@
                                 </div>
                             </div>
                             <div class="form-group col-md-6 col-sm-12">
+                                <label for="no_rak">*Rak</label>
+                                <input class="form-control" type="text" id="no_rak" name="no_rak" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12 col-sm-12">
                                 <label for="hrg_satuan">*Harga Satuan</label>
                                 <input class="form-control currency nominal"  value="0" type="text" id="hrg_satuan" name="hrg_satuan" required>
                             </div>
@@ -484,9 +490,9 @@
         // END BUTTON KEMBALI
 
          // HANDLER untuk enter dan tab
-        $('#kode_barang,#barcode,#nama,#satuan,#kode_klp,#kode_gudang,#hrg_satuan,#ppn,#profit,#hna,#ss,#sm1,#sm2,#mm1,#mm2,#fm1,#fm2,#file_gambar').keydown(function(e){
+        $('#kode_barang,#barcode,#nama,#satuan,#kode_klp,#kode_gudang,#no_rak,#hrg_satuan,#ppn,#hna,#profit,#sm1,#sm2,#mm1,#mm2,#fm1,#fm2,#ss,#file_gambar').keydown(function(e){
             var code = (e.keyCode ? e.keyCode : e.which);
-            var nxt = ['kode_barang','barcode','nama','satuan','kode_klp','kode_gudang','hrg_satuan','ppn','profit','hna','ss','sm1','sm2','mm1','mm2','fm1','fm2','file_gambar'];
+            var nxt = ['kode_barang','barcode','nama','satuan','kode_klp','kode_gudang','no_rak','hrg_satuan','ppn','hna','profit','sm1','sm2','mm1','mm2','fm1','fm2','ss','file_gambar'];
             if (code == 13 || code == 40) {
                 e.preventDefault();
                 var idx = nxt.indexOf(e.target.id);
@@ -622,6 +628,10 @@
                 required: true
             },
             kode_gudang:
+            {
+                required: true
+            },
+            no_rak:
             {
                 required: true
             },
@@ -823,6 +833,7 @@
                     $('#fm2').val(parseFloat(result.data[0].fm2));
                     $('#kode_klp').val(result.data[0].kode_klp);
                     $('#kode_gudang').val(result.data[0].kode_gudang);
+                    $('#no_rak').val(result.data[0].no_rak);
                     // $('#keterangan').val(result.data[0].keterangan);
                     $('#flag_aktif')[0].selectize.setValue(result.data[0].flag_aktif);
                     $('#barcode').val(result.data[0].barcode);
@@ -876,6 +887,10 @@
             <tr>
                 <td>Gudang</td>
                 <td>`+data.kode_gudang+`</td>
+            </tr>
+            <tr>
+                <td>Rak</td>
+                <td>`+data.no_rak+`</td>
             </tr>
             <tr>
                 <td>Satuan</td>
