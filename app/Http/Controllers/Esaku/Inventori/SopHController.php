@@ -98,20 +98,13 @@ class SopHController extends Controller
         ]);
 
         $raw = htmlspecialchars_decode($request->input('detail_barang'));
-        try {
-            $details = json_decode($raw, true, 512, JSON_THROW_ON_ERROR);
-            if (empty($details) || count($details) === 0) {
-                return response()->json([
-                    'message' => 'Detail barang tidak boleh kosong',
-                    'status' => false
-                ], 400);
-            }
-        } catch (\JsonException $e) {
+        $details = json_decode($raw, true);
+        if (json_last_error() !== JSON_ERROR_NONE) {
             return response()->json([
                 'status' => false,
                 'message' => 'Invalid JSON',
                 'json' => $raw,
-                'exception' => $e->getMessage()
+                'exception' => json_last_error_msg()
             ], 400);
         }
         
@@ -201,20 +194,13 @@ class SopHController extends Controller
         ]);
 
         $raw = htmlspecialchars_decode($request->input('detail_barang'));
-        try {
-            $details = json_decode($raw, true, 512, JSON_THROW_ON_ERROR);
-            if (empty($details) || count($details) === 0) {
-                return response()->json([
-                    'message' => 'Detail barang tidak boleh kosong',
-                    'status' => false
-                ], 400);
-            }
-        } catch (\JsonException $e) {
+        $details = json_decode($raw, true);
+        if (json_last_error() !== JSON_ERROR_NONE) {
             return response()->json([
                 'status' => false,
                 'message' => 'Invalid JSON',
                 'json' => $raw,
-                'exception' => $e->getMessage()
+                'exception' => json_last_error_msg()
             ], 400);
         }
         
