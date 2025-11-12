@@ -430,8 +430,7 @@
                         if(result.detail_barang.length > 0) {
                             sophTable.loadData(result.detail_barang);
                         }  
-
-                        hitungTotalRow();
+                        
                         $('#saku-datatable').hide();
                         $('#saku-form').show();
                         $('#kode_form').val($form_aktif);
