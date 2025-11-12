@@ -968,7 +968,7 @@
                 if(key == "stok_fisik" || key == "stok_sistem"){
                     let stok_sistem = toNilai(sophTable.getCell(index, 'stok_sistem')) || 0;
                     let stok_fisik = toNilai(sophTable.getCell(index, 'stok_fisik')) || 0;
-                    let selisih = stok_sistem - stok_fisik;
+                    let selisih = stok_fisik - stok_sistem;
                     sophTable.setCellSilent(index, 'selisih', number_format_decimal(selisih));
                     sophTable.renderCell(index, 'selisih');
                 }
