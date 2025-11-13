@@ -15,6 +15,7 @@
                                         <x-inp-filter kode="kode_lokasi" nama="Lokasi" selected="3" :option="array('3')"/>
                                         <x-inp-filter kode="tanggal" nama="Tanggal" selected="3" :option="array('3')" datepicker="true"/>
                                         <x-inp-filter kode="kode_gudang" nama="Gudang" selected="3" :option="array('3')"/>
+                                        <x-inp-filter kode="no_rak" nama="Rak" selected="1" :option="array('1','2','3','i')"/>
                                         <!-- END COMPONENT -->
                                     </div>
                                     <button id="btn-tampil" style="float:right;width:110px" class="btn btn-primary ml-2 mb-3" type="submit" >Tampilkan</button>
@@ -86,6 +87,14 @@
         toname : "",
     }
 
+    var $no_rak = {
+        type : "All",
+        from : "",
+        fromname : "",
+        to : "",
+        toname : "",
+    }
+
     var $aktif = "";
 
     $.fn.DataTable.ext.pager.numbers_length = 5;
@@ -119,10 +128,10 @@
 
 
                     generateRptFilter('#inputFilter',{
-                        kode : ['kode_lokasi','tanggal','kode_gudang'],
-                        nama : ['Lokasi','Tanggal','Kode Gudang'],
-                        header : [['Kode', 'Nama'],['Kode'],['Kode', 'Nama']],
-                        headerpilih : [['Kode', 'Nama','Action'],['Kode','Action'],['Kode', 'Nama','Action']],
+                        kode : ['kode_lokasi','tanggal','kode_gudang','no_rak'],
+                        nama : ['Lokasi','Tanggal','Kode Gudang','No Rak'],
+                        header : [['Kode', 'Nama'],['Kode'],['Kode', 'Nama'],['Kode', 'Nama']],
+                        headerpilih : [['Kode', 'Nama','Action'],['Kode','Action'],['Kode', 'Nama','Action'],['Kode', 'Nama','Action']],
                         columns: [
                             [
                                 { data: 'kode_lokasi' },
@@ -134,18 +143,29 @@
                             [
                                 { data: 'kode_gudang' },
                                 { data: 'nama' }
+                            ],
+                            [
+                                { data: 'kode_rak' },
+                                { data: 'nama' }
                             ]
                         ],
-                        url :["{{ url('esaku-report/filter-lokasi') }}","","{{ url('esaku-report/filter-gudang') }}"],
+                        url :["{{ url('esaku-report/filter-lokasi') }}","","{{ url('esaku-report/filter-gudang') }}","{{ url('esaku-report/filter-rak') }}"],
                         parameter:[{},{},{
                             'kode_lokasi[0]':$kode_lokasi.type,
                             'kode_lokasi[1]':$kode_lokasi.from,
                             'kode_lokasi[2]':$kode_lokasi.to,
+                        },{
+                            'kode_lokasi[0]':$kode_lokasi.type,
+                            'kode_lokasi[1]':$kode_lokasi.from,
+                            'kode_lokasi[2]':$kode_lokasi.to,
+                            'kode_gudang[0]':$kode_gudang.type,
+                            'kode_gudang[1]':$kode_gudang.from,
+                            'kode_gudang[2]':$kode_gudang.to,
                         }],
-                        orderby:[[],[],[]],
-                        width:[['30%','70%'],['30%','70%'],['30%','70%']],
-                        display:['kode','kode','kode'],
-                        pageLength:[10,10,10]
+                        orderby:[[],[],[],[]],
+                        width:[['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%']],
+                        display:['kode','kode','kode','kode'],
+                        pageLength:[10,10,10,10]
                     });
 
                     $('#tanggal-from').val($date);
@@ -200,10 +220,10 @@
             var kode_lokasi = $kode_lokasi;
 
             generateRptFilter('#inputFilter',{
-                kode : ['kode_lokasi','tanggal','kode_gudang'],
-                nama : ['Lokasi','Tanggal','Kode Gudang'],
-                header : [['Kode', 'Nama'],['Kode'],['Kode', 'Nama']],
-                headerpilih : [['Kode', 'Nama','Action'],['Kode','Action'],['Kode', 'Nama','Action']],
+                kode : ['kode_lokasi','tanggal','kode_gudang','no_rak'],
+                nama : ['Lokasi','Tanggal','Kode Gudang','No Rak'],
+                header : [['Kode', 'Nama'],['Kode'],['Kode', 'Nama'],['Kode', 'Nama']],
+                headerpilih : [['Kode', 'Nama','Action'],['Kode','Action'],['Kode', 'Nama','Action'],['Kode', 'Nama','Action']],
                 columns: [
                     [
                         { data: 'kode_lokasi' },
@@ -215,18 +235,29 @@
                     [
                         { data: 'kode_gudang' },
                         { data: 'nama' }
+                    ],
+                    [
+                        { data: 'kode_rak' },
+                        { data: 'nama' }
                     ]
                 ],
-                url :["{{ url('esaku-report/filter-lokasi') }}","","{{ url('esaku-report/filter-gudang') }}"],
+                url :["{{ url('esaku-report/filter-lokasi') }}","","{{ url('esaku-report/filter-gudang') }}","{{ url('esaku-report/filter-rak') }}"],
                 parameter:[{},{},{
                     'kode_lokasi[0]':$kode_lokasi.type,
                     'kode_lokasi[1]':$kode_lokasi.from,
                     'kode_lokasi[2]':$kode_lokasi.to,
+                },{
+                    'kode_lokasi[0]':$kode_lokasi.type,
+                    'kode_lokasi[1]':$kode_lokasi.from,
+                    'kode_lokasi[2]':$kode_lokasi.to,
+                    'kode_gudang[0]':$kode_gudang.type,
+                    'kode_gudang[1]':$kode_gudang.from,
+                    'kode_gudang[2]':$kode_gudang.to,
                 }],
-                orderby:[[],[],[]],
-                width:[['30%','70%'],['30%','70%'],['30%','70%']],
-                display:['kode','kode','kode'],
-                pageLength:[10,10,10]
+                orderby:[[],[],[],[]],
+                width:[['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%']],
+                display:['kode','kode','kode','kode'],
+                pageLength:[10,10,10,10]
             });
         }, 500)
     });
@@ -244,6 +275,9 @@
         $formData.append("kode_gudang[]",$kode_gudang.type);
         $formData.append("kode_gudang[]",$kode_gudang.from);
         $formData.append("kode_gudang[]",$kode_gudang.to);
+        $formData.append("no_rak[]",$no_rak.type);
+        $formData.append("no_rak[]",$no_rak.from);
+        $formData.append("no_rak[]",$no_rak.to);
         for(var pair of $formData.entries()) {
             console.log(pair[0]+ ', '+ pair[1]); 
         }
@@ -263,6 +297,9 @@
         $formData.append("kode_gudang[]",$kode_gudang.type);
         $formData.append("kode_gudang[]",$kode_gudang.from);
         $formData.append("kode_gudang[]",$kode_gudang.to);
+        $formData.append("no_rak[]",$no_rak.type);
+        $formData.append("no_rak[]",$no_rak.from);
+        $formData.append("no_rak[]",$no_rak.to);
         for(var pair of $formData.entries()) {
             console.log(pair[0]+ ', '+ pair[1]); 
         }

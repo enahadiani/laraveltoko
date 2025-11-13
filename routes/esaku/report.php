@@ -52,6 +52,7 @@ Route::get('filter-default-pnj', 'Esaku\HelperController@getFilterDefaultPnj');
 Route::get('filter-default-pmb', 'Esaku\HelperController@getFilterDefaultPmb');
 Route::get('filter-vendor', 'Esaku\HelperController@getFilterVendor');
 Route::get('filter-jenis-saldo', 'Esaku\HelperController@getFilterJenisSaldo');
+Route::get('filter-rak', 'Esaku\HelperController@getRak');
 
 Route::get('filter-periode-jualstr', 'Esaku\HelperController@getPeriodeJualSetor');
 Route::get('filter-tahun-jualstr', 'Esaku\HelperController@getTahunJualSetor');
@@ -121,6 +122,7 @@ Route::post('lap-rekap-jual-perbrg', 'Esaku\Inventori\LaporanController@getRekap
 Route::post('lap-rekap-beli-perbrg', 'Esaku\Inventori\LaporanController@getRekapBeliBarang');
 Route::post('lap-stock-opname', 'Esaku\Inventori\LaporanController@getRekapStockOpname');
 Route::post('lap-stock-opname-hari', 'Esaku\Inventori\LaporanController@getRekapStockOpnameHari');
+// Route::post('lap-stock-opname-hold', 'Esaku\Inventori\LaporanController@getRekapStockOpnameHold');
 Route::post('lap-buku-barang', 'Esaku\Inventori\LaporanController@getBukuBarang');
 
 Route::post('lap-nota-pnj', 'Esaku\Inventori\LaporanController@getNotaPnj');
