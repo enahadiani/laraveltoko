@@ -554,6 +554,15 @@ Route::post('stok', 'Esaku\Inventori\StokController@store');
 Route::post('stok/{no_bukti}', 'Esaku\Inventori\StokController@update');
 Route::delete('stok/{no_bukti}', 'Esaku\Inventori\StokController@destroy');
 
+Route::get('jurnal-stok-nobukti', 'Esaku\Inventori\JurnalStokController@generateNoBukti');
+Route::get('jurnal-stok-load', 'Esaku\Inventori\JurnalStokController@loadData');
+Route::get('jurnal-stok-barang', 'Esaku\Inventori\JurnalStokController@loadBarang');
+Route::get('jurnal-stok', 'Esaku\Inventori\JurnalStokController@index');
+Route::get('jurnal-stok/{no_bukti}', 'Esaku\Inventori\JurnalStokController@show');
+Route::post('jurnal-stok', 'Esaku\Inventori\JurnalStokController@store');
+Route::post('jurnal-stok/{no_bukti}', 'Esaku\Inventori\JurnalStokController@update');
+Route::delete('jurnal-stok/{no_bukti}', 'Esaku\Inventori\JurnalStokController@destroy');
+
 Route::get('/tes-print', function () {
     try {
         // $ip = ''; // IP Komputer kita atau printer lain yang masih satu jaringan

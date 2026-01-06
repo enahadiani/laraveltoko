@@ -29,7 +29,7 @@ function EditableTablePlugin(tableSelector, options) {
 
         // Add select-all header if needed
         if (settings.enableSelect && $table.find("thead th.select-all-header").length === 0) {
-            $table.find("thead tr").prepend('<th class="text-center select-all-header"><input type="checkbox" id="select-all"></th>');
+            $table.find("thead tr").prepend('<th class="text-center select-all-header" style="width:5%"><input type="checkbox" id="select-all"></th>');
         }
 
         dataSlice.forEach((row, i) => {
@@ -330,6 +330,21 @@ function EditableTablePlugin(tableSelector, options) {
                             }
                         });
                         if (colOpt.readonly) $input.prop('readonly', true);
+                        break;
+                    case 'button':
+                        $input = $('<button type="button" class="edit-input input-button btn btn-sm always-show '+colOpt.className+' " style="display:none;">');
+                        $input.text(colOpt.label || 'Action');
+                        if (settings.onClick && typeof settings.onClick === 'function') {
+                            $input.on('click', function(e) {
+                                e.stopPropagation();
+                                settings.onClick(realIndex, key);
+                            });
+                        }
+                        if (colOpt.readonly) $input.prop('disabled', true);
+                        $display.hide();
+                        $display.addClass('not-show');
+                        $td.append($input);
+                        $td.addClass("text-center no-pad");
                         break;
                     default:{
                         $input = $('<input type="text" class="edit-input">').val(displayText);
