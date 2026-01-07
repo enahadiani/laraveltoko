@@ -195,7 +195,7 @@
                                     <thead style="background:#F8F8F8">
                                         <tr>
                                             @php 
-                                                $col2 = ["No", "", "No Beli", "Deskripsi/Faktur", "Tanggal", "Jumlah Item", "Detail"];
+                                                $col2 = ["No", "", "No Input Stok", "Deskripsi/Faktur", "Tanggal", "Jumlah Item", "Detail"];
                                                 $width2 = ["5%", "5%", "15%", "35%", "10%", "15%", "15%"];
                                                 $x=0;
                                             @endphp
