@@ -86,7 +86,7 @@
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <label for="keterangan">Deskripsi</label>
+                                        <label for="keterangan">Deskripsi/Faktur</label>
                                         <input class="form-control" id="keterangan" name="keterangan" required>
                                     </div>
                                 </div>
