@@ -115,12 +115,6 @@
                                             <i class="simple-icon-magnifier search-item2" id="search_kode_vendor"></i>
                                         </div>
                                     </div>
-                                    <div class="col-md-2 col-sm-12">
-                                        <label for="btn-control">&nbsp;</label>
-                                        <div id="btn-control">
-                                            <button type="button" href="#" id="load-data" class="btn btn-primary float-right">Tampil</button>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                             <div class="form-group col-md-6 col-sm-12">
@@ -134,7 +128,30 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-md-6 col-sm-12"></div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="kode_gudang">Gudang</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                <span class="input-group-text info-code_kode_gudang" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                            </div>
+                                            <input type="text" class="form-control inp-label-kode_gudang" id="kode_gudang" name="kode_gudang" value="" title="">
+                                            <span class="info-name_kode_gudang hidden">
+                                                <span></span> 
+                                            </span>
+                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                            <i class="simple-icon-magnifier search-item2" id="search_kode_gudang"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 col-sm-12">
+                                        <label for="btn-control">&nbsp;</label>
+                                        <div id="btn-control">
+                                            <button type="button" href="#" id="load-data" class="btn btn-primary float-right">Tampil</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12"></div>
@@ -366,13 +383,14 @@
             $('#total_hutang').val(total_hutang);
         });
 
-        function loadData(periode){
+        function loadData(periode, kode_gudang){
             var url = "{{url('esaku-trans/jurnal-stok-load')}}";
             $.ajax({
                 type: 'GET',
                 url: url,
                 data: {
-                    periode: periode
+                    periode: periode,
+                    kode_gudang: kode_gudang
                 },
                 dataType: 'JSON',
                 async: false,
@@ -436,7 +454,26 @@
         $('#form-tambah').on('click', '#load-data', function(e) {
             var periode = reverseDate2($('#tanggal').val(), '/', '-').replace('-', '').replace('-', '').substr(0,
                 6);
-            loadData(periode);
+            var kode_gudang = $('#kode_gudang').val();
+            if(periode == ""){
+                msgDialog({
+                    id: '-',
+                    type: 'warning',
+                    title: 'Tanggal tidak valid',
+                    text: 'Tanggal harus diisi',
+                });
+                return false;
+            }
+             if(kode_gudang == ""){
+                msgDialog({
+                    id: '-',
+                    type: 'warning',
+                    title: 'Gudang tidak valid',
+                    text: 'Gudang harus diisi',
+                });
+                return false;
+            }
+            loadData(periode, kode_gudang);
         });
 
         function getVendor(kode_vendor){
@@ -454,6 +491,33 @@
                             $('#kode_vendor').css('border-left','1px solid #d7d7d7');
                             $('#kode_vendor').val('');
                             $('#kode_vendor').focus();
+                        }
+                    }
+                    else if(!result.status && result.message == 'Unauthorized'){
+                        window.location.href = "{{ url('finest/sesi-habis') }}";
+                    }
+                }
+            });
+        }
+
+        function getGudang(kode_gudang){
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('/esaku-master/vendor') }}/"+kode_gudang,
+                dataType: 'json',
+                async:false,
+                success:function(result){    
+                    if(result.status){
+                        if(typeof result.data !== 'undefined' && result.data.length>0){
+                            showInfoField('kode_gudang',result.data[0].kode_gudang,result.data[0].nama);
+                            resizeNameField('kode_gudang');
+                            stokTable.clear();
+                            barangTable.clear();
+                        }else{
+                            $('#kode_gudang').attr('readonly',false);
+                            $('#kode_gudang').css('border-left','1px solid #d7d7d7');
+                            $('#kode_gudang').val('');
+                            $('#kode_gudang').focus();
                         }
                     }
                     else if(!result.status && result.message == 'Unauthorized'){
@@ -531,7 +595,7 @@
             $('#judul-form').html('Edit Jurnal Stok');
             $('#form-tambah')[0].reset();
             $('#form-tambah').validate().resetForm();
-            $("#kode_vendor").parents('.input-group').addClass('readonly');
+            $("#kode_gudang").parents('.input-group').addClass('readonly');
             $('#load-data').hide();
             barangTable.clear();
             stokTable.clear();
@@ -549,12 +613,14 @@
                         $('#no_bukti').attr('readonly', true);
                         $('#tanggal').val(reverseDate2(result.data[0].tanggal,'-','/')); 
                         $('#kode_vendor').val(result.data[0].kode_vendor);
+                        $('#kode_gudang').val(result.data[0].kode_gudang);
                         $('#keterangan').val(result.data[0].keterangan);
                         $('#total_persediaan').val(Math.round(result.data[0].total_persediaan,0))
                         $('#total_ppn').val(Math.round(result.data[0].total_ppn,0))
                         $('#total_diskon').val(Math.round(result.data[0].total_diskon,0))
                         $('#total_hutang').val(Math.round(result.data[0].total_hutang,0))
                         showInfoField("kode_vendor",result.data[0].kode_vendor,result.data[0].nama_vendor);
+                        showInfoField("kode_gudang",result.data[0].kode_gudang,result.data[0].nama_gudang);
                         
                         if(result.detail_trans.length > 0) {
                             stokTable.loadData(result.detail_trans);
@@ -564,6 +630,7 @@
                         $('#saku-form').show();
                         $('#kode_form').val($form_aktif);
                         resizeNameField('kode_vendor');
+                        resizeNameField('kode_gudang');
                         setHeightForm();
                     }
                     else if(!result.status && result.message == 'Unauthorized'){
@@ -641,7 +708,7 @@
             $('#saku-datatable').hide();
             $('#saku-form').show();
             $("#no_hold").parents('.input-group').removeClass('readonly');
-            $("#kode_vendor").parents('.input-group').removeClass('readonly');
+            $("#kode_gudang").parents('.input-group').removeClass('readonly');
             $('.input-group-prepend').addClass('hidden');
             $('span[class^=info-name]').addClass('hidden');
             $('.info-icon-hapus').addClass('hidden');
@@ -952,9 +1019,9 @@
         // END SIMPAN
 
         // ENTER FIELD FORM
-        $('#tanggal,#no_bukti,#keterangan,#kode_vendor,#total').keydown(function(e){
+        $('#tanggal,#no_bukti,#kode_vendor,#kode_gudang,#total').keydown(function(e){
             var code = (e.keyCode ? e.keyCode : e.which);
-            var nxt = ['tanggal','no_bukti','keterangan','kode_vendor','total'];
+            var nxt = ['tanggal','no_bukti','kode_vendor','kode_gudang','total'];
             if (code == 13 || code == 40) {
                 e.preventDefault();
                 var idx = nxt.indexOf(e.target.id);
@@ -983,8 +1050,8 @@
                             { data: 'kode_vendor' },
                             { data: 'nama' }
                         ],
-                        judul : "Daftar Gudang",
-                        pilih : "gudang",
+                        judul : "Daftar Vendor",
+                        pilih : "vendor",
                         jTarget1 : "text",
                         jTarget2 : "text",
                         target1 : ".info-code_"+id,
@@ -997,6 +1064,33 @@
                         }
                     })
                 break;
+                
+                case 'kode_gudang':
+                    showInpFilterBSheet({
+                        id : id,
+                        header : ['Kode', 'Nama'],
+                        url : "{{ url('esaku-master/gudang') }}",
+                        columns : [
+                            { data: 'kode_gudang' },
+                            { data: 'nama' }
+                        ],
+                        judul : "Daftar Gudang",
+                        pilih : "gudang",
+                        jTarget1 : "text",
+                        jTarget2 : "text",
+                        target1 : ".info-code_"+id,
+                        target2 : ".info-name_"+id,
+                        target3 : "",
+                        target4 : "",
+                        width : ["30%","70%"],
+                        onItemSelected: function(data){
+                            showInfoField('kode_gudang',data.kode_gudang,data.nama);
+                            resizeNameField('kode_gudang');
+                            stokTable.clear();
+                            barangTable.clear();
+                        }
+                    })
+                break;
 
             }
         });
@@ -1004,6 +1098,11 @@
         $('#form-tambah').on('change', '#kode_vendor', function(){
             var par = $(this).val();
             getVendor(par);
+        });
+
+        $('#form-tambah').on('change', '#kode_gudang', function(){
+            var par = $(this).val();
+            getGudang(par);
         });
 
         $('.currency').inputmask("numeric", {

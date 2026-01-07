@@ -92,6 +92,7 @@ class JurnalStokController extends Controller
         $this->validate($request, [
             'tanggal' => 'required|date_format:d/m/Y',
             'kode_vendor' => 'required|max:10',
+            'kode_gudang' => 'required|max:10',
             'total_persediaan' => 'required|numeric',
             'total_ppn' => 'required|numeric',
             'total_diskon' => 'required|numeric',
@@ -128,6 +129,7 @@ class JurnalStokController extends Controller
                 'json' => [
                     'kode_form' => $request->input('kode_form'),
                     'tanggal' => $this->reverseDate($request->input('tanggal'),'/','-'),
+                    'kode_gudang' => $request->input('kode_gudang'),
                     'kode_vendor' => $request->input('kode_vendor'),
                     'total_persediaan' => $request->input('total_persediaan'),
                     'total_ppn' => $request->input('total_ppn'),
@@ -190,7 +192,8 @@ class JurnalStokController extends Controller
                     'Accept'     => 'application/json',
                 ],
                 'query' => [
-                    'periode' => $r->input('periode')
+                    'periode' => $r->input('periode'),
+                    'kode_gudang' => $r->input('kode_gudang')
                 ]
             ]);
 
@@ -214,6 +217,7 @@ class JurnalStokController extends Controller
             'no_bukti' => 'required',
             'tanggal' => 'required|date_format:d/m/Y',
             'kode_vendor' => 'required|max:10',
+            'kode_gudang' => 'required|max:10',
             'total_persediaan' => 'required|numeric',
             'total_ppn' => 'required|numeric',
             'total_diskon' => 'required|numeric',
@@ -253,6 +257,7 @@ class JurnalStokController extends Controller
                     'kode_form' => $request->input('kode_form'),
                     'tanggal' => $this->reverseDate($request->input('tanggal'),'/','-'),
                     'kode_vendor' => $request->input('kode_vendor'),
+                    'kode_gudang' => $request->input('kode_gudang'),
                     'total_persediaan' => $request->input('total_persediaan'),
                     'total_ppn' => $request->input('total_ppn'),
                     'total_diskon' => $request->input('total_diskon'),
