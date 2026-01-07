@@ -102,7 +102,7 @@
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <label for="keterangan">Deskripsi/Faktur</label>
+                                        <label for="keterangan">Deskripsi</label>
                                         <input class="form-control" id="keterangan" name="keterangan" required>
                                     </div>
                                 </div>
@@ -195,7 +195,7 @@
                                     <thead style="background:#F8F8F8">
                                         <tr>
                                             @php 
-                                                $col2 = ["No", "", "No Beli", "Keterangan", "Tanggal", "Jumlah Item", "Detail"];
+                                                $col2 = ["No", "", "No Beli", "Deskripsi/Faktur", "Tanggal", "Jumlah Item", "Detail"];
                                                 $width2 = ["5%", "5%", "15%", "35%", "10%", "15%", "15%"];
                                                 $x=0;
                                             @endphp
