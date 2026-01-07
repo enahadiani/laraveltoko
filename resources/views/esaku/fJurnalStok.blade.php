@@ -101,6 +101,25 @@
                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
+                                    <div class="col-md-12">
+                                        <label for="keterangan">Deskripsi</label>
+                                        <input class="form-control" id="keterangan" name="keterangan" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12"></div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="total_ppn">Total PPN</label>
+                                        <input class='form-control currency' type="text" value="0" id="total_ppn" name="total_ppn" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
                                     <div class="col-md-6 col-sm-12">
                                         <label for="kode_vendor">Vendor</label>
                                         <div class="input-group">
@@ -121,8 +140,8 @@
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12"></div>
                                     <div class="col-md-6 col-sm-12">
-                                        <label for="total_ppn">Total PPN</label>
-                                        <input class='form-control currency' type="text" value="0" id="total_ppn" name="total_ppn" required>
+                                        <label for="total_diskon">Total Diskon</label>
+                                        <input class='form-control currency' type="text" value="0" id="total_diskon" name="total_diskon" required>
                                     </div>
                                 </div>
                             </div>
@@ -156,18 +175,6 @@
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12"></div>
                                     <div class="col-md-6 col-sm-12">
-                                        <label for="total_diskon">Total Diskon</label>
-                                        <input class='form-control currency' type="text" value="0" id="total_diskon" name="total_diskon" required>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6 col-sm-12"></div>
-                            <div class="form-group col-md-6 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-12"></div>
-                                    <div class="col-md-6 col-sm-12">
                                         <label for="total_hutang">Total Net/Hutang</label>
                                         <input class='form-control currency' type="text" value="0" id="total_hutang" name="total_hutang" readonly>
                                     </div>
@@ -184,12 +191,12 @@
                                     <a style="font-size:18px;float: right;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row_input-trans" ></span></a>
                                 </div>
                                 <div class='col-md-12 table-responsive' style='margin:0px; padding:0px;'>
-                                    <table class="table table-bordered table-condensed gridexample input-grid" id="input-trans" style="table-layout:fixed;word-wrap:break-word;white-space:nowrap;width:800px;">
+                                    <table class="table table-bordered table-condensed gridexample input-grid" id="input-trans" style="table-layout:fixed;word-wrap:break-word;white-space:nowrap;">
                                     <thead style="background:#F8F8F8">
                                         <tr>
                                             @php 
-                                                $col2 = ["No", "", "No Beli", "Tanggal", "Jumlah Item", "Detail"];
-                                                $width2 = ["5%", "5%", "30%", "25%", "20%", "20%"];
+                                                $col2 = ["No", "", "No Beli", "Keterangan", "Tanggal", "Jumlah Item", "Detail"];
+                                                $width2 = ["5%", "5%", "15%", "35%", "10%", "15%", "15%"];
                                                 $x=0;
                                             @endphp
                                             @foreach ($col2 as $c)
@@ -783,14 +790,19 @@
                                             <td width="20%">`+result.data[0].tanggal+`</td>
                                         </tr>
                                         <tr>
-                                            <td width="14%">Gudang</td>
-                                            <td width="1%">:</td>
-                                            <td width="20%">`+result.data[0].kode_vendor+` - `+result.data[0].nama_gudang+`</td>
-                                        </tr>
-                                        <tr>
                                             <td width="14%">Keterangan</td>
                                             <td width="1%">:</td>
                                             <td width="20%">`+result.data[0].keterangan+`</td>
+                                        </tr>
+                                        <tr>
+                                            <td width="14%">Vendor</td>
+                                            <td width="1%">:</td>
+                                            <td width="20%">`+result.data[0].kode_vendor+` - `+result.data[0].nama_vendor+`</td>
+                                        </tr>
+                                        <tr>
+                                            <td width="14%">Gudang</td>
+                                            <td width="1%">:</td>
+                                            <td width="20%">`+result.data[0].kode_gudang+` - `+result.data[0].nama_gudang+`</td>
                                         </tr>
                                     </table>
                                 </div>
@@ -802,19 +814,22 @@
                                         <div class="tab-pane active" id="prev-rak" role="tabpanel">
                                             <table class="table table-striped table-body-prev mt-2" width="100%">
                                                 <tr style="background: var(--theme-color-1) !important;color:white !important">
-                                                    <th style="width:25%">Kode Rak</th>
-                                                    <th style="width:75%">Nama Rak</th>
+                                                    <th style="width:20%">No Beli</th>
+                                                    <th style="width:55%">Keterangan</th>
+                                                    <th style="width:15%">Tanggal</th>
+                                                    <th style="width:10%">Jumlah Item</th>
                                                 </tr>`;
                                                 var det = ''; var total =0;
-                                                if(result.detail_barang.length > 0){
+                                                if(result.detail_trans.length > 0){
                                                     var no=1;
-                                                    for(var i=0;i<result.detail_barang.length;i++){
-                                                        var line =result.detail_barang[i];
+                                                    for(var i=0;i<result.detail_trans.length;i++){
+                                                        var line =result.detail_trans[i];
                                                         total+=parseFloat(line.nilai);
                                                         det += "<tr>";
-                                                        det += "<td >"+line.kode_barang+"</td>";
-                                                        det += "<td >"+line.nama_barang+"</td>";
-                                                        det += "<td class='text-right'>"+number_format(line.jumlah)+"</td>";
+                                                        det += "<td >"+line.no_beli+"</td>";
+                                                        det += "<td >"+line.keterangan+"</td>";
+                                                        det += "<td >"+line.tanggal+"</td>";
+                                                        det += "<td class='text-right'>"+number_format(line.jum_item)+"</td>";
                                                         det += "</tr>";
                                                         no++;
                                                     }
@@ -879,7 +894,7 @@
                 $btnSave.addClass('disabled');
                 $btnSave.html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Menyimpan...');
 
-                var exclude_keys = ['tanggal','jum_item','detail','selected']; // kolom yang ingin dihapus
+                var exclude_keys = ['keterangan','tanggal','jum_item','detail','selected']; // kolom yang ingin dihapus
                 var details = stokTable.getSelectedRows().map(row => {
                     return Object.fromEntries(
                         Object.entries(row)
@@ -1019,9 +1034,9 @@
         // END SIMPAN
 
         // ENTER FIELD FORM
-        $('#tanggal,#no_bukti,#kode_vendor,#kode_gudang,#total').keydown(function(e){
+        $('#tanggal,#no_bukti,#keterangan,#kode_vendor,#kode_gudang,#total').keydown(function(e){
             var code = (e.keyCode ? e.keyCode : e.which);
-            var nxt = ['tanggal','no_bukti','kode_vendor','kode_gudang','total'];
+            var nxt = ['tanggal','no_bukti','keterangan','kode_vendor','kode_gudang','total'];
             if (code == 13 || code == 40) {
                 e.preventDefault();
                 var idx = nxt.indexOf(e.target.id);
@@ -1129,6 +1144,7 @@
             enableSelect: true,
             inputs: {
                 no_beli: {type: "text", readonly: true},
+                keterangan: {type: "text", readonly: true},
                 tanggal: {type: "text", readonly: true},
                 jum_item: {type: "currency", readonly: true},
                 detail: {type: "button", label: "Detail", className: "bg-primary px-3 py-1"}
