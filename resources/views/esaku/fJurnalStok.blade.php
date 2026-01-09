@@ -92,7 +92,7 @@
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12"></div>
                                     <div class="col-md-6 col-sm-12">
-                                        <label for="total_persediaan">Nilai Persediaan</label>
+                                        <label for="total_persediaan">Total Nilai Barang</label>
                                         <input class='form-control currency' type="text" value="0" id="total_persediaan" name="total_persediaan" required>
                                     </div>
                                 </div>
@@ -175,7 +175,7 @@
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12"></div>
                                     <div class="col-md-6 col-sm-12">
-                                        <label for="total_hutang">Total Net/Hutang</label>
+                                        <label for="total_hutang">Total yg harus dibayar</label>
                                         <input class='form-control currency' type="text" value="0" id="total_hutang" name="total_hutang" readonly>
                                     </div>
                                 </div>
