@@ -9,7 +9,7 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Session;
 use GuzzleHttp\Exception\BadResponseException;
 
-class StokController extends Controller
+class ReturStokController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -39,7 +39,7 @@ class StokController extends Controller
         try{
 
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'esaku-trans/stok-nobukti',[
+            $response = $client->request('GET',  config('api.url').'esaku-trans/retur-stok-nobukti',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -65,7 +65,7 @@ class StokController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'esaku-trans/stok',[
+            $response = $client->request('GET',  config('api.url').'esaku-trans/retur-stok',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -92,8 +92,12 @@ class StokController extends Controller
         $this->validate($request, [
             'tanggal' => 'required|date_format:d/m/Y',
             'keterangan' => 'required|max:200',
+            'no_stok' => 'required|max:20',
             'kode_gudang' => 'required|max:10',
             'detail_barang' => 'required|string',
+            'total' => 'required',
+            'total_ppn' => 'required',
+            'total_barang' => 'required'
         ]);
 
         $raw = htmlspecialchars_decode($request->input('detail_barang'));
@@ -110,7 +114,10 @@ class StokController extends Controller
         $validator = \Validator::make($details, [
             '*.kode_barang' => 'required|max:20',
             '*.satuan' => 'required|max:10',
-            '*.jumlah' => 'required|numeric'
+            '*.jumlah' => 'required|numeric',
+            '*.ref_nilai' => 'required|numeric',
+            '*.qty_retur' => 'required|numeric',
+            '*.total' => 'required|numeric'
         ]);
 
         if ($validator->fails()) {
@@ -119,7 +126,7 @@ class StokController extends Controller
             
         try{
             $client = new Client();
-            $response = $client->request('POST',  config('api.url').'esaku-trans/stok',[
+            $response = $client->request('POST',  config('api.url').'esaku-trans/retur-stok',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -128,8 +135,12 @@ class StokController extends Controller
                 'json' => [
                     'kode_form' => $request->input('kode_form'),
                     'tanggal' => $this->reverseDate($request->input('tanggal'),'/','-'),
+                    'no_stok' => $request->input('no_stok'),
                     'kode_gudang' => $request->input('kode_gudang'),
                     'keterangan' => $request->input('keterangan'),
+                    'total' => $this->joinNum($request->input('total')),
+                    'total_ppn' => $this->joinNum($request->input('total_ppn')),
+                    'total_barang' => $this->joinNum($request->input('total_barang')),
                     'detail_barang' => $raw
                 ]
             ]);
@@ -152,7 +163,7 @@ class StokController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'esaku-trans/stok-detail',[
+            $response = $client->request('GET',  config('api.url').'esaku-trans/retur-stok-detail',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -183,8 +194,12 @@ class StokController extends Controller
             'no_bukti' => 'required',
             'tanggal' => 'required|date_format:d/m/Y',
             'keterangan' => 'required|max:200',
+            'no_stok' => 'required|max:20',
             'kode_gudang' => 'required|max:10',
             'detail_barang' => 'required|string',
+            'total' => 'required',
+            'total_ppn' => 'required',
+            'total_barang' => 'required'
         ]);
 
         $raw = htmlspecialchars_decode($request->input('detail_barang'));
@@ -201,7 +216,10 @@ class StokController extends Controller
         $validator = \Validator::make($details, [
             '*.kode_barang' => 'required|max:20',
             '*.satuan' => 'required|max:10',
-            '*.jumlah' => 'required|numeric'
+            '*.jumlah' => 'required|numeric',
+            '*.ref_nilai' => 'required|numeric',
+            '*.qty_retur' => 'required|numeric',
+            '*.total' => 'required|numeric'
         ]);
 
         if ($validator->fails()) {
@@ -211,7 +229,7 @@ class StokController extends Controller
         try{
             
             $client = new Client();
-            $response = $client->request('POST',  config('api.url').'esaku-trans/stok-ubah',[
+            $response = $client->request('POST',  config('api.url').'esaku-trans/retur-stok-ubah',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -220,9 +238,13 @@ class StokController extends Controller
                 'json' => [
                     'no_bukti' => $request->input('no_bukti'),
                     'kode_form' => $request->input('kode_form'),
+                    'no_stok' => $request->input('no_stok'),
                     'tanggal' => $this->reverseDate($request->input('tanggal'),'/','-'),
                     'kode_gudang' => $request->input('kode_gudang'),
                     'keterangan' => $request->input('keterangan'),
+                    'total' => $this->joinNum($request->input('total')),
+                    'total_ppn' => $this->joinNum($request->input('total_ppn')),
+                    'total_barang' => $this->joinNum($request->input('total_barang')),
                     'detail_barang' => $raw,
                 ]
             ]);
@@ -248,7 +270,7 @@ class StokController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('DELETE',  config('api.url').'esaku-trans/stok',[
+            $response = $client->request('DELETE',  config('api.url').'esaku-trans/retur-stok',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -260,9 +282,7 @@ class StokController extends Controller
 
             if ($response->getStatusCode() == 200) { // 200 OK
                 $response_data = $response->getBody()->getContents();
-                
                 $data = json_decode($response_data,true);
-                $data = $data;
             }
             return response()->json(['data' => $data], 200); 
         } catch (BadResponseException $ex) {
@@ -274,11 +294,39 @@ class StokController extends Controller
         }
     }
 
-    public function getBarang(Request $request)
+    public function loadData(Request $request)
     {
         try{
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'esaku-trans/stok-barang',[
+            $response = $client->request('GET',  config('api.url').'esaku-trans/retur-stok-load',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => $request->input()
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data['daftar'] = $data['data'];
+            }
+            return response()->json($data, 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res['message'];
+            $data['status'] = false;
+            return response()->json($data, 200);
+        }
+    }
+
+    public function getBuktiStok(Request $request)
+    {
+        try{
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'esaku-trans/retur-stok-loadbukti',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

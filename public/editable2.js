@@ -12,6 +12,7 @@ function EditableTablePlugin(tableSelector, options) {
         data: [],
         perPage: 10,
         allowDelete: true,
+        allowAddRow: true,
         onChange: null // function(rowIndex, columnKey, newValue) {}
     }, options);
 
@@ -427,8 +428,12 @@ function EditableTablePlugin(tableSelector, options) {
                                     focusCell($nextTr.data('index'), visibleKeys[0]);
                                     return;
                                 } else {
-                                    addRow();
-                                    return;
+                                    if(settings.allowAddRow){
+                                        addRow();
+                                        return;
+                                    }else{
+                                        return;
+                                    }
                                 }
                             }
                         } else if (e.key === 'Tab' && e.shiftKey) {
