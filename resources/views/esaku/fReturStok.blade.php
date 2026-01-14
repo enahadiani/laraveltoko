@@ -455,6 +455,8 @@
                         $('#no_stok').val(result.data[0].no_stok);
                         $('#kode_gudang').val(result.data[0].kode_gudang);
                         $('#keterangan').val(result.data[0].keterangan);
+                        $('#total').val(Math.round(result.data[0].total,0));
+                        $('#total_ppn').val(Math.round(result.data[0].total_ppn,0));
                         showInfoField("no_stok",result.data[0].no_stok,result.data[0].ket_stok);
                         showInfoField("kode_gudang",result.data[0].kode_gudang,result.data[0].nama_gudang);
                         
