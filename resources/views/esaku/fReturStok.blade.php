@@ -939,8 +939,8 @@
             });      
             $('#total_barang').val(tot);
             $('#total').val(total);
-            var ppn = (total * 11/12)*(12/100);
-            $('#total_ppn').val(ppn);
+            // var ppn = (total * 11/12)*(12/100);
+            // $('#total_ppn').val(ppn);
         }
 
         var stokTable = new EditableTablePlugin("#input-barang", {
