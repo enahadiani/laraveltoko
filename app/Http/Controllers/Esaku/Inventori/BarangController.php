@@ -29,14 +29,15 @@ class BarangController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function index(){
+    public function index(Request $r){
         try {
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'esaku-master/barang',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
-                ]
+                ],
+                'query' => $r->input()
             ]);
 
             if ($response->getStatusCode() == 200) { // 200 OK

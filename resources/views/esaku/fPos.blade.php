@@ -20,6 +20,24 @@ date_default_timezone_set('Asia/Jakarta');
 .modal-dialog{
     pointer-events: all;
 }
+.selectize-control{
+    left: unset !important;
+    top: 3px !important;
+    display: inline-block;
+    width: 100% !important;
+    animation: unset !important;
+    -webkit-animation: unset !important;
+    z-index: unset !important;
+}
+.selectize-dropdown {
+    position: fixed !important;
+    z-index: 9999;
+}
+.selectize-input .item, .selectize-input .nama {
+    white-space: normal;   /* biar bisa wrap ke baris baru */
+    max-width: 100%;       /* jangan dibatasi width */
+    overflow: visible;
+}
 </style>
 <div class="container-fluid mt-3">
     <div class="row">
@@ -65,7 +83,7 @@ date_default_timezone_set('Asia/Jakarta');
                                 <table class="table" style="margin-bottom: 5px">
                                     <tr>
                                         <th style='padding: 3px;width:20%' colspan='2'>
-                                            <input type='text' class='form-control' placeholder="Barcode [F1]" id="kd-barang2" >
+                                            <input type='text' class='form-control' placeholder="Barcode [F1 or F2]" id="kd-barang2" >
                                         </th>
                                         <th style='padding: 3px;width:20%' colspan='2'>
                                             <select class='form-control' id="kd-barang">
@@ -302,6 +320,9 @@ date_default_timezone_set('Asia/Jakarta');
         if (e.ctrlKey && e.which == 66) {
             $('#kd-barang2').focus();
         }
+        if (e.which == 113) {
+            $('#kd-barang2').focus();
+        }
         if (e.ctrlKey && e.which == 67) {
             $('#kd-barang-selectized').focus();
         }
@@ -340,54 +361,94 @@ date_default_timezone_set('Asia/Jakarta');
     });
 
     $('#kd-barang').selectize({
-        selectOnTab:true,
+        selectOnTab: true,
         maxItems: 1,
+        dropdownParent: 'body',
+
         valueField: 'kd_barang',
         labelField: 'nama',
         searchField: ['kd_barang','nama','barcode'],
-        options: [
-            {kd_barang: 123456, nama: 'test', barcode: '200'},
-        ],
+
+        preload: 'focus',   // 🔥 saat focus langsung load
+        maxOptions: 20,
+        loadThrottle: 300,
+        highlight: false,
+        load: function(query, callback) {
+            // if (!query.length) return callback([]);
+
+            $.ajax({
+                url: "{{ url('esaku-master/barang') }}", // ← ganti endpoint
+                type: 'GET',
+                dataType: 'json',
+                data: {
+                    q: query
+                },
+                success: function(res) {
+                    var mapped = (res.daftar || res).map(function(item){
+                        return {
+                            kd_barang: item.kode_barang,   // misal di API namanya kode
+                            nama: item.nama, // di API namanya nama_barang
+                            barcode: item.barcode
+                        };
+                    });
+                    callback(mapped);
+                },
+                error: function() {
+                    callback([]);
+                }
+            });
+        },
+
         render: {
             option: function(data, escape) {
-                return '<div class="option">' +
-                '<span class="nama">' + escape(data.nama) + '</span>' +
-                '</div>';
+                return `
+                    <div class="option">
+                        <strong>${escape(data.kd_barang)}</strong><br>
+                        <span class="nama">${escape(data.nama)}</span><br>
+                        <small>${escape(data.barcode || '')}</small>
+                    </div>
+                `;
             },
             item: function(data, escape) {
-                return '<div class="item"><a href="#">' + escape(data.nama) + '</a></div>';
+                return `
+                    <div class="item">
+                        ${escape(data.nama)}
+                    </div>
+                `;
             }
         },
-        create:false,
-        onChange: function (val){
-            var id = val
-            if (id != "" && id != null && id != undefined){
+
+        create: false,
+
+        onChange: function(val) {
+            if (val) {
                 addBarangSelect();
             }
         }
     });
 
-    $('#kode_jenis').selectize({
-        selectOnTab:true,
-        maxItems: 1,
-        valueField: 'kode_jenis',
-        labelField: 'nama',
-        searchField: ['kode_jenis','nama'],
-        options: [
-            {kode_jenis: 123456, nama: 'test'},
-        ],
-        render: {
-            option: function(data, escape) {
-                return '<div class="option">' +
-                '<span class="nama">' + escape(data.nama) + '</span>' +
-                '</div>';
-            },
-            item: function(data, escape) {
-                return '<div class="item"><a href="#">' + escape(data.nama) + '</a></div>';
-            }
-        },
-        create:false
-    });
+
+    // $('#kode_jenis').selectize({
+    //     selectOnTab:true,
+    //     maxItems: 1,
+    //     valueField: 'kode_jenis',
+    //     labelField: 'nama',
+    //     searchField: ['kode_jenis','nama'],
+    //     options: [
+    //         {kode_jenis: 123456, nama: 'test'},
+    //     ],
+    //     render: {
+    //         option: function(data, escape) {
+    //             return '<div class="option">' +
+    //             '<span class="nama">' + escape(data.nama) + '</span>' +
+    //             '</div>';
+    //         },
+    //         item: function(data, escape) {
+    //             return '<div class="item"><a href="#">' + escape(data.nama) + '</a></div>';
+    //         }
+    //     },
+    //     create:false
+    // });
 
     function getBarang() {
         $.ajax({
@@ -401,14 +462,14 @@ date_default_timezone_set('Asia/Jakarta');
                     select = select[0];
                     var control = select.selectize;
 
-                    var select2 = $('#kd-barang').selectize();
-                    select2 = select2[0];
-                    var control2 = select2.selectize;
-                    control2.clearOptions();
+                    // var select2 = $('#kd-barang').selectize();
+                    // select2 = select2[0];
+                    // var control2 = select2.selectize;
+                    // control2.clearOptions();
 
                     for(i=0;i<result.daftar.length;i++){
                         control.addOption([{text:result.daftar[i].kode_barang + ' - ' + result.daftar[i].nama, value:result.daftar[i].kode_barang}]);
-                        control2.addOption([{kd_barang:result.daftar[i].kode_barang, nama:result.daftar[i].nama,barcode:result.daftar[i].barcode}]);
+                        // control2.addOption([{kd_barang:result.daftar[i].kode_barang, nama:result.daftar[i].nama,barcode:result.daftar[i].barcode}]);
                         $dtBrg[result.daftar[i].kode_barang] = {harga:result.daftar[i].hna,ppn:result.daftar[i].ppn};  
                         $dtBrg2[result.daftar[i].barcode] = {harga:result.daftar[i].hna,nama:result.daftar[i].nama,kd_barang:result.daftar[i].kode_barang,ppn:result.daftar[i].ppn};
                     }
