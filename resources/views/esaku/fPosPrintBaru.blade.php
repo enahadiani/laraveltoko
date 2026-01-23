@@ -20,7 +20,7 @@ date_default_timezone_set('Asia/Jakarta');
 .modal-dialog{
     pointer-events: all;
 }
-#search-barang .selectize-control{
+.selectize-control{
     left: unset !important;
     top: 3px !important;
     display: inline-block;
@@ -29,11 +29,11 @@ date_default_timezone_set('Asia/Jakarta');
     -webkit-animation: unset !important;
     z-index: unset !important;
 }
-#search-barang .selectize-dropdown {
+.selectize-dropdown {
     position: fixed !important;
     z-index: 9999;
 }
-#search-barang .selectize-input .item, #search-barang .selectize-input .nama {
+.selectize-input .item, .selectize-input .nama {
     white-space: normal;   /* biar bisa wrap ke baris baru */
     max-width: 100%;       /* jangan dibatasi width */
     overflow: visible;
@@ -85,7 +85,7 @@ date_default_timezone_set('Asia/Jakarta');
                                         <th style='padding: 3px;width:20%' colspan='2'>
                                             <input type='text' class='form-control' placeholder="Barcode [F1 or F2]" id="kd-barang2" >
                                         </th>
-                                        <th style='padding: 3px;width:20%' colspan='2' id="search-barang">
+                                        <th style='padding: 3px;width:20%' colspan='2'>
                                             <select class='form-control' id="kd-barang">
                                                 <option value=''>--- Pilih Barang [CTRL+C] ---</option>
                                             </select>

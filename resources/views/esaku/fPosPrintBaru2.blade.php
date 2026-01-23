@@ -21,7 +21,7 @@ date_default_timezone_set('Asia/Jakarta');
 .modal-dialog{
     pointer-events: all;
 }
-#search-barang .selectize-control{
+.selectize-control{
     left: unset !important;
     top: 3px !important;
     display: inline-block;
@@ -30,11 +30,11 @@ date_default_timezone_set('Asia/Jakarta');
     -webkit-animation: unset !important;
     z-index: unset !important;
 }
-#search-barang .selectize-dropdown {
+.selectize-dropdown {
     position: fixed !important;
     z-index: 9999;
 }
-#search-barang .selectize-input .item, #search-barang .selectize-input .nama {
+.selectize-input .item, .selectize-input .nama {
     white-space: normal;   /* biar bisa wrap ke baris baru */
     max-width: 100%;       /* jangan dibatasi width */
     overflow: visible;
