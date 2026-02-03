@@ -95,6 +95,7 @@ Route::post('lap-barang', 'Esaku\Inventori\LaporanController@getBarang');
 Route::post('lap-kartu-stok', 'Esaku\Inventori\LaporanController@getKartuStok');
 Route::post('lap-stok', 'Esaku\Inventori\LaporanController@getStok');
 Route::post('lap-posisi-stok', 'Esaku\Inventori\LaporanController@getPosisiStok');
+Route::post('lap-posisi-stok-hpp', 'Esaku\Inventori\LaporanController@getPosisiStokHpp');
 Route::post('lap-saldo-hutang', 'Esaku\Inventori\LaporanController@getSaldoHutang');
 Route::post('lap-saldo-stok', 'Esaku\Inventori\LaporanController@getSaldoStok');
 Route::post('lap-saldo', 'Esaku\Inventori\LaporanController@getSaldo');
