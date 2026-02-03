@@ -163,7 +163,7 @@
                                     <thead style="background:#F8F8F8">
                                         <tr>
                                             @php 
-                                                $col2 = ["No", "", "Kode Barang", "Nama", "Satuan", "Jumlah", "Ref Nilai", "Qty Retur","Total"];
+                                                $col2 = ["No", "", "Kode Barang", "Nama", "Satuan", "Qty Beli", "Ref Harga Beli", "Qty Retur","Total"];
                                                 $width2 = ["4%", "4%", "22%", "30%", "10%", "10%", "10%", "10%", "10%"];
                                                 $x=0;
                                             @endphp
@@ -641,8 +641,8 @@
                                                 <tr style="background: var(--theme-color-1) !important;color:white !important">
                                                     <th style="width:25%">Kode Barang</th>
                                                     <th style="width:35%">Nama Barang</th>
-                                                    <th style="width:10%">Jumlah</th>
-                                                    <th style="width:10%">Ref Nilai</th>
+                                                    <th style="width:10%">Qty Beli</th>
+                                                    <th style="width:10%">Ref Harga Beli</th>
                                                     <th style="width:10%">Qty Retur</th>
                                                     <th style="width:10%">Total</th>
                                                 </tr>`;
