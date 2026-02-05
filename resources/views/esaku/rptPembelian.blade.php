@@ -54,7 +54,7 @@
                     <tr>
                         <td colspan="2" style='width:200px'>NO PEMBELIAN</td>
                         <td colspan="1" style='width:400px;text-transform:uppercase'>:&nbsp;`+data.no_pembelian+`</td>
-                        <td class="vtop">&nbsp;</td>
+                        <td class="vtop"style='width:550px'>&nbsp;</td>
                         <td class="vtop">TOTAL BARANG</td>
                         <td class="vtop">:&nbsp;</td>
                         <td class="vtop text-right">`+number_format(parseFloat(data.total_barang))+`</td>
