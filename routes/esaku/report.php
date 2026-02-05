@@ -68,6 +68,8 @@ Route::get('filter-periode-soph', 'Esaku\HelperController@getPeriodeSopH');
 Route::get('filter-bukti-soph', 'Esaku\HelperController@getBuktiSopH');
 Route::get('filter-periode-pmb2', 'Esaku\HelperController@getFilterPeriodePmb2');
 Route::get('filter-bukti-pmb2', 'Esaku\HelperController@getFilterBuktiPmb2');
+Route::get('filter-periode-retur-pmb2', 'Esaku\HelperController@getFilterPeriodeReturPmb2');
+Route::get('filter-bukti-retur-pmb2', 'Esaku\HelperController@getFilterBuktiReturPmb2');
 
 //AKTAP//
 Route::get('filter-periode-perolehan', 'Esaku\Aktap\FilterAktapController@getPeriodePerolehan');
@@ -129,6 +131,7 @@ Route::post('lap-stock-opname-hari', 'Esaku\Inventori\LaporanController@getRekap
 Route::post('lap-stock-opname-hold', 'Esaku\Inventori\LaporanController@getRekapStockOpnameHold');
 Route::post('lap-buku-barang', 'Esaku\Inventori\LaporanController@getBukuBarang');
 Route::post('lap-pembelian-v2', 'Esaku\Inventori\LaporanController@getPembelianV2');
+Route::post('lap-retur-pembelian-v2', 'Esaku\Inventori\LaporanController@getReturPembelianV2');
 
 Route::post('lap-nota-pnj', 'Esaku\Inventori\LaporanController@getNotaPnj');
 Route::get('lap-nota-pnj-print', 'Esaku\Inventori\LaporanController@printNotaPnj');
