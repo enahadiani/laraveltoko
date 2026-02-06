@@ -76,7 +76,7 @@
                         <td class="vtop text-right">`+number_format(parseFloat(data.diskon))+`</td>
                     </tr>
                     <tr>
-                        <td colspan="2" style='width:100px'>GUDANG</td>
+                        <td colspan="2" style='width:100px'>TOKO</td>
                         <td colspan="1" style='width:400px;text-transform:uppercase'>:&nbsp;`+data.toko+` `+data.nama_toko+`</td>
                         <td class="vtop">&nbsp;</td>
                         <td class="vtop">TOTAL HUTANG</td>

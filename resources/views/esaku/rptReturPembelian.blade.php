@@ -79,7 +79,7 @@
                         <td class="vtop text-right">`+number_format(parseFloat(data.total))+`</td>
                     </tr>
                     <tr>
-                        <td colspan="2" style='width:100px'>GUDANG</td>
+                        <td colspan="2" style='width:100px'>TOKO</td>
                         <td colspan="1" style='width:400px;text-transform:uppercase'>:&nbsp;`+data.toko+` `+data.nama_toko+`</td>
                         <td class="vtop">&nbsp;</td>
                         <td class="vtop">&nbsp;</td>
@@ -87,6 +87,15 @@
                         <td class="vtop">&nbsp;</td>
                         <td class="vtop text-right">&nbsp;</td>
                     
+                    </tr>
+                    <tr>
+                        <td colspan="2" style='width:100px'>NO PEMBELIAN</td>
+                        <td colspan="1" style='width:400px;text-transform:uppercase'>:&nbsp;`+data.no_pembelian+`</td>
+                        <td class="vtop">&nbsp;</td>
+                        <td class="vtop">&nbsp;</td>
+                        <td class="vtop">&nbsp;</td>
+                        <td class="vtop">&nbsp;</td>
+                        <td class="vtop text-right">&nbsp;</td>
                     </tr>
                     <tr>
                         <td colspan="2" style='width:100px'>VENDOR</td>
