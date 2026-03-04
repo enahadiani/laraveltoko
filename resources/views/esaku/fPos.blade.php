@@ -497,16 +497,13 @@ date_default_timezone_set('Asia/Jakarta');
             dataType: 'json',
             async: false,
             success: function(result) {
+                var select2 = $('#kode_jenis').selectize();
+                select2 = select2[0];
+                var control2 = select2.selectize;
+                control2.clearOptions();
                 if(result.status) {
-
-                    var select2 = $('#kode_jenis').selectize();
-                    select2 = select2[0];
-                    var control2 = select2.selectize;
-                    control2.clearOptions();
-
                     for(i=0;i<result.daftar.length;i++){
-                        control2.addOption([{kode_jenis:result.daftar[i].kode_jenis, nama:result.daftar[i].nama}]);
-                        // $dtBrg[result.daftar[i].kode_jenis] = {harga:result.daftar[i].hna};  
+                        control2.addOption([{value:result.daftar[i].kode_jenis, text:result.daftar[i].nama}]);
                     }
 
                 }else if(!result.data.status && result.data.message == "Unauthorized"){
@@ -977,7 +974,7 @@ date_default_timezone_set('Asia/Jakarta');
         $('#kembalian').val(0);
         $('#inp-byr').val(0);
         $('#param').val('');
-        $('#kode_jenis').val('');
+        $('#kode_jenis')[0].selectize.setValue('');
         
     }
 
@@ -1115,7 +1112,7 @@ date_default_timezone_set('Asia/Jakarta');
                             $('#modal-kembalian').text(sepNum(kembalian));
                             // $('#modal-ppn').text(sepNum(ppn));
                             $('#modal-no_jual').text(result.data.no_jual);
-                            $('#kode_jenis').text(result.data.kode_jenis);
+                            // $('#kode_jenis').text(result.data.kode_jenis);
                             $('#modal-bayar2').modal('show');
                         } else if(!result.data.status && result.data.message === "Unauthorized"){
                             window.location.href = "{{ url('/esaku-auth/sesi-habis') }}";
