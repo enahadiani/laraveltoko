@@ -68,6 +68,7 @@ class BarangController extends Controller
             'ppn' => 'required',
             // 'profit' => 'required',
             'hna' => 'required',
+            'sts_konsi' => 'required',
             // 'ss' => 'required',
             // 'sm1' => 'required',
             // 'sm2' => 'required',
@@ -81,9 +82,9 @@ class BarangController extends Controller
 
         try { 
             if($request->hasfile('file_gambar')) {
-                $name = array('kode_barang','nama','sat_kecil','sat_besar','jml_sat','hna','kode_gudang','no_rak','flag_aktif','ss','sm1','sm2','mm1','mm2','fm1','fm2','kode_klp','barcode','hrg_satuan','ppn','profit','file_gambar');
+                $name = array('kode_barang','nama','sat_kecil','sat_besar','jml_sat','hna','kode_gudang','no_rak','flag_aktif','ss','sm1','sm2','mm1','mm2','fm1','fm2','kode_klp','barcode','hrg_satuan','ppn','profit','sts_konsi','file_gambar');
             } else {
-                $name = array('kode_barang','nama','sat_kecil','sat_besar','jml_sat','hna','kode_gudang','no_rak','flag_aktif','ss','sm1','sm2','mm1','mm2','fm1','fm2','kode_klp','barcode','hrg_satuan','ppn','profit');
+                $name = array('kode_barang','nama','sat_kecil','sat_besar','jml_sat','hna','kode_gudang','no_rak','flag_aktif','ss','sm1','sm2','mm1','mm2','fm1','fm2','kode_klp','barcode','hrg_satuan','ppn','profit','sts_konsi');
             }
             $req = $request->all();
             $fields = array();
@@ -239,15 +240,16 @@ class BarangController extends Controller
             'mm2' => 'required',
             'fm1' => 'required',
             'fm2' => 'required',
+            'sts_konsi' => 'required',
             'flag_aktif' => 'required',
             'file_gambar' => 'file|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
         try {
             if($request->hasfile('file_gambar')) {
-                $name = array('kode_barang','nama','sat_kecil','sat_besar','jml_sat','hna','kode_gudang','no_rak','flag_aktif','ss','sm1','sm2','mm1','mm2','fm1','fm2','kode_klp','barcode','hrg_satuan','ppn','profit','file_gambar');
+                $name = array('kode_barang','nama','sat_kecil','sat_besar','jml_sat','hna','kode_gudang','no_rak','flag_aktif','ss','sm1','sm2','mm1','mm2','fm1','fm2','kode_klp','barcode','hrg_satuan','ppn','profit','sts_konsi','file_gambar');
             } else {
-                $name = array('kode_barang','nama','sat_kecil','sat_besar','jml_sat','hna','kode_gudang','no_rak','flag_aktif','ss','sm1','sm2','mm1','mm2','fm1','fm2','kode_klp','barcode','hrg_satuan','ppn','profit');
+                $name = array('kode_barang','nama','sat_kecil','sat_besar','jml_sat','hna','kode_gudang','no_rak','flag_aktif','ss','sm1','sm2','mm1','mm2','fm1','fm2','kode_klp','barcode','hrg_satuan','ppn','profit','sts_konsi');
             }
             $req = $request->all();
             $fields = array();

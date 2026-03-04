@@ -171,6 +171,15 @@
                                 <input class="form-control currency" type="text"  id="ss" name="ss" value="0">
                             </div>
                             <div class="form-group col-md-6 col-sm-12">
+                                <label for="sts_konsi">*Status Konsinyasi</label>
+                                <select class='form-control selectize' id="sts_konsi" name="sts_konsi">
+                                    <option value='' disabled>--- Pilih Status ---</option>
+                                    <option value='1'>YA</option>
+                                    <option value='0' selected>TIDAK</option>
+                                </select>     
+                            </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
                                 <label>Foto</label>
                                 <div class="input-group">
                                     <div class="custom-file">
@@ -836,6 +845,7 @@
                     $('#no_rak').val(result.data[0].no_rak);
                     // $('#keterangan').val(result.data[0].keterangan);
                     $('#flag_aktif')[0].selectize.setValue(result.data[0].flag_aktif);
+                    $('#sts_konsi')[0].selectize.setValue(result.data[0].sts_konsi);
                     $('#barcode').val(result.data[0].barcode);
                     $('#saku-datatable').hide();
                     $('#modal-preview').modal('hide');
