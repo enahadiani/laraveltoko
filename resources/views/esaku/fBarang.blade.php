@@ -96,11 +96,16 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-md-12 col-sm-12">
+                            <div class="form-group col-md-6 col-sm-12">
                                 <label for="hrg_satuan">*Harga Satuan</label>
                                 <input class="form-control currency nominal"  value="0" type="text" id="hrg_satuan" name="hrg_satuan" required>
                             </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="hpp">*HPP</label>
+                                <input class="form-control currency nominal"  value="0" type="text" id="hpp" name="hpp" required>
+                            </div>
                         </div>
+                        
                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
                                 <label for="ppn">*PPN (%)</label>
@@ -156,14 +161,14 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-md-6 col-sm-12">
+                            <div class="form-group col-md-12 col-sm-12">
                                 <label for="fm">Fast Moving</label>
                                 <input class="form-control currency" type="text" id="fm1" name="fm1" required value="0">
                             </div>
-                            <div class="form-group col-md-6 col-sm-12">
+                            {{-- <div class="form-group col-md-6 col-sm-12">
                                 <label for="fm2">&nbsp;</label>
                                 <input class="form-control currency" type="text" id="fm2" name="fm2" required value="0">
-                            </div>
+                            </div> --}}
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
@@ -499,9 +504,9 @@
         // END BUTTON KEMBALI
 
          // HANDLER untuk enter dan tab
-        $('#kode_barang,#barcode,#nama,#satuan,#kode_klp,#kode_gudang,#no_rak,#hrg_satuan,#ppn,#hna,#profit,#sm1,#sm2,#mm1,#mm2,#fm1,#fm2,#ss,#file_gambar').keydown(function(e){
+        $('#kode_barang,#barcode,#nama,#satuan,#kode_klp,#kode_gudang,#no_rak,#hrg_satuan,#hpp,#ppn,#hna,#profit,#sm1,#sm2,#mm1,#mm2,#fm1,#ss,#file_gambar').keydown(function(e){
             var code = (e.keyCode ? e.keyCode : e.which);
-            var nxt = ['kode_barang','barcode','nama','satuan','kode_klp','kode_gudang','no_rak','hrg_satuan','ppn','hna','profit','sm1','sm2','mm1','mm2','fm1','fm2','ss','file_gambar'];
+            var nxt = ['kode_barang','barcode','nama','satuan','kode_klp','kode_gudang','no_rak','hrg_satuan','hpp','ppn','hna','profit','sm1','sm2','mm1','mm2','fm1','ss','file_gambar'];
             if (code == 13 || code == 40) {
                 e.preventDefault();
                 var idx = nxt.indexOf(e.target.id);
@@ -644,6 +649,10 @@
             {
                 required: true
             },
+            hpp:
+            {
+                required: true
+            },
             ppn:
             {
                 required: true
@@ -744,11 +753,19 @@
                         
                     }else{
                         if(result.data.kode == "-" && result.data.jenis != undefined){
-                            msgDialog({
-                                id: id,
-                                type: result.data.jenis,
-                                text:'Kode Barang sudah digunakan'
-                            });
+                            if(result.data.jenis == "warning"){
+                                msgDialog({
+                                    id: id,
+                                    type: result.data.jenis,
+                                    text: result.data.message
+                                });
+                            }else{
+                                msgDialog({
+                                    id: id,
+                                    type: result.data.jenis,
+                                    text:'Kode Barang sudah digunakan'
+                                });
+                            }
                         }else{
 
                             Swal.fire({
@@ -833,13 +850,14 @@
                     $('#ppn').val(parseFloat(result.data[0].ppn));
                     $('#profit').val(parseFloat(result.data[0].profit));
                     $('#hrg_satuan').val(parseFloat(result.data[0].hrg_satuan)).trigger('change');
+                    $('#hpp').val(parseFloat(result.data[0].hpp));
                     $('#ss').val(parseFloat(result.data[0].ss));
                     $('#sm1').val(parseFloat(result.data[0].sm1));
                     $('#sm2').val(parseFloat(result.data[0].sm2));
                     $('#mm1').val(parseFloat(result.data[0].mm1));
                     $('#mm2').val(parseFloat(result.data[0].mm2));
                     $('#fm1').val(parseFloat(result.data[0].fm1));
-                    $('#fm2').val(parseFloat(result.data[0].fm2));
+                    // $('#fm2').val(parseFloat(result.data[0].fm2));
                     $('#kode_klp').val(result.data[0].kode_klp);
                     $('#kode_gudang').val(result.data[0].kode_gudang);
                     $('#no_rak').val(result.data[0].no_rak);
@@ -915,6 +933,10 @@
                 <td>`+sepNum(data.hrg_satuan)+`</td>
             </tr>
             <tr>
+                <td>HPP</td>
+                <td>`+sepNum(data.hpp)+`</td>
+            </tr>
+            <tr>
                 <td>PPN</td>
                 <td>`+sepNum(data.ppn)+`</td>
             </tr>
@@ -954,10 +976,12 @@
                 <td>Fast Moving 1</td>
                 <td>`+sepNum(data.fm1)+`</td>
             </tr>
+            {{-- 
             <tr>
                 <td>Fast Moving 2</td>
                 <td>`+sepNum(data.fm2)+`</td>
             </tr>
+            --}}
             <tr>
                 <td>Gambar</td>
                 <td><img src='`+data.file_gambar+`'></td>

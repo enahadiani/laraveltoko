@@ -65,6 +65,7 @@ class BarangController extends Controller
             'no_rak' => 'required',
             'satuan' => 'required',
             'hrg_satuan' => 'required',
+            'hpp' => 'required',
             'ppn' => 'required',
             // 'profit' => 'required',
             'hna' => 'required',
@@ -82,9 +83,9 @@ class BarangController extends Controller
 
         try { 
             if($request->hasfile('file_gambar')) {
-                $name = array('kode_barang','nama','sat_kecil','sat_besar','jml_sat','hna','kode_gudang','no_rak','flag_aktif','ss','sm1','sm2','mm1','mm2','fm1','fm2','kode_klp','barcode','hrg_satuan','ppn','profit','sts_konsi','file_gambar');
+                $name = array('kode_barang','nama','sat_kecil','sat_besar','jml_sat','hna','kode_gudang','no_rak','flag_aktif','ss','sm1','sm2','mm1','mm2','fm1','kode_klp','barcode','hrg_satuan','hpp','ppn','profit','sts_konsi','file_gambar');
             } else {
-                $name = array('kode_barang','nama','sat_kecil','sat_besar','jml_sat','hna','kode_gudang','no_rak','flag_aktif','ss','sm1','sm2','mm1','mm2','fm1','fm2','kode_klp','barcode','hrg_satuan','ppn','profit','sts_konsi');
+                $name = array('kode_barang','nama','sat_kecil','sat_besar','jml_sat','hna','kode_gudang','no_rak','flag_aktif','ss','sm1','sm2','mm1','mm2','fm1','kode_klp','barcode','hrg_satuan','hpp','ppn','profit','sts_konsi');
             }
             $req = $request->all();
             $fields = array();
@@ -150,7 +151,7 @@ class BarangController extends Controller
                         'name' => $name[$i],
                         'contents' => intval(str_replace('.','', $req[$name[$i]])) 
                     );
-                } else if($name[$i] == 'fm2') {
+                } else if($name[$i] == 'hpp') {
                     $fields_data[$i] = array(
                         'name' => $name[$i],
                         'contents' => intval(str_replace('.','', $req[$name[$i]])) 
@@ -230,6 +231,7 @@ class BarangController extends Controller
             'no_rak' => 'required',
             'satuan' => 'required',
             'hrg_satuan' => 'required',
+            'hpp' => 'required',
             'ppn' => 'required',
             'profit' => 'required',
             'hna' => 'required',
@@ -239,7 +241,7 @@ class BarangController extends Controller
             'mm1' => 'required',
             'mm2' => 'required',
             'fm1' => 'required',
-            'fm2' => 'required',
+            // 'fm2' => 'required',
             'sts_konsi' => 'required',
             'flag_aktif' => 'required',
             'file_gambar' => 'file|image|mimes:jpeg,png,jpg|max:2048',
@@ -247,9 +249,9 @@ class BarangController extends Controller
 
         try {
             if($request->hasfile('file_gambar')) {
-                $name = array('kode_barang','nama','sat_kecil','sat_besar','jml_sat','hna','kode_gudang','no_rak','flag_aktif','ss','sm1','sm2','mm1','mm2','fm1','fm2','kode_klp','barcode','hrg_satuan','ppn','profit','sts_konsi','file_gambar');
+                $name = array('kode_barang','nama','sat_kecil','sat_besar','jml_sat','hna','kode_gudang','no_rak','flag_aktif','ss','sm1','sm2','mm1','mm2','fm1','kode_klp','barcode','hrg_satuan','hpp','ppn','profit','sts_konsi','file_gambar');
             } else {
-                $name = array('kode_barang','nama','sat_kecil','sat_besar','jml_sat','hna','kode_gudang','no_rak','flag_aktif','ss','sm1','sm2','mm1','mm2','fm1','fm2','kode_klp','barcode','hrg_satuan','ppn','profit','sts_konsi');
+                $name = array('kode_barang','nama','sat_kecil','sat_besar','jml_sat','hna','kode_gudang','no_rak','flag_aktif','ss','sm1','sm2','mm1','mm2','fm1','kode_klp','barcode','hrg_satuan','hpp','ppn','profit','sts_konsi');
             }
             $req = $request->all();
             $fields = array();
@@ -315,7 +317,7 @@ class BarangController extends Controller
                         'name' => $name[$i],
                         'contents' => intval(str_replace('.','', $req[$name[$i]])) 
                     );
-                } else if($name[$i] == 'fm2') {
+                } else if($name[$i] == 'hpp') {
                     $fields_data[$i] = array(
                         'name' => $name[$i],
                         'contents' => intval(str_replace('.','', $req[$name[$i]])) 
