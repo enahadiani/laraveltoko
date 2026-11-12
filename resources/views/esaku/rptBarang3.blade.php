@@ -49,7 +49,7 @@ function drawRptPage(data,res,from,to){
             var value = data[i];
             html += "<tr>";
             html += "<td valign='middle' class='isi_laporan' align='center'>"+no+"</td>";
-            html += "<td valign='middle' class='isi_laporan' align='center'>"+value.kode_barang+"</td>";
+            html += "<td valign='middle' class='isi_laporan' align='center'>'"+value.kode_barang+"</td>";
             html += "<td valign='middle' class='isi_laporan' align='left'>"+value.nama+"</td>";
             html += "<td valign='middle' class='isi_laporan' align='center'>"+value.satuan+"</td>";
             html += "<td valign='middle' class='isi_laporan' align='right'>"+sepNum(value.hrg_satuan)+"</td>";
