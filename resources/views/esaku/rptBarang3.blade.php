@@ -58,7 +58,7 @@ function drawRptPage(data,res,from,to){
             html += "<td valign='middle' class='isi_laporan' align='right'>"+sepNum(value.profit)+"</td>";
             html += "<td valign='middle' class='isi_laporan' align='right'>"+sepNum(value.harga)+"</td>";
             html += "<td valign='middle' class='isi_laporan' align='left'>"+value.kode_klp+"</td>";
-            html += "<td valign='middle' class='isi_laporan' align='left'>"+value.barcode+"</td>";
+            html += "<td valign='middle' class='isi_laporan' align='left'>'"+value.barcode+"</td>";
             html += "</tr>";
             no++;
         }
